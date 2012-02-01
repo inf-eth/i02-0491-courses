@@ -1,0 +1,57 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+%\usepackage{basicobjpgftikz}	% Custom basic shapes using pgf/tikz.
+
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+%\setlength{\headheight}{0pt}
+\setlength{\headsep}{80pt}
+\setlength{\topmargin}{-90pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\begin{document}
+\title{Standard and Non--Standard Libraries in C/C++}
+\maketitle
+
+\section{Standard Libraries in C}
+
+By convention, libraries in C have a .h extension. For a complete listing of ANDI--ISO standard libraries in C please see~\cite{wikc}. As an example, \emph{conio.h} is not part of the standard C and isn't guaranteed to be available or work with all compilers.
+
+\section{Standard Libraries in C++}
+
+Standard libraries in C++ do not have any extension, e.g. \emph{iostream}, \emph{fstream}. Note that \emph{iostream\textbf{.h}} is not a standard C++ header. Standard C header files in C++ normally start with a 'c' and without .h extension. For example \emph{cstdio}, \emph{cstdlib} etc. For a complete listing of standard C++ libraries see~\cite{wikcpp}.
+
+\section{\texttt{namespace std} in C++}
+
+Following OOP concepts, functions and variables in C++ headers are not part of the global space and are enclosed in \emph{namespace std}. Following comparison illustrates this:
+
+\begin{center}
+\begin{tabular}{p{2in}p{2in}}
+iostream & iostream.h\\
+\end{tabular}
+\begin{verbatim}
+              namespace std            cout
+              {                        cin
+                  cout                 endl
+                  cin                  ...
+                  endl                 ...
+                  ...                  ...
+              }
+\end{verbatim}
+\end{center}
+
+Members of \texttt{std} namespace can be accessed with the scope resolution operator, e.g. \verb std::cin , \verb std::cout ~etc. A \verb using directive can be used to access a particular function or object without the need to use scope resolution operator with every usage, e.g. \verb using ~ \verb std::cin; . With a \texttt{using namespace std;} directive, all objects and functions within the namespace become globally accessible and this is considered a bad programming practice.
+
+\section{The \texttt{string} class in C++}
+The standard header for \emph{string.h} in C++ is \emph{cstring}. Anther header \emph{string} is available in C++ and contains the implementation of \texttt{string} class. This is completely different from the \emph{string.h} and \emph{cstring} libraries.
+
+\nocite{*}
+\bibliographystyle{ieeetr} %plain, ieeetr
+\bibliography{StandardCref}
+
+\end{document}
