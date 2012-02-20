@@ -80,7 +80,7 @@ int main (int argc, char *argv[])
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
 	
 	// Connecting to the server.
-	errorcheck = connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (struct sockaddr));
+	errorcheck = connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 	if (errorcheck == -1)
 	{	
 		cerr << "ERROR003: Connecting " << endl;

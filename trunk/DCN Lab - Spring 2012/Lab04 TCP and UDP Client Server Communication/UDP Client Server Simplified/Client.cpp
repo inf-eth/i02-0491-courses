@@ -44,7 +44,7 @@ int main (int argc, char *argv[])
 	he = gethostbyname (argv[1]);
 	
 	// Creating a socket for the client.
-	ClientSocketFD = socket ( AF_INET, SOCK_STREAM, 0 ); 
+	ClientSocketFD = socket ( AF_INET, SOCK_DGRAM, 0 ); 
 		
 	// Initializing Client address for binding.
 	ClientAddress.sin_family = AF_INET;					// Socket family.
@@ -61,15 +61,14 @@ int main (int argc, char *argv[])
 	ServerAddress.sin_port = htons (atoi (argv[2]));			// Server port provided as argument.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
 	
-	// Connecting to the server.
-	connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
-	
-	// send()
+	// sendto()
 	char ClientMessage[] = "Hello from client.";
-	NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
+	NumOfBytesSent = sendto (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 	
-	// recv() is blocking and will wait for any messages.
-	NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);		// Blocking
+	// recvfrom() is blocking and will wait for any messages.
+	socklen_t ServerAddressSize = sizeof (ServerAddress);
+	NumOfBytesReceived = recvfrom (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ServerAddress, &ServerAddressSize);		// Blocking.
+		
 	Buffer[NumOfBytesReceived] = '\0';
 	cout << "Server says: " << Buffer << endl;
 

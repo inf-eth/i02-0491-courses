@@ -24,7 +24,6 @@ struct sockaddr_in ClientAddress;	// Client's Address.
 
 // File Descriptors.
 int ServerSocketFD;
-int ClientSocketFD;
 
 // Server's Buffer.
 char Buffer[MAXBUFFERSIZE];
@@ -48,7 +47,7 @@ int main (int argc, char **argv)
 	cout << "Server listening on default port " << SERVERPORT << endl;
 	
 	// Server socket.
-	ServerSocketFD = socket (AF_INET, SOCK_STREAM, 0);
+	ServerSocketFD = socket (AF_INET, SOCK_DGRAM, 0);
 	
 	// Set socket options. SO_REUSEADDR will prevent "socket in use" errors if server is shutdown.
 	setsockopt (ServerSocketFD, SOL_SOCKET, SO_REUSEADDR, &Yes, sizeof (int));
@@ -62,25 +61,19 @@ int main (int argc, char **argv)
 	// bind()		
 	bind (ServerSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 
-	// listen()
-	listen (ServerSocketFD, 0);
-
-	// Accept will block and wait for connections to accept.
-	sin_size = sizeof (ClientAddress);
-	ClientSocketFD = accept (ServerSocketFD, (sockaddr *)&ClientAddress, &sin_size);	// Blocking.
-	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
+	// recvfrom() is blocking and will wait for any messages from client.
+	socklen_t ClientAddressSize = sizeof (ClientAddress);
+	NumOfBytesReceived = recvfrom (ServerSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ClientAddress, &ClientAddressSize);
 	
-	// recv() is blocking and will wait for any messages from client.
-	NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);		// Blocking.
 	Buffer[NumOfBytesReceived] = '\0';
+	cout << "Server got packet from " << inet_ntoa (ClientAddress.sin_addr) << " on socket " << ServerSocketFD << endl;
 	cout << "Client says: " << Buffer << endl;
 
-	// send()
+	// sendto()
 	char ServerMessage[] = "Hello from Server. Now bye!";
-	NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
+	NumOfBytesSent = sendto (ServerSocketFD, ServerMessage, strlen (ServerMessage), 0, (sockaddr *)&ClientAddress, sizeof (ClientAddress));
 
 	// Close connection.
-	close (ClientSocketFD);
 	close (ServerSocketFD);
 	return 0;
 }
