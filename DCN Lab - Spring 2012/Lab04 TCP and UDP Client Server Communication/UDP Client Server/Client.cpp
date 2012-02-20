@@ -41,37 +41,76 @@ int main (int argc, char *argv[])
 	}
 	
 	// Getting server's name/IP.
-	he = gethostbyname (argv[1]);
+	if ((he = gethostbyname (argv[1])) == NULL)
+	{	
+		cerr << "ERROR001: Getting server name/IP" << endl;
+		exit (-1);		
+	}
 	
+	// ********************************** Making Client Socket **************************************
 	// Creating a socket for the client.
-	ClientSocketFD = socket ( AF_INET, SOCK_STREAM, 0 ); 
-		
+	errorcheck = ClientSocketFD = socket ( AF_INET, SOCK_DGRAM, 0 ); 
+	if (errorcheck == -1)
+	{	
+		cerr << "ERROR002: Creating socket for client" << endl;
+		exit (-1);		
+	}
+	// **********************************************************************************************
+	
+	// ******************************************* Bind *********************************************
 	// Initializing Client address for binding.
 	ClientAddress.sin_family = AF_INET;					// Socket family.
 	ClientAddress.sin_addr.s_addr = INADDR_ANY;			// Assigninig client IP.
 	ClientAddress.sin_port = htons (CLIENTPORT);		// Client port.
 	fill ((char*)&(ClientAddress.sin_zero), (char*)&(ClientAddress.sin_zero)+8, '\0');
 	
-	// bind()
-	bind (ClientSocketFD, (sockaddr *)&ClientAddress, sizeof (ClientAddress));
-	
+	errorcheck = bind (ClientSocketFD, (sockaddr *)&ClientAddress, sizeof (ClientAddress));
+	if (errorcheck == -1)
+	{	
+		cerr << "ERROR003: Binding." << endl;
+		exit (-1);		
+	}
+	// **********************************************************************************************
+
+	// ************************************* Initialization *****************************************
 	// Initializing Server address to connect to.
 	ServerAddress.sin_family = AF_INET;							// Socket family.
-	ServerAddress.sin_addr = *((in_addr *)(*he).h_addr);	// Server name/IP.
+	ServerAddress.sin_addr = *((in_addr *)(*he).h_addr);		// Server name/IP.
 	ServerAddress.sin_port = htons (atoi (argv[2]));			// Server port provided as argument.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
 	
+	/* Does not need to connect in UDP.
 	// Connecting to the server.
-	connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
-	
-	// send()
+	errorcheck = connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (struct sockaddr));
+	if (errorcheck == -1)
+	{	
+		cerr << "ERROR003: Connecting " << endl;
+		exit (-1);		
+	}*/
+	// **********************************************************************************************
+
+	// ******************************************** send ********************************************
 	char ClientMessage[] = "Hello from client.";
-	NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
-	
+	errorcheck = NumOfBytesSent = sendto (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
+	if (errorcheck == -1)
+	{		
+		cerr << "ERROR003: Client Sending. " << endl;
+		exit (-1);			
+	}
+	// **********************************************************************************************
+
+	// ******************************************** recv ********************************************
 	// recv() is blocking and will wait for any messages.
-	NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);		// Blocking
+	socklen_t ServerAddressSize = sizeof (ServerAddress);
+	errorcheck = NumOfBytesReceived = recvfrom (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ServerAddress, &ServerAddressSize);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR004 Receiveing" << endl;
+		exit (-1);
+	}
 	Buffer[NumOfBytesReceived] = '\0';
 	cout << "Server says: " << Buffer << endl;
+	// **********************************************************************************************
 
 	// Close client socket and exit.
 	close (ClientSocketFD);

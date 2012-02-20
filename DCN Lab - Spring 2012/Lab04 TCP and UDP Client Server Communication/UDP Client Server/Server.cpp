@@ -24,7 +24,7 @@ struct sockaddr_in ClientAddress;	// Client's Address.
 
 // File Descriptors.
 int ServerSocketFD;
-int ClientSocketFD;
+//int ClientSocketFD;
 
 // Server's Buffer.
 char Buffer[MAXBUFFERSIZE];
@@ -50,7 +50,7 @@ int main (int argc, char **argv)
 	cout << "Server listening on default port " << SERVERPORT << endl;
 	
 	// ********************************** Making Server Socekt **************************************
-	errorcheck = ServerSocketFD = socket (AF_INET, SOCK_STREAM, 0);
+	errorcheck = ServerSocketFD = socket (AF_INET, SOCK_DGRAM, 0);
 	if (errorcheck == -1)
 	{
 		cerr << "ERROR001: Creating Server Socket." << endl;
@@ -82,7 +82,8 @@ int main (int argc, char **argv)
 	}
 	// **********************************************************************************************
 
-	// No need for listening in UDP.
+	/*
+	// No need to listen or accept in UDP.
 	// ***************************************** Listening ******************************************
 	errorcheck = listen (ServerSocketFD, 0);
 	if (errorcheck == -1)
@@ -95,7 +96,7 @@ int main (int argc, char **argv)
 	// ************************************** Accept Connection *************************************
 	// Accept will block and wait for connections to accept.
 	sin_size = sizeof (ClientAddress);
-	errorcheck = ClientSocketFD = accept (ServerSocketFD, (sockaddr *)&ClientAddress, &sin_size);
+	errorcheck = ClientSocketFD = accept (ServerSocketFD, (sockaddr *) &ClientAddress, &sin_size);
 	if (errorcheck == -1)
 	{
 		cerr << "ERROR006: Accepting." << endl;
@@ -103,22 +104,24 @@ int main (int argc, char **argv)
 	}
 	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
 	// **********************************************************************************************
-	
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages from client.
-	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+	*/
+	// ***************************************** recvfrom *******************************************
+	// recvfrom() is blocking and will wait for any messages from client.
+	socklen_t ClientAddressSize = sizeof (ClientAddress);
+	errorcheck = NumOfBytesReceived = recvfrom (ServerSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ClientAddress, &ClientAddressSize);
 	if (errorcheck == -1)
 	{
 		cerr << "ERROR004 Receiveing" << endl;
 		exit (-1);
 	}
 	Buffer[NumOfBytesReceived] = '\0';
+	cout << "Server got packet from " << inet_ntoa (ClientAddress.sin_addr) << " on socket " << ServerSocketFD << endl;
 	cout << "Client says: " << Buffer << endl;
 	// **********************************************************************************************
 
-	// ******************************************** Send ********************************************
+	// ****************************************** Send to *******************************************
 	char ServerMessage[] = "Hello from Server. Now bye!";
-	errorcheck = NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
+	errorcheck = NumOfBytesSent = sendto (ServerSocketFD, ServerMessage, strlen (ServerMessage), 0, (sockaddr *)&ClientAddress, sizeof (ClientAddress));
 	if (errorcheck == -1)
 	{		
 		cerr << "ERROR003: Server Sending. " << endl;
@@ -127,7 +130,7 @@ int main (int argc, char **argv)
 	// **********************************************************************************************
 
 	// Close connection.
-	close (ClientSocketFD);
+	//close (ClientSocketFD);
 	close (ServerSocketFD);
 	return 0;
 }
