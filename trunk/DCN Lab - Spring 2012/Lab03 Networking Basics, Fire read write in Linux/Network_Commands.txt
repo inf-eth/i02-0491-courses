@@ -1,0 +1,20 @@
+# Some network commands.
+
+# Network devices and info.
+ifconfig
+
+# Display arp table. Will be empty on startup.
+arp
+
+# Routing table
+route
+
+# Ping
+ping 172.16.100.204, ping www.google.com
+
+# Traceroute
+traceroute 172.16.100.204, traceroute www.google.com
+
+# nmap: scan destination IP for open ports and/or OS
+nmap 172.16.100.204, nmap 172.16.100.204 -O (OS identification requires root access)
+

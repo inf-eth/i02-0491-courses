@@ -1,0 +1,37 @@
+find /etc -name "*.conf"
+# searches the '/etc' folder for any files ending with ".conf"
+
+grep "cout" main.cpp 
+# searches main.cpp file and displays any lines containing the string "cout"
+
+cat ~/Desktop/main.cpp
+# displays the content of main.cpp file located in Desktop folder in home directory
+# NOTE: '~' translates into home folder path.
+
+mv ~/Desktop/main.cpp ~/main1.cpp
+# moves the main.cpp in Desktop folder to home directory and renames it 'main1.cpp'
+
+cp *.cpp ~/Desktop
+# copies all the .cpp files in current directory to desktop
+
+rm -f *.cpp
+# delete all .cpp files in current folder without confirmation
+
+rm -r ~/Desktop/code
+# removes the 'code' folder located on Desktop and all the files/folders within it
+
+chmod 756 out.o
+# changes the permissions of out.o file as follows
+# owner/user = read write execute 7=111
+# group = read execute 5=101
+# others = read write 6=110
+
+# Pipes '|'
+# Pipes redirect output of one command as input to another command
+
+cat /proc/cpuinfo | grep "processor"
+# passes contents of /proc/cpuinfo file to grep which searches and displays any lines containing 'processor'
+
+cat /proc/cpuinfo | grep "processor" | wc -l
+# counts number of lines displayed by 'grep' or the processor count on the system
+
