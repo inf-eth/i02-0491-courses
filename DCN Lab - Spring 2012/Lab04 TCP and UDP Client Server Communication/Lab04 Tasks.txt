@@ -1,0 +1,49 @@
+Lab04: Client/Server communication model:
+  - Connectionless and connected.
+  - Difference between TCP and UDP. In TCP packets arrive in order, in UDP packets can arrive out of order. In both protocols there are no errors.
+  - Communication takes place by send() ing and recv() ing data.
+  - Server running on a machine expects some Client to send() it data. Initially in a blocking state (recv() ing). When it gets data it processes it and send() s back a reply.
+
+TCP Model:
+  - Server:
+    - 2 sockets, 1 for accepting connections and another for communication with  Client.
+    - Maintains at least two address structures, one for itself and one to store Client information. There can be multiple Clients connected to Server.
+    - Sequence of Operation:
+      1. Create Server socket().
+      2. bind() Server socket with its address and port.
+      3. Set Server socket options, setsockopt() (optional).
+      4. Configure Server socket to listen() to any incoming connection requests.
+      5. Set Server socket state to accept() any connection request. This is blocking. When a connection is accepted it will return Client socket and Client address is stored.
+      6. Use Client socket to send() recv() data to that particular Client.
+      7. close() sockets before exiting.
+  - Client:
+    - 1 socket to connect and send() and recv() data.
+    - Maintains two address structures, for Client and Server.
+    - Sequence of Operation:
+      1. Create Client socket().
+      2. bind() Client socket with its adress and port.
+      3. connect() to a Server using Server Address and Server Port.
+      4. send() and recv() using Client socket.
+      5. close() Client socket before exiting.
+
+UDP Model:
+  - Server does not need to listen() or accept() connections.
+  - Client does not need to connect().
+  - Server and Client are mirrors. Only logical difference is sequence of sendto() and recvfrom() calls.
+  - Sequence of Operation:
+    1. Create socket().
+    2. bind() socket to own address and port.
+    3. sendto() 'their' address or recvfrom() 'random' address on own socket.
+    4. close() socket.
+
+Multi-threading:
+  - Multiple control points in an applications.
+  - Threads run simultaneously and will utilize any physical CPUs.
+  - Essential for any real-time application which requires multi-tasking such as a chat messenger send()'ing and recv()'ing messages simultaneously.
+
+Lab Task 01:
+	Make a half duplex TCP client/server chat application.
+Lab Task 02:
+	Make a multithreaded full duplex UDP client/server chat application. Server and Client will both have two threads for sendto() and recvfrom() running in infinite loops.
+Lab Task 03:
+	TCP file download Server. See SLATE for assignment statement.
