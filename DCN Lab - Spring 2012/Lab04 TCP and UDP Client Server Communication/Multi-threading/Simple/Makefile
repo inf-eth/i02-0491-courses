@@ -42,4 +42,4 @@ run: $(BINDIR)/$(TARGET)
 .PHONY: clean
 
 clean:
-	rm -f ./obj/debug/*.o ./obj/release/*.o ./bin/debug/$(TARGET) ./bin/release/$(TARGET)
+	rm -rf bin obj
