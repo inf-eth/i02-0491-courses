@@ -36,7 +36,12 @@ $(ODIR):
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
+# Default run.
 run: $(BINDIR)/$(TARGET)
+	./$(BINDIR)/$(TARGET) $(ARG)
+
+# Custom runS to run Server.
+runS: $(BINDIR)/$(TARGET)
 	./$(BINDIR)/$(TARGET) $(ARG)
 
 .PHONY: clean

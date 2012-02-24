@@ -36,9 +36,14 @@ $(ODIR):
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
+# Default run.
 run: $(BINDIR)/$(TARGET)
 	./$(BINDIR)/$(TARGET) $(ARG)
 
+# Custom runC to run client.
+runC: $(BINDIR)/$(TARGET)
+	./$(BINDIR)/$(TARGET) $(ARG)
+	
 .PHONY: clean
 
 clean:
