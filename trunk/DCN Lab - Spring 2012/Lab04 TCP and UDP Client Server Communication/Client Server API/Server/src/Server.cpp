@@ -102,9 +102,55 @@ int CServer::Send (void *Data, int DataSize)
 	errorcheck = NumOfBytesSent = send (ClientSocketFD, Data, DataSize, 0);
 	if (errorcheck == -1)
 	{
-		cerr << "ERROR003: Server Sending. " << endl;
+		cerr << "ERROR007: Server Sending. " << endl;
 		return errorcheck;
 	}
+	return errorcheck;
+}
+
+// UDP, sendto (data, datasize, IP/name, port);
+int CServer::SendTo (void *Data, int DataSize)
+{
+	errorcheck = NumOfBytesSent = sendto (ServerSocketFD, Data, DataSize, 0, (sockaddr *)&TheirAddress, sizeof (TheirAddress));
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR008: Server Sending to. " << endl;
+	}
+	return errorcheck;
+}
+int CServer::SendTo (void *Data, int DataSize, char * pTheirIP, int pTheirPort)
+{
+	struct hostent* TheirIP;		// Server name/IP.
+	if ((TheirIP = gethostbyname (pTheirIP)) == NULL)
+	{
+		cerr << "ERROR009: Getting Their name/IP" << endl;
+		return -1;
+	}
+	// Initializing Their address to send to.
+	TheirAddress.sin_family = AF_INET;							// Socket family.
+	TheirAddress.sin_addr = *((in_addr *)(*TheirIP).h_addr);		// Their name/IP.
+	TheirAddress.sin_port = htons (pTheirPort);			// Their port provided as argument.
+	fill ((char*)&(TheirAddress.sin_zero), (char*)&(TheirAddress.sin_zero)+8, '\0');
+
+	errorcheck = NumOfBytesSent = sendto (ServerSocketFD, Data, DataSize, 0, (sockaddr *)&TheirAddress, sizeof (TheirAddress));
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR010: Server Sending to. " << endl;
+	}
+	return errorcheck;
+}
+// recvfrom ();
+int CServer::RecvFrom ()
+{
+	socklen_t TheirAddressSize = sizeof (TheirAddress);
+	errorcheck = NumOfBytesReceived = recvfrom (ServerSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&TheirAddress, &TheirAddressSize);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR011 Receiveing" << endl;
+		return errorcheck;
+	}
+	Buffer[NumOfBytesReceived] = '\0';
+	cout << "Server got packet from " << inet_ntoa (TheirAddress.sin_addr) << " on socket " << ServerSocketFD << endl;
 	return errorcheck;
 }
 
@@ -134,6 +180,13 @@ int CServer::DisplayClientInfo ()
 	cout << "Client Address: " << inet_ntoa (ClientAddress.sin_addr) << endl;
 	cout << "Client Port   : " << ntohs (ClientAddress.sin_port) << endl;
 	cout << "Client Socket : " << ClientSocketFD << endl;
+	return 0;
+}
+
+int CServer::DisplayTheirInfo ()
+{
+	cout << "Their Address: " << inet_ntoa (TheirAddress.sin_addr) << endl;
+	cout << "Their Port   : " << ntohs (TheirAddress.sin_port) << endl;
 	return 0;
 }
 

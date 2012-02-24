@@ -14,6 +14,7 @@ private:
 	// Addresses.
 	struct sockaddr_in ServerAddress;	// Server's Address structure.
 	struct sockaddr_in ClientAddress;	// Client's Address structure.
+	struct sockaddr_in TheirAddress;	// Their Address structure for UDP communication.
 
 	// File Descriptors.
 	int ClientSocketFD;
@@ -34,8 +35,17 @@ public:
 	int InitializeAddress (int = DEFAULTCLIENTPORT);	// Default Client port is 6001.
 	int Bind ();								// Bind Client socket with address.
 	int Connect (char *, int);
-	int Receive ();
+
+	// TCP send() and receive().
 	int Send (void *, int);
+	int Receive ();
+
+	// UDP, sendto (data, datasize, IP/name, port);
+	int SendTo (void *, int);
+	int SendTo (void *, int, char *, int);
+	// recvfrom ();
+	int RecvFrom ();
+	
 	int CloseClientSocket ();
 
 	// Additional functions.
@@ -45,6 +55,7 @@ public:
 
 	int DisplayServerInfo ();
 	int DisplayClientInfo ();
+	int DisplayTheirInfo ();
 
 	char* GetBuffer ();
 	int GetNumOfBytesSent ();

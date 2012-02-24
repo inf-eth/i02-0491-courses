@@ -8,34 +8,53 @@ using std::endl;
 int main (int argc, char *argv[])
 {
 	// Create Server object.
-	CServer obj (TCPSOCKET, DEFAULTSERVERPORT);			// Without any arguments Server will set defaults, TCPSOCKET as type and 6000 as port.
+	CServer ServerObj (TCPSOCKET, DEFAULTSERVERPORT);			// Without any arguments Server will set defaults, TCPSOCKET as type and 6000 as port.
 
 	// Create Server socket and set socket options.
-	obj.CreateSocket (TCPSOCKET);		// No argument means TCPSOCKET
-	obj.SetSocketOptions ();
+	ServerObj.CreateSocket (TCPSOCKET);		// No argument means TCPSOCKET
+	ServerObj.SetSocketOptions ();
 
 	// Initial Server address struct and bind it with Server's socket.
-	obj.InitializeAddress (6000);		// No argument here will take default port.
-	obj.Bind ();
+	ServerObj.InitializeAddress (6000);		// No argument here will take default port.
+	ServerObj.Bind ();
 
 	// Listen for incoming connections.
-	obj.Listen ();
-	obj.DisplayServerInfo ();
+	ServerObj.Listen ();
+	ServerObj.DisplayServerInfo ();
 
 	// Accept any incoming connections.
-	obj.Accept ();
-	obj.DisplayClientInfo ();
+	ServerObj.Accept ();
+	ServerObj.DisplayClientInfo ();
 
 	// Send and receive.
-	obj.Receive ();
-	cout << "No. of bytes received: " << obj.GetNumOfBytesReceived () << endl;
-	cout << "Client says: " << obj.GetBuffer() << endl;
+	ServerObj.Receive ();
+	cout << "No. of bytes received: " << ServerObj.GetNumOfBytesReceived () << endl;
+	cout << "Client says: " << ServerObj.GetBuffer() << endl;
 	
 	char message[] = "Hello from server.";
-	obj.Send ((void *)message, strlen (message));
+	ServerObj.Send ((void *)message, strlen (message));
 
 	// Close sockets.
-	obj.CloseClientSocket ();
-	obj.CloseServerSocket ();
+	ServerObj.CloseClientSocket ();
+	ServerObj.CloseServerSocket ();
+
+	// ********************* UDP Communication ***************************
+	cout << "TCP connection closed, now doing UDP communication." << endl;
+	ServerObj.CreateSocket (UDPSOCKET);
+	ServerObj.InitializeAddress (6000);
+	ServerObj.Bind ();
+
+	cout << "Server recv'in from() packets..." << endl;
+	ServerObj.RecvFrom ();
+	cout << "They say: " << ServerObj.GetBuffer () << endl;
+	ServerObj.DisplayTheirInfo ();
+	
+	char UDPmessage[] = "UDP echo message from server.";
+	ServerObj.SendTo ((void *)UDPmessage, strlen (UDPmessage)); // If sending a reply packet most recent received address is used.
+	//ServerObj.SendTo ((void *)UDPmessage, strlen (UDPmessage), "localhost", 6001);	// Need to explicitly mention receiver address if not a reply.
+	
+	ServerObj.CloseServerSocket ();
+	// *******************************************************************
+
 	return 0;
 }

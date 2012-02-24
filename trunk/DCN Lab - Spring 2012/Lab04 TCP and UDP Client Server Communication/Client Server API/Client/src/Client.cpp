@@ -99,6 +99,51 @@ int CClient::Send (void *Data, int DataSize)
 	return errorcheck;
 }
 
+// UDP, sendto (data, datasize, IP/name, port);
+int CClient::SendTo (void *Data, int DataSize)
+{
+	errorcheck = NumOfBytesSent = sendto (ClientSocketFD, Data, DataSize, 0, (sockaddr *)&TheirAddress, sizeof (TheirAddress));
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR008: Client Sending to. " << endl;
+	}
+	return errorcheck;
+}
+int CClient::SendTo (void *Data, int DataSize, char * pTheirIP, int pTheirPort)
+{
+	struct hostent* TheirIP;		// Client name/IP.
+	if ((TheirIP = gethostbyname (pTheirIP)) == NULL)
+	{
+		cerr << "ERROR009: Getting Their name/IP" << endl;
+		return -1;
+	}
+	// Initializing Their address to send to.
+	TheirAddress.sin_family = AF_INET;							// Socket family.
+	TheirAddress.sin_addr = *((in_addr *)(*TheirIP).h_addr);		// Their name/IP.
+	TheirAddress.sin_port = htons (pTheirPort);			// Their port provided as argument.
+	fill ((char*)&(TheirAddress.sin_zero), (char*)&(TheirAddress.sin_zero)+8, '\0');
+
+	errorcheck = NumOfBytesSent = sendto (ClientSocketFD, Data, DataSize, 0, (sockaddr *)&TheirAddress, sizeof (TheirAddress));
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR010: Client Sending to. " << endl;
+	}
+	return errorcheck;
+}
+// recvfrom ();
+int CClient::RecvFrom ()
+{
+	socklen_t TheirAddressSize = sizeof (TheirAddress);
+	errorcheck = NumOfBytesReceived = recvfrom (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&TheirAddress, &TheirAddressSize);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR011 Receiveing" << endl;
+		return errorcheck;
+	}
+	Buffer[NumOfBytesReceived] = '\0';
+	cout << "Client got packet from " << inet_ntoa (TheirAddress.sin_addr) << " on socket " << ClientSocketFD << endl;
+	return errorcheck;
+}
 int CClient::CloseClientSocket ()
 {
 	errorcheck = close (ClientSocketFD);
@@ -118,6 +163,13 @@ int CClient::DisplayClientInfo ()
 	cout << "Client Address: " << inet_ntoa (ClientAddress.sin_addr) << endl;
 	cout << "Client Port   : " << ntohs (ClientAddress.sin_port) << endl;
 	cout << "Client Socket : " << ClientSocketFD << endl;
+	return 0;
+}
+
+int CClient::DisplayTheirInfo ()
+{
+	cout << "Their Address: " << inet_ntoa (TheirAddress.sin_addr) << endl;
+	cout << "Their Port   : " << ntohs (TheirAddress.sin_port) << endl;
 	return 0;
 }
 
