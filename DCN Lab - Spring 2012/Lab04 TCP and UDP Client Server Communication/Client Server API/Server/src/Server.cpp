@@ -1,14 +1,14 @@
 #include <Server.h>
-#include <iostream>
 #include <cstring>
+#include <iostream>
 using std::cout;
-using std::cin;
 using std::cerr;
 using std::endl;
 using std::fill;
+
 CServer::CServer (int pType, int pServerPort): Type (pType), ServerPort (pServerPort)
 {
-
+	cout << "Server object created with type " << (Type == TCPSOCKET ? "TCP" : "UDP") << " and port " << ServerPort << endl;
 }
 
 int CServer::CreateSocket (int pType)			// 0 = TCP, 1 = UDP; default is to create TCP socket.
@@ -46,7 +46,7 @@ int CServer::InitializeAddress (int pPort)	// Default Server port is 5000.
 	ServerPort = pPort;
 	// Server address initialization for binding.
 	ServerAddress.sin_family = AF_INET;				// Socekt family.
-	ServerAddress.sin_addr.s_addr = INADDR_ANY;		// Setting server IP. INADDR_ANY is the localhost IP.
+	ServerAddress.sin_addr.s_addr = INADDR_ANY;		// Setting server IP. INADDR_ANY blank IP.
 	ServerAddress.sin_port = htons (ServerPort);	// Setting server port.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
 	return 0;
@@ -94,11 +94,10 @@ int CServer::Receive ()
 		return errorcheck;
 	}
 	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Buffer = " << Buffer << endl;
 	return errorcheck;
 }
 
-int CServer::Send (char *Data, int DataSize)
+int CServer::Send (void *Data, int DataSize)
 {
 	errorcheck = NumOfBytesSent = send (ClientSocketFD, Data, DataSize, 0);
 	if (errorcheck == -1)
