@@ -39,5 +39,20 @@ int main (int argc, char **argv)
 
 	ClientObj.CloseClientSocket ();
 
+	cout << "TCP connection closed, now doing UDP communication." << endl;
+	ClientObj.CreateSocket (UDPSOCKET);
+	ClientObj.InitializeAddress (6001);
+	ClientObj.Bind ();
+
+	char UDPmessage[] = "UDP message from client.";
+	ClientObj.SendTo ((void *)UDPmessage, strlen (UDPmessage), "localhost", 6000);
+
+	cout << "Client recv'in from() packets..." << endl;
+	ClientObj.RecvFrom ();
+	cout << "They say: " << ClientObj.GetBuffer () << endl;
+	ClientObj.DisplayTheirInfo ();
+
+	ClientObj.CloseClientSocket ();
+
 	return 0;
 }

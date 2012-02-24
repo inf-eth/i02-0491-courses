@@ -1,4 +1,5 @@
 // Server Interface. Server can be TCP or UDP.
+#include <netdb.h>			// gethostbyname (), bind(), listen(), connect(), accept(), send(), receive()
 #include <arpa/inet.h>		// inet_ntoa(), bind(), listen(), connect(), accept(), send(), receive()
 
 #define MAXBUFFERSIZE	512
@@ -13,6 +14,7 @@ private:
 	// Addresses.
 	struct sockaddr_in ServerAddress;	// Server's Address structure.
 	struct sockaddr_in ClientAddress;	// Client's Address structure.
+	struct sockaddr_in TheirAddress;	// Default address to sendto() and recvfrom() UDP packets.
 
 	// File Descriptors.
 	int ServerSocketFD;
@@ -33,11 +35,21 @@ public:
 	int CreateSocket (int = TCPSOCKET);			// 0 = TCP, 1 = UDP; default is to create TCP socket.
 	int SetSocketOptions ();					// Set socket options to reuse address.
 	int InitializeAddress (int = DEFAULTSERVERPORT);	// Default Server port is 5000.
+
 	int Bind ();								// Bind Server socket with address.
 	int Listen ();								// Listen for incoming connections; for TCP Server.
 	int Accept ();								// Accept incoming connections.
-	int Receive ();
+
+	// TCP send() and recv()
 	int Send (void *, int);
+	int Receive ();
+
+	// UDP, sendto (data, datasize, IP/name, port);
+	int SendTo (void *, int);
+	int SendTo (void *, int, char *, int);
+	// recvfrom ();
+	int RecvFrom ();
+	
 	int CloseServerSocket ();
 	int CloseClientSocket ();
 
@@ -48,6 +60,7 @@ public:
 
 	int DisplayServerInfo ();
 	int DisplayClientInfo ();
+	int DisplayTheirInfo ();
 
 	char* GetBuffer ();
 	int GetNumOfBytesSent ();
