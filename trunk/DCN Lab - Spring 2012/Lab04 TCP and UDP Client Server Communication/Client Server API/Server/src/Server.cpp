@@ -90,7 +90,7 @@ int CServer::Receive ()
 	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
 	if (errorcheck == -1)
 	{
-		cerr << "ERROR006 Receiveing" << endl;
+		cerr << "ERROR006 Receiving" << endl;
 		return errorcheck;
 	}
 	Buffer[NumOfBytesReceived] = '\0';
