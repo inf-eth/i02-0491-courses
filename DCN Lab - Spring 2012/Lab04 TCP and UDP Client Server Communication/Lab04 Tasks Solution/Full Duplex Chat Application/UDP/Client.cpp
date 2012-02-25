@@ -4,8 +4,11 @@
 #include <iostream>
 #include <cstring>		// strlen()
 #include <cstdlib>		// exit()
+#include <arpa/inet.h>	// inet_ntoa()
 #include <netdb.h>		// gethostbyname(), connect(), send(), recv()
+#include <pthread.h>
 
+using std::cin;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -29,14 +32,25 @@ struct sockaddr_in ClientAddress;
 char Buffer[MAXBUFFERSIZE];
 int NumOfBytesSent;
 int NumOfBytesReceived;
-// ********************************************************************************************************
+
+// Sender and receiver threads.
+pthread_t SenderThread;
+pthread_t ReceiverThread;
+// ******************************************************************************************************
+
+// Thread functions (declaration/prototype).
+void* SenderThreadFunction (void *);
+void* ReceiverThreadFunction (void *);
 
 int main (int argc, char *argv[])
 {
 	// Standard error checking. Must provide server name/IP and port to connect.
 	if ( argc < 3 )
 	{
-		cout << "ERROR000: Usage: 'Client [server name or IP] [server port]'" << endl;
+		cout << "ERROR000: Incorrect input arguments." << endl;
+		cout << "Usage: './Client [server name/IP] [server port]'" << endl;
+		cout << "OR" << endl;
+		cout << "if using Makefile: 'make runC ARG=\"[server name/IP] [server port]\"'" << endl;
 		exit (-1);
 	}
 
@@ -78,43 +92,57 @@ int main (int argc, char *argv[])
 	ServerAddress.sin_addr = *((in_addr *)(*he).h_addr);		// Server name/IP.
 	ServerAddress.sin_port = htons (atoi (argv[2]));			// Server port provided as argument.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
-
-	/* Does not need to connect in UDP.
-	 *	// Connecting to the server.
-	 *	errorcheck = connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (struct sockaddr));
-	 *	if (errorcheck == -1)
-	 *	{
-	 *		cerr << "ERROR003: Connecting " << endl;
-	 *		exit (-1);
-	 }*/
 	// **********************************************************************************************
 
-	// ******************************************** send ********************************************
-	char ClientMessage[] = "Hello from client.";
-	errorcheck = NumOfBytesSent = sendto (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR003: Client Sending. " << endl;
-		exit (-1);
-	}
-	// **********************************************************************************************
+	cout << "* Press 'ctrl-c' to terminate connection." << endl;
+	// Creating Sender and Receiver threads. Essentially threaded function calls.
+	pthread_create (&SenderThread, NULL, SenderThreadFunction, NULL);
+	pthread_create (&ReceiverThread, NULL, ReceiverThreadFunction, NULL);
 
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages.
-	socklen_t ServerAddressSize = sizeof (ServerAddress);
-	errorcheck = NumOfBytesReceived = recvfrom (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ServerAddress, &ServerAddressSize);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR004 Receiveing" << endl;
-		exit (-1);
-	}
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Server says: " << Buffer << endl;
-	// **********************************************************************************************
+	// main() should block and wait on threads. main() is also a separate thread.
+	pthread_join (SenderThread, NULL);
+	pthread_join (ReceiverThread, NULL);
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
 	return 0;
-	 }
+}
 
-	 
+// Thread function definition/implementation.
+void* SenderThreadFunction (void *tmp)
+{
+	char ClientMessage[50];
+
+	while (true)
+	{
+		cout << ">>";
+		cin.getline (ClientMessage, 50);
+		errorcheck = NumOfBytesSent = sendto (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR003: Client Sending. " << endl;
+			exit (-1);
+		}
+	}
+
+	return NULL;
+}
+
+void* ReceiverThreadFunction (void *tmp)
+{
+	while (true)
+	{
+		socklen_t ServerAddressSize = sizeof (ServerAddress);
+		errorcheck = NumOfBytesReceived = recvfrom (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ServerAddress, &ServerAddressSize);
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR004 Receiveing" << endl;
+			exit (-1);
+		}
+		Buffer[NumOfBytesReceived] = '\0';
+		cout << "Client got packet from " << inet_ntoa (ServerAddress.sin_addr) << " on socket " << ClientSocketFD << endl;
+		cout << "Server says: " << Buffer << endl;
+	}
+
+	return NULL;
+}
