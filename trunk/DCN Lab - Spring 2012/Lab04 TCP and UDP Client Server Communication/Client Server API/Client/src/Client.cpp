@@ -44,6 +44,17 @@ int CClient::InitializeAddress (int pPort)	// Default Client port is 6001.
 	return 0;
 }
 
+int CClient::SetSocketOptions ()					// Set socket options to reuse address.
+{
+	int Yes = 1;
+	errorcheck = setsockopt (ClientSocketFD, SOL_SOCKET, SO_REUSEADDR, &Yes, sizeof (int));
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR002: Setting socket options. " << endl;
+	}
+	return errorcheck;
+}
+
 int CClient::Bind ()								// Bind Client socket with address.
 {
 	errorcheck = bind (ClientSocketFD, (sockaddr *)&ClientAddress, sizeof (ClientAddress));

@@ -35,45 +35,45 @@ int main (int argc, char *argv[])
 {
 	// Standard error checking. Must provide server name/IP and port to connect.
 	if ( argc < 3 )
-	{	
+	{
 		cout << "ERROR000: Usage: 'Client [server name or IP] [server port]'" << endl;
-		exit (-1);		
+		exit (-1);
 	}
-	
+
 	// Getting server's name/IP.
 	he = gethostbyname (argv[1]);
-	
+
 	// Creating a socket for the client.
-	ClientSocketFD = socket ( AF_INET, SOCK_DGRAM, 0 ); 
-		
+	ClientSocketFD = socket ( AF_INET, SOCK_DGRAM, 0 );
+
 	// Initializing Client address for binding.
 	ClientAddress.sin_family = AF_INET;					// Socket family.
 	ClientAddress.sin_addr.s_addr = INADDR_ANY;			// Assigninig client IP.
 	ClientAddress.sin_port = htons (CLIENTPORT);		// Client port.
 	fill ((char*)&(ClientAddress.sin_zero), (char*)&(ClientAddress.sin_zero)+8, '\0');
-	
+
 	// bind()
 	bind (ClientSocketFD, (sockaddr *)&ClientAddress, sizeof (ClientAddress));
-	
+
 	// Initializing Server address to connect to.
 	ServerAddress.sin_family = AF_INET;							// Socket family.
 	ServerAddress.sin_addr = *((in_addr *)(*he).h_addr);	// Server name/IP.
 	ServerAddress.sin_port = htons (atoi (argv[2]));			// Server port provided as argument.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
-	
+
 	// sendto()
 	char ClientMessage[] = "Hello from client.";
 	NumOfBytesSent = sendto (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
-	
+
 	// recvfrom() is blocking and will wait for any messages.
 	socklen_t ServerAddressSize = sizeof (ServerAddress);
 	NumOfBytesReceived = recvfrom (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0, (sockaddr *)&ServerAddress, &ServerAddressSize);		// Blocking.
-		
+
 	Buffer[NumOfBytesReceived] = '\0';
 	cout << "Server says: " << Buffer << endl;
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
-	return 0;	
+	return 0;
 }
 

@@ -33,6 +33,7 @@ public:
 	// Socket function wrappers.
 	int CreateSocket (int = TCPSOCKET);			// 0 = TCP, 1 = UDP; default is to create TCP socket.
 	int InitializeAddress (int = DEFAULTCLIENTPORT);	// Default Client port is 6001.
+	int SetSocketOptions ();					// Set socket options to reuse address.
 	int Bind ();								// Bind Client socket with address.
 	int Connect (char *, int);
 
@@ -45,7 +46,7 @@ public:
 	int SendTo (void *, int, char *, int);
 	// recvfrom ();
 	int RecvFrom ();
-	
+
 	int CloseClientSocket ();
 
 	// Additional functions.

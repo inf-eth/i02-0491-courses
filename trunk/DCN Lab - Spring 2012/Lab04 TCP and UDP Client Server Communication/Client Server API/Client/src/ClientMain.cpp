@@ -22,6 +22,7 @@ int main (int argc, char **argv)
 
 	// Create Client Socket.
 	ClientObj.CreateSocket (TCPSOCKET);
+	ClientObj.SetSocketOptions ();
 
 	// Initialize and bind Client address.
 	ClientObj.InitializeAddress (DEFAULTCLIENTPORT);	// Without any argument default port will be chosen.
@@ -39,6 +40,7 @@ int main (int argc, char **argv)
 
 	ClientObj.CloseClientSocket ();
 
+	// ********************* UDP Communication ***************************
 	cout << "TCP connection closed, now doing UDP communication." << endl;
 	ClientObj.CreateSocket (UDPSOCKET);
 	ClientObj.InitializeAddress (6001);
@@ -53,6 +55,7 @@ int main (int argc, char **argv)
 	ClientObj.DisplayTheirInfo ();
 
 	ClientObj.CloseClientSocket ();
+	// *******************************************************************
 
 	return 0;
 }

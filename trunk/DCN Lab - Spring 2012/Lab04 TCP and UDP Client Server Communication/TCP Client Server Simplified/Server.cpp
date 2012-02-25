@@ -46,20 +46,20 @@ int main (int argc, char **argv)
 	// Setting Server's Listen Port
 	ServerPort = SERVERPORT;
 	cout << "Server listening on default port " << SERVERPORT << endl;
-	
+
 	// Server socket.
 	ServerSocketFD = socket (AF_INET, SOCK_STREAM, 0);
-	
+
 	// Set socket options. SO_REUSEADDR will prevent "socket in use" errors if server is shutdown.
 	setsockopt (ServerSocketFD, SOL_SOCKET, SO_REUSEADDR, &Yes, sizeof (int));
-	
+
 	// Server address initialization for binding.
 	ServerAddress.sin_family = AF_INET;				// Socekt family.
 	ServerAddress.sin_addr.s_addr = INADDR_ANY;		// Setting server IP. INADDR_ANY is the localhost IP.
 	ServerAddress.sin_port = htons (ServerPort);	// Setting server port.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
 
-	// bind()		
+	// bind()
 	bind (ServerSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 
 	// listen()
@@ -69,7 +69,7 @@ int main (int argc, char **argv)
 	sin_size = sizeof (ClientAddress);
 	ClientSocketFD = accept (ServerSocketFD, (sockaddr *)&ClientAddress, &sin_size);	// Blocking.
 	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
-	
+
 	// recv() is blocking and will wait for any messages from client.
 	NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);		// Blocking.
 	Buffer[NumOfBytesReceived] = '\0';
@@ -84,6 +84,6 @@ int main (int argc, char **argv)
 	close (ServerSocketFD);
 	return 0;
 }
-	
-	
+
+
 

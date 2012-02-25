@@ -20,6 +20,7 @@ using std::fill;
 int AddressLength;
 int ClientSocketFD;
 int errorcheck;
+int Yes = 1;
 
 struct hostent *he;
 struct sockaddr_in ServerAddress;
@@ -35,40 +36,49 @@ int main (int argc, char *argv[])
 {
 	// Standard error checking. Must provide server name/IP and port to connect.
 	if ( argc < 3 )
-	{	
+	{
 		cout << "ERROR000: Usage: 'Client [server name or IP] [server port]'" << endl;
-		exit (-1);		
+		exit (-1);
 	}
-	
+
 	// Getting server's name/IP.
 	if ((he = gethostbyname (argv[1])) == NULL)
-	{	
+	{
 		cerr << "ERROR001: Getting server name/IP" << endl;
-		exit (-1);		
+		exit (-1);
 	}
-	
+
 	// ********************************** Making Client Socket **************************************
 	// Creating a socket for the client.
-	errorcheck = ClientSocketFD = socket ( AF_INET, SOCK_STREAM, 0 ); 
+	errorcheck = ClientSocketFD = socket ( AF_INET, SOCK_STREAM, 0 );
 	if (errorcheck == -1)
-	{	
+	{
 		cerr << "ERROR002: Creating socket for client" << endl;
-		exit (-1);		
+		exit (-1);
 	}
 	// **********************************************************************************************
-	
+
+	// ************************************* Socket Options *****************************************
+	errorcheck = setsockopt (ClientSocketFD, SOL_SOCKET, SO_REUSEADDR, &Yes, sizeof (int));
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR002: Setting socket options. " << endl;
+		exit (-1);
+	}
+	// **********************************************************************************************
+
 	// ******************************************* Bind *********************************************
 	// Initializing Client address for binding.
 	ClientAddress.sin_family = AF_INET;					// Socket family.
 	ClientAddress.sin_addr.s_addr = INADDR_ANY;			// Assigninig client IP.
 	ClientAddress.sin_port = htons (CLIENTPORT);		// Client port.
 	fill ((char*)&(ClientAddress.sin_zero), (char*)&(ClientAddress.sin_zero)+8, '\0');
-	
+
 	errorcheck = bind (ClientSocketFD, (sockaddr *)&ClientAddress, sizeof (ClientAddress));
 	if (errorcheck == -1)
-	{	
+	{
 		cerr << "ERROR003: Binding." << endl;
-		exit (-1);		
+		exit (-1);
 	}
 	// **********************************************************************************************
 
@@ -78,13 +88,13 @@ int main (int argc, char *argv[])
 	ServerAddress.sin_addr = *((in_addr *)(*he).h_addr);	// Server name/IP.
 	ServerAddress.sin_port = htons (atoi (argv[2]));			// Server port provided as argument.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
-	
+
 	// Connecting to the server.
 	errorcheck = connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 	if (errorcheck == -1)
-	{	
+	{
 		cerr << "ERROR003: Connecting " << endl;
-		exit (-1);		
+		exit (-1);
 	}
 	// **********************************************************************************************
 
@@ -92,9 +102,9 @@ int main (int argc, char *argv[])
 	char ClientMessage[] = "Hello from client.";
 	errorcheck = NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
 	if (errorcheck == -1)
-	{		
+	{
 		cerr << "ERROR003: Client Sending. " << endl;
-		exit (-1);			
+		exit (-1);
 	}
 	// **********************************************************************************************
 
@@ -112,6 +122,6 @@ int main (int argc, char *argv[])
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
-	return 0;	
+	return 0;
 }
 

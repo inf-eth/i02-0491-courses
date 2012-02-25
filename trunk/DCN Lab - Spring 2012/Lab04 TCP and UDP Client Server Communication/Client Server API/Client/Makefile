@@ -18,7 +18,7 @@ BINDIR:=bin/release
 ODIR:=obj/release
 endif
 
-OBJ =$(patsubst %,$(ODIR)/%.obj,$(CPPFILES))
+OBJ=$(patsubst %,$(ODIR)/%.obj,$(CPPFILES))
 
 $(BINDIR)/$(TARGET): $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
