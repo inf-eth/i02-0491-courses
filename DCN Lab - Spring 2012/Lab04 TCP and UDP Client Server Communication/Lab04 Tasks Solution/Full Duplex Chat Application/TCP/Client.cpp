@@ -5,7 +5,9 @@
 #include <cstring>		// strlen()
 #include <cstdlib>		// exit()
 #include <netdb.h>		// gethostbyname(), connect(), send(), recv()
+#include <pthread.h>
 
+using std::cin;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -30,7 +32,15 @@ struct sockaddr_in ClientAddress;
 char Buffer[MAXBUFFERSIZE];
 int NumOfBytesSent;
 int NumOfBytesReceived;
+
+// Sender and receiver threads.
+pthread_t SenderThread;
+pthread_t ReceiverThread;
 // ********************************************************************************************************
+
+// Thread functions (declaration/prototype).
+void* SenderThreadFunction (void *);
+void* ReceiverThreadFunction (void *);
 
 int main (int argc, char *argv[])
 {
@@ -98,30 +108,60 @@ int main (int argc, char *argv[])
 	}
 	// **********************************************************************************************
 
-	// ******************************************** Send ********************************************
-	char ClientMessage[] = "Hello from client.";
-	errorcheck = NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR003: Client Sending. " << endl;
-		exit (-1);
-	}
-	// **********************************************************************************************
+	cout << "* Connection established. Press 'ctrl-c' to terminate connection." << endl;
+	// Creating Sender and Receiver threads. Essentially threaded function calls.
+	pthread_create (&SenderThread, NULL, SenderThreadFunction, NULL);
+	pthread_create (&ReceiverThread, NULL, ReceiverThreadFunction, NULL);
 
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages.
-	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR004 Receiveing" << endl;
-		exit (-1);
-	}
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Server says: " << Buffer << endl;
-	// **********************************************************************************************
+	// main() should block and wait on threads. main() is also a separate thread.
+	pthread_join (SenderThread, NULL);
+	pthread_join (ReceiverThread, NULL);
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
 	return 0;
 }
 
+// Thread function definition/implementation.
+void* SenderThreadFunction (void *tmp)
+{
+	char ClientMessage[50];
+
+	while (true)
+	{
+		cout << ">>";
+		cin.getline (ClientMessage, 50);
+		errorcheck = NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR003: Client Sending. " << endl;
+			exit (-1);
+		}
+	}
+
+	return NULL;
+}
+
+void* ReceiverThreadFunction (void *tmp)
+{
+	while (true)
+	{
+		errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+		if (errorcheck <= 0)
+		{
+			if (errorcheck == 0)
+			{
+				cout << "Connection with Server terminated. Client exiting..." << endl;
+			}
+			else
+			{
+				cerr << "ERROR004 Receiveing" << endl;
+			}
+			exit (errorcheck);
+		}
+		Buffer[NumOfBytesReceived] = '\0';
+		cout << "Server says: " << Buffer << endl;
+	}
+
+	return NULL;
+}
