@@ -48,7 +48,7 @@ int main (int argc, char **argv)
 	// Setting Server's Listen Port
 	ServerPort = SERVERPORT;
 	cout << "Server listening on default port " << SERVERPORT << endl;
-	
+
 	// ********************************** Making Server Socekt **************************************
 	errorcheck = ServerSocketFD = socket (AF_INET, SOCK_STREAM, 0);
 	if (errorcheck == -1)
@@ -57,28 +57,28 @@ int main (int argc, char **argv)
 		exit (-1);
 	}
 	// **********************************************************************************************
-	
+
 	// ************************************* Socket Options *****************************************
 	errorcheck = setsockopt (ServerSocketFD, SOL_SOCKET, SO_REUSEADDR, &Yes, sizeof (int));
 	if (errorcheck == -1)
-	{	
+	{
 		cerr << "ERROR002: Setting socket options. " << endl;
-		exit (-1);		
+		exit (-1);
 	}
 	// **********************************************************************************************
-	
+
 	// ****************************************** Bind **********************************************
 	// Server address initialization for binding.
 	ServerAddress.sin_family = AF_INET;				// Socekt family.
 	ServerAddress.sin_addr.s_addr = INADDR_ANY;		// Setting server IP. INADDR_ANY is the localhost IP.
 	ServerAddress.sin_port = htons (ServerPort);	// Setting server port.
 	fill ((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
-		
+
 	errorcheck = bind (ServerSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 	if (errorcheck == -1)
-	{	
+	{
 		cerr << "ERROR003: Binding." << endl;
-		exit (-1);		
+		exit (-1);
 	}
 	// **********************************************************************************************
 
@@ -86,9 +86,9 @@ int main (int argc, char **argv)
 	// ***************************************** Listening ******************************************
 	errorcheck = listen (ServerSocketFD, 0);
 	if (errorcheck == -1)
-	{	
+	{
 		cerr << "ERROR004: Listening." << endl;
-		exit (-1);		
+		exit (-1);
 	}
 	// **********************************************************************************************
 
@@ -103,7 +103,7 @@ int main (int argc, char **argv)
 	}
 	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
 	// **********************************************************************************************
-	
+
 	// ******************************************** recv ********************************************
 	// recv() is blocking and will wait for any messages from client.
 	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
@@ -120,9 +120,9 @@ int main (int argc, char **argv)
 	char ServerMessage[] = "Hello from Server. Now bye!";
 	errorcheck = NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
 	if (errorcheck == -1)
-	{		
+	{
 		cerr << "ERROR003: Server Sending. " << endl;
-		exit (-1);			
+		exit (-1);
 	}
 	// **********************************************************************************************
 
@@ -131,6 +131,6 @@ int main (int argc, char **argv)
 	close (ServerSocketFD);
 	return 0;
 }
-	
-	
+
+
 

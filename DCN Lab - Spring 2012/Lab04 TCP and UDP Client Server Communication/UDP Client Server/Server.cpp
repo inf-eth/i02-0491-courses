@@ -64,9 +64,9 @@ int main (int argc, char **argv)
 	 *	{
 	 *		cerr << "ERROR002: Setting socket options. " << endl;
 	 *		exit (-1);
-	}
-	// **********************************************************************************************
-	*/
+}
+// **********************************************************************************************
+*/
 	// ****************************************** Bind **********************************************
 	// Server address initialization for binding.
 	ServerAddress.sin_family = AF_INET;				// Socekt family.
@@ -90,21 +90,21 @@ int main (int argc, char **argv)
 	 *	{
 	 *		cerr << "ERROR004: Listening." << endl;
 	 *		exit (-1);
-	}
-	// **********************************************************************************************
+}
+// **********************************************************************************************
 
-	// ************************************** Accept Connection *************************************
-	// Accept will block and wait for connections to accept.
-	sin_size = sizeof (ClientAddress);
-	errorcheck = ClientSocketFD = accept (ServerSocketFD, (sockaddr *) &ClientAddress, &sin_size);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR006: Accepting." << endl;
-		exit(-1);
-	}
-	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
-	// **********************************************************************************************
-	*/
+// ************************************** Accept Connection *************************************
+// Accept will block and wait for connections to accept.
+sin_size = sizeof (ClientAddress);
+errorcheck = ClientSocketFD = accept (ServerSocketFD, (sockaddr *) &ClientAddress, &sin_size);
+if (errorcheck == -1)
+{
+	cerr << "ERROR006: Accepting." << endl;
+	exit(-1);
+}
+cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
+// **********************************************************************************************
+*/
 	// ***************************************** recvfrom *******************************************
 	// recvfrom() is blocking and will wait for any messages from client.
 	socklen_t ClientAddressSize = sizeof (ClientAddress);
