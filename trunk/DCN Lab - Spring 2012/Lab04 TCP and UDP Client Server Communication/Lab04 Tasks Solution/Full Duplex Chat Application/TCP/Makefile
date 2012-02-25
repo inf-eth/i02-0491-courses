@@ -7,8 +7,8 @@
 
 # Output targets are binary files 'Client' and 'Server'
 Client Server: Client.obj Server.obj
-	g++ Client.obj -o Client
-	g++ Server.obj -o Server
+	g++ Client.obj -o Client -lpthread
+	g++ Server.obj -o Server -lpthread
 
 # Intermediate object files.
 Client.obj: Client.cpp
