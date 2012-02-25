@@ -6,6 +6,7 @@
 #include <cstdlib>		// exit()
 #include <arpa/inet.h>		// bind(), listen(), accept(), send(), recv()
 
+using std::cin;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -104,27 +105,32 @@ int main (int argc, char **argv)
 	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
 	// **********************************************************************************************
 
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages from client.
-	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
-	if (errorcheck == -1)
+	while (true)
 	{
-		cerr << "ERROR004 Receiveing" << endl;
-		exit (-1);
-	}
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Client says: " << Buffer << endl;
-	// **********************************************************************************************
+		// ******************************************** recv ********************************************
+		// recv() is blocking and will wait for any messages from client.
+		errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR004 Receiveing" << endl;
+			exit (-1);
+		}
+		Buffer[NumOfBytesReceived] = '\0';
+		cout << "Client says: " << Buffer << endl;
+		// **********************************************************************************************
 
-	// ******************************************** Send ********************************************
-	char ServerMessage[] = "Hello from Server. Now bye!";
-	errorcheck = NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR003: Server Sending. " << endl;
-		exit (-1);
+		// ******************************************** Send ********************************************
+		char ServerMessage[50];
+		cout << ">>";
+		cin.getline (ServerMessage, 50);
+		errorcheck = NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR003: Server Sending. " << endl;
+			exit (-1);
+		}
+		// **********************************************************************************************
 	}
-	// **********************************************************************************************
 
 	// Close connection.
 	close (ClientSocketFD);

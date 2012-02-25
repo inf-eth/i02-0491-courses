@@ -6,6 +6,7 @@
 #include <cstdlib>		// exit()
 #include <netdb.h>		// gethostbyname(), connect(), send(), recv()
 
+using std::cin;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -98,27 +99,32 @@ int main (int argc, char *argv[])
 	}
 	// **********************************************************************************************
 
-	// ******************************************** Send ********************************************
-	char ClientMessage[] = "Hello from client.";
-	errorcheck = NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
-	if (errorcheck == -1)
+	while (true)
 	{
-		cerr << "ERROR003: Client Sending. " << endl;
-		exit (-1);
-	}
-	// **********************************************************************************************
+		// ******************************************** Send ********************************************
+		char ClientMessage[50];
+		cout << ">>";
+		cin.getline (ClientMessage, 50);
+		errorcheck = NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR003: Client Sending. " << endl;
+			exit (-1);
+		}
+		// **********************************************************************************************
 
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages.
-	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR004 Receiveing" << endl;
-		exit (-1);
+		// ******************************************** recv ********************************************
+		// recv() is blocking and will wait for any messages.
+		errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+		if (errorcheck == -1)
+		{
+			cerr << "ERROR004 Receiveing" << endl;
+			exit (-1);
+		}
+		Buffer[NumOfBytesReceived] = '\0';
+		cout << "Server says: " << Buffer << endl;
+		// **********************************************************************************************
 	}
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Server says: " << Buffer << endl;
-	// **********************************************************************************************
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
