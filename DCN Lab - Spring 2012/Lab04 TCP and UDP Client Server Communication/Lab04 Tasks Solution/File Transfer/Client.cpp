@@ -115,6 +115,12 @@ int main (int argc, char *argv[])
 			char ReadytoReceiveFilename[] = "Ready to receive filename...";
 			NumOfBytesSent = send (ClientSocketFD, ReadytoReceiveFilename, strlen (ReadytoReceiveFilename), 0);
 
+			// Getting filesize;
+			int size;
+			NumOfBytesReceived = recv (ClientSocketFD, (void *)&size, sizeof (int), 0);
+			char Gotfilesize[] = "Got filesize...";
+			NumOfBytesSent = send (ClientSocketFD, Gotfilesize, strlen (Gotfilesize), 0);
+			
 			// Receive filename.
 			char Filename[50];
 			NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
@@ -134,6 +140,7 @@ int main (int argc, char *argv[])
 			NumOfBytesSent = send (ClientSocketFD, ReadytoReceiveStream, strlen (ReadytoReceiveStream), 0);
 
 			// Start receiving file.
+			int Progress = 0;
 			while (true)
 			{
 				NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
@@ -151,8 +158,10 @@ int main (int argc, char *argv[])
 				else
 				{
 					write (WriteFD, Buffer, NumOfBytesReceived);
-					cout << "Recieved " << NumOfBytesReceived << " bytes." << endl;
+					//cout << "Recieved " << NumOfBytesReceived << " bytes." << endl;
 					NumOfBytesSent = send (ClientSocketFD, (void *)&NumOfBytesReceived, sizeof (int), 0);
+					Progress = Progress + NumOfBytesReceived;
+					cout << "Progress = " << (float)100*Progress/size << " %." << endl;
 				}
 			}
 		}
