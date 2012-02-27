@@ -6,6 +6,7 @@
 #include <cstdlib>		// exit()
 #include <arpa/inet.h>		// bind(), listen(), accept(), send(), recv()
 #include <fcntl.h>
+#include <sys/stat.h>		// stat() and struct stat
 
 using std::cerr;
 using std::cout;
@@ -143,6 +144,7 @@ int main (int argc, char **argv)
 				// Send "File transfer starting..." message.
 				char FileTransferStartedMessage[] = "File transfer starting...";
 				NumOfBytesSent = send (ClientSocketFD, FileTransferStartedMessage, strlen (FileTransferStartedMessage), 0);
+				
 
 				// Get client acknowledgement.
 				NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
@@ -154,6 +156,25 @@ int main (int argc, char **argv)
 				else
 				{
 					cout << "Error with client receiving filename" << endl;
+					exit (-1);
+				}
+				
+				// Sending Filesize.
+				struct stat filestats;
+				stat (Filename, &filestats);
+				int size = filestats.st_size;
+				NumOfBytesSent = send (ClientSocketFD, (void *)&size, sizeof (int), 0);
+				
+				// Get client acknowledgement for filesize.
+				NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+				Buffer[NumOfBytesReceived] = '\0';
+				if (strcmp (Buffer, "Got filesize...") == 0)
+				{
+					cout << "Client got filesize..." << endl;
+				}
+				else
+				{
+					cout << "Error with client receiving filesize" << endl;
 					exit (-1);
 				}
 				
