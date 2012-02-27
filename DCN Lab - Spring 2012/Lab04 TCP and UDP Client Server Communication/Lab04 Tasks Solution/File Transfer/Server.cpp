@@ -5,6 +5,7 @@
 #include <cstring>		// strlen()
 #include <cstdlib>		// exit()
 #include <arpa/inet.h>		// bind(), listen(), accept(), send(), recv()
+#include <fcntl.h>
 
 using std::cerr;
 using std::cout;
@@ -104,27 +105,138 @@ int main (int argc, char **argv)
 	cout << "*** Server got connection from " << inet_ntoa (ClientAddress.sin_addr) << " on socket '" << ClientSocketFD << "' ***" << endl;
 	// **********************************************************************************************
 
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages from client.
-	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR004 Receiveing" << endl;
-		exit (-1);
-	}
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Client says: " << Buffer << endl;
-	// **********************************************************************************************
+	// Sending server menu.
+	char FilesList[] = "\
+	Welcome to Server ABC. Available services are:\n\
+	1. Download Beej's Guide.pdf\n\
+	2. Download Basic Networking.pdf\n\
+	3. Quit.\n\
+	Please enter a number:";
 
-	// ******************************************** Send ********************************************
-	char ServerMessage[] = "Hello from Server. Now bye!";
-	errorcheck = NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
-	if (errorcheck == -1)
+	while (true)
 	{
-		cerr << "ERROR003: Server Sending. " << endl;
-		exit (-1);
+		// Send Server's Menu.
+		NumOfBytesSent = send (ClientSocketFD, FilesList, strlen (FilesList), 0);
+
+		// Get option.
+		cout << "Expecting input.." << endl;
+		NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+		Buffer[NumOfBytesReceived] = '\0';
+		cout << "Client says: " << Buffer << endl;
+
+		switch (Buffer[0])
+		{
+			case '1': case '2':
+			{
+				cout << "Starting file transfer..." << endl;
+				// Start file transfer
+				char Filename[50];
+				if (Buffer[0] == '1')
+				{
+					strcpy (Filename, "Beej's Guide.pdf");
+				}
+				else
+				{
+					strcpy (Filename, "Basic Networking.pdf");
+				}
+
+				// Send "File transfer starting..." message.
+				char FileTransferStartedMessage[] = "File transfer starting...";
+				NumOfBytesSent = send (ClientSocketFD, FileTransferStartedMessage, strlen (FileTransferStartedMessage), 0);
+
+				// Get client acknowledgement.
+				NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+				Buffer[NumOfBytesReceived] = '\0';
+				if (strcmp (Buffer, "Ready to receive filename...") == 0)
+				{
+					cout << "Client ready to receive filename..." << endl;
+				}
+				else
+				{
+					cout << "Error with client receiving filename" << endl;
+					exit (-1);
+				}
+				
+				// Open file.
+				int ReadFD = open (Filename, O_RDONLY);
+				
+				// Send filename.
+				cout << "Sending filename..." << endl;
+				NumOfBytesSent = send (ClientSocketFD, Filename, strlen (Filename), 0);
+
+				// Get client acknowledgement.
+				NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+				Buffer[NumOfBytesReceived] = '\0';
+				if (strcmp (Buffer, "Ready to receive stream...") == 0)
+				{
+					cout << "Client ready to receive stream..." << endl;
+				}
+				else
+				{
+					cout << "Error with client receiving stream" << endl;
+					exit (-1);
+				}
+				
+				// Send file stream.
+				while (true)
+				{
+					int BytesRead = read (ReadFD, Buffer, MAXBUFFERSIZE-1);
+
+					// Check if file has ended.
+					if (BytesRead <= 0)
+					{
+						close (ReadFD);
+						char FileTransferEndedMessage[] = "File transfer ended...";
+						cout << "File transfer ended..." << endl;
+						NumOfBytesSent = send (ClientSocketFD, FileTransferEndedMessage, strlen (FileTransferEndedMessage), 0);
+
+						// Getting acknowledgement.
+						NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+						Buffer[NumOfBytesReceived] = '\0';
+						if (strcmp (Buffer, "File Transfer Done...") == 0)
+						{
+							cout << "File successfully transferred..." << endl;
+						}
+						else
+						{
+							cout << "ERROR: Transferring file." << endl;
+							exit (-1);
+						}
+						break;
+					}
+
+					// Otherwise send file stream.
+					NumOfBytesSent = send (ClientSocketFD, Buffer, BytesRead, 0);
+					cout << "Sending " << NumOfBytesSent << " bytes..." << endl;
+
+					// Getting acknowledgement.
+					int tempint;
+					NumOfBytesReceived = recv (ClientSocketFD, (void *)&tempint, sizeof (int), 0);
+					cout << "Client received " << tempint << " bytes." << endl;
+					if (tempint != NumOfBytesSent)
+					{
+						cout << "ERROR: Client did not receive correct number of bytes... " << endl;
+						exit (-1);
+					}
+				}
+				break;
+			}
+			case '3':
+			{
+				cout << "Client closed connection..." << endl;
+				// Close connection and exit.
+				close (ClientSocketFD);
+				close (ServerSocketFD);
+				exit (0);
+				break;
+			}
+			default:
+			{
+				cout << "Invalid input... " << endl;
+				break;
+			}
+		}
 	}
-	// **********************************************************************************************
 
 	// Close connection.
 	close (ClientSocketFD);

@@ -5,7 +5,9 @@
 #include <cstring>		// strlen()
 #include <cstdlib>		// exit()
 #include <netdb.h>		// gethostbyname(), connect(), send(), recv()
+#include <fcntl.h>
 
+using std::cin;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -98,27 +100,77 @@ int main (int argc, char *argv[])
 	}
 	// **********************************************************************************************
 
-	// ******************************************** Send ********************************************
-	char ClientMessage[] = "Hello from client.";
-	errorcheck = NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
-	if (errorcheck == -1)
+	while (true)
 	{
-		cerr << "ERROR003: Client Sending. " << endl;
-		exit (-1);
-	}
-	// **********************************************************************************************
+		// Getting Server's menu.
+		cout << "Getting server menu..." << endl;
+		NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+		Buffer[NumOfBytesReceived] = '\0';
+		cout << "Bytes received = " << NumOfBytesReceived << " ..." << endl;
+		cout << Buffer << endl;
 
-	// ******************************************** recv ********************************************
-	// recv() is blocking and will wait for any messages.
-	errorcheck = NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
-	if (errorcheck == -1)
-	{
-		cerr << "ERROR004 Receiveing" << endl;
-		exit (-1);
+		// If file transfer is starting.
+		if (strcmp (Buffer, "File transfer starting...") == 0)
+		{
+			char ReadytoReceiveFilename[] = "Ready to receive filename...";
+			NumOfBytesSent = send (ClientSocketFD, ReadytoReceiveFilename, strlen (ReadytoReceiveFilename), 0);
+
+			// Receive filename.
+			char Filename[50];
+			NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+
+			Buffer[NumOfBytesReceived] = '\0';
+			cout << "Transferring " << Buffer << endl;
+
+			strcpy (Filename, "Copy of ");
+			strcat (Filename, Buffer);
+
+			// Open file.
+			cout << "File being downloaded as " << Filename << endl;
+			int WriteFD = open (Filename, O_WRONLY | O_CREAT, S_IRWXU);
+
+			// Ready to receive byte stream.
+			char ReadytoReceiveStream[] = "Ready to receive stream...";
+			NumOfBytesSent = send (ClientSocketFD, ReadytoReceiveStream, strlen (ReadytoReceiveStream), 0);
+
+			// Start receiving file.
+			while (true)
+			{
+				NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);
+				Buffer[NumOfBytesReceived] = '\0';
+
+				// Check if file transfer ended otherwise write on file.
+				if (strcmp (Buffer, "File transfer ended...") == 0)
+				{
+					cout << "File transfer done." << endl;
+					char FileTransferDone[] = "File Transfer Done...";
+					NumOfBytesSent = send (ClientSocketFD, FileTransferDone, strlen (FileTransferDone), 0);
+					close (WriteFD);
+					break;
+				}
+				else
+				{
+					write (WriteFD, Buffer, NumOfBytesReceived);
+					cout << "Recieved " << NumOfBytesReceived << " bytes." << endl;
+					NumOfBytesSent = send (ClientSocketFD, (void *)&NumOfBytesReceived, sizeof (int), 0);
+				}
+			}
+		}
+		// Else if no file transfer then send in client choice.
+		else
+		{
+			// Sending choice.
+			char ClientChoice;
+			cin >> ClientChoice;
+			Buffer[0] = ClientChoice;
+			NumOfBytesSent = send (ClientSocketFD, Buffer, 1, 0);
+			if (ClientChoice == '3')
+			{
+				close (ClientSocketFD);
+				exit (0);
+			}
+		}
 	}
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Server says: " << Buffer << endl;
-	// **********************************************************************************************
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
