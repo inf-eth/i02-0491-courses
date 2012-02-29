@@ -1,0 +1,33 @@
+- About project
+  - 2 Groups, maximum 3 people per group.
+  - Coding and learning project.
+  - Weekly meetings.
+
+- Using a generic Makefile
+  - Source files should go into 'src' directory.
+  - Header files are placed in 'include' directory.
+  - 'obj' and 'bin' folders.
+  - 'Debug' and 'release' configurations.
+
+- Solution to Lab 04 Task(s)
+  - http://code.google.com/p/i02-0491-courses/
+  - Source > Changes > Click on any revision number, e.g. 'r22'
+
+Lab 05 Task:
+1. UDP Communication.
+  - Doesn't really a client/server application
+  - No distinction between client and server
+  - Server doesn't listen or accept connections
+  - Client doesn't need to connect
+  - Single socket for communication
+  - Make a UDP chat application
+2. Remote Supercomputer.
+  - Make a TCP Client/Server application.
+  - Server is supposed to be a supercomputer capable of working with complex numbers.
+  - Server will display a menu with different options.
+    - 1. Add two complex numbers.
+    - 2. Subtract...
+    - 3. Multiply...
+    - 4. Divide...
+    - 5. Disconnect.
+  - Extra marks for additional functionality.
