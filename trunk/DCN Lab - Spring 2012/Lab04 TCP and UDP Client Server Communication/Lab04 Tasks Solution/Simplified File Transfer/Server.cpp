@@ -5,6 +5,7 @@
 #include <cstring>			// strlen()
 #include <cstdlib>			// exit()
 #include <arpa/inet.h>		// bind(), listen(), accept(), send(), recv()
+#include <fcntl.h>			// file operations, open(), close(), read(), write()
 
 using std::cerr;
 using std::cout;
@@ -75,9 +76,37 @@ int main (int argc, char **argv)
 	Buffer[NumOfBytesReceived] = '\0';
 	cout << "Client says: " << Buffer << endl;
 
-	// send()
-	char ServerMessage[] = "Hello from Server. Now bye!";
-	NumOfBytesSent = send (ClientSocketFD, ServerMessage, strlen (ServerMessage), 0);
+	// Try to open file.
+	int ReadFD = open (Buffer, O_RDONLY);
+	if (ReadFD < 0)
+	{
+		cout << "ERROR: Invalid filename..." << endl;
+		exit (-1);
+	}
+
+	while (true)
+	{
+		// Read file and send() read bytes.
+		int BytesRead = read (ReadFD, Buffer, MAXBUFFERSIZE-1);
+
+		// If end of file.
+		if (BytesRead <= 0)
+		{
+			// Send an EOF string to client.
+			char EOFString[] = "EOF";
+			NumOfBytesSent = send (ClientSocketFD, EOFString, strlen (EOFString), 0);
+			close (ReadFD);
+			break;
+		}
+
+		// send() number of bytes read from file.
+		NumOfBytesSent = send (ClientSocketFD, Buffer, BytesRead, 0);
+
+		// Get acknowledgement from client.
+		int tempBytes;
+		NumOfBytesReceived = recv (ClientSocketFD, &tempBytes, sizeof (int), 0);		// Blocking.
+		cout << "Client received: " << tempBytes << " bytes." << endl;
+	}
 
 	// Close connection.
 	close (ClientSocketFD);

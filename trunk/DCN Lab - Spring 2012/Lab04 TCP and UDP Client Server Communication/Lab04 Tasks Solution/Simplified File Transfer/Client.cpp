@@ -5,6 +5,7 @@
 #include <cstring>		// strlen()
 #include <cstdlib>		// exit()
 #include <netdb.h>		// gethostbyname(), connect(), send(), recv()
+#include <fcntl.h>
 
 using std::cerr;
 using std::cout;
@@ -68,14 +69,38 @@ int main (int argc, char *argv[])
 	// Connecting to the server.
 	connect (ClientSocketFD, (sockaddr *)&ServerAddress, sizeof (ServerAddress));
 
-	// send()
-	char ClientMessage[] = "Hello from client.";
+	// send() filename to download
+	char ClientMessage[] = "abc.pdf";
 	NumOfBytesSent = send (ClientSocketFD, ClientMessage, strlen (ClientMessage), 0);
 
-	// recv() is blocking and will wait for any messages.
-	NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);		// Blocking
-	Buffer[NumOfBytesReceived] = '\0';
-	cout << "Server says: " << Buffer << endl;
+	// Try to open file.
+	int WriteFD = open ("Downloaded abc.pdf", O_WRONLY | O_CREAT, S_IRWXU);
+	if (WriteFD < 0)
+	{
+		cout << "ERROR: Opening file..." << endl;
+		exit (-1);
+	}
+
+	while (true)
+	{
+		// recv() is blocking and will wait for any messages.
+		NumOfBytesReceived = recv (ClientSocketFD, Buffer, MAXBUFFERSIZE-1, 0);		// Blocking
+		Buffer[NumOfBytesReceived] = '\0';
+
+		// Check if end of file.
+		if (strcmp (Buffer, "EOF") == 0)
+		{
+			cout << "File downloaded." << endl;
+			close (WriteFD);
+			break;
+		}
+
+		// Write to file.
+		int BytesWritten = write (WriteFD, Buffer, NumOfBytesReceived);
+
+		// Send acknowledgement to server about bytes received/written.
+		NumOfBytesSent = send (ClientSocketFD, &BytesWritten, sizeof (int), 0);
+	}
 
 	// Close client socket and exit.
 	close (ClientSocketFD);
