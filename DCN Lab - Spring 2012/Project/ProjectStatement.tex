@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+\setlength{\topmargin}{-54pt}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.5in}
+
+\begin{document}
+
+\title{Parallel Computing Over Network\\DCN Spring - 2012}
+\maketitle
+
+\section{Phase I: Subversion}
+
+Subversion or SVN is an open source software for version control. There is a central storage or `repository' for the project, commonly hosted on the internet. All the team members working on the project have a local working copy of the project. The team members working on the project can use SVN to upload or `commit' changes to the repository. Once a member commit any change, the rest of the members can then `update' their local copies to synchronize. SVN maintains a complete log of all changes or `commits' that can be used to backtrack or `revert' any changes by moving backward or forward in time with respect to any change.
+
+Phase I requires an understanding of SVN. Project members must use SVN to host their project on googlecode ({\texttt code.google.com}).
+
+\section{Phase II: Single-Threaded 2D Solution of Laplace Equation in Matlab}
+
+Laplace equation can be used to solve boundary--value problems involving electric potential. The electric potential is specified on the boundary of the problem domain. The domain is discretized and method of relaxation is used to solve for electric potential at every point inside the domain. Electric field can be calculated from potential using $\overline{E}=-\nabla V$.
+
+Consider a $2m \times 1m$ problem domain. Using grid sizes $(20 \times 10)$, $(200 \times 100)$, $(2000 \times 1000)$ and $(20000 \times 10000$; with 1000 time steps, compare computation times.
+
+\section{Phase III: Multi-Threaded Implementation of Laplace Equation in C++}
+
+First you need to implement the single--threaded problem from Phase I using C++. Again compare the computation times. Use both optimized and non-optimized code.
+
+\begin{itemize}
+\item Q1: Is C++ faster or slower than Matlab and by what factor?
+\item Q2: Is optimized code faster than un-optimized code and by what factor?
+\end{itemize}
+
+Now implement the same problem using multi-threading. Use two threads and equally divide the workload between them.
+
+\begin{itemize}
+\item Q3: Is multi-threaded implementation faster or slower than single-threaded implementation and by what factor?
+\item Q4: Is optimized code faster than un-optimized code and by what factor?
+\end{itemize}
+
+\section{Phase IV: Parallel Computing Over Network}
+
+A central server is responsible for controlling the operations of connected clients (using TCP protocol). Your goal is to use the multi-threading concept from Phase III in order to utilize idle computers on the network for processing or computing power. Use at least 2 or 4 computers as clients (up to 10 computers can be used). The central server will synchronize and divide the workload between clients.
+
+Compare the performance of Matlab, single-threaded C++, multi-threaded C++ and Parallel computing models by drawing graphs.
+%\nocite{*}
+%\bibliographystyle{ieeetr} %plain, ieeetr
+%\bibliography{Projectref}
+
+\end{document}
+
+
+
+
