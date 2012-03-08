@@ -1,0 +1,7 @@
+- libpcap libraries are used to capture packets. Wireshark also uses this library to capture packets.
+- visit http://yuba.stanford.edu/~casado/pcap/section2.html for a tutorial on how to use libpcap
+- To install libpcap you need to extract libpcap tar file. Go into the libpca directory and type 'make' to compile. After that use 'make install' or 'sudo make install' as super user to install the libraries.
+
+Lab 5 task:
+- Make a packet capturing application.
+- Use this to capture and display packets exchanged between any two PCs. You can run a TPC or UDP client/server application and display those packets.
