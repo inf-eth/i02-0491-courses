@@ -1,0 +1,14 @@
+- In this lab we will analyze TCP/IP packet stream in a simple client/server application.
+- Reference:
+  Libpcap tutorial and brief packet header overview: http://www.tcpdump.org/pcap.html
+  Detailed packet header structures: http://www.zytrax.com/tech/protocols/tcp.html
+  Wiki: http://en.wikipedia.org/wiki/Transmission_Control_Protocol
+
+Lab 09 Tasks:
+- Using the packet capturing program provided on SLATE capture and analyze packets exchanged between client and server.
+- Display IP and TCP header fields.
+- Display the flags in TCP header separately.
+- Also print data or payload.
+
+Homework:
+- Do the same for UDP packets, i.e. display UDP header fields.
