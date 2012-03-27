@@ -1,0 +1,8 @@
+- Packet tracer is a network simulator software.
+- There are two running modes, realtime and simulation.
+  - In simulation packets can be viewed at every instant and their routers can be traced.
+  - In realtime mode packets travel in real time.
+
+- A simple network can be made by connecting two end devices like PCs with each other using cross cable.
+- A switch can be used to make a small network with several PCs as end devices.
+- Switch uses mac-address-table to route packets in a network.

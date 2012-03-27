@@ -1,0 +1,20 @@
+- Routers are devices that connect different networks.
+- Routers can be used to create and/or different subnets in a larger network.
+- Considering a router has two IP-based ports, following rules apply:
+  1. Both ports must have different network addresses.
+  2. Any packet received on Port 1 with Port 2 network address as destination will be automatically routed to Port 2 network and vice versa.
+  3. If router receives a packet whose destination address doesn't match either Port 1 or Port 2 network address then it will be dropped.
+- In order to route packets to a different subnet, static routes must be defined and configured.
+
+Lab 08 Tasks:
+- Create two switched networks and connect them using a single router.
+- Create three switched networks and connect them using three routers.
+
+Homework
+- Create 5 networks with following routing rules:
+  - Net 1 > Net 2 > Net 3 > Net 5
+  - Net 2 > Net 1 > Net 5
+  - Net 3 > Net 1 > Net 4
+  - Net 4 > Net 3 > Net 5
+  - Net 5 > Net 1 > Net 2 > Net 4
+  Example: Net 1 can communicate with Net 2, 3 and 5 but not with 4 etc.
