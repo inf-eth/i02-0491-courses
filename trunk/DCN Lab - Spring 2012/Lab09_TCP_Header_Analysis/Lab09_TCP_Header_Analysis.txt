@@ -5,10 +5,12 @@
   Wiki: http://en.wikipedia.org/wiki/Transmission_Control_Protocol
 
 Lab 09 Tasks:
-- Using the packet capturing program provided on SLATE capture and analyze packets exchanged between client and server.
+* You may need to modify any code following a "TODO"
+- Using the packet capturing program provided on SLATE capture and analyze TCP packets exchanged between client and server.
 - Display IP and TCP header fields.
 - Display the flags in TCP header separately.
 - Also print data or payload.
+- Note down the client/server sequence numbers and flags. Explain!
 
-Homework:
+* Display UDP packet headers.
 - Do the same for UDP packets, i.e. display UDP header fields.
