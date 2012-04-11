@@ -1,0 +1,25 @@
+- In this lab we will analyze HTTP connection mechanics.
+- Reference:
+  http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+  Libpcap tutorial and brief packet header overview: http://www.tcpdump.org/pcap.html
+  Detailed packet header structures: http://www.zytrax.com/tech/protocols/tcp.html
+  Wiki: http://en.wikipedia.org/wiki/Transmission_Control_Protocol
+
+Lab 10 Tasks:
+
+Instructions:
+* This lab is worth 10 marks.
+* Submit, individually, a complete report on your findings at the end of the lab.
+* You may need to modify any code following a "TODO"
+* In Firefox go to: Edit > Preferences > Advanced > Network > Settings, in the 'No proxy for' space, type '172.16.100.98'
+
+- Using the packet capturing program provided on SLATE (lab 10 folder) capture and analyze HTTP packets exchanged when logging into SLATE.
+- You are required to analyze the payload and...
+  - Explain the sequence of packets exchanged (GET? POST?) during successful and unsuccessful login requests.
+  - Explain the sequence of packets exchanged on logging out.
+  - You do not need to explain each and every packet or the whole html code. Only consider any relevant packets and give a very brief explanation of the underlying mechanics.
+
+- Display IP and TCP header fields.
+- Display the flags in TCP header separately.
+- Also print data or payload.
+- Note down the client/server sequence numbers and flags. Explain!
