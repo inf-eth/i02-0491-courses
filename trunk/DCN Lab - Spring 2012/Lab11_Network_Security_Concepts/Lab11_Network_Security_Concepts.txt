@@ -1,0 +1,61 @@
+1. Malware Concepts
+   Virus: Most basic form of malware. Can cause damage to a system.
+   Worm: A virus that can replicate and spread over the network or using internet to attack hosts.
+   Botnet: An intelligent program that can not only spread over network (internet) but can communicate with other botnets.
+   Botnets can hide themselves from detection, send sensitive information of victim or take over whole systems or even networks.
+
+2. Common Hacking Techniques
+   1. Brute-force: Can crack password if you try all possible combinations. Depends on strength of passwords.
+   2. Malware: Victim opens a malware. Malware can start a service (client or server) that can then record user information
+      like passwords and send them to attacker over network. Number one reason for hacked hotmail, yahoo or online accounts.
+   3. Social Engineering: Use hacking tools like nmap to get information about network. Guess common passwords like victim's telephone number etc.
+   4. Buffer Overflows: Providing an incorrect input can crash the system. How?
+
+3. Secure Shell (SSH):
+   SSH is a commandline utility for secure remote communication.
+   In order to login to a remote host, SSH service must be running on both computers.
+
+   Connection:
+   Syntax: 'ssh <IP>' or 'ssh <IP> -l <login ID>'
+   Example: 'ssh 172.16.20.5' or 'ssh 172.16.20.5 -l root'
+
+   Secure copy:
+   Syntax: 'scp <Source IP>:<Path> <DestinationIP>:<Path>'
+   Example: 'scp assignment.zip 172.16.20.5:/home/lab/Desktop', 'scp 172.16.20.5:/home/lab/Desktop/assignment.zip .'
+
+4. Encryption, Decryption and Hashing:
+   Traffic over the network must be made secure in order to prevent eavesdropping.
+   OPENSSL is an open source library that provides encryption/decryption and related methods.
+
+   Encryption:
+   Syntax: openssl enc -<algorithm> -salt -in <input file> -out <output file>
+   Example: openssl enc -des -salt -in abc.txt -out abc.enc.txt
+   Algorithm can be 'des', 'aes256' etc.
+
+   Decryption:
+   Syntax: openssl enc -<algorithm> -d -in <input file> -out <output file>
+   Example: openssl enc -des -d -in abc.enc.txt -out abc.dec.txt
+
+   Hashing:
+   Hashing can be used to store passwords. It is a one way function and original string cannot be recovered.
+   Syntax: openssl dgst -<algorithm> <input file> OR openssl dgst -<algorithm> <input file> -out <output file>
+   Examples:
+   openssl dgst -sha1 abc.txt
+   openssl dgst -sha1 abc.txt -out abc.hash.txt
+   openssl dgst -md5 abc.txt -out abc.hash.md5.txt   
+
+Lab 11 Tasks:
+
+Task 1:
+- Create a malware program, can be TCP or UDP based.
+- Run the malware on a system and remotely reboot/shutdown the target machine or display an appropriate message like "You've been hacked!"
+* system(<command>); can be used to execute any shell command, e.g. system("logout"); system("reboot"); or system("echo hello");
+
+Task 2:
+* It should be quite obvious that communication over network isn't secure when using sockets.
+  Your job is to encrypt network traffic or only sensitive information like passwords.
+
+- Create a remote Login Server.
+- Assume Server has a list of passwords (use hashed passwords for extra credit).
+- User connects and is prompted for a password.
+- Server then tries to authenticates user and sends an appropriate message whether login was successful or not.
