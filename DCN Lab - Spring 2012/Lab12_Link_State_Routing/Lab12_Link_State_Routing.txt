@@ -1,0 +1,29 @@
+Important Concepts: Shortest path first, Dijkstra's algorithm, link state routing.
+
+- Link state routing is used by routers on the internet.
+- Each router only knows about its neighbours and their distances as they are turned on.
+  1. Routers send special packets called Link State Packets to all their neighbours after random time.
+  2. The neighbours pass on these packets to all routes/neighbours.
+  3. The LS packets have a sequence number and TTL.
+  4. LS pakcets are dopped by a router if the sequence number is older than current or TTL expires to prevent flooding.
+  5. Routers construct graphs and routing tables based on the information in LS packets.
+  6. Distances and shortest routes to each destination is determined using Dijkstra's algorithm on graph.
+  7. It will take some time before the graph stabilize. At least ONE LS packet from EACH router must reach ALL routers before every router can construct the final graph and routes.
+
+Lab 12 Tasks:
+Compilation: Go into Bin32 folder and type './compile'
+Making configuration files:
+- Routers can have IDs 5000, 5001, 5002 and so on.
+- The filenames 5000.cfg upto 5007.cfg are examples of individual router files.
+- There are 8 routers by default.
+- You can edit the .cfg files to simulate a certain topology.
+  - 5000.cfg means this file is for router 5000. Only router 5000 will read this file.
+  - The .cfg file contains number of neighbours followed by their IDs and distances as pairs.
+    - E.g. 5000.cfg contains: '3 5001 1 5002 1 5004 1'
+    - Router 5000 has 3 neighbours 5001, 5002 and 5004 with distances to each of them being 1, 1 and 1 respectively.
+- You need to create as many .cfg files as the number of routers you want to simulate.
+- To run a router type '/Router.o 5000 100' where 5000 is the ID of router.
+- You need to run all the routers in separate terminals.
+
+Task 1: Analyze LS routing and construct graph from the configuration files provided.
+Task 2: Simulate the given network topology and write down shortest routes from each source and destination.

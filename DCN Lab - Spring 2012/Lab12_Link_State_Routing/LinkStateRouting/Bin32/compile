@@ -1,0 +1,1 @@
+g++ ../CRC/CRC.cpp ../Packet/Packet.cpp ../LinkedList/LinkedList.cpp ../NetworkLayer/Graph.cpp ../NetworkLayer/RoutingTable.cpp Router.cpp -o Router.o -lpthread -Wno-deprecated
