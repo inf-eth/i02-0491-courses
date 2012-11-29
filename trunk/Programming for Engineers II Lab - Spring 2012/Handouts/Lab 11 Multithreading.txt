@@ -1,0 +1,119 @@
+Lab 11: Multithreading
+
+Single threaded applications have only a single point of 'control'.
+'Control' is defined as the execution point or the instruction being run on CPU.
+A single execution point means that CPU can only run one instruction at a time.
+
+In a multithreaded application there are multiple control points.
+A thread is nothing but a function that runs concurrently with main() (main() is also a thread!).
+In a single-threaded application only one CPU will be utilized even if multiple CPUs are available.
+However, additional threads will utilize any CPUs available.
+
+(refer to the code given in Lab 11 Multithreading folder)
+Threading in Linux:
+- Headers:
+  #include <pthread.h>
+  Also, in Makefile write '-lpthread' against the LIBS variable:
+  LIBS=-lpthread
+
+- Thread variables:
+  pthread_t thread1, thread2;
+  etc.
+
+- Thread function prototype:
+  void* thread1function (void *);
+  void* thread2function (void *);
+  etc.
+
+- Creating threads:
+  pthread_create (&thread1, NULL, thread1f, NULL);
+  This will start thread1 that will execute thread1f() function.
+  Think of threading as function call. Create as many threads as you want, 2 in our case.
+  pthread_create (&thread2, NULL, thread2f, NULL);
+
+- Waiting on threads:
+  pthread_join (thread1, NULL);
+  Call this in main() to wait until thread1 returns or finish execution.
+
+Threading in Windows:
+- Headers:
+  #include <process.h>
+  #include <Windows.h>
+
+- Thread variables:
+  HANDLE thread1, thread2;  // Creating two threads etc.
+
+- Thread function prototype:
+  void thread1function (void *);
+  void thread2function (void *);
+
+- Creating threads (in main()):
+  thread1 = (HANDLE)_beginthread (thread1f, 0, NULL);
+  thread2 = (HANDLE)_beginthread (thread2f, 0, NULL);
+  This will start two threads thread1f() and thread2f().
+
+- Waiting on threads:
+  WaitForSingleObject(thread2, INFINITE);
+  WaitForSingleObject(thread1, INFINITE);
+  Call this in main() to wait until both threads return or finish execution.
+  main() will stop execution until both threads terminate/return.
+
+Lab 11 Tasks:
+For this lab you need to create large 2D and 3D arrays using vectors and then multiply them.
+
+- Create three 2D arrays(vectors) A, B and C of dimensions 1024x1024.
+  Scalar multiplication of two matrices is defined as C = A.B.
+  C is obtained by multiplying corresponding entries of A and B.
+  C[i][j] = A[i][j] x B[i][j]
+
+- a. How much time does it take to calculate C 1024 times?                           1 mark
+     In other words, how long would following loop take?
+     for (int t=0; t<1024; t++)
+         C[i][j] = A[i][j] * B[i][j];
+
+     NOTE: To calculate C[i][j] you need additional two nested loops on i and j.
+           for (int i=0; i<1024; i++)
+               for (int j=0; j<1024; j++)
+                   C[i][j] = A[i][j] * B[i][j];
+
+- b. How much time does is take to multiply 3D arrays?                               1b mark
+     Take 3D array size 1024x1024x8
+
+- c. Create a small report and list the execution times for following values of t:   1+1b= 2 marks
+     t=512, 1024, 2048, 4096, 1024x8, 1024x16, 1024x32.
+     Plot graph (t vs executiontime) in matlab for extra marks.
+     Note down execution times for corresponding values of t and plot graph once you have all the data.
+
+     IMPORTANT: Do mention whether you are using optimized/release or debug configuration.
+                To compile on linux using debug mode 'g3' use 'make dbg=1'.
+                Default 'make' will compile in optimized mode '03'
+
+     GRAPHING:  In Matlab declare two arrays for t and benchmarktime and use plot(),
+                t = [512 1024 2048 4096]
+                benchtime = [1.112 2.2344 4.44242 9.92424]
+                plot(t, benchtime)
+
+- Multithreading can be used to share computation across CPUs.
+  You need to partition the arrays (logically) in two and then create two separate threads to calculate both halves.
+
+- d. Implement multithreaded execution for part a.                                   2 marks
+     Consider two separate threads executing the following:
+
+     for (int t=0; t<1024; t++)          for (int t=0; t<1024; t++)
+         C[i][j] = A[i][j] * B[i][j];        C[i][j] = A[i][j] * B[i][j];
+
+     If they work on only half the matrices, computation time can be reduced.
+     Matrices can be partitioned horizontally or vertically.
+     By partitioning a 1024x1024 matrix vertically we get two 1024x512 matrices.
+
+     [1024]x[1024] => [1024]x[512] AND [1024]x[512]
+
+     The above multiplication, C[i][j] = A[i][j] * B[i][j]; is to be performed by two threads on different halves.
+     Effectively the two threads will calculate j=0-511 and j=512-1023, respectively.
+
+- e. Repeat part b using multithreading and partitioning the matrix.                  1b mark
+     NOTE: You can partition the matrix either wrt i, j or k (height).
+
+- f. Repeat part c using multithreading.
+     Compare multithreaded graphs with single-threaded ones.                          2+1b = 3 marks.
+	 

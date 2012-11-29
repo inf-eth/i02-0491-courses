@@ -1,0 +1,259 @@
+Previous Lecture:
+1.	Classes
+2.	Constructors
+3.	Get/Set Functions 
+Static members
+Classes can contain static member data and member functions. When a data member is declared as static, only one copy of the data is maintained for all objects of the class. 
+A class can contain static members, either data or functions.
+Static data members of a class are also known as "class variables", because there is only one unique value for all the objects of that same class. Their content is not different from one object of this class to another. Both variables and functions can be static it Can be public, private or protected
+For example, it may be used for a variable within a class that can contain a counter with the number of objects of that class that have been created, as in the following example:
+ 
+#include <iostream>
+using namespace std;
+
+class CDummy {
+  public:
+    static int n;
+    CDummy () { n++; };
+    ~CDummy () { n--; };
+};
+
+int CDummy::n=0;
+
+int main () {
+  CDummy a;
+  CDummy b[5];
+  CDummy * c = new CDummy;
+  cout << a.n << endl;
+  delete c;
+  cout << CDummy::n << endl;
+  return 0;
+}	 
+In fact, static members have the same properties as global variables but they enjoy class scope. For that reason, and to avoid them to be declared several times, we can only include the prototype (its declaration) in the class declaration but not its definition (its initialization). In order to initialize a static data-member we must include a formal definition outside the class, in the global scope, as in the previous example:
+ 
+int CDummy::n=0;	 
+Because it is a unique variable value for all the objects of the same class, it can be referred to as a member of any object of that class or even directly by the class name (of course this is only valid for static members):
+ 
+cout << a.n;
+cout << CDummy::n; 	 
+These two calls included in the previous example are referring to the same variable: the static variable n within class CDummy shared by all objects of this class.
+Just as we may include static data within a class, we can also include static functions. They represent the same: they are global functions that are called as if they were object members of a given class. They can only refer to static data, in no case to non-static members of the class. Static member functions cannot access non-static data or functions There is no this pointer for static functions, they exist independent of objects.
+This Keyword:
+The pointer this is defined within any object as being a pointer to the object in which it is contained.  It is a pointer and explicitly defined as:
+class_name   *this;
+And is initialized to point to the object for which the member function is invoked.  this pointer is most useful when working with pointers and especially with a linked list when you need to reference a pointer to the object you are inserting into the list.
+The pointer this is available for this purpose and can be used in any object.  Actually the proper way to refer to any variable within a list is through the use of the predefined pointer this, by writing:
+this?variable_name
+But the compiler assumes this pointer is used, and we can simplify every reference by omitting this pointer.
+If used explicitly, each object can determine its own address by using this keyword.
+this pointer can be used to prevent an object from being assigned to itself.
+The following example demonstrates the use of the this pointer explicitly to enable a member function of class ThiPoint to display the private data c of the ThiPoint object.
+#include <iostream>
+using namespace std;
+ 
+class ThiPoint
+{
+      int c;
+      public:
+          ThiPoint(int);
+          void display();
+};
+ 
+ThiPoint::ThiPoint(int a){ c = a;}  // just a constructor
+ 
+void ThiPoint::display()
+{
+      cout<<"c         = "<<c<<endl;
+      cout<<"this->c   = "<<this->c<<endl;
+      cout<<"(*this).c = "<<(*this).c<<endl;
+}
+ 
+void main(void)
+{
+      ThiPoint b(10);
+       b.display();
+}
+
+Friend functions
+In principle, private and protected members of a class cannot be accessed from outside the same class in which they are declared. However, this rule does not affect friends.
+
+Ø	Friendship granted, not taken
+Ø	Not symmetric 
+Ø	Not transitive 
+
+Friends are functions or classes declared as such.
+If we want to declare an external function as friend of a class, thus allowing this function to have access to the private and protected members of this class, we do it by declaring a prototype of this external function within the class, and preceding it with the keyword friend:
+ 
+// friend functions
+#include <iostream>
+using namespace std;
+
+class CRectangle {
+    int width, height;
+  public:
+    void set_values (int, int);
+    int area () 
+    {
+       return (width * height);
+    }
+    friend CRectangle duplicate (CRectangle);
+};
+
+void CRectangle::set_values (int a, int b) 
+{
+  width = a;
+  height = b;
+}
+
+CRectangle duplicate (CRectangle rectparam)
+{
+  CRectangle rectres;
+  rectres.width = rectparam.width*2;
+  rectres.height = rectparam.height*2;
+  return (rectres);
+}
+
+int main () {
+  CRectangle rect, rectb;
+  rect.set_values (2,3);
+  rectb = duplicate (rect);
+  cout << rectb.area();
+  return 0;
+}
+ 	 
+The duplicate function is a friend of CRectangle. From within that function we have been able to access the members width and height of different objects of type CRectangle, which are private members. Notice that neither in the declaration of duplicate() nor in its later use in main() have we considered duplicate a member of class CRectangle. It isn't! It simply has access to its private and protected members without being a member.
+The friend functions can serve, for example, to conduct operations between two different classes. Generally, the use of friend functions is out of an object-oriented programming methodology, so whenever possible it is better to use members of the same class to perform operations with them. Such as in the previous example, it would have been shorter to integrate duplicate() within the class CRectangle.
+Friend classes
+Just as we have the possibility to define a friend function, we can also define a class as friend of another one, granting that second class access to the protected and private members of the first one.
+ 
+// friend class
+#include <iostream>
+using namespace std;
+
+class CSquare;
+
+class CRectangle {
+    int width, height;
+  public:
+    int area ()
+    {
+       return (width * height);
+    }
+    void convert (CSquare a);
+};
+
+class CSquare {
+  private:
+    int side;
+  public:
+    void set_side (int a)
+      {side=a;}
+    friend class CRectangle;
+};
+
+void CRectangle::convert (CSquare a) {
+  width = a.side;
+  height = a.side;
+}
+  
+int main () {
+  CSquare sqr;
+  CRectangle rect;
+  sqr.set_side(4);
+  rect.convert(sqr);
+  cout << rect.area();
+  return 0;
+}	 
+In this example, we have declared CRectangle as a friend of CSquare so that CRectangle member functions could have access to the protected and private members of CSquare, more concretely to CSquare::side, which describes the side width of the square.
+You may also see something new at the beginning of the program: an empty declaration of class CSquare. This is necessary because within the declaration of CRectangle we refer to CSquare (as a parameter in convert()). The definition of CSquare is included later, so if we did not include a previous empty declaration for CSquare this class would not be visible from within the definition of CRectangle.
+Composition:
+A class is a user defined data type and it can be used inside other classes in the same way
+as native data types are used. Thus we can create classes that contain objects of other
+classes as data members.
+
+When one class contains objects of other classes, it becomes mandatory to understand
+how and in what sequence the contained and containing objects are constructed. An
+important point in construction of an object is that the contained data members of the
+object (regardless whether they are native or user defined data types) are constructed
+before the object itself. The order of destruction of an object is reverse to this
+construction order, where the containing object is destroyed first before the contained
+objects.
+Example:
+#include <iostream.h>
+class A
+{
+public:
+A()
+{
+	cout << "\n A Constructor ...";
+}
+~A()
+{
+	cout << "\n A Destructor ...";
+}
+};
+
+class B
+{
+public:
+B()
+{
+	cout << "\n B Constructor ...";
+}
+~B()
+{
+	cout << "\n B Destructor ...";
+}
+private:
+	A a;
+};
+
+void main()
+{
+	B b;
+}
+
+Advantages of Objects as Class Members
+
+It is a way of reusing the code when we contain objects of our already written classes into
+a new class. For example, Date class can be used as data member of Student, Employee
+or PersonInfo class. In this approach, we don’t have to test our previously written classes
+again and again. We write a class, test it once and add it into our components library to
+use it later.
+It gives clarity and better management to the source code of our programs when we break
+up problems into smaller components. The smaller components can be managed
+independently from their contained objects forming their own classes.
+ 
+Overloading << and >> operators:
+
+- Make << and/or >> friend functions.
+
+- frind ostream& operator << (ostream&, const CComplex&);
+
+ostream& operator <<(ostream & out, const CComplex & cplx)
+{
+	out << cplx.real;
+	out << cplx.img;
+	return out;
+}
+
+
+
+Exercises: 
+
+Note: Do all this on Linux.
+1. Implement the CComplex class again.
+- Make a 'friend' input function.
+- Make a 'friend' output function.
+- Overload the << and >> operators as friends of CComplex.
+- Keep a static counter to keep track of CComplex objects.
+- Implement it in three files (Complex.h, Complex.cpp and Main.cpp)
+
+2. Implement a class CStudent with attributes (name, age, GPA and DOB).
+- Write default and parameterized Constructors.
+- Write the function of display student information BUT outside the class (friend).
+- Overload << and >> operators to input and display CStudent attributes.
+- Keep Track of total number of student objects you have created.
+Implement it in three files (Student.h, Student.cpp and Main.cpp).
+
+

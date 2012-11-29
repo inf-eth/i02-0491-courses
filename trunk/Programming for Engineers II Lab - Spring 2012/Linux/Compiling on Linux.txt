@@ -1,0 +1,20 @@
+1. Text Editor:
+Recommended text editor for Linux is 'kate' although any other editor can be used. kate has built-in terminal for easy compilation and provides tabbed view of opened files. It can also remember your 'sessions'.
+To start kate:
+Right-click on any file > choose 'Open with another application...' > select 'Use a custom command' > type in 'kate'
+
+2. Using 'Makefile'
+Makefile provides instructions on how to build (compile > link) and run your code. It can automate the whole process. Makefile should be in the same directory as your code files.
+Makefile examples are provided. 'Simple' and 'Advanced' Makefiles can be used to understand how a Makefile works.
+It is recommended that you use 'Generic' Makefile for compiling your programs. Just input the names of your cpp files (without .cpp extension) against CPPFILES and mention your desired binary as TARGET.
+
+3. Basic Terminal Commands.
+ls : list directory contents
+pwd : print working directory
+cd <directory name> : go into the specified directory, 'cd ..' goes one directory back
+make: used to build your code assuming you have Makefile and code files in the same directory
+make run: build and run
+make clean: can be used to delete unwanted obj files
+
+- You can use 'tab' to autocomplete any commands. For example, if you need to go into a directory called 'MyCodesFromLastSemester' just type 'cd MyCo' and then press tab to complete the path.
+- 'up arrow' key can be used to recall previous commands.

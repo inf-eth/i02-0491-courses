@@ -1,0 +1,145 @@
+Reference: http://www.cplusplus.com/reference/stl/
+
+Lab 10: STL Containers
+
+A container is a holder object that stores a collection of other objects (its elements). 
+They are implemented as class templates, which allows a great flexibility in the types supported as elements.
+
+The container manages the storage space for its elements and provides member functions to access them,
+either directly or through iterators (reference objects with similar properties to pointers).
+
+Containers replicate structures very commonly used in programming:
+- dynamic arrays (vector)
+- linked lists (list)
+- queues (queue)
+- stacks (stack)
+- heaps (priority_queue)
+- trees (set)
+- associative arrays (map)
+
+Many containers have several member functions in common, and share functionalities.
+The decision of which type of container to use for a specific need does not generally depend only on the
+functionality offered by the container, but also on the efficiency of some of its members (complexity).
+This is especially true for sequence containers, which offer different trade-offs in complexity between
+inserting/removing elements and accessing them.
+
+stack, queue and priority_queue are implemented as container adaptors.
+Container adaptors are not full container classes, but classes that provide a specific interface relying
+on an object of one of the container classes (such as deque or list) to handle the elements.
+The underlying container is encapsulated in such a way that its elements are accessed by the members of the
+container class independently of the underlying container class used.
+
+[This excerpt was taken from cplusplus.com]
+
+Using Vectors:
+- Header:
+  #include <vector>
+  using std::vector;
+
+- Create vector object:
+  vector<int> intvector;
+  vector<myclassname> myclassvector;
+
+- Initialization:
+  intvector.resize (20, 0); // int vector of size 20, all values intialized to 0.
+
+- Get size: Total number of elements in vector.
+  int mysize = intvector.size();
+  cout << intvector.size(); 
+
+- Insertion:
+  Single insertion at back: intvector.push_back (3); // Creates a new integer, NOT the same as assignment. Size increases by one.
+  Single or multiple insertions at a specific location:
+  - intvector.insert (intvector.begin()+1, 1, 33); // Insert 33 at 2nd location.
+  - intvector.insert (intvector.begin(), 3, 1); // Insert 3 1's at the beginning.
+  
+- Access:
+  Operator [] can be used to access entries:
+  - int x = intvector[2]; // NOTE: This is NOT the same as insertion. Size remains same.
+  - intvector[5] = 22;
+
+- Deletion:
+  Delete a single entry: 
+  - myvector.erase (myvector.begin()+i); // Delete ith entry. Size is reduced by one.
+  Delete a range of entries: 
+  - myvector.erase (myvector.begin()+1, myvector.begin()+5); // Delete elements in the range 2-6
+  Delete vector:
+  - myvector.clear ();
+
+Lab 10 Tasks:
+1. Create a dynamic array of integers using vector. Display contents after each step. 2 marks
+   - Insert 10 random numbers.
+   - Display the contents.
+   - Delete first element.
+   - Delete 3rd , 4th and 5th elements.
+   - Insert 2 4's at beginning (index 0).
+   - Insert 4 -1's starting at second last location.
+   - Display final size.
+
+   - Delete vector.
+   - Resize the vector to 20 size initialized to -1's.
+   - Set values randomly. Size remains 20.
+
+2. Create dynamic 2D and 3D arrays using vectors. Bonus Task: 1+2 = 3b marks
+   int rows = 3;
+   int cols = 5;
+   - vector<vector<int>> my2DArray (rows, vector<int>(cols)); // Declaration.
+   - Elements can be accessed using double subscript notation [][] in nested for loops.
+
+3. Student Database: Create a student database using vector as storage.
+   - Make a student entry struct 'StudentEntry' containing roll number, name, age and CGPA. 4+1b = 5 marks
+     struct StudentEntry
+     {
+         string RollNo;
+         string Name;
+         int Age;
+         float CGPA;
+     };
+   - To use string class:
+     #include <iostream>
+     #include <string>
+     using std::cin;
+     using std::cout;
+     using std::string;
+
+     string teststring;
+     getline (cin, teststring, '\n');
+     cout << temp;
+
+     NOTE1: <iostream.h> "DOT h" does NOT work with string class.
+     NOTE2: <string.h> "DOT h" is NOT the same as <string>.
+            <string.h> = <cstring>
+            <string.h> != <string>
+
+   - Create a student database class CStudentDatabase. This class contains a vector of StudentEntry.
+   - Provide functions to:
+     - Add a student record. Check for duplication. Two students cannot have same roll number.
+     - Display record of all students.
+     - Search and display record of a particular student by roll number.
+     - Search and delete student record by roll number.
+     - Search and display all students having a particular CGPA threshold. For example display all students with CGPA less than 2.
+     - Write/export the database to a txt file.
+     - Read/import the database from a txt file. Bonus Task: 1b mark.
+
+Helpful Resources:
+- If string input is being skipped, use the following before getline() statement.
+  if (cin.peek() == '\n')
+      cin.ignore();
+  getline (cin, stringname, '\n');
+
+- getline() can be used to read from a txt file line by line.
+  fstream file("abc.txt", ios::in);
+  while (true)
+  {
+      getline(file, tempstring, '\n');
+      if (file.eof())
+          break;
+      cout << "Read: " << tempstring << endl;
+  }
+  file.close();
+
+- To access the char* in string use stringname.c_str();
+  fstream file("abc.txt", ios::out);
+  string message = "this is a mesage. Writing this to file.";
+  file << message.c_str() << endl;
+  file.close();
