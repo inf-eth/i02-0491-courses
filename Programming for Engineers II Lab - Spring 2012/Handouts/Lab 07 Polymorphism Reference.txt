@@ -1,0 +1,201 @@
+Polymorphism:
+
+Virtual means existing in appearance but not in reality. When virtual functions are used, a program that appears to be calling a function of one class may in reality be calling a function of different class.
+
+The Purpose of Virtual Functions:
+
+In order to understand the objective of virtual functions, please consider the following assumption. Suppose we have three different classes called line, circle and triangle. Each class contains a draw() function to draw the relevant shape on the screen. If we want to draw a picture containing numerous lines, circles and triangles we can create an array of pointers which would hold addresses of all the objects in the picture. The array definition may look like this.
+
+Shape *arr[50];
+
+When its time to draw the picture we simply run the loop.
+
+For(I=0; I<50;I++)
+Arr[I] -> draw();
+
+How it Works:
+
+When arr[i] contains the address of the line object it would call the line::draw() function. Similarly when it contains the address of the circle object it would call the circle::draw() function this is amazing for two reasons:
+
+1.	Functions from different classes are executed through the same function call.
+2.	The arr[] has been defined to contain shape pointers and not line or circle pointers.
+
+This concept is called polymorphism. The functions have the same appearance, the draw() function, but different actual functions are used. which draw () function would get used depends on he contents of arr[I]. However for this polymorphic approach to work, several conditions must be met:
+
+1.	The classes line, circle and triangle all must be derived from the same base class shape.
+2.	The shape class must contain a draw() function which has been declared virtual.
+
+Before going into further details of polymorphism, read the following program.
+
+#include<iostream.h>
+class one
+	{
+	
+	
+public:
+		void display ()
+		{
+		
+			cout<<”In the base class”;
+}
+	};
+class Two : public one
+	{
+
+		Public:
+		void display ()
+		{
+		
+			cout<<”In  class Two”;
+}
+	
+	};
+
+
+class Three : public one
+	{
+
+		Public:
+		void display ()
+		{
+		
+			cout<<”In  class Three”;
+}
+	
+	};
+
+void main()
+{
+one *ptr;
+Two two;
+Three three;
+
+Ptr = &two;
+Ptr->display();
+
+Ptr = &three;
+Ptr->display();
+}
+
+Here class Two and class Three are derived from class one which is the base class. Each one of these classes a member function display(). In main, the objects of the two derived classes and a pointer to the base class is created.
+
+
+
+The Draw Back In The Above Program:
+
+In order to invoke the member functions in each class we have to give an explicit call. This is not what we wanted. We need to have certain mechanics through which we can call base class. When we execute the statement: Ptr->display(), the function in the base class gets called instead of the derived classes. For invoking the derived class display function we have to issue a separate call. This is absolutely against , what we said in the beginning; accessing functions of different classes using the same function call.
+
+How This Objective Can be Achieved:
+
+Accessing functions of different classes by using the same function call can be achieved by introducing a small change in the above mentioned example program. The change, then would look like as:
+
+Class One 
+	{
+
+		public:
+			virtual void display()
+				{
+					cout<<” This is the base class”;
+}
+};
+
+
+Two more things are responsible for successful execution of the above mentioned format.  
+Please try to find out the relation of the following two points with the concept of polymorphism.
+
+1.	Type of the pointer
+2.	Contents of The Pointer.
+
+A Challenging Question:
+
+How does the compiler know which function to compile, when it doesn’t know which object’s address ptr may contain .it  could be the address of an object of the class Two or of the class Three (Consider the example program) does the compiler call ?
+
+The answer is very simple: The compiler defers the decision until the program is running. At run time when it is known what object is pointed to by the ptr, the appropriate version of the ptr gets called. This is what which is termed as late binding or dynamic binding.
+
+
+Pure Virtual Function:
+
+When a virtual function is set equivalent to zero, then it is termed as ‘Pure Virtual Function’. Its syntax would look like as follows:
+
+
+
+Class base
+	{
+		public:
+			virtual void display() = 0;
+	};
+
+please note that the above statement doesn’t mean that we are trying to assign a zero value to the above mentioned function. This is simply the signature. Second important thing to remember is: a pure virtual function do not have any body.
+
+It’s possible to provide a definition for a pure virtual function in the base class. You’re still telling the compiler not to allow objects of that abstract base class, and the pure virtual functions must still be defined in derived classes in order to create objects. However, there may be a common piece of code that you want some or all of the derived class definitions to call rather than duplicating that code in every function. Here’s what a pure virtual definition looks like:
+
+// Pure virtual base definitions
+#include <iostream>
+
+class Pet {
+public:
+virtual void speak() const = 0;
+virtual void eat() const = 0;
+// Inline pure virtual definitions illegal:
+//! virtual void sleep() const = 0 {}
+};
+
+// OK, not defined inline
+void Pet::eat() const {
+
+cout << "Pet::eat()" << endl;
+
+}
+
+void Pet::speak() const {
+
+cout << "Pet::speak()" << endl;
+}
+
+class Dog : public Pet {
+
+public:
+// Use the common Pet code:
+void speak() const { Pet::speak(); }
+void eat() const { Pet::eat(); }
+
+
+};
+int main() {
+Dog simba; // Richard's dog
+simba.speak();
+simba.eat();
+} ///:~
+
+The benefit to this feature is that it allows you to change from an ordinary virtual to a pure virtual without disturbing the existing code. (This is a way for you to locate classes that don’t override that virtual function.)
+
+Abstract Base Class: 
+ 
+A class from which we never want to create objects is called an abstract class. Such a class exists as parent for the derived classes. We can prevent the user of the abstract class from creating its objects in two ways:
+
+1.	Either he should be requested: for not creating the object of certain class. This request can be made in project’s documentation.
+2.	By placing at least one pure virtual function in the base class.
+
+Precaution: 
+
+Whenever a pure virtual function is placed in the base class, you must override it in all the derived classes from which you wish to create objects. If you don’t do this in the derived class then the derived class becomes an abstract class.
+
+Abstract Base Classes and pure Virtual Functions:
+
+Often in a design, you want the base class to present only an interface for its derived classes. That is, you don’t want anyone to actually create an object of the base class, only to upcast to it so that its interface can be used. This is accomplished by making that class abstract, which happens if you give it at least one pure virtual function. You can recognize a pure virtual function because it uses the virtual keyword and is followed by = 0. If anyone tries to make an object of an abstract class, the compiler prevents them. This is a tool that allows you to enforce a particular design. When an abstract class is inherited, all pure virtual functions must be implemented, or the inherited class becomes abstract as well. Creating a pure virtual function allows you to put a member function in an interface without being forced to provide a possibly meaningless body of code for that member function. At the same time, a pure virtual function forces inherited classes to provide a definition for it. In all of the instrument examples, the functions in the base class Instrument were always “dummy” functions. If these functions are ever called, something is wrong. That’s because the intent of Instrument is to create a common interface for all of the classes derived from it.
+
+				 
+
+The only reason to establish the common interface is so it can be expressed differently for each different subtype. It creates a basic form that determines what’s in common with all of the derived classes – nothing else. So Instrument is an appropriate candidate to be an abstract class. You create an abstract class when you only want to manipulate a set of classes through a common interface, but the common interface doesn’t need to have an implementation (or at least, a full implementation). If you have a concept like Instrument that works as an abstract class, objects of that class almost always have no meaning. That is, Instrument is meant to express only the interface, and not a particular implementation, so creating an object that is only an Instrument makes no sense, and you’ll probably want to prevent the user from doing it. This can be accomplished by making all the virtual functions in Instrument print error messages, but that delays the appearance of the error information until runtime and it requires reliable exhaustive testing on the part of the user. It is much better to catch the problem at compile time. Here is the syntax used for a pure virtual declaration:
+
+virtual void f() = 0;
+
+By doing this, you tell the compiler to reserve a slot for a function in the VTABLE, but not to put an address in that particular slot. Even if only one function in a class is declared as pure virtual, the VTABLE is incomplete. If the VTABLE for a class is incomplete, what is the compiler supposed to do when someone tries to make an object of that class? It cannot safely create an object of an abstract class, so you get an error message from the compiler. Thus, the compiler guarantees the purity of the abstract class. By making a class abstract, you ensure that the client programmer cannot misuse it. 
+
+Pure virtual functions are helpful because they make explicit the abstractness of a class and tell both the user and the compiler how it was intended to be used. Note that pure virtual functions prevent an abstract class from being passed into a function by value. Thus, it is also a way to prevent object slicing (which is issue of next lab). By making a class abstract, you can ensure that a pointer or reference is always used during upcasting to that class. Just because one pure virtual function prevents the VTABLE from being completed doesn’t mean that you don’t want function bodies for some of the others. Often you will want to call a base-class version of a function, even if it is virtual. It’s always a good idea to put common code as close as possible to the root of your hierarchy. Not only does this save code space, it allows easy propagation of changes.
+
+
+
+
+
+

@@ -1,0 +1,113 @@
+Assignment and Copy Initialization
+
+The C++ compiler is always busy on your behalf, doing things you can’t be bothered to do. If you take
+charge, it will defer to your judgment; otherwise it will do things its own way. Two important examples of
+this process are the assignment operator and the copy constructor.
+
+You’ve used the assignment operator many times, probably without thinking too much about it. Suppose a1
+and a2 are objects. Unless you tell the compiler otherwise, the statement
+a2 = a1; // set a2 to the value of a1
+will cause the compiler to copy the data from a1, member by member, into a2. This is the default action of
+the assignment operator, =.
+
+You’re also familiar with initializing variables. Initializing an object with another object, as in
+alpha a2(a1); // initialize a2 to the value of a1
+causes a similar action. The compiler creates a new object, a2, and copies the data from a1, member by
+member, into a2. This is the default action of the copy constructor.
+
+Both these default activities are provided, free of charge, by the compiler. If member-by-member copying
+is what you want, you need take no further action. However, if you want assignment or initialization to do
+something more complex, then you can override the default functions. We’ll discuss the techniques for
+overloading the assignment operator and the copy constructor separately, and then put them together in an
+example that gives a String class a more efficient way to manage memory.
+
+Overloading the Assignment Operator
+
+Let’s look at a short example that demonstrates the technique of overloading the assignment operator.
+
+Here’s the listing for assign:
+// assign.cpp
+// overloads assignment operator (=)
+#include <iostream>
+using namespace std;
+////////////////////////////////////////////////////////////////
+class alpha
+{
+	private:
+	int data;
+	public:
+	alpha() //no-arg constructor
+	{ }
+	alpha(int d) //one-arg constructor
+	{ data = d; }
+	void display() //display data
+	{ cout << data; }
+	alpha operator = (alpha& a) //overloaded = operator
+	{
+		data = a.data; //not done automatically
+		cout << “\nAssignment operator invoked”;
+		return alpha(data); //return copy of this alpha
+	}
+};
+////////////////////////////////////////////////////////////////
+int main()
+{
+	alpha a1(37);
+	alpha a2;
+	a2 = a1; //invoke overloaded =
+	cout << “\na2=”; a2.display(); //display a2
+	alpha a3 = a2; //does NOT invoke =
+	cout << “\na3=”; a3.display(); //display a3
+	cout << endl;
+	return 0;
+}
+
+The alpha class is very simple; it contains only one data member. Constructors initialize the data, and a
+member function can print out its value. The new aspect of ASSIGN is the function operator=(), which
+overloads the = operator.
+
+In main(), we define a1 and give it the value 37, and define a2 but give it no value. Then we use the
+assignment operator to set a2 to the value of a1:
+a2 = a1; // assignment statement
+
+This causes our overloaded operator=() function to be invoked. Here’s the output from ASSIGN:
+Assignment operator invoked
+a2=37
+a3=37
+
+Initialization Is Not Assignment
+
+In the last two lines of ASSIGN we initialize the object a3 to the value a2, and display it. Don’t be confused
+by the syntax here. The equal sign in
+alpha a3 = a2; // copy initialization, not an assignment
+is not an assignment but an initialization, with the same effect as
+alpha a3(a2); // alternative form of copy initialization
+
+This is why the assignment operator is executed only once, as shown by the single invocation of the line
+Assignment operator invoked in the output of ASSIGN.
+
+Lab 07 Exercise.
+
+Make a car class (CCar?).
+- This is only a skeleton for a real car (virtual). It will server as base class for all kinds of cars.
+- Think of everything you can do with a car, e.g. brake(), accelerate(), getspeed(), changegear(1/2/3/4/5/R), pullwindows(up/down), hitatree() etc.
+  - Which functions should be virtual?
+  - Which functions should be pure virtual, if any?
+- What kind of car is it?
+  - Domestic, sports, formula1?
+    - What can you derive from a domestic car?
+    - 4x4 Jeep/pickup or family car?
+    - Honda, Toyota, Suzuki?
+- Think of all the objects in a car:
+  - An engine (CEngine?). Base class?
+    - Automatic and manual transmission.
+    - Number of gears 4, 5, 6, 7?
+    - Fuel type: petrol, diesel, CNG
+  - Tyres (CTyre?). Base class?
+    - Soft/hard/rain tyres.
+	- Brand
+	- Rims
+
+This is only a general picture of what you need to do.
+Essentially you must use all the OOP concepts you've learned so far and apply them to design and implement car.
+Requirements: Inheritance, polymorphism, virtual functions, at least one pure virtual class, this pointer, at least one dynamic member, copy constructor and assignment operator.

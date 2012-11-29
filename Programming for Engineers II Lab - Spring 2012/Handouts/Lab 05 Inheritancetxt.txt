@@ -1,0 +1,183 @@
+OBJECT ORIENTED PROGRAMMING
+LAB 06
+INHERITANCE
+
+
+Inheritance
+
+
+Inheritance is the way for building new classes from existing classes. This is one of the strongest features of OOP.  It is mainly because of this feature, we can claim that we can reuse the existing code. Now the question arises that how we can reuse code? The answer is very simple. Suppose we have two classes which are named as class A and class B. We also suppose that class A is the parent class and class B is the child or inherited class. Further suppose that the parent class carries four methods, one for setting name, one for displaying name, one for setting DOB and one for displaying DOB. Now coming towards child class we are supposing that it owns two method, one for setting registration number and the other for displaying the registration number. According to the doctrine of inheritance we can say with full confidence that without mentioning the child class, which in this case is class B, by default contains the public methods of the parent class, which in our case is class A. So according to this feature, it can be safely concluded that class B contains six methods.   
+
+Two terms are strongly related with the concept of inheritance:
+
+·	Base Class
+·	Derived Class
+
+The class from which we build new class would be termed as base class and the new class would be termed as derived class. Now: in object oriented design (OOD) the base class is referred as super class and the derived class is called as subclass.
+
+Caution: Any class can be a base class in the derivation. Base classes have no special code features.
+
+A derived class contains all the member and functions of a base class. The derived class can add new member variables and new member functions. The additional functions are often called incremental function and additional data is often called incremental data.
+
+From coding perspective the primary benefit of derivation is:
+
+·	Higher level of code modularization and localization. 
+·	Code is easier to maintain and modify. 
+·	Instead of duplicating the variables and code of a base class when building a derived class, the derived class incorporates the existing code of the base class.
+
+What is the proper time for the application of inheritance:
+
+When ‘IS – A’ relationship is developed between two classes: for example if ‘machine’ is the base class and the derived class is ‘computer’ then we can say that computer ‘IS – A’ machine. Similarly if shape is the super class and ‘Square’ is the subclass then we are comfortable in saying that square ‘IS – A’ a shape. IS-A is inheritance. In this relationship an object of the derived class may also be treated as object of the base class.
+
+In the above examples machine and shape are the base classes whereas, computer and square are the derived classes.
+
+
+Type of Inheritance:
+
+C++ provides three types of inheritance:
+
+·	Public
+·	Private 
+·	Protected 
+
+With public inheritance, every object of a derived class may also be treated as an object of that derived class’s base class.
+
+With protected inheritance, derived classes and their friends can access protected base class members, whereas non friends non derived class member may cannot.
+
+Caution: A derived class cannot access the private members of its base class. A derived class can, however, access the public and protected members of its base class. Base  class members that should not be accessible to a derived class through inheritance are declared private in the base class. A derived class can access private members of the base class only through access functions provided in the base class public and protected interfaces.
+
+
+
+
+Syntax:
+
+
+For learning the syntax for inheritance please consider the following diagram.
+	
+
+				CommunityMember
+
+
+
+
+
+Employee				Student				Alumnus 
+
+
+
+
+Faculty		Staff
+
+
+
+
+Administrator	Teacher
+
+The above diagram reflects the following points:
+
+·	Community Member is the base class
+·	Employee, student and Alumnus are derived classes.
+·	Employee is the base class for Faculty and Staff. And faculty and staff are derived classes for employee.
+·	Similarly, faculty is the base class for classes administrator and teacher. And administrator and teacher are the derived classes for faculty.
+
+Class faculty : public employee
+	{
+	……
+	……
+	};
+
+This is called public inheritance and is most commonly used type of inheritance.
+
+
+
+Example Program:
+
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+
+class	cBox
+{
+	private:
+		double m_Length;
+		double m_Breadth;
+		double m_Height;
+public:
+		cBox(double lv=1.0, double bv=1.0, double hv=1.0) : 
+
+m_Length(lv), m_Breadth(bv), m_Height(hv)	{}
+
+double Volume() const
+{	
+
+return m_Length * m_Breadth * m_Height;
+}
+};
+
+class cCandyBox  : public cBox
+	{
+	 public:
+		char * m_Contents;
+		cCandyBox(char * str = “Candy”)
+			{
+
+	m_Contents = new char[strlen(str) + 1];
+	strcpy(m_Contents,str);
+}	
+		~cCandyBox()
+			{
+delete[] m_Contents;
+}
+
+};
+int main()
+	{
+
+cBox 		myBox(4.0,3.0,2.0);
+cCandyBox	myCandyBox;
+cCandyBox	myMintBox(“Wafer Thin Mints”);
+
+cout	<<endl
+	<<”myBox occupies” <<sizeof	myBox
+	<<”bytes”<<endl
+	<<”myCandyBox occupies” <<sizeof	myCandyBox
+	<<”bytes”<<endl
+	<<”myMintBox occupies” <<sizeof	myMintBox
+	<<”bytes”; 
+
+cout	<<endl
+	<<”myMintBox Volume is”	<<myMintBox.Volume();
+
+
+}
+
+
+Please note that in the main function of the above program we have invoked the volume function. This function is written in the base class, so the derived class has full access over this function.
+
+
+Exercises:
+
+1.	Develop a class named person which can perform the following functionality:
+
+a.	can set date of birth
+b.	can print name
+c.	can print nationality
+d.	print date of birth.
+
+Now inherit a class named student from the class person, that can perform the above listed task and in addition, the new class should also perform the following functions.
+
+a.	Can set his date of graduation
+b.	Can display his date of graduation
+c.	Can set his GPA
+d.	Can display his GPA.
+      
+2.	Develop a class named shape, which can perform the following functions:
+
+a.	Can set the name of shape, i.e. Square, Rectangle, Triangle etc.
+b.	Can display the name of shape
+
+Now inherit three classes from the base class shape: Square, Rectangle and Triangle. All these classes can perform the following tasks:
+
+a.	Can find the area of Square, Rectangle and Triangle 
+b.	Can display the area of square, Rectangle and Triangle
+

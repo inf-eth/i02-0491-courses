@@ -1,0 +1,39 @@
+Base marks for lab work = 7 marks
+
+Complete one or more from the following to earn extra marks for a maximum of 10 marks
+- Complete all lab task(s) within 1 minute = 3 marks
+- Complete all lab tasks(s) within 15 minutes = 2 marks
+- Complete all lab tasks(s) within 30 minutes = 1 mark
+- Help at least one student with his/her errors = 1 mark
+- Help at least three students with their errors = 2 marks
+- Proper indentation and commenting = 1 mark
+- Error checking and input prompts (user friendliness) = 1 mark
+- Following naming conventions [1] and good programming practices [2] = 2 marks
+- Implement something new [3] and creative = 2 marks
+- Complete the task using Linux only = 2 mark
+- Automate build process on Linux using a Makefile with build (compile + link), run and clean options = 1 mark
+- Hack into neon, slate or Pentagon using a Linux terminal = 3 marks
+
+[1] Naming convention for classes is to place a capital 'C' before every class name, e.g. CComplex or CStudent. Header and implementation files should be named without the preceding 'C', e.g. Complex.h and Complex.cpp respectively.
+[2] Using standard headers is example of good programming practice. Error checking is another. For example, consider the following:
+
+1. Nonstandard header.
+
+    #include <iostream.h>
+
+
+2. Standard header but std namespace is made global violating OOP principles.
+
+    #include <iostream>
+    using namespace std;
+
+
+3. Proper.
+
+    #include <iostream>
+    using std::cin;
+    using std::cout;
+
+
+First is not a good programming practice as iostream.h is not a standard C++ header file. Compared to second, third is better because it only uses the functions being used in the program rather than making the whole std namespace global.
+[3] 'new' is defined as something never-before-seen-or-heard.
