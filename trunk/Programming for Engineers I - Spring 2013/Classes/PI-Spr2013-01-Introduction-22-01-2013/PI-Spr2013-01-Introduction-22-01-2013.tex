@@ -1,0 +1,102 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 01\\Introduction}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{About the Course}
+\textbf{Course Title:} Programming for Engineers I\\
+\textbf{Instructor:} Attique Dawood\\
+\textbf{Contact:} attique DOT dawood AT nu DOT edu DOT pk\\
+\textbf{Text Book:} C++ How to Program by Deitel \& Deitel\\
+\textbf{Reference Book:} Object Oriented Programming in C++ by Robert Lafore\\
+\section{Guidelines}
+\begin{itemize}
+\item \textbf{\underline{Your goal is to do all assignments (including lab work) by yourself.}}
+\item Do read the book. It is very helpful.
+\item You will only learn with practice.
+\end{itemize}
+\section{Course Progression}
+\begin{itemize}
+\item Two sessionals and a final.
+\item Assignments carry significant weight.
+\item Quizzes will be announced.
+\end{itemize}
+\section{C and C++}
+\begin{itemize}
+\item This course is where you learn \textbf{basics of programming}.
+\item You will have to un--learn some concepts if re--taking this course.
+\item We will be following ANSI standards and exclusively using C++.
+\end{itemize}
+\section{A Simple C++ Program}
+\begin{lstlisting}[caption={A Basic C++ Program}]
+#include <iostream> // Input/output stream library.
+int main()
+{
+	std::cout << "Hello world" << std::endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Standard C++ header files do not have .h extensions.
+\item The format specifiers can be used in \verb|cout| directives (\verb|\r, \n, \t| etc.).
+\end{itemize}
+\section{Namespaces}
+\begin{itemize}
+\item The functions (or objects) in C++ headers are enclosed in namespaces for modularity.
+\item \texttt{std} is a standard namespace.
+\item The namespace functions or entire namespace can be `included' for easier access.
+\end{itemize}
+\begin{lstlisting}[caption={The `using' Directive}]
+#include <iostream> // Input/output stream library.
+using std::cout;
+using std::endl;
+int main()
+{
+	cout << "Hello world" << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Including a Namespace}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	cout << "Hello world" << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{How Namespaces Work?}
+A very good tutorial is available at \url{http://www.cplusplus.com/doc/tutorial/namespaces/}
+\end{document}
