@@ -58,7 +58,7 @@
 		\rule{0pt}{2.6ex} & \textbf{Type of Assessment} & \textbf{Marks}\\
 		\hline
 		1 \rule{0pt}{2.6ex} & Quizzes & 10\\
-		2 & Assignment& 30\\
+		2 & Assignments& 20\\
 		3 & Sessional I & 10\\
 		4 & Sessional II & 10\\
 		5 & Final Exam & 50\\
@@ -117,4 +117,19 @@ int main()
 \end{lstlisting}
 \section{How Namespaces Work?}
 A very good tutorial is available at \url{http://www.cplusplus.com/doc/tutorial/namespaces/}
+\section{A Simple CGPA Calclator}
+\begin{lstlisting}[caption={CGPA Calculator}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	float C1, C2, C3, C4, C5, CGPA;		// Variable declaration.
+	cout << "Enter course grades: ";	// Message to input grades.
+	cin >> C1 >> C2 >> C3 >> C4 >> C5;	// Input.
+	CGPA = (C1+C2+C3+C4+C5)/5;			// CGPA calculation.
+	cout << "CGA is " << CGPA << endl;	// Displaying CGPA.
+	
+	return 0;
+}
+\end{lstlisting}
 \end{document}
