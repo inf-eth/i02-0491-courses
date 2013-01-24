@@ -1,0 +1,88 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 02\\Compilation Steps}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{How Computers Work?}
+\begin{itemize}
+\item Different components; CPU, Memory (RAM), hard disk, I/O devices.
+\item CPU is the brain of the computer.
+\item The purpose of using a computer is to make things easier for us.
+\item Need to know how to make a computer work efficiently.
+\item CPU only understands binary. Example of CPU doing an addition.
+\item CPU instruction is a binary stream with opcode and operands.
+\end{itemize}
+\section{Programming Languages}
+\begin{itemize}
+\item The simplest way to make CPU do something is to directly give it binary input.
+\item In older systems this was the case but it was tedious.
+\item Assembly language was invented that could translate symbolic directives into binary.
+\item C/C++ is a higher level language than assembly and there are still higher level languages like Visual Basic.
+\end{itemize}
+\section{Steps in Compilation of a C/C++ Program}
+\begin{enumerate}
+\item Write/modify code. (.cpp file)
+\item Pre--process.
+\item Compile. (.obj file)
+\item Link. (.exe file)
+\item Execute.
+\item Errors? (Go to step 1).
+\end{enumerate}
+\section{Who is a Good Programmer?}
+\begin{itemize}
+\item Someone with a creative mind.
+\item Can come up with different ways to do the same thing.
+\item Can think of improvements.
+\item \textit{``Can perform a heart by--pass surgery with house--hold items!''}
+\end{itemize}
+\section{How to Become a Good Programmer?}
+\begin{itemize}
+\item Take an interest. Can't be good at something you hate doing.
+\item Practice.
+\item Get to know the ins and outs.
+\end{itemize}
+\section{A Simple CGPA Calclator}
+\begin{lstlisting}[caption={CGPA Calculator}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	float C1, C2, C3, C4, C5, CGPA;		// Variable declaration.
+	cout << "Enter course grades: ";	// Message to input grades.
+	cin >> C1 >> C2 >> C3 >> C4 >> C5;	// Input.
+	CGPA = (C1+C2+C3+C4+C5)/5;			// CGPA calculation.
+	cout << "CGA is " << CGPA << endl;	// Displaying CGPA.
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
