@@ -278,7 +278,7 @@ int main()
 	return 0;
 }
 \end{lstlisting}
-\section{\texttt{class}}
+\section{\texttt{class} Definition in C++}
 \begin{lstlisting}[caption={\texttt{class} definition}]
 class classname
 {
@@ -288,8 +288,15 @@ class classname
 	// Data and/or functions used to interact with or manipulate the object by outside world.	
 };
 \end{lstlisting}
+\section{Classes and Objects}
+\begin{itemize}
+\item class is abstract, object is physical. Think common noun and proper noun.
+\item Objects are physical manifestation of class.
+\item Person is a class; a particular person like Stephen Hawking would be object of that class.
+\item Similarly complex is a class whereas a particular complex number $2-j21$ is an object.
+\item In C++, class is a datatype. Variables of that data type are called objects.
+\end{itemize}
 \section{Object--Oriented Approach}
-\textbf{Complex number and related functions make up object.}
 \begin{lstlisting}[caption={Object--oriented approach to add complex numbers}]
 #include <iostream>
 using std::cin;
@@ -309,6 +316,9 @@ class complex
 	complex DivideBy(complex);
 };
 
+// Class functions can be defined inside or outside the class.
+// Here, functions are defined outside the class.
+// Notice the `::' operator.
 void complex::Input()
 {
 	cout << "Enter complex number: ";
@@ -333,7 +343,7 @@ complex complex::Add(complex c)
 int main()
 {
 	// First complex number.
-	complex complex1;
+	complex complex1;	// complex1 is an object of complex class.
 	// Second complex number.
 	complex complex2;
 	// Resultant complex number.
@@ -356,7 +366,7 @@ int main()
 \end{lstlisting}
 \begin{itemize}
 \item What if we're dealing with matrices?
-\item Function names won't change. Only functionality. User not concerned with how things are done. He only asks objects to do his/her bidding.
+\item Function names won't change. Only functionality. User not concerned with how things are done. He/she only asks objects to do his or her bidding.
 \end{itemize}
 \nocite{*}
 \bibliographystyle{plain}
