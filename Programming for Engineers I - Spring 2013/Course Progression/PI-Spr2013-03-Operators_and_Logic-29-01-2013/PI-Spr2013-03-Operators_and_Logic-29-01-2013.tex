@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 03\\Computing Concepts: Operators and Logic}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item To become a good programmer take interest. Intelligence helps but practice can make up for that to a certain extent.
+\item Programming languages: assembly, C, C++, Java, C\#, scripting languages like Visual Basic, python etc.
+\item Programming cycle: Code, pre--process, compile, link, debug.
+\item Basic working of a computer. I/O devices, CPU, RAM, ROM.
+\end{itemize}
+\section{Operators}
+\begin{itemize}
+\item There are mathematical operators and logic operators.
+\item Math operators are +, -, *, /, \%. Operator precedence?
+\item Basic logic operations are NOT, AND, OR, XOR.
+\item The logic operators in C/C++ are \verb|!| for NOT, \verb|&| for AND, \verb@|@ for OR and \verb|^| for XOR.
+\item Shift operators \verb|<<| and \verb|>>|.
+\end{itemize}
+\section{Exercise: Using \% to Separate Digits of a Number}
+\begin{enumerate}
+\item Take a number, let's say 432.
+\item Take mod ($432 \% 10$) and you get 2.
+\item Divide this by 10 and you get 43.
+\item Take mod again and you get 3.
+\item Divide again by 10 and you get 4.
+\item Taking mod again will give 4.
+\end{enumerate}
+\section{Truth Table for Logic Gates}
+\begin{itemize}
+\item 4 bit binary numbers.
+\item Logic operations between binary numbers.
+\end{itemize}
+\section{Shift Operations}
+\begin{itemize}
+\item Right shift is integer division by base.
+\item Left shift is multiplication by base.
+\end{itemize}
+\end{document}
