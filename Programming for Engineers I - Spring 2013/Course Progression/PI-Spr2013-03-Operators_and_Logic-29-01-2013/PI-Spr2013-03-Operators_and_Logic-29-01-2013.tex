@@ -42,10 +42,15 @@
 \section{Operators}
 \begin{itemize}
 \item There are mathematical operators and logic operators.
-\item Math operators are +, -, *, /, \%. Operator precedence?
+\item Math or arithmetic operators are +, -, *, /, \%. Operator precedence?
 \item Basic logic operations are NOT, AND, OR, XOR.
-\item The logic operators in C/C++ are \verb|!| for NOT, \verb|&| for AND, \verb@|@ for OR and \verb|^| for XOR.
-\item Shift operators \verb|<<| and \verb|>>|.
+\item In C/C++ there are two types of logic operations: bitwise and logical statements.
+\item The bitwise logic operators are \verb|~| for NOT, \verb|&| for AND, \verb@|@ for OR and \verb|^| for XOR. These operate on individual bits of variable(s).
+\item The logic operators for evaluating statements are \verb|!| for NOT, \verb|&&| for AND and \verb@||@ for OR. Logical operators can operate on logical statements.
+\item The operators \verb|<<| and \verb|>>| have different uses depending on context.
+\item As stream operator used with \verb|cin| and \verb|cout| for input/output.
+\item As shift operators, \verb|<<| and \verb|>>| operate on individual bits of a variable. For example, \verb|x<<2| which means bits of variable \verb|x| left--shifted by 2.
+
 \end{itemize}
 \section{Exercise: Using \% to Separate Digits of a Number}
 \begin{enumerate}
