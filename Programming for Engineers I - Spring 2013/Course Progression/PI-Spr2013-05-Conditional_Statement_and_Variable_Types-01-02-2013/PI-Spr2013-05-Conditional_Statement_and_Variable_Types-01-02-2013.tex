@@ -1,0 +1,181 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 05\\Conditional Statements and Basic Variable Types}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item There are mathematical operators and logic operators.
+\item Math or arithmetic operators are +, -, *, /, \%. Operator precedence?
+\item Basic logic operations are NOT, AND, OR, XOR.
+\item In C/C++ there are two types of logic operations: bitwise and logical statements.
+\item The bitwise logic operators are \verb|~| for NOT, \verb|&| for AND, \verb@|@ for OR and \verb|^| for XOR. These operate on individual bits of variable(s).
+\item The logic operators for evaluating statements are \verb|!| for NOT, \verb|&&| for AND and \verb@||@ for OR. Logical operators can operate on logical statements.
+\item The operators \verb|<<| and \verb|>>| have different uses depending on context.
+\item As stream operator used with \verb|cin| and \verb|cout| for input/output.
+\item As shift operators, \verb|<<| and \verb|>>| operate on individual bits of a variable. For example, \verb|x<<2| which means bits of variable \verb|x| left--shifted by 2.
+\end{itemize}
+\section{Comparison Operators}
+The comparison operators can be used to compare two values. The values can also be variables.  For example, \verb|x == y|. This should be read as \textit{Is x equal to y?} Most commonly used operators are:
+\begin{itemize}
+\item \verb|==| (equals?)
+\item \verb|!=| (not equals?)
+\item \verb|>| (greater than?)
+\item \verb|<| (less than?)
+\item \verb|>=| (equals or greater than?)
+\item \verb|<=| (equals or less than?)
+\end{itemize}
+
+\section{Conditional Statements}
+The syntax for conditional statement is,
+\begin{lstlisting}
+if (condition...)
+{
+    do this if condition is true...
+}
+else
+{
+    do this if condition is false...
+}
+\end{lstlisting}
+If the condition is evaluated to be 0 then it is false. If condition is non--zero it is true.
+Operators in previous section are useful for testing a certain condition. For example,
+\begin{lstlisting}
+int x = 2;
+int y = 4;
+if (x == y)
+{
+    cout << "x is equal to y" << endl;
+}
+else
+{
+   cout << "x is not equal to y" endl;
+}
+\end{lstlisting}
+In this case the output will be \verb|x is not equal to y|. The \verb|else| part is not mandatory and an \verb|if| statement can be used standalone. For example,
+\begin{lstlisting}
+int x;
+cin >> x;
+if (x > 0)
+{
+    cout << "You have entered a positive number" << endl;
+}
+\end{lstlisting}
+\section{Common Variable Types}
+\begin{table}[htb]
+\centering
+	\begin{tabular}{l c l}
+	\hline \hline \\ [-2ex]
+	Variable Type & Width(bits) & Range\\
+	\hline \\ [-2ex]
+	bool\footnotemark[1]~ & 1  & value is 0 or 1\\
+	char               & 8  & -128 to 127\\
+	unsigned char      & 8  & 0 to 256\\
+	short int          & 16 & -32,768 to 32,767\\
+	unsigned short int & 16 & 0 to 65,535\\
+	int                & 32 & -2,147,483,648 to 2,147,483,647\\
+	unsigned int       & 32 & 0 to 4,294,967,295\\
+	long int           & 32 & -2,147,483,648 to 2,147,483,647\\
+	unsigned long int  & 32 & 0 to 4,294,967,295\\
+	float              & 32 & 3.4e-38 to 3.4e+38\\
+	double             & 64 & 1.7e-308 to 1.7e+308\\
+	long double        & 80 & 3.4e-4932 to 3.4e+4932\\
+	\hline \hline
+	\end{tabular}
+\caption{Variable types with their width in bits and range of values.}
+\label{Datatypes and Ranges}
+\end{table}
+\section{Signed and Unsigned Integers}
+It is imperative that you feel comfortable with binary and hexadecimal conversion. Following sections cover a few basic concepts.
+
+\subsection{Binary and Hexadecimal Conversion}
+Conversion between binary and hexadecimal notation is straightforward. To convert a binary number, divide it into groups of four bits starting from least significant bit. Add additional zeros to the most significant bit to make the total number of bits a multiple of four. Hexadecimal (or hex) notation is convenient because it saves space. Notice, any number starting with \verb|0x| is a hex value.
+
+\begin{table}[H]
+\centering
+\label{4-bit-bin-hex-table}
+	\begin{tabular}{l c l}
+	\hline \hline \\ [-2ex]
+	Dec & Bin & Hex\\
+	\hline \\ [-2ex]
+	0  & 0000 & 0x0\\
+	1  & 0001 & 0x1\\
+	2  & 0010 & 0x2\\
+	3  & 0011 & 0x3\\
+	4  & 0100 & 0x4\\
+	5  & 0101 & 0x5\\
+	6  & 0110 & 0x6\\
+	7  & 0111 & 0x7\\
+	8  & 1000 & 0x8\\
+	9  & 1001 & 0x9\\
+	10 & 1010 & 0xA\\
+	11 & 1011 & 0xB\\
+	12 & 1100 & 0xC\\
+	13 & 1101 & 0xD\\
+	14 & 1110 & 0xE\\
+	15 & 1111 & 0xF\\
+	\hline \hline
+	\end{tabular}
+\caption{4--bit binary--hexadecimal conversion}
+\end{table}
+\footnotetext[1]{Although a boolean variable only requires 1 bit for storage, the minimum amount of memory allocation in computers is 1 byte. So while a boolean variable may only use 1 bit it would still occupy 1 byte in memory.}
+\subsection{Storing Unsigned Integers in Memory}
+Storing unsigned integers is simple and the procedure is outlined as,
+\footnotetext[2]{Here 32 bit unsigned integer is assumed because it is the most widely used. Procedure is same for 8, 16 or 64 bit values.}
+\begin{enumerate}
+\item Convert the decimal number to its equivalent binary form.
+\item Add 0's before the most significant bit to fill up 32 bits\footnotemark[2].
+\item Divide the number into four bytes. Least significant bit corresponds to first byte and so on.
+\item \emph{Lower bytes go to low memory addresses and higher bytes go to high memory addresses.}
+\end{enumerate}
+\subsubsection{Example}
+Suppose we want to store an unsigned integer with value 27 at address \verb|0x00000010|.
+
+\begin{verbatim}
+27 = 11011 = 00000000000000000000000000011011
+
+     MSB                                     LSB
+         00000000 00000000 00000000 00011011
+Byte No:     4        3        2        1
+
+Memory Map:
+Address       Data(bin) Data(hex)    Byte No
+0x00000010    00011011     1B            1
+0x00000011    00000000     00            2
+0x00000012    00000000     00            3
+0x00000013    00000000     00            4
+\end{verbatim}
+
+
+\subsection{2's Complement Notation}
+Signed data types like \verb|int| can have negative values. The negative numbers are stored as 2's complement in memory. To calculate 2's complement of a number invert all the bits and add a 1. For example, 0110 (6 in decimal) in inverted form is 1001. By adding 1 we get 1010 which is the 2's complement of 0110. Therefore, -6 would be stored in memory as 1010.
+\end{document}
