@@ -23,11 +23,17 @@
 \usepackage{listings}
 % General options.
 \lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false}
+\newcommand{\noncopynumber}[1]
+{%
+    \BeginAccSupp{method=escape,ActualText={}}%
+    #1%
+    \EndAccSupp{}%
+}
 % C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers II\\Class 06\\Relationship Between Classes}
+\title{\vspace{-2cm}Programming for Engineers II\\Class 06\\Relationship Between Classes\\UML Diagrams}
 \author{Attique Dawood}
 
 \begin{document}
@@ -66,113 +72,16 @@
 \item Student \textbf{is a} person.
 \end{itemize}
 Derived classes have all the features (attributes and functionality) of base class in addition to some features specific to it. A person will have a name and age. A student in addition to name and age will also have a CGPA.
-\subsection{``has a'' Relationship}
-A class can be in possession of other classes.
+\section{UML Diagram}
 \begin{itemize}
-\item That teacher \textbf{has a}n Apple iPhone.
-\item That student \textbf{has a} Samsung Galaxy.
+\item A class is represented with a box with three partitions.
+\item Topmost partition contains name of the class.
+\item Attributes are placed in second partition.
+\item Member functions are specified in lower partition.
+\item A `+' sign besides an attribute or function means \verb|public| whereas, a `-' sign means \verb|private|.
+\item Datatype of attributes and function return types are specified after a trailing `:'.
+\item Inheritance is represented by an empty or hollow arrow--head from derived class to base class.
 \end{itemize}
-\subsection{``using a'' and ``knows a'' Relationship}
-\begin{itemize}
-\item A person driving a car is an association between two objects. Person is `using' a car.
-\item Student X and talking to student Y because they `know' each other and exchange views.
-\item A remote control can interact or talk to AC.
-\end{itemize}
-\section{\texttt{const} Variables}
-\begin{itemize}
-\item A variable declared with \verb|const| directive.
-\item Value of a constant variable cannot change throughout the execution of a program.
-\item Can only be initialised at declaration.
-\end{itemize}
-\section{\texttt{inline} Functions}
-\begin{itemize}
-\item Functions can be defined as \verb|inline|.
-\item This is mainly a compiler level optimisation.
-\end{itemize}
-\section{Constructor}
-\begin{itemize}
-\item A constructor is a very special function in a class.
-\item Name of constructor is the name of class.
-\item It doesn't have a return type. Mentioning a return type is an error.
-\item A constructor is called exactly once throughout the life of an object; only at its creation. Actually, just before the creation.
-\item The purpose of a constructor is to initialise data members or variables etc.
-\item Even if a constructor isn't defined, compiler will create a default constructor which doesn't do anything.
-\item A constructor, default or otherwise, will always be called upon object creation.
-\item Constructor can take arguments.
-\item Different constructors can be defined. They can be differentiated through their argument list.
-\end{itemize}
-\begin{lstlisting}[caption={Object--oriented approach to add complex numbers}]
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
-class complex
-{
-	private:
-	float real;
-	float img;
-	
-	public:
-	complex(); // Default constructor.
-	complex(float,float); // User-defined constructor.
-	
-	void Input();
-	void Display();
-	complex Add(complex);
-	complex DivideBy(complex);
-};
-
-// Class functions can be defined inside or outside the class.
-// Here, functions are defined outside the class.
-// Notice the `::' operator.
-complex::complex()
-{
-	real = 0.f;
-	img = 0.f;
-}
-complex::complex(float pr, float pi)
-{
-	real = pr;
-	img = pi;
-}
-void complex::Input()
-{
-	cout << "Enter complex number: ";
-	cin >> real >> img;
-}
-void complex::Display()
-{
-	if (img < 0.f)
-		cout << real << " - j" << -1.f*img << endl;
-	else
-		cout << real << " + j" << img << endl;
-}
-complex complex::Add(complex c)
-{
-	complex result;
-	result.real = real + c.real;
-	result.img = img + c.img;
-	
-	return result;
-}
-
-int main()
-{
-	complex complex1;	// Default constructor called. 0+j0.
-	complex complex2(3.2, 2.5); // Complex initialised to 3.2+j2.5
-	complex complex3;	// Default constructor.
-	
-	// Addition.
-	complex3 = complex1.Add(complex2);
-	
-	// Result.
-	cout << "Result is: ";
-	complex3.Display();
-	
-	return 0;
-}
-\end{lstlisting}
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{OOPref}
