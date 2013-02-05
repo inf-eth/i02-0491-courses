@@ -73,15 +73,16 @@ A class can be a member of another classes. Weak link, empty diamond.
 \item A person has address. If a person dies, address is unaffected.
 \end{itemize}
 \subsection{``part of''/``composed of'' Relationship or Composition}
-A class can be a part of another classes. Strong link, filled diamond. If the container class is destroyed so is the contained class.
+A class can be a part of another classes. Strong link, filled diamond. Some authors may refer to composition as a form of aggregation. If the container class is destroyed so is the contained class.
 \begin{itemize}
 \item Compressor is a \textbf{part of} AC. If AC is scrapped, compressor goes with it.
 \item Engine is a \textbf{part of} car. 
 \item Tyre is also a \textbf{part of} car. If a car is destroyed, this implies everything contained within is scrap metal and useless.
 \item Organs of a person cannot sustain if the person dies.
 \end{itemize}
-\subsection{``using a'' and ``knows a'' Relationship}
+\subsection{``using a'' and ``knows a'' Relationship or Association}
 \begin{itemize}
+\item Represented by a single stealth arrow from `using' class to `used' class. Class being used may not be aware of class using it.
 \item A person driving a car is an association between two objects. Person is `using' a car.
 \item Student X and talking to student Y because they `know' each other and exchange views.
 \item A remote control can interact or talk to AC.
