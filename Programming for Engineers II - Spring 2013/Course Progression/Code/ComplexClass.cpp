@@ -31,11 +31,36 @@ void complex::Display()
 	else
 		cout << real << " + j" << img << endl;
 }
+// First complex number (or operand) is the calling object.
+// Second operand is passed as argument.
+// Resultant complex number is calculated and returned.
+// Result = Complex1 + Complex2.
 complex complex::Add(complex c)
 {
 	complex result;
 	result.real = real + c.real;
 	result.img = img + c.img;
+
+	return result;
+}
+// (a+jb)/(c+jd) = (ac+bd+j(bc-ad))/(c^2+d^2)
+// a = real;
+// b = img;
+// c = c1.real;
+// d = c1.img;
+// result.real = (ac+bd)/(c^2+d^2)
+// result.img = (bd-ad)/(c^2+d^2)
+complex complex::DivideBy(complex c1)
+{
+	complex result;
+	float a = real;
+	float b = img;
+	float c = c1.real;
+	float d = c1.img;
+	float den = c*c + d*d; // denominator.
+
+	result.real = (a*c+b*d)/den;
+	result.img = (b*c-a*d)/den;
 
 	return result;
 }
@@ -57,8 +82,17 @@ int main()
 	// Addition.
 	complex3 = complex1.Add(complex2);
 
-	// Result.
-	cout << "Result is: ";
+	// Addition result.
+	cout << "Result of addition is: ";
+	complex3.Display();
+
+	// Division.
+	complex3 = complex1.DivideBy(complex2);
+	cout << "C1 / C2 = ";
+	complex3.Display();
+
+	complex3 = complex2.DivideBy(complex1);
+	cout << "C2 / C1 = ";
 	complex3.Display();
 
 	return 0;
