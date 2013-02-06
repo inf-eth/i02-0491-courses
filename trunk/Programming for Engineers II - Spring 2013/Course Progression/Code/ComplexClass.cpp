@@ -46,17 +46,17 @@ complex complex::Add(complex c)
 // (a+jb)/(c+jd) = (ac+bd+j(bc-ad))/(c^2+d^2)
 // a = real;
 // b = img;
-// c = c1.real;
-// d = c1.img;
+// c = e.real;
+// d = e.img;
 // result.real = (ac+bd)/(c^2+d^2)
 // result.img = (bd-ad)/(c^2+d^2)
-complex complex::DivideBy(complex c1)
+complex complex::DivideBy(complex e)
 {
 	complex result;
 	float a = real;
 	float b = img;
-	float c = c1.real;
-	float d = c1.img;
+	float c = e.real;
+	float d = e.img;
 	float den = c*c + d*d; // denominator.
 
 	result.real = (a*c+b*d)/den;
