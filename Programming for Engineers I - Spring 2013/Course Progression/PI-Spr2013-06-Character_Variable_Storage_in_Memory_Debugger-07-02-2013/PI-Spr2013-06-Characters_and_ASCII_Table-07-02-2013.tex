@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 06\\Character Conversion and ASCII Table}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Conditional statements.
+\item Variable types.
+\item Signed and unsigned variables.
+\item 2's complement notation.
+\item Storing signed and unsigned integers in memory.
+\end{itemize}
+\section{Characters}
+\begin{itemize}
+\item ASCII table.
+\item char input/output.
+\item Usage of single quotes.
+\item char and int conversions.
+\end{itemize}
+\section{Floating Point Number Representation}
+To review floating point numbers and their conversion please take a look at \url{http://www.tfinley.net/notes/cps104/floating.html} or your class lectures/notes etc. Following example is taken from the above link.
+\begin{lstlisting}
+// Display char.
+char x = 'A';
+cout << x;
+
+// Char to int conversion. Display ASCII code.
+cout << (int)x;
+
+// Int to char conversion. Display ASCII symbol of code.
+int z = 65;
+cout << (char)z;
+\end{lstlisting}
+\end{document}
