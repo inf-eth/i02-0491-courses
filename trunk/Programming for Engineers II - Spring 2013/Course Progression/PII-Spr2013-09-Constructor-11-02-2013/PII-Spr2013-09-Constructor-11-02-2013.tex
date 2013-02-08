@@ -1,0 +1,158 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 09\\Constructor}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Relationship between classes.
+\item Inheritance: Base class and derived class.
+\item Derived class inherits all attributes and functions of base class. A student has all the attributes of a person in addition to CGPA and roll number.
+\item Inheritance is represented by an empty or hollow arrow--head from derived class to base class.
+\item Ownership or `has a' relationship. A car \textbf{has a}n engine. A person \textbf{has a} brain.
+\item Two types of ownership: composition and aggregation.
+\item Composition is strong link. If life--cycle of container object ends, then contained objects are destroyed or cease to exist. A person \textbf{has a} brain. When that person dies, his brain will cease to function.
+\item Aggregation is weak link. Life--cycle of contained objects does not end with that of container. For example, a person \textbf{has a} mobile phone. If that person dies, mobile will continue to function.
+\item Association is a `using a' or `knows a' relationship. Represented by a single stealth arrow from `using' class to `used' class. Class being used may not be aware of class using it.
+\item A person driving a car is an association between two objects. Person is `using' a car.
+\end{itemize}
+\section{\texttt{inline} Functions}
+\begin{itemize}
+\item Functions can be defined as \verb|inline|.
+\item This is mainly a compiler level optimisation.
+\end{itemize}
+\section{Function Overloading}
+\begin{itemize}
+\item Functions with same name but differ in either return type or arguments.
+\item Function being called depends on arguments being passed.
+\item Sum function example. Can be defined for int, float or double types.
+\end{itemize}
+\section{Constructor}
+\begin{itemize}
+\item A constructor is a very special function in a class.
+\item Name of constructor is the name of class.
+\item It doesn't have a return type. Mentioning a return type is an error.
+\item A constructor is called exactly once throughout the life of an object; only at its creation. Actually, just before the creation.
+\item The purpose of a constructor is to initialise data members or variables etc.
+\item Even if a constructor isn't defined, compiler will create a default constructor which doesn't do anything.
+\item A constructor, default or otherwise, will always be called upon object creation.
+\item Constructor can take arguments.
+\item Different constructors can be defined. They can be differentiated through their argument list.
+\end{itemize}
+\begin{lstlisting}[caption={Default and User--Defined Constructor}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class complex
+{
+	private:
+	float real;
+	float img;
+	
+	public:
+	complex(); // Default constructor.
+	complex(float,float); // User-defined constructor.
+	
+	void Input();
+	void Display();
+	complex Add(complex);
+	complex DivideBy(complex);
+};
+
+// Class functions can be defined inside or outside the class.
+// Here, functions are defined outside the class.
+// Notice the `::' operator.
+complex::complex()
+{
+	real = 0.f;
+	img = 0.f;
+}
+complex::complex(float pr, float pi)
+{
+	real = pr;
+	img = pi;
+}
+void complex::Input()
+{
+	cout << "Enter complex number: ";
+	cin >> real >> img;
+}
+void complex::Display()
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+complex complex::Add(complex c)
+{
+	complex result;
+	result.real = real + c.real;
+	result.img = img + c.img;
+	
+	return result;
+}
+
+int main()
+{
+	complex complex1;	// Default constructor called. 0+j0.
+	complex complex2(3.2, 2.5); // Complex initialised to 3.2+j2.5
+	complex complex3;	// Default constructor.
+	
+	// Addition.
+	complex3 = complex1.Add(complex2);
+	
+	// Result.
+	cout << "Result is: ";
+	complex3.Display();
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{const} Variables}
+\begin{itemize}
+\item A variable declared with \verb|const| directive.
+\item Value of a constant variable cannot change throughout the execution of a program.
+\item Can only be initialised at declaration.
+\item Member initialiser list.
+\end{itemize}
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
