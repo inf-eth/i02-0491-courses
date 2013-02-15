@@ -1,0 +1,173 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 10\\Macros\\Dynamic Memory Allocation}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz will be held tomorrow.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Function Overloading.
+\item Inline Functions.
+\item Constructors: same as class name, no return type, only called once at object creation, can be overloaded.
+\end{itemize}
+\section{Macros}
+\begin{itemize}
+\item Replaces indicated patterns when preprocessing.
+\item Can define symbols.
+\item Can also make macro-ed functions.
+\item Can also make a certain portion of code compile.
+\end{itemize}
+\begin{lstlisting}[caption={Using macro to define size}]
+#include <iostream>
+using std::cout;
+using std::endl;
+
+#define SIZE 10
+
+int main()
+{
+	int list[SIZE];
+	for (int i=0; i<SIZE; i++)
+		list[i] = i;
+	for (int i=0; i<SIZE; i++)
+		cout << list[i] << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using macro to specify data type}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+// Changing TYPE would make this work for any type of data.
+// Try changing TYPE to short int, float or double.
+#define TYPE int
+
+TYPE sum(TYPE a, TYPE b)
+{
+	TYPE result = a+b;
+	return result;
+}
+
+int main()
+{
+	TYPE x, y;
+	cout << "Enter two numbers to sum:" << endl;
+	cin >> x >> y;
+	cout << "Sum is: " << sum(x, y) << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using macro to execute only portions of code}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+#define Q 1
+
+#if Q == 1
+int main()
+{
+	cout << "This is question number 1" << endl;
+	
+	return 0;
+}
+#endif
+
+#if Q == 2
+int main()
+{
+	cout << "This is question number 2" << endl;
+	
+	return 0;
+}
+#endif
+
+#if Q == 3
+int main()
+{
+	cout << "This is question number 3" << endl;
+	
+	return 0;
+}
+#endif
+\end{lstlisting}
+\section{New and Delete}
+\begin{itemize}
+\item \verb|new| and \verb|delete| are the C++ equivalent of \verb|malloc()| and \verb|free()|.
+\item Allocating memory to a single variable.
+\item Arrays.
+\item Deallocating memory.
+\item Every piece of memory allocated using \verb|new| MUST be deallocated using \verb|delete| before the program exits.
+\end{itemize}
+\begin{lstlisting}[caption={new and delete}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main()
+{
+	int x = 3;
+	int *xp;
+	xp = &x; // Pointing xp -> x.
+	
+	cout << "Value of x = " << x << endl;
+	cout << "Address of x (&x) = " << &x << endl;
+	cout << "Value of pointer xp = " << xp << endl;
+	cout << "Value of x using *xp = " << *xp << endl;
+	
+	// Using xp to dynamically allocate memory.
+	xp = new int; // xp now points to dynamically allocated memory.
+	*xp = 33;
+	cout << "Value stored by *xp is = " << *xp << endl;
+	delete xp; // Dellocates memory assigned to xp.
+	
+	// Creating and deleting a dynamic array.
+	xp = new int[10];
+	delete []xp;
+	
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
