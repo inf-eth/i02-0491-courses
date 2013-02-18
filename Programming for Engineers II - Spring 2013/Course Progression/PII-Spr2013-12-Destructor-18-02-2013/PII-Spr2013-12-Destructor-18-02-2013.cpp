@@ -166,7 +166,7 @@ public:
 matrix::matrix(): Element(NULL), Size(0)
 {
 }
-// User-define constructor that takes in size.
+// User-defined constructor that takes in size.
 matrix::matrix(int pSize)
 {
 	Element = new float[pSize];
