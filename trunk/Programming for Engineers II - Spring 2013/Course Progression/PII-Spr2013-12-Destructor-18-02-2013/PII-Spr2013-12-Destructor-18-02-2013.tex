@@ -1,0 +1,232 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 12\\Destructor}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Constructors: same as class name, no return type, only called once at object creation, can be overloaded.
+\item Constant variables. Can only be initialised at declaration.
+\item If defined as class member, MUST be initialised using ``member initialiser list''.
+\item Member initialiser list is a comma separated list of variables that are initialised before actual body of the constructor.
+\item Only constructors are allowed to have a member initialiser list.
+\item Non-constant members can also  be initialised using member initialiser list and it is generally the recommended way of initialising variables. But, \textbf{member initialiser list is the only way to initialise constant members}.
+\end{itemize}
+\section{Memory Leaks}
+\begin{itemize}
+\item What happens if you allocate memory without deallocating memory?
+\item Previously allocated memory remains allocated. But you're not using it and you cannot possibly use it again. Why? Lost pointer address.
+\item This is called a memory leak.
+\item Memory leak is the greatest pitfall when using dynamic memory allocation. Even good programs and computer games suffer from memory leaks.
+\item Make sure you deallocate memory before allocating a new piece of memory.
+\item Memory must also be deallocated before the program exits.
+\end{itemize}
+\begin{lstlisting}[caption={Typical Memory Leak}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main()
+{
+	int *x;
+	x = new int;
+	*x = 4;
+
+	x = new int;  // Lost address of previously allocated memory!
+	*x = 6;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Using NULL Pointers}
+\begin{itemize}
+\item If a pointer isn't allocated memory or isn't pointing at anything, assign it NULL.
+\item This is a good programming practice. It not only helps prevent memory leaks but also is a check if pointer is actually pointing at anything.
+\item Trying to access value of a pointer if memory isn't allocated will result in a program crash.
+\item Trying to deallocate memory if no memory was allocated will also result in a crash.
+\end{itemize}
+\begin{lstlisting}[caption={Two Typical Program Crashes}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main()
+{
+	int *x;
+	*x = 4;	 // CRASH! x contains garbage address.
+	delete x;// CRASH! can't delete a random garbage address.
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using NULL to Properly Handle Pointers}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main()
+{
+	int *x = NULL;	// Pointer initialisation with NULL.
+	
+	// Allocation.
+	if (x==NULL)
+		x = new int;
+	else
+	{
+		delete x;
+		x = new int;
+	}
+		
+	// Use pointer.
+	*x = 4;
+	
+	// Explicit deallocation. Notice pointer is set to NULL.
+	if (x!=NULL)
+	{
+		delete x;		// Deallocating memory.
+		x = NULL;		// Pointer assigned NULL.
+	}
+
+	// New memory allocation.
+	if (x==NULL)
+		x = new int;
+	else
+	{
+		delete x;
+		x = new int;
+	}
+
+	// Pointer usage.
+	*x = 6;
+	
+	// Deallocation before exiting.
+	if (x!=NULL)
+	{
+		delete x;		// Deallocating memory.
+		x = NULL;		// Pointer assigned NULL.
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+
+\section{$\sim$ Destructor}
+\begin{itemize}
+\item A destructor, very much like constructor, is a special function that is automatically called every time an object is destroyed.
+\item Destructor has the same name as class but with a preceding $\sim$. Also, it doesn't return anything.
+\item Typical function of destructor is to deallocate any dynamically allocated memory when object life ends or it is destroyed.
+\end{itemize}
+\begin{lstlisting}[caption={Constructor and Destructor}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class Simple
+{
+	private:
+	const int x;
+	int y;
+	public:
+	Simple();  // Default constructor.
+	~Simple(); // Destructor.
+};
+// Notice member initialiser list after ':'
+Simple::Simple(): x(0), y(0)
+{
+	cout << "Constructor called." << endl;
+}
+Simple::~Simple()
+{
+	cout << "Destructor called." << endl;
+}
+
+int main()
+{
+	Simple test;
+	cout << "Object created in main(). Now exiting..." << endl;
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Constructor and Destructor With Dynamic Allocation}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class Simple
+{
+	private:
+	const int x;
+	int y;
+	public:
+	Simple();  // Default constructor.
+	~Simple(); // Destructor.
+};
+// Notice member initialiser list after ':'
+Simple::Simple(): x(0), y(0)
+{
+	cout << "Constructor called." << endl;
+}
+Simple::~Simple()
+{
+	cout << "Destructor called." << endl;
+}
+
+int main()
+{
+	Simple *test;
+	
+	cout << "Creating object..." << endl;
+	test = new Simple;
+	
+	cout << "Deallocating object memory..." << endl;
+	delete test;
+	
+	cout << "Exiting main()..." << endl;
+	return 0;
+}
+\end{lstlisting}
+\section{Puting it All Together: The Dynamic Matrix Class}
+
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
