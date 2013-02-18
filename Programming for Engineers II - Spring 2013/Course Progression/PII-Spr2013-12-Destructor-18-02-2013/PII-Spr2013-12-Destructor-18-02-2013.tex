@@ -23,7 +23,7 @@
 \usepackage{listings}
 \usepackage{textcomp}
 % General options.
-\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
 % C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
@@ -56,11 +56,6 @@
 \item Memory must also be deallocated before the program exits.
 \end{itemize}
 \begin{lstlisting}[caption={Typical Memory Leak}]
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
 int main()
 {
 	int *x;
@@ -81,26 +76,16 @@ int main()
 \item Trying to deallocate memory if no memory was allocated will also result in a crash.
 \end{itemize}
 \begin{lstlisting}[caption={Two Typical Program Crashes}]
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
 int main()
 {
 	int *x;
-	*x = 4;	 // CRASH! x contains garbage address.
-	delete x;// CRASH! can't delete a random garbage address.
+	*x = 4;	 // CRASH1! x contains garbage address.
+	delete x;// CRASH2! can't delete a random garbage address.
 	
 	return 0;
 }
 \end{lstlisting}
 \begin{lstlisting}[caption={Using NULL to Properly Handle Pointers}]
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
 int main()
 {
 	int *x = NULL;	// Pointer initialisation with NULL.
@@ -155,7 +140,6 @@ int main()
 \end{itemize}
 \begin{lstlisting}[caption={Constructor and Destructor}]
 #include <iostream>
-using std::cin;
 using std::cout;
 using std::endl;
 
@@ -187,7 +171,6 @@ int main()
 \end{lstlisting}
 \begin{lstlisting}[caption={Constructor and Destructor With Dynamic Allocation}]
 #include <iostream>
-using std::cin;
 using std::cout;
 using std::endl;
 
@@ -225,7 +208,108 @@ int main()
 }
 \end{lstlisting}
 \section{Puting it All Together: The Dynamic Matrix Class}
+\begin{lstlisting}[caption={Dynamic Matrix Class}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
 
+class matrix
+{
+private:
+	float *Element;	// 1D matrix of size 1xSize.
+	int Size;
+public:
+	matrix();
+	matrix(int);
+	~matrix();
+	void SetSize(int);
+	void Input();
+	void Display();
+	void Add(matrix&);
+};
+
+// Default constructor.
+matrix::matrix(): Element(NULL), Size(0)
+{
+}
+// User-define constructor that takes in size.
+matrix::matrix(int pSize)
+{
+	Element = new float[pSize];
+	Size=pSize;
+
+	// Initialising matrix.
+	for (int i=0; i<Size; i++)
+		Element[i] = 0.f;
+}
+// Destructor.
+matrix::~matrix()
+{
+	if (Element != NULL)
+		delete []Element;
+}
+// Resize matrix.
+void matrix::SetSize(int pSize)
+{
+	if (Element == NULL)
+		delete []Element;
+
+	Element = new float[pSize];
+	Size=pSize;
+}
+// Input matrix.
+void matrix::Input()
+{
+	cout << "Enter matrix elements: ";
+	for (int i=0; i<Size; i++)
+		cin >> Element[i];
+}
+// Display matrix.
+void matrix::Display()
+{
+	for (int i=0; i<Size; i++)
+		cout << Element[i] << " ";
+
+	cout << endl;
+}
+// Adds passed matrix into calling matrix.
+void matrix::Add(matrix& m)
+{
+	for (int i=0; i<Size; i++)
+		Element[i] = Element[i] + m.Element[i];
+}
+
+// Main.
+int main()
+{
+	matrix matrix1(4);
+
+	matrix matrix2;
+	matrix2.SetSize(4);
+
+	matrix1.Input();
+	matrix2.Input();
+
+	matrix1.Add(matrix2);
+
+	cout << "Result is: ";
+	matrix1.Display();
+
+	// Resizing matrices.
+	matrix1.SetSize(2);
+	matrix2.SetSize(2);
+
+	matrix1.Input();
+	matrix2.Input();
+
+	matrix1.Add(matrix2);
+	cout << "Result is: ";
+	matrix1.Display();
+
+	return 0;
+}
+\end{lstlisting}
 %\nocite{*}
 %\bibliographystyle{plain}
 %\bibliography{OOPref}
