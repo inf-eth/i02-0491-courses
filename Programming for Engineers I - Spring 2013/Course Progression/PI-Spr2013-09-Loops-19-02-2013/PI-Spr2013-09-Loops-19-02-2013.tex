@@ -1,0 +1,141 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 09\\Loops}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Float representation.
+\item Float conversion.
+\end{itemize}
+\section{While Loop}
+\begin{itemize}
+\item \verb|while| loop runs until a condition is met.
+\item The loop should have a terminating condition or it will run indefinitely.
+\item \verb|while| loop checks condition first and then executes loop structure.
+\end{itemize}
+\begin{lstlisting}[caption={while Loop}]
+while (condition is true)
+{
+	// Do this
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using while Loop to Sum}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int Sum=0;
+	while (Sum<20)
+	{
+		cout << "Sum is now: " << i << endl;
+		Sum = Sum + 6;		
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using Counter With while Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int i=0;
+	while (i<10)
+	{
+		cout << "Counter is now: " << i << endl;
+		i=i+1;		
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\section{do--while Loop}
+\begin{itemize}
+\item Executes loop structure first and then checks for condition.
+\item Guaranteed to execute at least once.
+\item Generally used when at least one execution of loop is required.
+\end{itemize}
+\begin{lstlisting}[caption={Using Counter With do-while Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int i=0;
+	do
+	{
+		cout << "Counter is now: " << i << endl;
+		i=i+1;		
+	}
+	while (i<10); // Notice ';' after while.
+	
+	return 0;
+}
+\end{lstlisting}
+\section{for Loop}
+\begin{itemize}
+\item A somewhat better while loop.
+\item Provides counter in addition to condition check. Don't need to explicitly make our own counter.
+\item A \verb|for| is generally used instead of \verb|while| when it is known beforehand how many times the loop will run. Although not a strict rule but \verb|for| and \verb|while| can be used interchangeably.
+\item A \verb|for| loop effectively becomes \verb|while| loop if counter isn't used.
+\end{itemize}
+\begin{lstlisting}[caption={for Loop}]
+for (initialise counter; condition; increment counter)
+{
+	// Do this
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={for Loop With Counter}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	for (int i=0; i<10; i++)
+	{
+		cout << "Counter is now: " << i << endl;
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Applications of Loops}
+\begin{itemize}
+\item Series calculation: Sum up $1/2 + 1/4 + 1/8 + 1/16 + ...$ ?
+\item Print a box or fixed width.
+\item Take student grades as input in a loop and calculate CGPA.
+\end{itemize}
+\end{document}
