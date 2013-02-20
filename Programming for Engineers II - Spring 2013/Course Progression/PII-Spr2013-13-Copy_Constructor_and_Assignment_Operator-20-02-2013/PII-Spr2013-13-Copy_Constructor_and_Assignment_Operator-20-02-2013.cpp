@@ -101,6 +101,10 @@ class Complex
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Overloading Arithmetic Operators}]
+#include <iostream>
+using std::cout;
+using std::endl;
+
 class Complex
 {
 	private:
@@ -147,7 +151,7 @@ Complex Complex::operator/ (const Complex& rhs)
 	return result;
 }
 // Display function.
-Complex Complex::Display()
+void Complex::Display()
 {
 	if (img < 0.f)
 		cout << real << " - j" << -1.f*img << endl;
@@ -162,13 +166,16 @@ int main()
 	Complex z;
 
 	z = x+y;
-	cout << "x+y = " << z << endl;
+	cout << "x+y = ";
+	z.Display();
 
 	z = x/y;
-	cout << "x/y = " << z << endl;
+	cout << "x/y = ";
+	z.Display();
 
 	z = y/x;
-	cout << "y/x = " << z << endl;
+	cout << "y/x = ";
+	z.Display();
 
 	return 0;
 }

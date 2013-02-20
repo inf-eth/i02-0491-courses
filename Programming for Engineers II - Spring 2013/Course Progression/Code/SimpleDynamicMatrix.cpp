@@ -41,7 +41,7 @@ matrix::~matrix()
 // Resize matrix.
 void matrix::SetSize(int pSize)
 {
-	if (Element == NULL)
+	if (Element != NULL)
 		delete []Element;
 
 	Element = new float[pSize];
