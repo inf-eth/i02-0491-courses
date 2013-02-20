@@ -28,15 +28,15 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers II\\Class 13\\Copy Constructor and Assignment Operator}
+\title{\vspace{-2cm}Programming for Engineers II\\Class 13\\Copy Constructor and Assignment Operator\\Overloading Arithmetic Operators}
 \author{Attique Dawood}
 
 \begin{document}
 \maketitle
 \section{Announcements}
 \begin{itemize}
-\item Paper pattern is similar to ABQ. Class diagram, writing and understanding code, constructor/destructor and operators.
-\item Today's topics taken from \cite{Ref:CPP-Copy-Constructor-and-Assignment-Operator}
+\item Paper pattern is similar to ABQ. Class diagram, writing and understanding code, constructor/destructor and operator overloading.
+\item Today's topics taken from \cite{Ref:CPP-Copy-Constructor-and-Assignment-Operator} and \cite{Ref:CPP-Operator-Overloading}.
 \end{itemize}
 \section{Revision}
 \begin{itemize}
@@ -124,6 +124,12 @@ int main()
 }
 \end{lstlisting}
 \section{Putting it Together}
+Compiler will generate following functions if not defined by user:
+\begin{enumerate}
+\item A default constructor with empty body if user does not provide any constructor.
+\item A copy constructor that performs member--wise copy.
+\item Assignment operator for member--wise copy.
+\end{enumerate}
 \begin{lstlisting}[caption={User and Compiler Code}]
 // User code for class.
 class Complex
@@ -144,7 +150,7 @@ class Complex
 	Complex()
 	{
 	}
-	// Copy constructor.
+	// Copy constructor. Notice, member initialiser list.
 	Complex(Complex& other): real(other.real), img(other.img)
 	{
 	}
@@ -153,9 +159,88 @@ class Complex
 	{
 		real = rhs.real;
 		img = rhs.img;
-		return (*this);
+		return (*this);  // 'this' is the pointer to calling object.
 	}
 };
+\end{lstlisting}
+\section{Operator Overloading}
+\begin{itemize}
+\item Arithmetic operators +, -, *, / are not provided by compiler and must be defined by user.
+\item For our \verb|Complex| class compiler doesn't know how to perform addition, subtraction or multiplication between two objects (variables) of \verb|Complex| type.
+\item Defining these operators as member functions of the class is known as ``operator overloading'', a somewhat misleading term.
+\end{itemize}
+\begin{lstlisting}[caption={Overloading Arithmetic Operators}]
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex();
+	Complex(float, float);
+	Complex operator+ (const Complex&); // Addition operator.
+	Complex operator/ (const Complex&); // Division operator.
+	void Display();
+};
+
+// Default constructor.
+Complex::Complex(): real(0.f), img(0.f)
+{
+}
+// User-defined constructor.
+Complex::Complex(float preal, float pimg): real(preal), img(pimg)
+{
+}
+// Addition operator.
+Complex Complex::operator+ (const Complex& rhs)
+{
+	Complex result;
+	result.real = real + rhs.real;
+	result.img = img + rhs.img;
+	return result;
+}
+// Division operator.
+Complex Complex::operator/ (const Complex& rhs)
+{
+	Complex result;
+	float a, b, c, d;
+	a = real;
+	b = img;
+	c = rhs.real;
+	d = rhs.img;
+
+	float den = c*c + d*d; // denominator.
+	result.real = (a*c+b*d)/den;
+	result.img = (b*c-a*d)/den;
+
+	return result;
+}
+// Display function.
+Complex Complex::Display()
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+
+int main()
+{
+	Complex x(1.1f, -2.7f);
+	Complex y(2.1f, 3.3f);
+	Complex z;
+
+	z = x+y;
+	cout << "x+y = " << z << endl;
+
+	z = x/y;
+	cout << "x/y = " << z << endl;
+
+	z = y/x;
+	cout << "y/x = " << z << endl;
+
+	return 0;
+}
 \end{lstlisting}
 %\nocite{*}
 \bibliographystyle{plain}

@@ -1,245 +1,176 @@
-\begin{lstlisting}[caption={Typical Memory Leak}]
-int main()
-{
-	int *x;
-	x = new int;
-	*x = 4;
+\begin{lstlisting}[caption={Copy Constructor}]
+// Notice, complex class doesn't define any constructors.
+// 1. Default constructor will be provided by compiler.
+// Complex(){}
+// 2. Also, copy constructor will be provided by compiler.
+// Prototypes for copy constructor.
+// Complex(Complex &);
+// Complex(const Complex &);
 
-	x = new int;  // Lost address of previously allocated memory!
-	*x = 6;
-	
-	return 0;
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Two Typical Program Crashes}]
-int main()
-{
-	int *x;
-	*x = 4;	 // CRASH1! x contains garbage address.
-	delete x;// CRASH2! can't delete a random garbage address.
-	
-	return 0;
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Using NULL to Properly Handle Pointers}]
-int main()
-{
-	int *x = NULL;	// Pointer initialisation with NULL.
-	
-	// Allocation.
-	if (x==NULL)
-		x = new int;
-	else
-	{
-		delete x;
-		x = new int;
-	}
-		
-	// Use pointer.
-	*x = 4;
-	
-	// Explicit deallocation. Notice pointer is set to NULL.
-	if (x!=NULL)
-	{
-		delete x;		// Deallocating memory.
-		x = NULL;		// Pointer assigned NULL.
-	}
-
-	// New memory allocation.
-	if (x==NULL)
-		x = new int;
-	else
-	{
-		delete x;
-		x = new int;
-	}
-
-	// Pointer usage.
-	*x = 6;
-	
-	// Deallocation before exiting.
-	if (x!=NULL)
-	{
-		delete x;		// Deallocating memory.
-		x = NULL;		// Pointer assigned NULL.
-	}
-	
-	return 0;
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Constructor and Destructor}]
-#include <iostream>
-using std::cout;
-using std::endl;
-
-class Simple
+class Complex
 {
 	private:
-	const int x;
-	int y;
-	public:
-	Simple();  // Default constructor.
-	~Simple(); // Destructor.
+	float real;
+	float img;
 };
-// Notice member initialiser list after ':'
-Simple::Simple(): x(0), y(0)
-{
-	cout << "Constructor called." << endl;
-}
-Simple::~Simple()
-{
-	cout << "Destructor called." << endl;
-}
 
 int main()
 {
-	Simple test;
-	cout << "Object created in main(). Now exiting..." << endl;
+	Complex x;
+	Complex y(x);
+	
 	return 0;
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Constructor and Destructor With Dynamic Allocation}]
-#include <iostream>
-using std::cout;
-using std::endl;
-
-class Simple
+\begin{lstlisting}[caption={Calling Assignment Operator}]
+class Complex
 {
 	private:
-	const int x;
-	int y;
-	public:
-	Simple();  // Default constructor.
-	~Simple(); // Destructor.
+	float real;
+	float img;
 };
-// Notice member initialiser list after ':'
-Simple::Simple(): x(0), y(0)
-{
-	cout << "Constructor called." << endl;
-}
-Simple::~Simple()
-{
-	cout << "Destructor called." << endl;
-}
 
 int main()
 {
-	Simple *test;
+	Complex x, y;
+	Complex z(x);  // Copy constructor called.
+	Complex y = x; // Assignment operator called. y was already created using default constructor.
 	
-	cout << "Creating object..." << endl;
-	test = new Simple;
-	
-	cout << "Deallocating object memory..." << endl;
-	delete test;
-	
-	cout << "Exiting main()..." << endl;
 	return 0;
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Dynamic Matrix Class}]
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
-class matrix
+\begin{lstlisting}[caption={Defining Assignment Operator}]
+class Complex
 {
-private:
-	float *Element;	// 1D matrix of size 1xSize.
-	int Size;
-public:
-	matrix();
-	matrix(int);
-	~matrix();
-	void SetSize(int);
-	void Input();
+	private:
+	float real;
+	float img;
+	public:
+	Complex& operator=(const Complex& rhs)
+	{
+		real = rhs.real;
+		img = rhs.img;
+		return (*this);
+	}	
+};
+
+int main()
+{
+	Complex x, y;
+	Complex z(x);  // Copy constructor called.
+	Complex y = x; // Assignment operator called.
+	
+	return 0;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={User and Compiler Code}]
+// User code for class.
+class Complex
+{
+	private:
+	float real;
+	float img;
+};
+
+// Compiler code.
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	// Default constructor.
+	Complex()
+	{
+	}
+	// Copy constructor. Notice, member initialiser list.
+	Complex(Complex& other): real(other.real), img(other.img)
+	{
+	}
+	// Assignment operator.
+	Complex& operator=(const Complex& rhs)
+	{
+		real = rhs.real;
+		img = rhs.img;
+		return (*this);  // 'this' is the pointer to calling object.
+	}
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Overloading Arithmetic Operators}]
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex();
+	Complex(float, float);
+	Complex operator+ (const Complex&); // Addition operator.
+	Complex operator/ (const Complex&); // Division operator.
 	void Display();
-	void Add(matrix&);
 };
 
 // Default constructor.
-matrix::matrix(): Element(NULL), Size(0)
+Complex::Complex(): real(0.f), img(0.f)
 {
 }
-// User-defined constructor that takes in size.
-matrix::matrix(int pSize)
+// User-defined constructor.
+Complex::Complex(float preal, float pimg): real(preal), img(pimg)
 {
-	Element = new float[pSize];
-	Size=pSize;
+}
+// Addition operator.
+Complex Complex::operator+ (const Complex& rhs)
+{
+	Complex result;
+	result.real = real + rhs.real;
+	result.img = img + rhs.img;
+	return result;
+}
+// Division operator.
+Complex Complex::operator/ (const Complex& rhs)
+{
+	Complex result;
+	float a, b, c, d;
+	a = real;
+	b = img;
+	c = rhs.real;
+	d = rhs.img;
 
-	// Initialising matrix.
-	for (int i=0; i<Size; i++)
-		Element[i] = 0.f;
-}
-// Destructor.
-matrix::~matrix()
-{
-	if (Element != NULL)
-		delete []Element;
-}
-// Resize matrix.
-void matrix::SetSize(int pSize)
-{
-	if (Element == NULL)
-		delete []Element;
+	float den = c*c + d*d; // denominator.
+	result.real = (a*c+b*d)/den;
+	result.img = (b*c-a*d)/den;
 
-	Element = new float[pSize];
-	Size=pSize;
+	return result;
 }
-// Input matrix.
-void matrix::Input()
+// Display function.
+Complex Complex::Display()
 {
-	cout << "Enter matrix elements: ";
-	for (int i=0; i<Size; i++)
-		cin >> Element[i];
-}
-// Display matrix.
-void matrix::Display()
-{
-	for (int i=0; i<Size; i++)
-		cout << Element[i] << " ";
-
-	cout << endl;
-}
-// Adds passed matrix into calling matrix.
-void matrix::Add(matrix& m)
-{
-	for (int i=0; i<Size; i++)
-		Element[i] = Element[i] + m.Element[i];
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
 }
 
-// Main.
 int main()
 {
-	matrix matrix1(4);
+	Complex x(1.1f, -2.7f);
+	Complex y(2.1f, 3.3f);
+	Complex z;
 
-	matrix matrix2;
-	matrix2.SetSize(4);
+	z = x+y;
+	cout << "x+y = " << z << endl;
 
-	matrix1.Input();
-	matrix2.Input();
+	z = x/y;
+	cout << "x/y = " << z << endl;
 
-	matrix1.Add(matrix2);
-
-	cout << "Result is: ";
-	matrix1.Display();
-
-	// Resizing matrices.
-	matrix1.SetSize(2);
-	matrix2.SetSize(2);
-
-	matrix1.Input();
-	matrix2.Input();
-
-	matrix1.Add(matrix2);
-	cout << "Result is: ";
-	matrix1.Display();
+	z = y/x;
+	cout << "y/x = " << z << endl;
 
 	return 0;
 }
 \end{lstlisting}
+
