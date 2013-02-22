@@ -1,0 +1,124 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 10\\Nested Loops}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz tomorrow on loops.
+\item First sessional exam syllabus upto loops.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item \verb|while|, \verb|do-while| and \verb|for| loops.
+\item \verb|do-while| is normally used when at least execution of loop is required. Not very common.
+\item \verb|while| is used normally when you don't know how many times loop will execute. Terminating condition is used.
+\item \verb|for| loop is generally used when you know exactly how many times loop will execute.
+\item There is no definitive rule that says a particular loop \emph{has to be used} for a certain situation. You should use whichever loop you're comfortable with.
+\end{itemize}
+\section{\texttt{break} and \texttt{continue}}
+\begin{itemize}
+\item A loop can be forcefully stopped by using the \verb|break| keyword.
+\item \verb|break| keyword \emph{must} be used in a loop. It will immediately terminate the loop without executing anything else.
+\item If a \verb|continue| keyword is encountered in a loop then all the remaining statements in loop will not execute. The loop itself will continue to execute.
+\end{itemize}
+\begin{lstlisting}[caption={Breaking a Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int x;
+	while (true) // Infinite loop.
+	{
+		cout << "Enter a number: ";
+		cin >> x;
+		if (x < 0)
+		{
+			cout << "You've entered a negative number. Exiting..." << endl;
+			break; // Loop will break if negative number is entered.
+		}
+		cout << "You've entered a positive number. Continuing..." << endl;
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using continue in a Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	for (int i=0; i<20; i++)
+	{
+		cout << "This statement will show and counter is: " << i << endl;
+		continue;
+		cout << "This statement will not show as it is skipped because of continue..." << endl;
+		cout << "This statement will also be skipped..." << endl;
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Nested Loops}
+\begin{itemize}
+\item Nested loops can be used to perform complex tasks.
+\item A simple example is printing symmetric 2D shapes like square, rectangle, triangles and diamonds.
+\end{itemize}
+\begin{lstlisting}[caption={Using for Loop to Make Rectangle and Square}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int rows = 5;
+	int columns = 10;
+	
+	for (int i=0; i<rows; i++)
+	{
+		for (int j=0; j<columns; j++)
+		{
+			cout << "*";
+		}
+		cout << endl;			
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+What would happen if you change \verb|j<columns| to \verb|j<i|?\\
+\noindent \textbf{Exercise:} Print all the even numbers between 40 and 150\\
+\noindent \textbf{Exercise:} Print all the numbers divisible by 11 between 0 and 1000\\
+\noindent \textbf{Exercise:} Print all the numbers between 100 and 1000 whose sum of digits is divisible by 5\\
+\end{document}
