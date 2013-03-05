@@ -1,0 +1,102 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 11\\Switch}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item \verb|while|, \verb|do-while| and \verb|for| loops.
+\item \verb|do-while| is normally used when at least execution of loop is required. Not very common.
+\item \verb|while| is used normally when you don't know how many times loop will execute. Terminating condition is used.
+\item \verb|for| loop is generally used when you know exactly how many times loop will execute.
+\item There is no definitive rule that says a particular loop \emph{has to be used} for a certain situation. You should use whichever loop you're comfortable with.
+\item \verb|break| and \verb|continue| statements.
+\item You can exit the program at any time inside \verb|main()| with \verb|return 0;|.
+\end{itemize}
+\section{\texttt{switch} Structure}
+\begin{itemize}
+\item \verb|switch| is a convenient way of handling multiple conditions.
+\item Every condition inside switch structure must end with a break.
+\item A default case can be defined for unexpected conditions.
+\end{itemize}
+\begin{lstlisting}[caption={Using switch to Display GPA}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	char Grade;
+	cout << "Enter a grade (A-F): ";
+	cin >> Grade;
+	
+	switch(Grade)	// Check Grade variable.
+	{
+		case 'A':
+		{
+			cout << "4.0 GPA" << endl;
+			break;
+		}
+		case 'B':
+		{
+			cout << "3.0 GPA" << endl;
+			break;
+		}
+		case 'C':
+		{
+			cout << "2.0 GPA" << endl;
+			break;
+		}
+		case 'D':
+		{
+			cout << "1.0 GPA" << endl;
+			break;
+		}
+		case 'F':
+		{
+			cout << "0.0 GPA" << endl;
+			break;
+		}
+		default:
+		{
+			cout << "Invalid grade entered." << endl;
+			break;
+		}
+	}	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
