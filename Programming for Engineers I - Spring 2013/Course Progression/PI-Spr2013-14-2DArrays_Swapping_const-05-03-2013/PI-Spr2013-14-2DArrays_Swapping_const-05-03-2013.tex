@@ -1,0 +1,149 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 14\\2D Arrays\\Swapping and const Variables}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Array is a special data-type. If we have a collection of data of same type as in the case of storage of ages of 100 students, arrays can be used. Arrays are data structure in which identical data types are stored.
+\end{itemize}
+\section{\texttt{const} Variables and \texttt{\#define}}
+\begin{itemize}
+\item A variable can be declared as a constant with \verb|const| directive before declaration.
+\item Value of a constant variable cannot be changed.
+\item Constant variable can be assigned (initialised) a value at declaration.
+\item If constant variable is not assigned a value at declaration then it is useless because it will contain garbage.
+\item Size of array must be constant. If a non-const variable is used as array size this will generate an error.
+\item Another way of passing array size is to use \verb|#define| directive.
+\end{itemize}
+\begin{lstlisting}[caption={Using const as Array Size}]
+int main()
+{
+	const int Size1 = 10;
+	int Size2 = 10;
+	
+	int Array1[Size1]; // This will work.
+	int Array2[Size2]; // ERROR: Size must be constant.
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using \#define to Declare Array Size}]
+#define Size 10
+int main()
+{
+	int Array[Size];
+
+	return 0;
+}
+\end{lstlisting}
+\section{Variable Swapping}
+To swap two variables a third temporary variable is required.
+\begin{lstlisting}[caption={Swapping Variables}]
+int main()
+{
+	int A = 3;
+	int B = 4;
+	int temp;
+	
+	// Swapping.
+	temp = A;
+	A = B;
+	B = temp;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Using \texttt{rand()} to Generate Random Integers}
+\begin{itemize}
+\item \verb|rand()| is located in \verb|<cstdlib>|.
+\item Every time \verb|rand()| is called it returns a different random integer in the range 0-MAX.
+\item \verb|rand()| can be used with modulus operator to generate variables in certain range.
+\end{itemize}
+\begin{lstlisting}[caption={Using rand() to Fill an Array}]
+#include <iostream>
+#include <cstdlib>
+
+#define size 10
+
+int main()
+{
+	int Random[size];
+	
+	for (int i=0; i<size; i++)
+		Random[i] = rand() % 5; // Fill Random[] array with random numbers in range 0-5.
+		
+	cout << "Displaying array: ";
+	for (int i=0; i<size; i++)
+		cout << Random[i] << " ";
+		
+	cout << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{2D Array}
+\begin{lstlisting}[caption={Using rand() to Fill a 2D Array}]
+#include <iostream>
+#include <cstdlib>
+
+#define Rows 4
+#define Cols 5
+
+int main()
+{
+	int Random[Rows][Cols];
+	
+	for (int i=0; i<Rows; i++)
+		for (int j=0; j<Cols; j++)
+			Random[i][j] = rand() % 5; // Fill Random[] array with random numbers in range 0-5.
+		
+	cout << "Displaying random matrix of size " << Rows << "x" << Cols << ": " << endl;
+	for (int i=0; i<Rows; i++)
+	{
+		cout << "Row " << i+1 << ": ";
+		for (int j=0; j<Cols; j++)
+		{
+			cout << Random[i][j] << " ";
+		}		
+		cout << endl;
+	}
+		
+	return 0;
+}
+\end{lstlisting}
+\end{document}
