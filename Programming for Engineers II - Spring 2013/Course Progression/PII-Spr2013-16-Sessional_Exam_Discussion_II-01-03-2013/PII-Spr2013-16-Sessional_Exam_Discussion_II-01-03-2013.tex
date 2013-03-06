@@ -1,0 +1,97 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 16\\Sessional Exam Discussion - II}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item No quiz this Friday.
+\end{itemize}
+\section{Programming Errors}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+
+const int VALUE = 10; // 1. Constant variable must be initialised at declaration.
+class Distance
+{
+	const float MTF; //meters to feet
+	int feet;
+	float inches;
+public:
+	Distance() : feet(0), inches(0.0), MTF(3.280833F){ }
+	Distance(float meters): MTF(3.280833F) // 2. MTF is constant and must be initialised with initialiser list.
+	{
+		float fltfeet = MTF * meters;
+		feet = (int)fltfeet; // See 4.
+		inches = 12*(fltfeet-feet);
+	}
+	void showdist()
+	{
+		cout << feet << "\'-" << inches << "\"";
+	}
+	void setdist(float meters) // 3. Constant function cannot modify any variable.
+	{
+		float fltfeet = MTF * meters;
+		feet = (int)fltfeet; // 4. Casting syntax.
+		inches = 12*(fltfeet-feet);
+	}
+};
+void fancyDist(Distance d)
+{
+	cout << "\n(in feet and inches) = ";
+	d.showdist();
+	cout << endl;
+}
+void main()
+{
+	//VALUE = 10; // See 1.
+	Distance *pd = new Distance[VALUE]; // 5. 'create' isn't a keyword. Using 'new'
+	Distance dist1(2.35F); 
+	Distance dist2 = 7.89F;	//This is legal, 1-arg contr called
+	float mtrs = 3.0F;
+
+	Distance dist3(mtrs); // 6. Cannot modify attributes of a const object. dist3.setdis(20) will not work.
+	cout << "\ndist1 = ";
+	dist1.showdist();
+	dist3.setdist(20); // See 6.
+	fancyDist(dist2);
+	cout << "\ndist3 ";
+	fancyDist(mtrs); // This is legal. Copy constructor will create object from int.
+	delete[] pd; // 7. Dynamic array should be deleted with array subscript 'delete[]'
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}

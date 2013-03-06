@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 15\\Sessional Exam Discussion - I}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{A few Misconceptions}
+Following points have been shamelessly copied from Sir Aamer Munir's lecture \# 17:\\
+\noindent\textbf{Misconception \# 1:} Data hiding is achieved through making data members private!\\
+\noindent\textbf{Reality:} By virtue of grouping data \& funcs into a class and avoiding global variables is how data hiding is achieved.\\
+\noindent\textbf{Misconception \# 2:} OOP can handle real world ‘problems’!\\
+\noindent\textbf{Reality:} OOP provides ease in ‘modeling’ real-world ‘object’ (not problems).\\
+\noindent\textbf{Misconception \# 3:} Many features of programming taught in this semester are considered specific to OOP, like inline functions, const etc.\\
+\noindent\textbf{Reality:} These are relevant to both SP and OOP. Many things were not taught in Prog-1. Not everything being taught now relates to OOP.\\
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
