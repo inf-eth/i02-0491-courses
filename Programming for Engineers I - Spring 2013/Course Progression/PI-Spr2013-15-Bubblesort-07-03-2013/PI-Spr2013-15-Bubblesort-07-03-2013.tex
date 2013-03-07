@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 15\\Bubblesort}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz on Friday.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Array is a special data-type. If we have a collection of data of same type as in the case of storage of ages of 100 students, arrays can be used. Arrays are data structure in which identical data types are stored.
+\end{itemize}
+\section{How to Find Smallest and Greatest Integer From an Array?}
+\begin{enumerate}
+\item Take first element as smallest.
+\item Test next element.
+\item If next element is less than smallest then new smallest is the variable being tested.
+\end{enumerate}
+\begin{lstlisting}[caption={Smallest Number in an Array}]
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 10;
+	int data[Size];
+	int min;
+	
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data.
+	cout << "Data: ";
+	for (int i=0; i<Size; i++)
+	{
+		cout << data[i] << " ";
+	}
+	cout << endl;
+
+	// Finding smallest value.
+	min = data[0];
+	for (int i=0; i<Size; i++)
+	{
+		if (data[i] < min)
+			min = data[i];
+	}
+	cout << "Smallest value is " << min << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{enumerate}
+\item Take first element as largest.
+\item Test next element.
+\item If next element is greater than largest then new largest is the variable being tested.
+\end{enumerate}
+\begin{lstlisting}[caption={Largest Number in an Array}]
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 10;
+	int data[Size];
+	int max;
+	
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data.
+	cout << "Data: ";
+	for (int i=0; i<Size; i++)
+	{
+		cout << data[i] << " ";
+	}
+	cout << endl;
+
+	// Finding largest value.
+	max = data[0];
+	for (int i=0; i<Size; i++)
+	{
+		if (data[i] > max)
+			max = data[i];
+	}
+	cout << "Largest value is " << max << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{Bubblesort}
+\begin{itemize}
+\item Bubblesort is a sorting algorithm.
+\item Sorting an array in ascending order.
+\item Larger values are `bubbled' to the top.
+\end{itemize}
+\begin{lstlisting}[caption={Bubble Sort}]
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 5;
+	int data[Size];
+
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data before sorting.
+	cout << "Data before sorting: ";
+	for (int i=0; i<Size; i++)
+		cout << data[i] << " ";
+	cout << endl;
+
+	// Bubblesort
+	for (int c=0; c<size; c++)
+	{
+		int currentsize = Size-c;
+		cout << "===== Iteration no: " << c+1 << " ====" << endl;
+		for (int i=0; i<currentsize-1; i++)
+		{
+			// Sorting condition.
+			if (data[i] > data[i+1])
+			{
+				// Swap.
+				int temp = data[i];
+				data[i] = data[i+1];
+				data[i+1] = temp;
+			}
+			cout << "Array after swapping no: " << i << endl;
+			for (int z=0; z<Size; z++)
+				cout << data[z] << " ";
+			cout << endl;
+		}
+		cout << "===================================" << endl;
+	}
+
+	// Displaying data after sorting.
+	cout << "Data after sorting: ";
+	for (int i=0; i<Size; i++)
+		cout << data[i] << " ";
+	cout << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
