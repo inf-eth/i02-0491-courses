@@ -84,16 +84,241 @@ Project announcements blatantly copied from lecture \# 20 (Sections A/B).
 \item To do \verb|B=A| we would ideally want to overload assignment operator for class B that takes object of class A as argument, \verb|void operator=(A)|.
 \item If we cannot change class B code and still want to do \verb|B=A| we'll define \verb|operator B()| in class A.
 \end{itemize}
-\section{Static Variables}
+\section{\texttt{static} Variables}
+\begin{itemize}
+\item \textbf{WARNING!} We have loosely used the term `static' for non-dynamic variables. In the context of C/C++ as a language \verb|static| actually means something else.
+\item Variables declared \verb|static| are only destroyed when the program ends.
+\item Even if declared in a function, \verb|static| variables will continue to exist and take up memory until the end of program.
+\item \verb|static| variable declaration/creation will only happen once.
+\item There is no point making global variables \verb|static| because they already function as if they were \verb|static|... but nobody is stopping you from doing so.
+\item One possible use of using static variables in a function is when you're passing a pointer or reference to a local variable. If the local variable isn't static it's pointer or reference is no longer useful outside the function.
+\end{itemize}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Local Variable in a Function}]
+#include <iostream>
+using namespace std;
 
-\begin{lstlisting}[caption={Object Conversion}]
+int Simple()
+{
+	int x = 0;
+	x++;
+	return x;
+}
 int main()
 {
-	A Aobj;
-	B Bobj;
+	cout << x << endl;
+
+	cout << Simple() << endl;
+	cout << Simple() << endl;
+	cout << Simple() << endl;
 	
-	Aobj = Bobj; // conversion from B to A. Aobj.operator=(B) called.
-	Bobj = Aobj; // conversion from A to B. Aobj.operator B() called.
+	return 0;
+}
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={\texttt{static} Local Variable in a Function}]
+#include <iostream>
+using namespace std;
+
+int Simple()
+{
+	static int x = 0;
+	x++;
+	return x;
+}
+int main()
+{
+	cout << x << endl;
+
+	cout << Simple() << endl;
+	cout << Simple() << endl;
+	cout << Simple() << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\end{minipage}
+\section{\texttt{static} Data Member}
+\begin{itemize}
+\item A \verb|static| data member of class has only one instance. It belongs to the class rather than any object.
+\item \verb|static| members are not associated with object but with the class.
+\item Even there aren't any objects, \verb|static| data member will continue to exist.
+\item One use of \verb|static| is to provide a common variable that can be accessed by objects. Communication?
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{static} Data Member}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	static int count; // Declaration.
+	public:
+	Complex()
+	{
+		count++;
+	}
+	int GetCount()
+	{
+		return count;
+	}
+	~Complex()
+	{
+		count--;
+	}
+};
+int Complex::count = 0; // Initialisation (think of definition).
+
+int main()
+{
+	Complex A, B, C;
+	cout << A.GetCount() << endl;
+	Complex* Ap;
+	Ap = new Complex;
+	cout << A.GetCount() << endl;
+	delete Ap;
+	cout << A.GetCount() << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{static} Functions}
+\begin{itemize}
+\item \verb|static| functions can only access \verb|static| data members. Why?
+\item \verb|static| functions can be called even if objects don't exist.
+\item If objects don't exist, \verb|static| variables still exist!
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{static} Member Function}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	static int count; // Declaration.
+	public:
+	Complex()
+	{
+		count++;
+	}
+	static int GetCount()
+	{
+		return count;
+	}
+	~Complex()
+	{
+		count--;
+	}
+};
+int Complex::count = 0; // Initialisation (think of definition).
+
+int main()
+{
+	Complex A, B, C;
+	cout << Complex::GetCount() << endl;
+	Complex* Ap;
+	Ap = new Complex;
+	cout << Complex::GetCount() << endl;
+	delete Ap;
+	cout << Complex::GetCount() << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{Mutable}}
+\begin{itemize}
+\item A \texttt{mutable} variable can be changed by \texttt{const} functions.
+\item As data member of a class, \verb|mutable| variables can be changed even if the object is constant.
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{mutable} variables}]
+#include <iostream>
+using namespace std;
+
+class A
+{
+	private:
+	mutable int x; // Declaration
+	public:
+	void Setx(int t) const { x = t; }
+	int Getx() const { return x; }
+};
+
+int main()
+{
+	A obj;	
+	A.Setx(3);
+	cout << "x = " << A.Getx() << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={\texttt{const} object with \texttt{mutable} data members}]
+#include <iostream>
+using namespace std;
+
+class A
+{
+	private:
+	mutable int x; // Declaration
+	int y;
+	public:
+	void Setx(int t) const { x = t; }
+	void Sety(int t) { y = t; }
+	int Getx() const { return x; }
+	int Gety() const { return y; }
+};
+
+int main()
+{
+	const A obj;	
+	A.Setx(3); // Changing mutable data. This is OK.
+	cout << "x = " << A.Getx() << endl;
+
+	A.Sety(5); // This will not work, object is const.
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{explicit} Keyword}
+\begin{itemize}
+\item Sometimes we don't want any implicit conversions.
+\item \verb|explicit| keyword can be used to specify if don't want a certain conversion to take place implicitly.
+\item \verb|explicit| is used with one argument constructors.
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{explicit} constructor with distance class}]
+#include <iostream>
+using namespace std;
+
+class distance
+{
+	private:
+	float m;
+	public:
+	distance(): m(0)
+	{
+	}
+	explicit distance(float km)
+	{
+		m = 1000 * km;
+	}
+	void display()
+	{
+		cout << "Distance = " << m << " meters." << endl;
+	}
+};
+
+void showdist(distance d)
+{
+	d.display();
+}
+
+int main()
+{
+	distance d1(2.4);
+	showdist(d1);
+	showdist(3.4); // This won't work with explicit constructor.
 
 	return 0;
 }

@@ -1,144 +1,120 @@
-\begin{lstlisting}[caption={Variable Scope}]
+\begin{lstlisting}[caption={Local Variable in a Function}]
 #include <iostream>
 using namespace std;
 
-int x; // Global variable
-
-class Simple
+int Simple()
 {
-	int y; // y is local variable for Simple class.
-	public:
-	// Default constructor.
-	Simple()
-	{
-		cout << "Value of x in constructor: " << x << endl;
-		x = 100;
-		y = 0;
-		cout << "Value of x after constructor call: " << x << endl;
-	}
-	~Simple()
-	{
-		x = -1;
-		cout << "Value of x after destructor call: " << x << endl;
-	}
-};
-void SimpleFunction()
-{
-	Simple functionobj; // functionobj is a local object of SimpleFunction().
-	x = 1;
+	int x = 0;
+	x++;
+	return x;
 }
 int main()
 {
-	x = 33;
-	Simple* obj = new Simple;
+	cout << x << endl;
 
-	SimpleFunction();
-
-	delete obj;
-
-	for (int i=0; i<3; i++)
-	{
-		int j;
-	}
-	cout << i << j << endl; // Compilation error: i and j are local to for loop.
-
-	cout << "main() is exiting now..." << endl;
-	return 0;
-}
-\end{lstlisting}
-\begin{lstlisting}[caption={Function Returning Reference}]
-#include <iostream>
-using namespace std;
-int x = 0;
-int& SimpleFunction()
-{
-	int y=0;
-	return x; // return y won't make sense but return x would, but wait! return x also doesn't make any sense because x is accessible everywhere! Why return a global variable?
-}
-int main()
-{
-	SimpleFunction() = 100; // SimpleFunction() returns reference to x and that is assigned a value.
-
-	cout << "Value of x = " << x << endl;
+	cout << Simple() << endl;
+	cout << Simple() << endl;
+	cout << Simple() << endl;
 	
-	int z;
-	z = SimpleFunction(); // Assigning z the value of x.
-	cout << "Value of z = " << z << endl;
-
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Safe Array With Set() and Get()}]
+\begin{lstlisting}[caption={\texttt{static} Local Variable in a Function}]
 #include <iostream>
-#include <cstdlib> // for exit()
 using namespace std;
-const int SIZE = 10;
-class SafeArray
+
+int Simple()
 {
-	private:
-	int element[SIZE];
-	public:
-	void Set(int index, int value)
-	{
-		if (index < 0 || index >= SIZE)
-		{
-			cout << "Array out of bounds." << endl;
-			exit(-1);
-		}
-		element[index] = value;
-	}
-	 // Notice, a get() function doesn't change any variable, hence, const.
-	int Get(int index) const
-	{
-		if (index < 0 || index >= SIZE)
-		{
-			cout << "Array out of bounds." << endl;
-			exit(-1);
-		}
-		return element[index];
-	}
-};
+	static int x = 0;
+	x++;
+	return x;
+}
 int main()
 {
-	SafeArray obj;
-	obj.Set(0, 10);
-	cout << "Array[0] = " << obj.Get(0);
+	cout << x << endl;
 
-	obj.Set(10, 33); // ERROR!
-	cout << "Array[-1] = " << obj.Get(-1); // ERROR!
-
+	cout << Simple() << endl;
+	cout << Simple() << endl;
+	cout << Simple() << endl;
+	
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Safe Array With Subscript Operator[]}]
+\begin{lstlisting}[caption={\texttt{static} Data Member}]
 #include <iostream>
-#include <cstdlib> // for exit()
 using namespace std;
-const int SIZE = 10;
-class SafeArray
+
+class Complex
 {
 	private:
-	int element[SIZE];
+	static int count; // Declaration.
 	public:
-	int& operator[](int index)
+	Complex()
 	{
-		if (index < 0 || index >= SIZE)
-		{
-			cout << "Array out of bounds." << endl;
-			exit(-1);
-		}
-		return element[index];
+		count++;
+	}
+	int GetCount()
+	{
+		return count;
+	}
+	~Complex()
+	{
+		count--;
 	}
 };
+int Complex::count = 0; // Initialisation (think of definition).
+
 int main()
 {
-	SafeArray obj;
-	obj[0] = 10; // obj.Set(0, 10);
-	cout << "Array[0] = " << obj[0];
-
-	obj[10] = 33; //obj.Set(10, 33); // ERROR!
-	cout << "Array[-1] = " << obj[-1]; // ERROR!
-
+	Complex A, B, C;
+	cout << A.GetCount() << endl;
+	Complex* Ap;
+	Ap = new Complex;
+	cout << A.GetCount() << endl;
+	delete Ap;
+	cout << A.GetCount() << endl;
+	
 	return 0;
 }
 \end{lstlisting}
+\begin{lstlisting}[caption={\texttt{static} Member Function}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	static int count; // Declaration.
+	public:
+	Complex()
+	{
+		count++;
+	}
+	static int GetCount()
+	{
+		return count;
+	}
+	~Complex()
+	{
+		count--;
+	}
+};
+int Complex::count = 0; // Initialisation (think of definition).
+
+int main()
+{
+	Complex A, B, C;
+	cout << Complex::GetCount() << endl;
+	Complex* Ap;
+	Ap = new Complex;
+	cout << Complex::GetCount() << endl;
+	delete Ap;
+	cout << Complex::GetCount() << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
