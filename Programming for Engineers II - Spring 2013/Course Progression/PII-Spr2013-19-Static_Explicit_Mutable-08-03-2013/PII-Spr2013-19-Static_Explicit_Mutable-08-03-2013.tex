@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 19\\Static Data Members\\Explicit and Mutable}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz.
+\end{itemize}
+Project announcements blatantly copied from lecture \# 20 (Sections A/B).
+\subsection{Project}
+\begin{itemize}
+\item \textbf{Project = 8 Abs marks}
+\item Instead of a take-home project, an \textbf{On-The-Spot (OTS) programming} exercise will be done, \textbf{individually} (no groups).
+	\begin{enumerate}
+	\item \textbf{IDEA:} Project idea will be explained on the spot (class or Lab will be decided later. Preference is in Lab. Based on availability of Labs it can be a Saturday).
+	\item \textbf{DESIGN:} You will be given some time to design (write layman description, decide on classes, their connection i.e., Class Diagrams, Flow Charts etc)
+	\item \textbf{IMPLEMENT:} Write error free executable code within specified time that achieves the required functionality.
+	\item \textbf{TEST:} You will then develop test cases and test the code and when found valid, you will submit it to the teacher.
+	\end{enumerate}
+\item There ‘may’ be some extra time with some penalty.
+\item Tentatively, OTS project will be held at the end of 2nd last week of classes, this semester. The week from \textbf{29th April to 4th May 2013}
+\end{itemize}
+\newpage
+\subsection{Bonus Project}
+\begin{itemize}
+\item \textbf{Bonus Project = 10 Abs BONUS marks}
+\item These bonus marks will primarily be awarded on the Final Exam paper. In case more bonus marks are earned than we can award, they will be adjusted in midterm marks etc.
+\item In the bonus project, you can implement any OOP project of your own choice provided that:
+\begin{itemize}
+\item the idea is approved by the respective instructor. The latest to do this is \textbf{23rd March 2013}.
+\item submit the idea in written form on SLATE to your respective instructor.
+\end{itemize}
+\item Grading:
+\begin{enumerate}
+\item A \textbf{5--10 minute presentation} may be required by a panel of examiners (both instructors and/or Lab engineer and TAs).
+\item The panel will establish whether it is your own code or not.
+\item You may be required to do at the spot minor changes in the code as required by the panel to demonstrate ownership and understanding of the code.
+\item These presentations MUST be scheduled before \textbf{4th May 2013}. The student is responsible to arrange it.
+\item These will be \textbf{individual} projects. Groups are not allowed.
+\end{enumerate}
+\end{itemize}
+\subsection{Interesting Observations}
+\begin{itemize}
+\item ONLY way to prepare for the project is to start writing code with a keyboard, today.
+\item If you start working on bonus project, you'll be prepared for the `actual' project.
+\end{itemize}
+\newpage
+\section{Revision}
+\begin{itemize}
+\item Data conversion.
+\item To do \verb|A=B| we would ideally want to overload assignment operator for class A that takes object of class B as argument, \verb|void operator=(B)|.
+\item To do \verb|B=A| we would ideally want to overload assignment operator for class B that takes object of class A as argument, \verb|void operator=(A)|.
+\item If we cannot change class B code and still want to do \verb|B=A| we'll define \verb|operator B()| in class A.
+\end{itemize}
+\section{Static Variables}
+
+\begin{lstlisting}[caption={Object Conversion}]
+int main()
+{
+	A Aobj;
+	B Bobj;
+	
+	Aobj = Bobj; // conversion from B to A. Aobj.operator=(B) called.
+	Bobj = Aobj; // conversion from A to B. Aobj.operator B() called.
+
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
