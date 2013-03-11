@@ -1,143 +1,118 @@
-\begin{lstlisting}[caption={Variable Scope}]
-#include <iostream>
-using namespace std;
-
-int x; // Global variable
-
-class Simple
-{
-	int y; // y is local variable for Simple class.
-	public:
-	// Default constructor.
-	Simple()
-	{
-		cout << "Value of x in constructor: " << x << endl;
-		x = 100;
-		y = 0;
-		cout << "Value of x after constructor call: " << x << endl;
-	}
-	~Simple()
-	{
-		x = -1;
-		cout << "Value of x after destructor call: " << x << endl;
-	}
-};
-void SimpleFunction()
-{
-	Simple functionobj; // functionobj is a local object of SimpleFunction().
-	x = 1;
-}
+\begin{lstlisting}[caption={Variable Casting}]
 int main()
 {
-	x = 33;
-	Simple* obj = new Simple;
+	int x = 3;
+	float y = 4.3f;
 
-	SimpleFunction();
+	// Implicit conversion.
+	x = y;
+	y = x;
 
-	delete obj;
-
-	for (int i=0; i<3; i++)
-	{
-		int j;
-	}
-	cout << i << j << endl; // Compilation error: i and j are local to for loop.
-
-	cout << "main() is exiting now..." << endl;
-	return 0;
-}
-\end{lstlisting}
-\begin{lstlisting}[caption={Function Returning Reference}]
-#include <iostream>
-using namespace std;
-int x = 0;
-int& SimpleFunction()
-{
-	int y=0;
-	return x; // return y won't make sense but return x would, but wait! return x also doesn't make any sense because x is accessible everywhere! Why return a global variable?
-}
-int main()
-{
-	SimpleFunction() = 100; // SimpleFunction() returns reference to x and that is assigned a value.
-
-	cout << "Value of x = " << x << endl;
+	// Explicit conversion.
+	x = static_cast<int>(y);
+	x = (int)y;
+	y = (float)x;
 	
-	int z;
-	z = SimpleFunction(); // Assigning z the value of x.
-	cout << "Value of z = " << z << endl;
-
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Safe Array With Set() and Get()}]
-#include <iostream>
-#include <cstdlib> // for exit()
-using namespace std;
-const int SIZE = 10;
-class SafeArray
+\begin{lstlisting}[caption={Conversion Between Objects}]
+int intvar;
+float floatvar
+Complex complexobj;
+
+intvar = floatvar;
+floatvar = intvar;
+
+complexobj = intvar; // complexobj.operator=(intvar)
+complexobj = floatvar; // complexobj.operator=(floatvar)
+
+intvar = complexobj; // overload int?
+floatvar = complexobj; // overload float?
+
+objA = objB; // objA.operator=(objB)
+objB = objA; // objB.operator=(objA)
+\end{lstlisting}
+\begin{lstlisting}[caption={Object from Float}]
+class Complex
 {
 	private:
-	int element[SIZE];
+	float real;
+	float img;
 	public:
-	void Set(int index, int value)
+	Complex(): real(0), img(0) {}
+	Complex(float x, float y): real(x), img(y) {}
+	void operator=(float pfloatvar)
 	{
-		if (index < 0 || index >= SIZE)
-		{
-			cout << "Array out of bounds." << endl;
-			exit(-1);
-		}
-		element[index] = value;
-	}
-	 // Notice, a get() function doesn't change any variable, hence, const.
-	int Get(int index) const
-	{
-		if (index < 0 || index >= SIZE)
-		{
-			cout << "Array out of bounds." << endl;
-			exit(-1);
-		}
-		return element[index];
+		real = pfloatvar;
+		img = 0;
 	}
 };
 int main()
 {
-	SafeArray obj;
-	obj.Set(0, 10);
-	cout << "Array[0] = " << obj.Get(0);
-
-	obj.Set(10, 33); // ERROR!
-	cout << "Array[-1] = " << obj.Get(-1); // ERROR!
-
+	float resistance = 3.3;
+	Complex impedance;
+	impedance = resistance; // Complex from int conversion: impedance.operator=(resistance)
+	// impedance is now 3.3+j0
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Safe Array With Subscript Operator[]}]
-#include <iostream>
-#include <cstdlib> // for exit()
-using namespace std;
-const int SIZE = 10;
-class SafeArray
+\begin{lstlisting}[caption={Float from Object}]
+class Complex
 {
 	private:
-	int element[SIZE];
+	float real;
+	float img;
 	public:
-	int& operator[](int index)
+	Complex(): real(0), img(0) {}
+	Complex(float x, float y): real(x), img(y) {}
+	operator float()
 	{
-		if (index < 0 || index >= SIZE)
-		{
-			cout << "Array out of bounds." << endl;
-			exit(-1);
-		}
-		return element[index];
+		return real;
 	}
 };
 int main()
 {
-	SafeArray obj;
-	obj[0] = 10; // obj.Set(0, 10);
-	cout << "Array[0] = " << obj[0];
+	float resistance;
+	Complex impedance(3.3,4.7);
+	resistance = impedance; // float from complex conversion: impedance.operator float()
+	// resistance now contains 3.3.
 
-	obj[10] = 33; //obj.Set(10, 33); // ERROR!
-	cout << "Array[-1] = " << obj[-1]; // ERROR!
+	return 0;
+}
+\end{lstlisting}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={class A}]
+class A
+{
+	private:
+	float x;
+	public:
+	void operator=(B);
+	operator B();
+};
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={class B}]
+class B
+{
+	private:
+	int y;
+	public:
+	// Cannot change code.
+};
+\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[caption={Object Conversion}]
+int main()
+{
+	A Aobj;
+	B Bobj;
+	
+	Aobj = Bobj; // conversion from B to A. Aobj.operator=(B) called.
+	Bobj = Aobj; // conversion from A to B. Aobj.operator B() called.
 
 	return 0;
 }
