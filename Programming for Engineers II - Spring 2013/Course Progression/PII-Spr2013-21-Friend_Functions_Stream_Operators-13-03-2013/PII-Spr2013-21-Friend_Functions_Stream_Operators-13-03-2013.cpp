@@ -1,6 +1,7 @@
-\begin{lstlisting}[caption={Implicitly Returning Objects}]
+\begin{lstlisting}[caption={\texttt{friend} function to display Complex number}]
 #include <iostream>
 using namespace std;
+
 class Complex
 {
 	private:
@@ -9,112 +10,56 @@ class Complex
 	public:
 	Complex(): real(0.f), img(0.f) {}
 	Complex(float a, float b): real(a), img(b) {}
-	Complex operator+ (Complex& rhs)
-	{
-		return Complex(real+rhs.real, img+rhs.img); // Implicit object return.
-	}
-	// Prefix.
-	Complex operator++ ()
-	{
-		return Complex(++real, ++img); // Implicit object return.
-	}
-	// Postfix.
-	Complex operator++ (int dummy)
-	{
-		return Complex(real++, img++); // Implicit object return.
-	}
+	friend void Display(Complex&); // Friend function specified.
 };
-int main()
+
+// Display function definition. This is an ordinary function.
+void Display(Complex& c)
 {
-	Complex A(0.f,0.f);
-	A++;
-	++A;
-	Complex C = A + Complex(2.4f, 22.4f); // Notice implicit rhs operand.
-	
-	return 0;
+	cout << c.real << "+j" << c.img << endl;
 }
-\end{lstlisting}
-\begin{lstlisting}[caption={\texttt{mutable} variables}]
-#include <iostream>
-using namespace std;
-
-class A
-{
-	private:
-	mutable int x; // Declaration
-	public:
-	void Setx(int t) const { x = t; }
-	int Getx() const { return x; }
-};
 
 int main()
 {
-	A obj;	
-	A.Setx(3);
-	cout << "x = " << A.Getx() << endl;
+	Complex A(2.f,3.3f);
+	Display(A);
 
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={\texttt{const} object with \texttt{mutable} data members}]
+\begin{lstlisting}[caption={Overloading Stream Operators for Complex class}]
 #include <iostream>
 using namespace std;
 
-class A
+class Complex
 {
 	private:
-	mutable int x; // Declaration
-	int y;
+	float real;
+	float img;
 	public:
-	void Setx(int t) const { x = t; }
-	void Sety(int t) { y = t; }
-	int Getx() const { return x; }
-	int Gety() const { return y; }
+	Complex(): real(0.f), img(0.f) {}
+	Complex(float a, float b): real(a), img(b) {}
+	friend ostream& operator <<(ostream&, Complex&);
+	friend istream& operator >>(istream&, Complex&);
 };
 
-int main()
+ostream& operator <<(ostream& out, Complex& c)
 {
-	const A obj;	
-	A.Setx(3); // Changing mutable data. This is OK.
-	cout << "x = " << A.Getx() << endl;
-
-	A.Sety(5); // This will not work, object is const.
-	
-	return 0;
+	out << c.real << "+j" << c.img;
+	return out;
 }
-\end{lstlisting}
-\begin{lstlisting}[caption={\texttt{explicit} constructor with distance class}]
-#include <iostream>
-using namespace std;
-
-class distance
+istream& operator >>(istream& in, Complex& c)
 {
-	private:
-	float m;
-	public:
-	distance(): m(0)
-	{
-	}
-	explicit distance(float km)
-	{
-		m = 1000 * km;
-	}
-	void display()
-	{
-		cout << "Distance = " << m << " meters." << endl;
-	}
-};
-
-void showdist(distance d)
-{
-	d.display();
+	in >> c.real >> c.img;
+	return in;
 }
 
 int main()
 {
-	distance d1(2.4);
-	showdist(d1);
-	showdist(3.4); // This won't work with explicit constructor.
+	Complex A;
+	cout << "Enter a complex number: ";
+	cin >> A;
+	cout << "You entered: " << A << endl;
 
 	return 0;
 }
