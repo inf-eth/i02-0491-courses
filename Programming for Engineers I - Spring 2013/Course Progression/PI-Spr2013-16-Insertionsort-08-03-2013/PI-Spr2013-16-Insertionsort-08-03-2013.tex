@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 16\\Insertion Sort}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quizzes are by default scheduled for Friday.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Bubblesort.
+\end{itemize}
+\section{Insertion Sort}
+\begin{enumerate}
+\item Assign currentsize = Size-iterationNo.
+\item Pick min value and swap it with value in last index.
+\item Decrease current size by 1.
+\item If size $>$ 1 go to step 1 otherwise array is sorted. Exit.
+\end{enumerate}
+\begin{lstlisting}[caption={Insertion Sort}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 5;
+	int data[Size];
+
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data before sorting.
+	cout << "Data before sorting: ";
+	for (int i=0; i<Size; i++)
+		cout << data[i] << " ";
+	cout << endl;
+
+	// Insertion sort
+	for (int c=0; c<Size; c++)
+	{
+		int currentsize = Size-c;
+		int min;
+		int minindex;
+
+		cout << "===== Iteration no: " << c+1 << " ====" << endl;
+		if (currentsize > 1)
+		{
+			min = data[0];
+			minindex = 0;
+
+			// Pick minimum.
+			for (int i=0; i<currentsize; i++)
+			{
+				if (data[i] < min)
+				{
+					min = data[i];
+					minindex = i;
+				}
+			}
+			// Swap with last element. data[minindex] <-> data[currentsize-1]
+			int temp = data[minindex];
+			data[minindex] = data[currentsize-1];
+			data[currentsize-1] = temp;
+			
+			cout << "Array after swapping no: " << c+1 << endl;
+			for (int z=0; z<Size; z++)
+				cout << data[z] << " ";
+			cout << endl;
+		}
+		cout << "===================================" << endl;
+	}
+
+	// Displaying data after sorting.
+	cout << "Data after sorting: ";
+	for (int i=0; i<Size; i++)
+		cout << data[i] << " ";
+	cout << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
