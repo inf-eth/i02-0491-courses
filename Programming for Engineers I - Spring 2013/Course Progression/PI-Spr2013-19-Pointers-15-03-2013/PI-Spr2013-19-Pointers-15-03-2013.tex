@@ -1,0 +1,77 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 19\\Pointers}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz 4 on 2D arrays.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item C--strings.
+\end{itemize}
+\section{Pointers}
+\begin{itemize}
+\item Pointers are very special variables that let you manipulate other `normal' variables (int, float, double etc.).
+\item A pointer stores the address of the variable it wants to access (manipulate).
+\item Pointer declaration requires declaration of the type of variable that pointer will `point' to. \verb|int* xp| means a pointer named `xp' that can point to an integer variable.
+\item Accessing the value of `pointed' variable is called `dereferencing' the pointer. This is done by using a \verb|*| with pointer. Example: \verb|Display: cout << *xp;|, \verb|Input: cin >> *xp;|
+\item \textbf{Remember, like other variables, a pointer will contain garbage if it is not initialised with the address of a valid variable}.
+\item \textbf{Any attempt to access an invalid address stored in pointer will likely result in runtime crash}.
+\item Pointers allow dynamic memory access and is probably the most powerful feature in C. Mastering the use of pointers can result in efficient and faster programs.
+\item Basic pointer usage is essential for understanding dynamic memory allocation/deallocation.
+\end{itemize}
+\begin{lstlisting}[caption={Pointer Basics}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int x = 34;
+	int* xp; // Pointer declaration.
+	xp = &x; // Pointer 'xp' initialised with address of x.
+	
+	cout << "Value of x: " << x << endl; // Value stored in x.
+	cout << "Address of x: " << &x << endl; // Address of x in memory.
+	cout << "Value of xp: " << xp << endl; // xp stores address of x.
+	cout << "Value of x using xp: " << *xp << endl; // Display value stored in x using pointer xp.
+	*xp = -1; // Change value stored in x using pointer xp.
+	cout << "New value of x: " << endl
+		 << "Using x: " << x << endl
+		 << "Using xp: " << *xp << endl; 
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
