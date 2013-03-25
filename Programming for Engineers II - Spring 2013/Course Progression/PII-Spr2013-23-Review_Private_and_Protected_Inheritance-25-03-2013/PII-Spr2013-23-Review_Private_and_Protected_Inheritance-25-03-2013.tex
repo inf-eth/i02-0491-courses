@@ -100,13 +100,55 @@ int main()
 \section{Multiple Files}
 \begin{itemize}
 \item Until now you have only used a single file for your code. When creating large programs, code is spread between different header and code files according to relevance.
-\item Class definition is usually put in a file with .hpp extension. For Complex class this header should be named Complex.hpp. .hpp refers to C++ header whereas .h headers are normally used for C code. Headers without any extension are standard C++ headers like <iostream>.
+\item Class definition is usually put in a file with .hpp extension. For Complex class this header should be named Complex.hpp. .hpp refers to C++ header whereas .h headers are normally used for C code. Headers without any extension are standard C++ headers like \verb|<iostream>|.
 \item Class implementation is put in a file with class name and .cpp extension. For Complex class this would be Complex.cpp.
 \item In main() header file is included as normal.
 \end{itemize}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Complex.hpp}]
+class Complex
+{
+	private:
+	float real, img;
+	public:
+
+	void Input();
+	void Display();
+};
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Complex.cpp}]
+#include <iostream>
+#include <Complex.hpp>
+using namespace std;
+
+void Complex::Input()
+{
+	cin >> real >> img;
+}
+void Complex::Display()
+{
+	cout << real << img;
+}
+\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[caption={main.cpp}]
+#include <Complex.hpp>
+
+int main()
+{
+	Complex A;
+	A.Input();
+	A.Display();
+
+	return 0;
+}
+\end{lstlisting}
 \section{Ambiguities in Multiple Inheritance}
 \begin{enumerate}
-\item class A and class B both have functions called disp(). class C being derived from both class A and class B will not know which disp() to call if using dot operator. This can be resolved with wither over--riding and making a new disp() function in class C OR using scope resolution operator.
+\item class A and class B both have functions called disp(). class C being derived from both class A and class B will not know which disp() to call if using dot operator. This can be resolved with either over--riding and making a new disp() function in class C OR using scope resolution operator.
 \item class A contains disp(). class B and class C are derived from class A. If another class D is derived from both B and C then class D won't know which disp() to call.
 \end{enumerate}
 \section{Private and Protected Members}
