@@ -1,0 +1,121 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+
+% Url links.
+\usepackage[hyphens]{url}
+% Clickable links to figures, references and urls.
+\usepackage{hyperref}
+
+\usepackage{float}
+\usepackage{graphicx}
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Lab 13\\File Handling}
+\author{Hina Ashraf\and Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Why Use Files?}
+Any variables in a program only exist for the duration of the program. Sometimes you need to analyse the output data after you're done running the program. There may be a lot of data and it isn't feasible to just use the console. Files are useful for permanent storage of data or information that may be required at a later stage. For example, record of students in a class, database of salaries, GPA histories etc.
+\section{Creating/Opening a New File}
+Before any operations can be performed on a file it needs to be created. This is done with \verb|fopen()| function. First argument is the \emph{file name} and second argument is \emph{mode}. Mode determines if we want to perform just read, just write or both read/write operations. The different modes are listed in table \ref{FileModes} which is taken from \url{http://www.cplusplus.com/reference/cstdio/fopen/}.
+\begin{lstlisting}[caption={Creating and opening a new file}]
+#include <cstdio>
+int main()
+{
+   FILE *stream;
+   char line[81]; // This string holds the data read from file.
+
+   // Creates a file named test.txt if it doesn't exist and write something in it.
+   // If file already exists previous data is deleted.
+	stream = fopen("test.txt", "w+");
+	fprintf(stream, "Hello, this is a message.\n"); // Writing something onto file.
+	fclose(stream);  // Close the file.
+
+	return 0;
+}
+\end{lstlisting}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lcp{10cm}}
+	\hline \hline
+		\textbf{Mode} \rule{0pt}{2.6ex} & \textbf{Function} & \textbf{Description}\\
+		\hline
+		r \rule{0pt}{2.6ex} & read & Open file for input operations. The file must exist.\\
+		w & write & Create an empty file for output operations. If a file with the same name already exists, its contents are discarded and the file is treated as a new empty file.\\
+		a & append & Open file for output at the end of a file. Output operations always write data at the end of the file, expanding it. Repositioning operations (fseek, fsetpos, rewind) are ignored. The file is created if it does not exist.\\
+		r+ & read/update & Open a file for update (both for input and output). The file must exist.\\
+		w+ & write/update & Create an empty file and open it for update (both for input and output). If a file with the same name already exists its contents are discarded and the file is treated as a new empty file.\\
+		a+ & append/update & Open a file for update (both for input and output) with all output operations writing data at the end of the file. Repositioning operations (fseek, fsetpos, rewind) affects the next input operations, but output operations move the position back to the end of file. The file is created if it does not exist.\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{FileModes}
+\caption{File modes}
+\end{table}
+\section{Reading and Writing to/from Text Files}
+The file handling functions behave similar to console input/output functions printf, scanf, gets and puts. Their analogues are fprintf, fscanf, fgets and fputs. When using file handling functions think of file as the console. fprintf and fputs will write onto file. fscanf and fgets will read from file. Text files are nothing but a long string of characters. So think of everything in a file as a character just like you would for a console.\\
+\emph{It is imperative that the programmer must know the layout of a file. If there are numbers or text in the file then the sequence of file reading/writing operations will depend on how they appear in the file.} Notice how there is additional text in the fscanf directives when reading from file. This is because the programmer knows exactly where the values of age and GPA are located in the file.
+\begin{lstlisting}[caption={File input and output}]
+#include <cstdio>
+int main()
+{
+   FILE *outstream;
+   FILE *instream;
+   char line[81]; // This string holds the data read from file.
+   int Age;
+   float GPA;
+
+	outstream = fopen("StudentData.txt", "w+");
+	fprintf(outstream, "====== Student Data ======\n"); // Writing something onto file.
+	fprintf(outstream, "Name: This Is My Name\n"); // Writing something onto file.
+	fprintf(outstream, "Age: %d\n", 21);
+	fprintf(outstream, "GPA: %f\n", 3.21);
+	fprintf(outstream, "===========================\n");
+	fclose(outstream);  // Close the output file.
+	
+	instream = fopen("StudentData.txt", "r"); // Open the file for reading only.
+	fgets(line, 80, instream); // Read a line and store in 'line'.
+	printf("%s", line); // Display on console.
+	fgets(line, 80, instream); // Read another line.
+	printf("%s", line); // Display on console.
+	// Extra characters in scanf are only for positioning.
+	fscanf(instream, "Age: %d\n", &Age);
+	printf("Age: %d\n", Age);
+	fscanf(instream, "GPA: %f\n", &GPA);
+	printf("GPA: %f\n", GPA);
+	fgets(line, 80, instream); // Read another line.
+	puts(line); // Display on console.
+	fclose(instream);  // Close the input file.
+
+	return 0;
+}
+\end{lstlisting}
+\section{Exercise}
+\textbf{Question No. 1a:} Write a program that stores first 100 primes in a text file. This program must NOT output on console.\\
+\\
+\textbf{Question No. 1b:} Write another program to read those 100 primes and display on console.\\
+\\
+\textbf{Question No. 2a:} Create a student database. Ask the user how many students' record to store (typically around 1--10). Take student name, age and GPA from user for desired number of students and write this into a file in append mode.\\
+\\
+\textbf{Question No. 2b:} Read and display the student record stored in a file. Notice, you don't already know how many records there are so display till end of file.
+\end{document}
