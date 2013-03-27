@@ -1,3 +1,7 @@
+\begin{lstlisting}[caption={operator+ prototype as member function and as \texttt{friend}}]
+Complex Complex::operator+ (Complex&); // member function
+Complex operator+ (Complex&, Complex&); // global friend function
+\end{lstlisting}
 \begin{lstlisting}[caption={operator+ implemented as \texttt{friend}}]
 #include <iostream>
 using namespace std;
@@ -30,136 +34,73 @@ int main()
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Example of Inheritance}]
+\begin{lstlisting}[caption={Complex.hpp}]
+class Complex
+{
+	private:
+	float real, img;
+	public:
+
+	void Input();
+	void Display();
+};
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Complex.cpp}]
 #include <iostream>
+#include <Complex.hpp>
 using namespace std;
 
-// AC = A constructor.
-// BC = B constructor.
-// AD = A destructor.
-// BD = B destructor.
+void Complex::Input()
+{
+	cin >> real >> img;
+}
+void Complex::Display()
+{
+	cout << real << img;
+}
+\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[caption={main.cpp}]
+#include <Complex.hpp>
+
+int main()
+{
+	Complex A;
+	A.Input();
+	A.Display();
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={private and protected members}]
 class A
 {
 	private:
 	int x;
-	public:
-	A(): x(0)
-	{
-		cout << "AC" << endl;
-	}
-	A(int px): x(px)
-	{
-		cout << "AC" << endl;
-	}
-	~A()
-	{
-		cout << "AD" << endl;
-	}
-};
-// class B is derived from class A.
-// B will contain both x and y
-class B: public A
-{
-	private:
+	protected:
 	int y;
 	public:
-	B(): y(0) // This constructor will implicitly call A()
+	int z;
+};
+class B: public A
+{
+	public:
+	void Test()
 	{
-		cout << "BC" << endl;
-	}
-	B(int py): A(), y(py) // This will explicitly call A()
-	{
-		cout << "BC" << endl;
-	}
-	B(int px, int py): A(py), y(py) // This will explicitly call A(int)
-	{
-		cout << "BC" << endl;
-	}
-	~B()
-	{
-		cout << "BD" << endl;
+		x = 3; // ERROR! cannot access private members of class A.
+		y = 3; // OK
+		z = 3; // OK
 	}
 };
 int main()
 {
-	// Constructor calls in creation of B object:
-	// 1. Constructor of A is called implicitly and x is set to 0.
-	// 2. Constructor of B is called and y is set to 0.
 	B Bobj;
-	
-	return 0;	
-}
-// Destructors are called in reverse order.
-// First destructor of B is called and then destructor of A.
-// Output of the program is:
-// AC
-// BC
-// BD
-// AD
-\end{lstlisting}
-\begin{lstlisting}[caption={Over--Riding Base Class Function}]
-#include <iostream>
-#include <string> // For string class.
-using namespace std;
-
-class Person
-{
-	private:
-	string Name;
-	int Age;
-	public:
-	Person(): Name("No name"), Age(-1)
-	{
-	}
-	Person(string pName, int pAge): Name(pName), Age(pAge)
-	{
-	}
-	void Input()
-	{
-		cin >> Name >> Age;
-	}
-	void Display()
-	{
-		cout << "Name: " << Name << endl
-			 << "Age:  " << Age << endl;
-	}
-};
-
-class Student: public Person
-{
-	private:
-	float CGPA;
-	public:
-	Student(): Person(), CGPA(-1.f)
-	{
-	}
-	Student(string pName, int pAge, float pCGPA): Person(pName, pAge), CGPA(pCGPA)
-	{
-	}
-	// Input/display functions over-ride the ones in base class but call them explicitly.
-	void Input()
-	{
-		Person::Input();
-		cin >> CGPA;
-	}
-	void Display()
-	{
-		Person::Display();
-		cout << "CGPA: " << CGPA << endl;
-	}
-};
-
-int main()
-{
-	// Student object using default constructors.
-	Student S1;
-	
-	// Student object by passing values.
-	Student S2("Ahsan", 19, 3.97f);
-	
-	S1.Input();
-	S1.Display(); // Default display: Displays name, age and cgpa.
-	S1.Person::Display(); // This will only display name and age.
+	Bobj.x = 0; // ERROR!
+	Bobj.y = 0; // ERROR!
+	Bobj.z = 0; // OK
 	
 	return 0;
 }
