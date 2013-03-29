@@ -1,0 +1,180 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 24\\Copy Constructor and Assignment Operator Revisited}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Ambiguities in Multiple Inheritance.
+\item Private and protected members.
+\item Private and protected inheritance.
+\end{itemize}
+\section{Pointer Review}
+\begin{itemize}
+\item Simple pointer to a variable.
+\item Dynamic memory allocation with a pointer.
+\item Array allocation with pointer and array usage.
+\end{itemize}
+\begin{lstlisting}[caption={Pointer Basics}]
+#include <iostream>
+using namespace std;
+int main()
+{
+	int x = 3; // x declaration and initialisation.
+	int* px; // Pointer declaration.
+	px = &x; // Pointer xp now `points' to x.
+	
+	cout << x << endl;   // Value of x.
+	cout << &x << endl;  // Address of x.
+	cout << xp << endl;  // Value of xp = Address of x.
+	cout << *xp << endl; // Pointer dereference: Using xp to access value of x.
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Dynamic memory allocation with pointer}]
+int main()
+{
+	int* p;
+	
+	// Single integer.
+	p = new int; // Allocation.
+	*p = 3;
+	delete p;    // De-allocation.
+	
+	// Integer array.
+	p = new int[5]; // Array allocation.
+	for (int i=0; i<5; i++)
+	{
+		p[i] = i;
+	}		
+	delete[] p;     // Array de-allocation.
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Copy Constructor and Assignment Operator}
+\begin{itemize}
+\item Copying simple object with int variable.
+\item Copying an object with int* variable. Problem? Only pointer address is copied when using default copy constructor or assignment operator.
+\item Need to overload copy constructor and assignment operator when copying pointers.
+\end{itemize}
+\section{How are Copy Constructor and Assignment Operator Related?}
+\begin{itemize}
+\item Both do the same thing, i.e., copy attributes of one object into another. \verb|objA = objB|
+\item Only difference is calling context: Copy constructor is called when objA is being created, assignment operator is called when objA is already created.
+\item \underline{Both should have the same code.} We don't want copy constructor to do one thing and assignment operator to do something else.
+\item Two planes X and Y are heading to London. Would you expect X to arrive in New York and Y in London? No, they maybe different planes (with different departure times) but they're supposed to do the same thing, that is, fly to London.
+\end{itemize}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Default object copy}]
+#include <iostream>
+using namespace std;
+class Test
+{
+	public:
+	int x;
+};
+int main()
+{
+	Test A, B;
+	A.x = 3;
+	
+	B = A;		// Assignment operator.
+	Test C = A; // Copy constructor.
+	
+	// B.x and C.x now contain 3. Same as A.x.
+	// Changing B.x won't affect A.x or B.x.
+	// All x's are independent.
+	
+	return 0;
+}
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{8cm}
+\begin{lstlisting}[caption={Default cbject copy with pointers}]
+#include <iostream>
+using namespace std;
+class Test
+{
+	public:
+	int* x;
+};
+int main()
+{
+	Test A, B;
+	A.x = new int;
+	*(A.x) = 3;
+	
+	B = A;		// Assignment operator.
+	Test C = A; // Copy constructor.
+	
+	delete A.x; // De-allocates memory for all pointers!
+
+	// B.x and C.x now contain the same address as A.x.
+	// All point to same memory location!
+	// Sharing same value!
+	
+	return 0;
+}
+\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[caption={Overloading copy constructor and assignment operator}]
+class Test
+{
+	public:
+	int* x;
+	// Copy constructor.
+	Test(const Test& rhs)
+	{
+		x = new int;
+		*x = *(rhs.x); // Copying value.
+	}
+	// Assignment operator.
+	Test operator= (const Test& rhs)
+	{
+		x = new int;
+		*x = *(rhs.x); // Copying value.
+	}
+};
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
