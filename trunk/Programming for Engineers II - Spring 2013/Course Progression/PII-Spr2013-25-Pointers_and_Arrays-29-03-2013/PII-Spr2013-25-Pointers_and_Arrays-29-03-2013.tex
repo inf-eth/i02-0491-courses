@@ -1,0 +1,269 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 25\\Pointers and Arrays}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz day. Quiz \# 6
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Dynamic memory allocation using pointer.
+\item Need to overload copy constructor and assignment operator if copying pointers as data members.
+\item Why copy constructor and assignment operator should have same code, default or otherwise? They're supposed to do the same thing. Need to make sure we're doing the same thing when any one of them is called.
+\end{itemize}
+\section{Pointers and Arrays}
+The name of array is the pointer to its first element. A subscript besides array name can be translated in english as, ``access element located this much distance from start.'' Keep in mind that \verb|Array[i]| is the same as \verb|*(Array+i)| which means that you only need array pointer to access array elements using the subscript. Consider the following code
+\begin{lstlisting}[caption={Arrays and Pointers}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int Array[5] = {3,7,2,1,5};
+
+	cout << Array << endl; // Prints the address of array.
+
+	// Using subscript.
+	cout << Array[0] << endl; // Print the value of element located a distance of 0 from start.
+	cout << Array[3] << endl; // Print the value of element located a distance of 3 from start.
+	cout << Array[5] << endl; // Print the value of element located a distance of 5 from start. ERROR! Out of bound.
+
+	// Using Pointers.
+	cout << *(Array+0) << endl; // Prints the value of first element which is 3.
+	cout << *(Array+1) << endl; // Prints the value of second element which is 7.
+	cout << *(Array+5) << endl; // Prints the value of sixth element which is out of bound. ERROR!
+
+	return 0;
+}
+\end{lstlisting}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Writing 'Array'
+	\coordinate [label=left:\textsf{Array Pointer (\texttt{Array})}] (Arraypointer) at (-1.5cm,0.3cm);
+	\draw[thick, ->, >=stealth] (-1.5cm, 0.3cm) -- (0cm, 0.3cm);
+	% Drawing boxes.
+	\foreach \x in {0.0cm, 1.0cm, 2.0cm, 3.0cm, 4.0cm}
+		\draw[thick] (\x, 0cm) rectangle (\x+1.0cm, 0.6cm);
+	% Writing numbers in boxes. This is original array.
+	\foreach \x/\y in {0.0cm/3, 1.0cm/7, 2.0cm/2, 3.0cm/1, 4.0cm/5}
+		\draw (\x+0.5cm,0.3cm) node {\texttt{\y}};
+	\def\XD{0cm}
+	\def\YD{-0.5cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[0] or *(Array+0)}] (Array0) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+
+	\def\XD{1cm}
+	\def\YD{-1cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[1] or *(Array+1)}] (Array1) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+
+	\def\XD{2cm}
+	\def\YD{-1.5cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[2] or *(Array+2)}] (Array2) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+
+	\def\XD{3cm}
+	\def\YD{-2cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[3] or *(Array+3)}] (Array3) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+	
+	\def\XD{4cm}
+	\def\YD{-2.5cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[4] or *(Array+4)}] (Array4) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+	
+	\def\XD{5cm}
+	\def\YD{-3cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[5] or *(Array+5)}] (Array5) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\coordinate [label=right:\texttt{ERROR!}] (Error) at (\XD,\YD);
+\end{tikzpicture}
+\caption{Using pointer to access array elements}
+\label{Array-pointer-element-access}
+\end{figure}
+\section{Dynamically Creating Objects}
+\begin{itemize}
+\item Just like ordinary variables, we can dynamically create objects.
+\item A pointer to an object can be used to access data members with \verb|->| operator. Remember dot operator is used when we're using object variable.
+\end{itemize}
+\begin{lstlisting}[caption={Pointers to Objects}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	public:
+	float real, img;
+};
+int main()
+{
+	Complex* c;
+	delete c; // What will this do?
+
+	c = new Complex; // Dynamic memory allocation.
+
+	// Member access using arrow operator.
+	c->real = 3; // Also, (*c).real
+	c->img = 5;  // Also, (*c).img
+
+	int* px; // Pointer declaration.
+	px = &x; // Pointer xp now `points' to x.
+
+	delete c; // De-allocation.
+
+	// Array allocation.
+	c = new Complex[10];
+
+	for (int i=0; i<10; i++)
+	{
+		c[i].real = 3;
+		c[i].img = 5;
+	}
+
+	return 0;
+}
+\end{lstlisting}
+\section{Pointer Levels: Double and Triple Pointers}
+\begin{itemize}
+\item Treat everything, including pointers, as variables.
+\item Keep normal variables at level 0.
+\item Single pointers are at level 1.
+\item Double pointers are at level 2 and so on.
+\item Using variable name will access the value stored in the variable.
+\item Dereferencing (a \verb|*| before variable name, e.g., \verb|*x|) takes you one level higher and gives you the respective value. Dereferencing a pointer always takes you to the variable which it `points' to.
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main()
+{
+	int **ipp;
+	
+	int i = 5, j = 6; k = 7;
+	int *ip1 = &i, *ip2 = &j;
+	
+	ipp = &ip1;
+	*ipp = ip2;
+	*ipp = &k;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	% Writing 'Array'
+	\coordinate [label=left:\textsf{Array Pointer (\texttt{Array})}] (Arraypointer) at (-1.5cm,0.3cm);
+	\draw[thick, ->, >=stealth] (-1.5cm, 0.3cm) -- (0cm, 0.3cm);
+	% Drawing boxes.
+	\foreach \x in {0.0cm, 1.0cm, 2.0cm, 3.0cm, 4.0cm}
+		\draw[thick] (\x, 0cm) rectangle (\x+1.0cm, 0.6cm);
+	% Writing numbers in boxes. This is original array.
+	\foreach \x/\y in {0.0cm/3, 1.0cm/7, 2.0cm/2, 3.0cm/1, 4.0cm/5}
+		\draw (\x+0.5cm,0.3cm) node {\texttt{\y}};
+	\def\XD{0cm}
+	\def\YD{-0.5cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[0] or *(Array+0)}] (Array0) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+
+	\def\XD{1cm}
+	\def\YD{-1cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[1] or *(Array+1)}] (Array1) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+
+	\def\XD{2cm}
+	\def\YD{-1.5cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[2] or *(Array+2)}] (Array2) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+
+	\def\XD{3cm}
+	\def\YD{-2cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[3] or *(Array+3)}] (Array3) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+	
+	\def\XD{4cm}
+	\def\YD{-2.5cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[4] or *(Array+4)}] (Array4) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
+	
+	\def\XD{5cm}
+	\def\YD{-3cm}
+	% Drawing an arrow and pointer.
+	\coordinate [label=left:\texttt{Array[5] or *(Array+5)}] (Array5) at (-1cm,\YD);
+	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\coordinate [label=right:\texttt{ERROR!}] (Error) at (\XD,\YD);
+\end{tikzpicture}
+\caption{Pointer Levels}
+\label{Pointer-Levels}
+\end{figure}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
