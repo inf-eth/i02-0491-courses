@@ -1,0 +1,86 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 26\\Advanced Pointers\\Keyword \texttt{this}}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Dynamic memory allocation using pointer. Object pointers and \verb|->| notation.
+\item Pointers and arrays.
+\item Pointer levels: double and triple pointers.
+\end{itemize}
+\section{\texttt{this} Pointer}
+\begin{itemize}
+\item Inside class functions, we have access to a `magic' pointer named \verb|this|.
+\item This pointer points to calling object itself.
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{this} pointer}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	void Input()
+	{
+		cin >> this->real;
+		cin >> this->img;
+	}
+	void Display()
+	{
+		cout << this->real << endl;
+		cout << this->img << endl;
+	}
+};
+
+int main()
+{
+	Complex c;
+	c.Input();
+	c.Display();
+
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
