@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 21\\Dynamic Memory Allocation}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz \# 5 on Friday 29-03-2013 from pointers and 2D arrays.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Pointers.
+\item Passing arguments to functions.
+\end{itemize}
+\section{Pointer Arithmetic}
+\begin{itemize}
+\item Pointers can be incremented or decremented.
+\item If a pointer is incremented by one then the value of address it stores is incremented by the size of data type.
+\item Example: An int pointer contains 10. If it is incremented then the new value is 14 because size of int is 4.
+\item This makes sense when viewed from the perspective of array access. In an int array each location occupies 4 bytes. The address of each location is separated by 4 bytes. To access 3rd element \verb|*(array+2)| is used. If first address is at 0 then second would be at 4 and third at 8.
+\end{itemize} 
+\begin{lstlisting}[caption={Pointer Arithmetic}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int Array[5] = {3,7,2,1,5};
+	int* pA;
+	pA = Array; // pA stores starting address of Array.
+	
+	for (int i=0; i<5; i++)
+	{
+		cout << *pA << endl;
+		pA++; // Increment pointer.
+	}
+
+	return 0;
+}
+\end{lstlisting}
+\section{Dynamic Memory Allocation in C++}
+\begin{itemize}
+\item In C++ \verb|new| is used for dynamic memory allocation and \verb|delete| to de--allocate memory. Both are keywords.
+\item Dynamic memory can only be allocated and accessed with a pointer.
+\item Dynamically allocated memory must be de--allocated with \verb|delete| or \verb|delete[]| before program exits.
+\end{itemize}
+\begin{lstlisting}[caption={Dynamic memory allocation with pointer}]
+int main()
+{
+	int* p;
+	
+	// Single integer.
+	p = new int; // Allocation.
+	*p = 3;
+	delete p;    // De-allocation.
+	
+	// Integer array.
+	int size = 5;
+	p = new int[size]; // Array allocation.
+	for (int i=0; i<size; i++)
+	{
+		p[i] = i;
+	}		
+	delete[] p;     // Array de-allocation.
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
