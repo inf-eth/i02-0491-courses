@@ -1,0 +1,64 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{amssymb}  % Tick mark
+\usepackage{textcomp} % Cross
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Lab 07\\Functions\\Pointers and Pass By Reference\\Dynamic Memory Allocation}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Exercise}
+\textbf{Question No. 1:} Write a function with void return type that squares an input number by reference.
+\begin{lstlisting}[caption={Square by reference}]
+void Square(int&); // Prototype.
+\end{lstlisting}
+\textbf{Question No. 2:} Write a function with void return type that squares an input number using pointer.
+\begin{lstlisting}[caption={Square using pointer}]
+void Square(int*); // Prototype.
+\end{lstlisting}
+\textbf{Question No. 3:} Write a function with void return type that will square an input array. Assume size is fixed.
+\begin{lstlisting}[caption={Square using array pointer}]
+void SquareArray(int*, int); // Prototype. Array pointer and array size are arguments
+int main()
+{
+	int Data[5] = {2, 3, 7, -1, 1};
+	SquareArray(Data, 5);
+	// Display squared array here.
+
+	return 0;
+}
+void SquareArray(int* array, int size)
+{
+	// Write code to square array
+}
+\end{lstlisting}
+\textbf{Question No. 4:} Repeat question no. 3 but array should be dynamically allocated. Take array size from user and initialise it with random numbers.
+\end{document}
