@@ -1,0 +1,155 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 23\\Initialisation of \texttt{struct} Variables\\Dynamic \texttt{struct}s}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Creating new data types using \verb|struct|.
+\item Defining \verb|struct|.
+\item Data members of a \verb|struct|. The dot operator for accessing data members.
+\end{itemize}
+\section{\texttt{struct} Initialisation}
+\begin{itemize}
+\item Members of a \verb|struct| can be initialised, like array, by passing comma separated arguments enclosed in braces.
+\item Initialisation is done at creation of variable.
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{struct} Initialisation}]
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+struct Student
+{
+	char Name[20];
+	int Age;
+	float CGPA;
+	char Gender;
+};
+
+int main()
+{
+	Student S1 = {"Ahsan", 19, 3.97f, 'M'};
+	Student S2 = {"Sahar", 19, 3.5f, 'F'};
+
+	// Alternate way of setting data members.
+	strcpy(S1.Name, "Ahsan");
+	S1.Age = 19;
+	S1.CGPA = 3.97f;
+	S1.Gender = 'M';
+
+	return 0;
+}
+\end{lstlisting}
+\section{Copying \texttt{struct}s}
+\begin{itemize}
+\item \texttt{struct}s can be copied normally via assignment operator.
+\end{itemize}
+\begin{lstlisting}
+Student S1 = {"Ahsan", 19, 3.97f, 'M'};
+Student S2 = S1; // Copying S1 into S2.
+\end{lstlisting}
+\section{Passing \texttt{struct} Variables to Functions}
+\begin{itemize}
+\item \texttt{struct}s are passed just like normal variables.
+\item It is better to pass as reference to avoid unnecessary memory and speed overheads associated with pass--by--value.
+\end{itemize}
+\section{Dynamic \texttt{struct} Variables and Arrays}
+\begin{itemize}
+\item Arrays of \texttt{struct}s can be created just like that of basic data types.
+\item Dynamic \texttt{struct} variables are created just like basic types. Only difference is accessing members of \texttt{struct}.
+\item The \verb|->| is used instead of dot operator to access members when using a pointer to some \texttt{struct} variable.
+\end{itemize}
+\begin{lstlisting}[caption={Dynamic \texttt{struct}}]
+#include <iostream>
+using namespace std;
+
+struct Complex
+{
+	float real;
+	float img;
+};
+int main()
+{
+	// Static struct access using pointer.
+	Complex t;
+	Complex* tp;
+	tp = &t;
+	tp->real = 1.0f;
+	tp->img = 0.0f;
+
+	// Dynamic allocation.
+	Complex* c;
+	c = new Complex;
+	c->real = 3.2f; // same as (*c).real = 3.2f;
+	c->img = 4.4f;  // same as (*c).img = 4.4f;
+
+	cout << c->real << c->img << endl;
+	delete c;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Array of \texttt{struct}}]
+#include <iostream>
+using namespace std;
+
+struct Complex
+{
+	float real;
+	float img;
+};
+int main()
+{
+	Complex* c;
+	c = new Complex[5];
+
+	for (int i=0; i<5; i++)
+	{
+		c[i].real = 3.2f;
+		c[i].img = 4.4f;
+	}
+
+	cout << c[0].real << c[0].img << endl;
+
+	delete[] c;
+
+	return 0;
+}
+\end{lstlisting}
+
+\end{document}
