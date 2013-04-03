@@ -51,12 +51,14 @@ using namespace std;
 
 int main()
 {
+	// Note: For the following scenario, p2 was located 12 bytes before p1 in memory.
+	// For example, assuming address of p1 was 12, address of p2 would be 0. This can be verified by using debugger.
 	int** pp;
 	int* p1;
 	int* p2;
 
-	arr1[5] = {6,7,8,9,10};
-	arr2[5] = {1,2,3,4,5};
+	int arr1[5] = {6,7,8,9,10};
+	int arr2[5] = {1,2,3,4,5};
 
 	p1 = arr1;
 	p2 = arr2;
@@ -79,10 +81,11 @@ int main()
 		 << "*pp[0]: " << *pp[0] << endl
 		 << "(*pp)[0]: " << (*pp)[0] << endl
 		 << "*(pp[0]): " << *(pp[0]) << endl
-		 << "pp[1]: " << pp[1] << endl
-		 << "*pp[1]: " << *pp[1] << endl
+		 << "p2: " << p2 << endl
+		 << "pp[-3] = *(pp-3): " << pp[-3] << endl
+		 << "*pp[-3]: " << *pp[-3] << endl
 		 << "(*pp)[1]: " << (*pp)[1] << endl
-		 << "*(pp[1]): " << *(pp[1]) << endl;
+		 << "*(pp[-3]): " << *(pp[-3]) << endl;
 
 	return 0;
 }
