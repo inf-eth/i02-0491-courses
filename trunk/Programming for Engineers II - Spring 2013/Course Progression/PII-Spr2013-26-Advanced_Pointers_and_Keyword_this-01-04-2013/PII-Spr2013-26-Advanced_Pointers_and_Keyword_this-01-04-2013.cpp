@@ -4,6 +4,8 @@ using namespace std;
 
 int main()
 {
+	// Note: For the following scenario, p2 was located 12 bytes before p1 in memory.
+	// For example, assuming address of p1 was 12, address of p2 would be 0. This can be verified by using debugger.
 	int** pp;
 	int* p1;
 	int* p2;
@@ -33,12 +35,13 @@ int main()
 		 << "(*pp)[0]: " << (*pp)[0] << endl
 		 << "*(pp[0]): " << *(pp[0]) << endl
 		 << "p2: " << p2 << endl
-		 << "pp[-3] = *(pp-3): " << pp[-3] << endl
+		 << "pp[-3] = *(pp-3): " << pp[-3] << " (Same as p2!)." << endl
 		 << "*pp[-3]: " << *pp[-3] << endl
 		 << "(*pp)[1]: " << (*pp)[1] << endl
 		 << "*(pp[-3]): " << *(pp[-3]) << endl;
 
 	return 0;
+}
 }
 \end{lstlisting}
 
