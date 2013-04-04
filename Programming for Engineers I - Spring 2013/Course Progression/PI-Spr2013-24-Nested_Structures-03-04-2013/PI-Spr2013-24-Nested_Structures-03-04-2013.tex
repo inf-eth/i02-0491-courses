@@ -1,0 +1,97 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 24\\Nested Structures}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Creating new data types using \verb|struct|.
+\item Defining \verb|struct|.
+\item Data members of a \verb|struct|. The dot operator for accessing data members.
+\item Initialisation.
+\item Copying \texttt{struct}.
+\item Passing \texttt{struct} to functions.
+\item Arrays of \texttt{struct}.
+\end{itemize}
+\section{Nested \texttt{struct}}
+\begin{itemize}
+\item Just like ordinary variables, variables of \texttt{struct} type can be used inside other structures.
+\item We can define a point with x and y coordinates.
+\item A line has two points.
+\item A triangle has three points.
+\end{itemize}
+\begin{lstlisting}[caption={Nested \texttt{struct}}]
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+struct Point
+{
+	int x;
+	int y;
+};
+
+struct Line
+{
+	Point P1;
+	Point P2;
+};
+
+struct Triangle
+{
+	Point P1;
+	Point P2;
+	Point P3;
+};
+
+int main()
+{
+	Triangle T;
+
+	// Taking input.
+	T.P1.x = 1;
+	T.P1.y = 1;
+	T.P2.x = 3;
+	T.P2.y = 2;
+	T.P3.x = 4;
+	T.P3.y = 5;
+
+	return 0;
+}
+\end{lstlisting}
+
+\end{document}
