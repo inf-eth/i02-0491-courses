@@ -365,7 +365,7 @@ int main()
 	% Drawing an arrow and pointer.
 	\coordinate [label=left:\texttt{Array[0] or *(Array+0)}] (Array0) at (-1cm,\YD);
 	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
-	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5cm);
 	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
 
 	\def\XD{1cm}
@@ -373,7 +373,7 @@ int main()
 	% Drawing an arrow and pointer.
 	\coordinate [label=left:\texttt{Array[1] or *(Array+1)}] (Array1) at (-1cm,\YD);
 	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
-	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5cm);
 	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
 
 	\def\XD{2cm}
@@ -381,7 +381,7 @@ int main()
 	% Drawing an arrow and pointer.
 	\coordinate [label=left:\texttt{Array[2] or *(Array+2)}] (Array2) at (-1cm,\YD);
 	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
-	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5cm);
 	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
 
 	\def\XD{3cm}
@@ -389,7 +389,7 @@ int main()
 	% Drawing an arrow and pointer.
 	\coordinate [label=left:\texttt{Array[3] or *(Array+3)}] (Array3) at (-1cm,\YD);
 	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
-	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5cm);
 	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
 	
 	\def\XD{4cm}
@@ -397,7 +397,7 @@ int main()
 	% Drawing an arrow and pointer.
 	\coordinate [label=left:\texttt{Array[4] or *(Array+4)}] (Array4) at (-1cm,\YD);
 	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
-	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5cm);
 	\draw[dashed] (\XD,\YD-0.3cm) rectangle (\XD+1cm,\YD+0.3cm);
 	
 	\def\XD{5cm}
@@ -405,7 +405,7 @@ int main()
 	% Drawing an arrow and pointer.
 	\coordinate [label=left:\texttt{Array[5] or *(Array+5)}] (Array5) at (-1cm,\YD);
 	\draw[thick, ->, >=stealth] (-1cm, \YD) -- (0cm+\XD, \YD);
-	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5);
+	\draw[dashed] (\XD,0cm) -- (\XD,\YD-0.5cm);
 	\coordinate [label=right:\texttt{ERROR!}] (Error) at (\XD,\YD);
 \end{tikzpicture}
 \caption{Using pointer to access array elements}
