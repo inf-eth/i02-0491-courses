@@ -1,170 +1,87 @@
-\begin{lstlisting}[caption={Pointer Example},escapechar=!]
+\begin{lstlisting}[caption={Passing Arguments to main()}]
 #include <iostream>
+#include <string>
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
-	int** pp;
-	int* p1;
-	int* p2;
+	cout << "Number of arguments = " << argc << endl;
+	cout << "Argument list: " << endl;
+	for (int i=0; i<argc; i++)
+		cout << "Arg " << i+1 << " = " << argv[i] << endl;
 
-	int arr1[5] = {6,7,8,9,10};
-	int arr2[5] = {1,2,3,4,5};
-
-	p1 = arr1;
-	p2 = arr2;
-	pp = &p1;
-
-	cout << "&p1: " << &p1 << endl
-		 << "p1: " << p1 << endl
-		 << "*p1: " << *p1 << endl
-		 << "*(p1+0): " << *(p1+0) << endl
-		 << "p1[0]: " << p1[0] << endl
-		 << "p1[1]: " << p1[1] << endl
-		 << "*(p1+2): " << *(p1+2) << endl;
-
-	cout << "&pp: " << &pp << endl
-		 << "pp: " << pp << endl
-		 << "*pp: " << *pp << endl
-		 << "**pp: " << **pp << endl
-		 << "*(pp+0): " << *(pp+0) << endl
-		 << "pp[0]: " << pp[0] << endl
-		 << "*pp[0]: " << *pp[0] << endl
-		 << "(*pp)[0]: " << (*pp)[0] << endl
-		 << "*(pp[0]): " << *(pp[0]) << endl
-		 << "p2: " << p2 << endl
-		 << "pp[-3] = *(pp-3): " << pp[-3] << endl
-		 << "*pp[-3]: " << *pp[-3] << endl
-		 << "(*pp)[1]: " << (*pp)[1] << endl
-		 << "*(pp[-3]): " << *(pp[-3]) << endl;
+	string pass = "password";
+	if (pass == string(argv[1]))
+		cout << "Correct Password!" << endl;
+	else
+		cout << "Incorrect Password." << endl;
 
 	return 0;
 }
 \end{lstlisting}
-
-\begin{lstlisting}[caption={\texttt{this} pointer}]
+\begin{lstlisting}[caption={Passing Variable as Reference and as Pointer}]
 #include <iostream>
 using namespace std;
 
-class Complex
+void SquareRef(int& x)
 {
-	private:
-	float real;
-	float img;
-	public:
-	Complex()
-	{
-		cout << "My object's address is: " << this << endl;
-	}
-	void Input()
-	{
-		cin >> this->real;
-		cin >> this->img;
-	}
-	void Display()
-	{
-		cout << this->real << endl;
-		cout << this->img << endl;
-	}
-};
-
+	x = x*x;
+}
+void SquarePtr(int* x)
+{
+	*x = *x * *x;
+}
 int main()
 {
-	Complex c;
-	c.Input();
-	c.Display();
+	int a = 3;
+	int b = 5;
+
+	SquareRef(a);
+	SquarePtr(&b);
+
+	cout << "a^2 = " << a << endl;
+	cout << "b^2 = " << b << endl;
 
 	return 0;
 }
 \end{lstlisting}
+\begin{lstlisting}[caption={Function that `returns' int and double}]
+#include <iostream>
+using namespace std;
 
-\begin{lstlisting}[caption={Returning by reference using \texttt{this} pointer},escapechar=!]
-class Complex
+void Square(int* x, double* y)
 {
-	private:
-	float real;
-	float img;
-	public:
-	Test& operator= (Test & rhs)
-	{
-		real = rhs.real;
-		img = rhs.img;
-		return (*this);
-	}
-};
+	*x = *x * *x;
+	*y = *y * *y;
+}
 int main()
 {
-	Complex A, B, C;
-	!\color{red}{A = B = C}!;
+	int a = 3;
+	double b = 5;
+
+	Square(&a, &b);
+
+	cout << "a^2 = " << a << endl;
+	cout << "b^2 = " << b << endl;
 
 	return 0;
 }
 \end{lstlisting}
-
-\begin{lstlisting}[caption={\texttt{void*} usage}]
+\begin{lstlisting}[caption={Function to Allocate Array}]
 #include <iostream>
 using namespace std;
 
-int main()
+void CreateArray(int** ArrayPtr, int* SizePtr)
 {
-	void* vp;
-	vp = new int[5];
-	delete[] vp;
-
-	vp = new float;
-	*((float*)vp) = 3.3f; // Notice, explicit casting from void* to float* before dereferencing.
-	cout << "*vp: " << *((float*)vp) << endl;
-	delete vp;
-
-	return 0;
+	cin >> *SizePtr;
+	*ArrayPtr = new int[*SizePtr];
 }
-\end{lstlisting}
-
-\begin{lstlisting}[caption={constant string}]
-#include <iostream>
-using namespace std;
-
 int main()
 {
-	char str1[] = "Defined as an array";
-	char* str2 = "Defined as a pointer";
-	cout << str1 << endl; // display both strings
-	cout << str2 << endl;
-	//str1++; //can’t do this; str1 is a const ptr
-	str2++; // this is OK, str2 is a pointer
-	cout << str2 << endl; //now str2 starts "efined..."
+	int* Array;
+	int Size;
 
-	return 0;
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Array of constant strings, contiguous storage}]
-#include <iostream>
-using namespace std;
-
-int main()
-{
-	const int DAYS = 7;
-	char* arrptrs[DAYS] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-
-	for(int j=0; j<DAYS; j++) //cout every string
-		cout << arrptrs[j] << endl;
-
-	return 0;
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Constant column length, non-contiguous storage},escapechar=!]
-#include <iostream>
-using namespace std;
-
-int main()
-{
-	const int DAYS = 7;
-	!\color{red}{char arrptrs[DAYS][10]}! = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-
-	for(int j=0; j<DAYS; j++) //cout every string
-		cout << arrptrs[j] << endl;
+	CreateArray(&Array, &Size);
 
 	return 0;
 }
