@@ -1,0 +1,127 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 29\\Introduction to Linked List}
+\author{Attique Dawood}
+\date{April 10, 2013\\[0.2cm] Last Modified: \today}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item No Quiz this week due to sessional exams.
+\end{itemize}
+\section{Linked List}
+\begin{itemize}
+\item Storage problems with fragmented memory or hard disk.
+\item Array requires contiguous space in memory. Array cannot dynamically grow incrementally. Must de--allocate and re--allocate whole array to change size.
+\item Linked list solves the above problems. Doesn't require contiguous memory. Linked list is a chain of pointer--connected nodes. Nodes store information just like array indices.
+\item Linked list access is slower than array. Must traverse whole list to reach a particular node. But, storage and size is flexible.
+\item Array is preferable when speed is desired and storage size is known. Static data. Example: Number of students in a class cannot exceed 50. Create an array of 50 size for students.
+\item Linked list is preferable when speed is not a major concern and storage size is highly dynamic. Example: Daily record of cars using motorway. On weekends traffic is high but there aren't many cars on weekdays. Numbers of cars can be highly varied.
+\end{itemize}
+\begin{lstlisting}[caption={Creating a Linked List}]
+#include <iostream>
+using namespace std;
+
+class Node
+{
+	public:
+	int Data;
+	Node* Next;
+};
+
+class LinkedList
+{
+	private:
+	Node* First;
+	public:
+	LinkedList(): First(NULL)
+	{
+	}
+	void AddNode(int pData)
+	{
+		// If creating first node we need to change first pointer.
+		if (First == NULL)
+		{
+			Node* NewNode;
+			NewNode = new Node;
+			NewNode->Data = pData;
+			NewNode->Next = NULL;
+			First = NewNode;
+		}
+		// We need to traverse the whole list to get to last node.
+		else
+		{
+			// Find last node.
+			Node* temp;
+			temp = first;
+			while (temp->Next != NULL)
+				temp = temp->Next;
+			// temp now points to last node.
+			Node* NewNode;
+			NewNode = new Node;
+			temp->Next = NewNode;
+			NewNode->Data = pData;
+			NewNode->Next = NULL;
+		}
+	}
+	void Display()
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			cout << "Data = " << temp->Data << endl;
+			temp = temp->Next;
+		}
+	}			
+};
+
+int main()
+{
+	LinkedList TestList;
+
+	TestList.AddNode(-1);
+	TestList.AddNode(2);
+	TestList.AddNode(0);
+	TestList.AddNode(7);
+	
+	TestList.Display();
+	
+	return 0;
+}
+\end{lstlisting}
+\textbf{Question} You must traverse the whole list to add a new node at the end. By keeping a \verb|Last| pointer, that always points to last node in the list, you can add a node at the end without traversal. Modify the given above class and the \verb|AddNode()| function to provide this functionality.\\
+\textbf{Note: } This question is worth 1 absolute point. Only first correct submission will be accepted.
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
