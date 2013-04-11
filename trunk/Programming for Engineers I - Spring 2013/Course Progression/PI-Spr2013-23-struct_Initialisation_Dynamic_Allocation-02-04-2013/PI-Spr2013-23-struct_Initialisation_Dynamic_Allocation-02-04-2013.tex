@@ -63,13 +63,13 @@ struct Student
 
 int main()
 {
-	Student S1 = {"Ahsan", 19, 3.97f, 'M'};
+	Student S1 = {"Ahsan", 19, 3.4f, 'M'};
 	Student S2 = {"Sahar", 19, 3.5f, 'F'};
 
 	// Alternate way of setting data members.
 	strcpy(S1.Name, "Ahsan");
 	S1.Age = 19;
-	S1.CGPA = 3.97f;
+	S1.CGPA = 3.4f;
 	S1.Gender = 'M';
 
 	return 0;
@@ -88,6 +88,48 @@ Student S2 = S1; // Copying S1 into S2.
 \item \texttt{struct}s are passed just like normal variables.
 \item It is better to pass as reference to avoid unnecessary memory and speed overheads associated with pass--by--value.
 \end{itemize}
+\begin{lstlisting}[caption={\texttt{struct} Initialisation}]
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+struct StudentInfo
+{
+	char Name[20];
+	int Age;
+	float CGPA;
+	char Gender;
+};
+
+void DisplayStudentInfo(const StudentInfo& s)
+{
+	switch(s.Gender)
+	{
+		case 'M':
+		{
+			cout << "Information of Mr. " << s.Name << endl;
+			break;
+		}
+		case 'F':
+		{
+			cout << "Information of Ms. " << s.Name << endl;
+			break;
+		}
+	}
+	cout << "Age: " << s.Age << endl;
+	cout << "CGPA: " << s.CGPA << endl;
+}
+int main()
+{
+	StudentInfo S1 = {"Ahsan", 19, 3.4f, 'M'};
+	StudentInfo S2 = {"Sahar", 19, 3.5f, 'F'};
+
+	DisplayStudentInfo(S1);
+	DisplayStudentInfo(S2);
+
+	return 0;
+}
+\end{lstlisting}
 \section{Dynamic \texttt{struct} Variables and Arrays}
 \begin{itemize}
 \item Arrays of \texttt{struct}s can be created just like that of basic data types.
@@ -151,5 +193,4 @@ int main()
 	return 0;
 }
 \end{lstlisting}
-
 \end{document}
