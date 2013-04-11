@@ -1,0 +1,124 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{amssymb}  % Tick mark
+\usepackage{textcomp} % Cross
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Lab 09\\Typedef, Enum and Union}
+\author{Attique Dawood}
+\date{April 11, 2013\\[0.2cm] Last Modified: \today}
+\begin{document}
+\maketitle
+\section{\texttt{typedef}}
+\verb|typedef| is used to define new names, aliases or nicknames for already existing data types.
+\begin{lstlisting}[caption={\texttt{typedef}}]
+#include <iostream>
+using namespace std;
+
+typedef int I;				// typedef for single int
+typedef int IntArray[5];	// typedefining an int array of size 5.
+
+int main()
+{
+	I x = 3;
+	cin >> x;
+	cout << x;
+	
+	IntArray data;
+	for (int i=0; i<5; i++)
+		data[i] = rand()%6;
+	for (int i=0; i<5; i++)
+		cout << "data[" << i << "] = " << data[i] << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{enum}
+\verb|enum| is used to create new datatypes with pre--defined values. It is like a set of values you can define and then pick/choose from.
+\begin{lstlisting}[caption={\texttt{enum}}]
+#include <iostream>
+using namespace std;
+
+enum Direction{north, south, east, west};
+
+int main()
+{
+
+	Direction d;
+	int temp;
+	cout << "Enter a direction: " << endl
+		 << "0 = north, 1 = south, 2 = east, 3 = west: ";
+	cin >> temp;
+
+	d = (Direction)temp; // casting from int to Direction.
+
+	if (d == north)
+		cout << "NORTH!" << endl;
+	else if (d == south)
+		cout << "SOUTH!" << endl;
+	else if (d == east)
+		cout << "EAST!" << endl;
+	else if (d == west)
+		cout << "WEST!" << endl;
+	else
+		cout << "Invalid direction!" << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{union}}
+\verb|union| is similar to a \verb|struct| but all the data members in \verb|union| share same memory.
+\begin{lstlisting}[caption={\texttt{union}}]
+#include <iostream>
+using namespace std;
+
+union test
+{
+	int i;
+	double d;
+	char c;
+};
+
+int main()
+{
+	test u;
+	u.i = 65;
+	cout << "u.c = " << u.c << endl;
+	
+	u.c = 'E';
+	cout << u.i << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Exercise}
+\textbf{Question No. 1:} Using \verb|typedef| create a character array. Input a string and then display it.\\
+\textbf{Question No. 2:} Use enum to create a set/collection of items. Items should be related. Test your set.\\
+\textbf{Question No. 3:} Create a union containing int, double and char. Test it by taking input and display the members.\\
+\end{document}
