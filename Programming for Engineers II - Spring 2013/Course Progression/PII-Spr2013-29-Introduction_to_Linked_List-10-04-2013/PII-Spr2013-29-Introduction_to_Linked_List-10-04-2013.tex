@@ -15,6 +15,7 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}	% Clickable links to figures, references and urls.
 \usepackage{enumerate}
+\usepackage{datetime}
 
 % Drawing.
 \usepackage{pgf}
@@ -31,7 +32,7 @@
 %opening
 \title{\vspace{-2cm}Programming for Engineers II\\Class 29\\Introduction to Linked List}
 \author{Attique Dawood}
-\date{April 10, 2013\\[0.2cm] Last Modified: \today}
+\date{April 10, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Announcements}
@@ -82,7 +83,7 @@ class LinkedList
 		{
 			// Find last node.
 			Node* temp;
-			temp = first;
+			temp = First;
 			while (temp->Next != NULL)
 				temp = temp->Next;
 			// temp now points to last node.
