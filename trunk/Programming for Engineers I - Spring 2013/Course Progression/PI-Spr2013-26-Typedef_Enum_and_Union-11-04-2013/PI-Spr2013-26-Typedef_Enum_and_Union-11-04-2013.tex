@@ -14,6 +14,7 @@
 \usepackage{graphicx}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
 
 % Drawing.
 \usepackage{pgf}
@@ -30,7 +31,7 @@
 %opening
 \title{\vspace{-2cm}Programming for Engineers I\\Class 26\\Typedef, Enum and Union}
 \author{Attique Dawood}
-\date{April 11, 2013\\[0.2cm] Last Modified: \today}
+\date{April 11, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{\texttt{typedef}}
@@ -91,7 +92,12 @@ int main()
 }
 \end{lstlisting}
 \section{\texttt{union}}
-\verb|union| is similar to a \verb|struct| but all the data members in \verb|union| share same memory.
+\begin{itemize}
+\item \verb|union| is similar to a \verb|struct| but all the data members in \verb|union| share same memory.
+\item Data member taking most memory is the amount of space allocated to \verb|union| variable.
+\item In the following example, double takes most memory (8 bytes) so the \verb|unioin| variable `u' is allocated 8 bytes. If it were a \verb|struct| then it would have taken 13 bytes.
+\end{itemize}
+
 \begin{lstlisting}[caption={\texttt{union}}]
 #include <iostream>
 using namespace std;
