@@ -1,0 +1,190 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 27\\File Handling\\Text Files}
+\author{Attique Dawood}
+\date{April 12, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item \verb|typedef| is used to define new names, aliases or nicknames for already existing data types.
+\item \verb|enum| is used to create new datatypes with pre--defined values. It is like a set of values you can define and then pick/choose from.
+\item \verb|union| is similar to a \verb|struct| but all the data members in \verb|union| share same memory.
+\end{itemize}
+\section{File Handling in C++}
+\begin{itemize}
+\item In C++ file handling library is \verb|<fstream>|.
+\item You create `objects' of type (or class) \verb|fstream| and use them for reading to and writing from files.
+\item Text files can be manipulated using \verb|<<| and \verb|>>| operators exactly like \verb|cout/cin|.
+\end{itemize}
+\section{Text and Binary File Formats}
+\begin{itemize}
+\item The number -3.7182193 can be either a double or float depending on data type being used.
+\item For example \verb|float f = -3.7182193;| is float and takes 4 bytes for storage in memory. These 4 bytes contain the binary representation of float.
+\item If stored as a string, it is 10 characters long including the minus sign and decimal point: \verb|char c[] = "-3.7182193";|. Note: \verb|NULL| is implicit and doesn't count towards length of string.
+\item Take another example of an integer \verb|int x = 1;|. If stored as a string of characters, it will take only 1 byte. If stored as an integer it will take 4 bytes, regardless of the value.
+\item In a text file, data is stored as a string of characters. It's a copy of what you see on your console. As can be expected, a text file is easily readable if opened in a text editor.
+\item In a binary file, data is stored as it would in a memory. It's a copy of what is in the memory. A binary file, just like memory, isn't so obviously readable in raw form.
+\end{itemize}
+\section{File Modes}
+Modes are options that can be specified when opening a file. Options are specified as the second argument of \verb|open()| function. Options can be combined with the `OR' operator \verb\'|'\. A few examples are given below:
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lp{9cm}}
+	\hline \hline
+		\textbf{Mode} \rule{0pt}{2.6ex} & \textbf{Description}\\
+		\hline
+		\verb|ios::in| \rule{0pt}{2.6ex} & Read mode\\
+		\verb|ios::out| \rule{0pt}{2.6ex} & Write mode\\
+		\verb|ios::binary| \rule{0pt}{2.6ex} & Binary mode operation\\
+		\verb|ios::app| \rule{0pt}{2.6ex} & Append mode\\
+		\verb|File.open("abc.txt", ios::in);| \rule{0pt}{2.6ex} & Open file for reading. File must exist.\\
+		\verb|File.open("abc.txt", ios::out);| \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing file will be overwritten.\\
+		\verb\..., ios::out|ios::app);\ \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing data will be preserved. Data will be written at the end of file.\\
+		\verb\..., ios::out|ios::binary);\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing file will be overwritten.\\
+		\verb\ios::out|ios::binary|ios::app\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing data will be preserved. Data will be written at the end of file.\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{FileModes}
+\caption{File modes}
+\end{table}
+\section{Writing to Text File}
+\begin{lstlisting}[caption={Writing to text file}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+
+int main()
+{
+	fstream OutFile;	// File handling object.
+
+	// Open "abc.txt" for writing (ios::out). This will overwrite existing file.
+	OutFile.open("abc.txt", ios::out);
+	OutFile << "Hello world?" << endl;
+	OutFile << "Some numbers: 2 3 7 11 13.33 -2.448" << endl;
+	OutFile << "Grades: A A- B+ D C- F A+" << endl;
+	OutFile.close();	// Close file.
+
+	return 0;
+}
+\end{lstlisting}
+\section{Reading from Text File}
+\begin{lstlisting}[caption={Reading from text file (Creating file)}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+
+int main()
+{
+	int x = 3;
+	float f = -2.348193f;
+	char c = '^';
+
+	fstream OutFile;	// File handling object.
+
+	// Open "abc.txt" for writing (ios::out). This will overwrite existing file.
+	OutFile.open("abc.txt", ios::out);
+	OutFile << x << " " << f << " " << c << " " << endl;
+	OutFile.close();	// Close file.
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Reading from text file}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+int main()
+{
+	int x;
+	float f;
+	char c;
+
+	fstream InFile;	// File handling object.
+
+	// Open "abc.txt" for reading (ios::in).
+	InFile.open("abc.txt", ios::in);
+	InFile >> x >> f >> c;
+	InFile.close();	// Close file.
+	
+	cout << "Data read is..." << endl;
+	cout << "x = " << x << ", f = " << f << ", c = " << c << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Reading a line from text file}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+int main()
+{
+	char Line[50];
+
+	fstream InFile;	// File handling object.
+
+	// Open "abc.txt" for reading (ios::in).
+	InFile.open("abc.txt", ios::in);
+	InFile.getline(Line, 50);
+	InFile.close();	// Close file.
+	
+	cout << "Data read is..." << endl;
+	cout << Line << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Reading a whole text file line--by--line}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+int main()
+{
+	char Line[50];
+
+	fstream InFile;	// File handling object.
+
+	// Open "abc.txt" for reading (ios::in).
+	InFile.open("abc.txt", ios::in);
+	while(InFile)
+	{
+		InFile.getline(Line, 50);
+		cout << "Read: " << Line << endl;
+	}
+	InFile.close();	// Close file.
+
+	return 0;
+}
+\end{lstlisting}
+\end{document}
