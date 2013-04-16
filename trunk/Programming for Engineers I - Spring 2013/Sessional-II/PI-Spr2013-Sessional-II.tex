@@ -1,0 +1,276 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+\pagestyle{plain}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Marks of each question.
+\def\QOne{10}
+\def\Qtwo{10}
+\def\Qthree{20}
+\def\Qfour{20}
+\def\Qfive{20}
+\def\Qsix{20}
+\def\TotalMarks{100}
+
+\begin{document}
+\begin{minipage}{0.55\textwidth}
+{\LARGE \textbf{Programming for\\ Engineers I}}\\[0.15cm]
+{\normalsize \textbf{Spring 2013 Semester}}\\
+{\Large \textbf{$2^{nd}$ Sessional Exam}}\\
+{\normalsize \textbf{Saturday, April 06, 2013}}\\[0.30cm]
+{\Large \textbf{Total Time: 60 minutes}}\\[0.15cm]
+{\Large \textbf{Total Marks: 100}}\\
+\textbf{Course Instructor:}\\
+Atif Mughees\\
+Attique Dawood\\
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\textbf{Serial} \hrulefill \\[0.25cm]
+\textbf{Name} \hrulefill\\[0.25cm]
+\textbf{Section} \rule{1cm}{0.2mm} \textbf{Roll No:} \hrulefill\\[0.25cm]
+\textbf{Signature:} \hrulefill\\[0.25cm]
+\rule{6.6cm}{0.2mm}\\
+\textbf{Signature of Invigilator}\\[0.25cm]
+\end{minipage}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\Large \begin{tabular}{|l|c|c|c|c|c|c|c|}
+	\hline
+		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{Total}\\
+		\hline
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \Qsix & \TotalMarks\\
+		\hline
+		Marks Obtained & & & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\noindent \textbf{You are advised to READ these notes:}
+\begin{enumerate}
+\item \textbf{Attempt on the Question Paper. \underline{NO EXTRA SHEET} will be provided/accepted. No
+additional sheet will be provided for rough work. Use the back of the page where
+provided space is not sufficient.}
+\item After asked to commence the exam, please verify that you have \textbf{\pageref{LastPage} different
+printed pages} including this title page.
+\item There are 6 questions. Attempt all of them. It is advisable to go through the paper once
+before starting with the first question.
+\item Exam is closed books, closed notes. Please see that the area in your threshold is clean.
+You will be charged for any material which can be classified as \textbf{`helping in the paper'}
+found near you.
+\item \textbf{Calculator sharing is strictly prohibited.}
+\item Students who attempt the paper with lead pencils lose the right to get them rechecked.
+\item \textbf{The invigilator present is not supposed to answer any questions. No one may come
+to your room for corrections and you are not supposed to request to call anyone.
+Make assumptions wherever required and clearly mark them.}
+\end{enumerate}
+\newpage
+\noindent\textbf{Question 1: Code correction\hfill \QOne~marks}\\
+Find errors in the given code and suggest corrections. Errors may be logical or in syntax.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+
+void Sum(int a, int b)
+{
+	return (a+b);
+}
+
+int main()
+{
+	const int z;
+	z = 5;
+
+	int size;
+	cin >> size;
+	int arr[size];
+
+	char name[3] = "abc";
+	cout << name << endl;
+
+	int x = 3;
+	int y = 5;
+	cout << "Sum of x and y = " << Sum(int x, int y) << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 12.5cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 2: Integer Arrays \hfill \Qtwo~marks}\\
+Write code to create an integer array of size 10. Fill this array with random numbers in the range 0 to 5. Display the array.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 9cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 3: Sorting \hfill \Qthree~marks}\\
+Given an integer array of size 10 filled with random numbers, write code to sort this array in descending order. You can use bubble sort OR insertion sort.\\
+\verb|int Data[10] = {-1, 8, 2, 11, 7, 3, 5, 17, 0, 9};|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 11cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 4: C--Strings \hfill \Qfour~marks}\\
+Take a 2D char array to store 3 names. Names can be a maximum of 20 characters long including NULL. Names should be input by user. After this, user will input a name to search for. If the name is found, display an appropriate message. You can use any library functions.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 22.5cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 5: Dynamic Memory Allocation \hfill $4\times 5=$\Qfive~marks}\\
+\begin{enumerate}
+\item Write code for a function to square an integer array of given size.\\
+\verb|void SquareArray(int* Data, int size)|
+\item In \verb|main()|, create a dynamic integer array. Take size of array as input from user.
+\item Using a loop, fill this array with increasing real numbers starting from 0. For example, an array of size 6 will contain \verb|{0, 1, 2, 3, 4, 5}|.
+\item Square the array using \verb|SquareArray| function and display it in \verb|main()|.
+\item De--allocate array memory before exiting \verb|main()|.
+\end{enumerate}
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 18cm);
+%\end{tikzpicture}
+%\end{figure}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+// 1. Function to square array.
+void SquareArray(int* Data, int Size)
+{
+
+
+
+
+
+
+}
+int main()
+{
+	// 2. Dynamically create array of given size.
+
+
+
+
+
+
+
+
+
+	// 3. Fill array.
+
+
+
+
+	// 4a. Function call.
+
+
+	// 4b. Loop to display squared array.
+
+
+
+
+
+	// 5. De-allocation.
+
+
+
+	return 0;
+}
+\end{lstlisting}
+\noindent\textbf{Question 6: \texttt{struct} \hfill \Qsix~marks}\\
+\begin{enumerate}
+\item Create a \texttt{struct} \verb|StudentInfo| to store student record. Student attributes are name, age, CGPA and gender.
+\item Create two functions \verb|void Input(StudentInfo& S)| and\\ \verb|void Display(const StudentInfo& S)| to input and display student information.
+\item In \verb|main()| create two \verb|StudentInfo| variables and then input/display their records.
+\end{enumerate}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+// StudentInfo definition
+
+
+
+
+
+
+
+
+void Input(StudentInfo& S)
+{
+
+
+
+
+
+
+
+}
+void Display(const StudentInfo& S)
+{
+
+
+
+
+
+
+
+
+}
+int main()
+{
+	// Create StudentInfo variables.
+
+
+
+	// Input.
+
+
+
+	// Display
+
+
+
+	return 0;
+}
+\end{lstlisting}
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 22.5cm);
+%\end{tikzpicture}
+%\end{figure}
+\end{document}
