@@ -81,7 +81,7 @@ int main()
 	*(x.value) = 3;
 
 	Simple z(x);  // Copy constructor called.
-	z.value = 5;  // What happens? *(x.value) and *(z.value) both become 5 because both pointers are pointing to same memory location.
+	*(z.value) = 5;  // What happens? *(x.value) and *(z.value) both become 5 because both pointers are pointing to same memory location.
 
 	return 0;
 }
