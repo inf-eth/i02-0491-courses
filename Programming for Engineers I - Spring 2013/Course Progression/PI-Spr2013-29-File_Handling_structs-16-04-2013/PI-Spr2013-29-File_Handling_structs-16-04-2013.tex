@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 29\\File Handling\\\texttt{structs}}
+\author{Attique Dawood}
+\date{April 16, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz on Friday 19-04-2013.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Binary files: writing and reading.
+\end{itemize}
+\section{Writing to Binary File}
+\begin{lstlisting}[caption={Writing a \texttt{struct} to binary file}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+
+struct StudentInfo
+{
+	char Name[20];
+	int Age;
+	float CGPA;
+	char Gender;
+};
+
+int main()
+{
+	StudentInfo S;
+	cout << "Enter student information: " << endl;
+	cout << "Name: ";
+	cin.getline(S.Name, 20);
+	cout << "Age: ";
+	cin >> S.Age;
+	cout << "CGPA: ";
+	cin >> S.CGPA;
+	cout << "Gender (M/F): ";
+	cin >> S.Gender;
+
+	fstream OutFile;	// File handling object.
+
+	// Open "abc.txt" for writing in binary mode (ios::out|ios::binary). This will overwrite existing file.
+	OutFile.open("abc.txt", ios::out|ios::binary);
+	OutFile.write((char*)&x, sizeof(int));
+	OutFile.close();	// Close file.
+
+	return 0;
+}
+\end{lstlisting}
+\section{Reading from Binary File}
+\begin{lstlisting}[caption={Reading from Binary file}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+
+int main()
+{
+	int x;
+	double d;
+	char c;
+
+	fstream InFile;	// File handling object.
+
+	// Open "abc.txt" for reading in binary mode (ios::in|ios::binary).
+	InFile.open("abc.txt", ios::in|ios::binary);
+	InFile.read((char*)&x, sizeof(int));
+	InFile.read((char*)&d, sizeof(double));
+	InFile.read((char*)&c, sizeof(char));
+	InFile.close();	// Close file.
+
+	cout << "x = " << x << endl;
+	cout << "d = " << d << endl;
+	cout << "c = " << c << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\end{document}
