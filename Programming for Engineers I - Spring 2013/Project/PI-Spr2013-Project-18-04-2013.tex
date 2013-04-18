@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Project: Student Database Management}
+\author{Atif Mughees\and Attique Dawood}
+\date{April 18, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Total Marks: 10}\\
+\noindent\textbf{Submission Deadline: 04-05-2013, 2300 hrs}\\
+\noindent\textbf{Submission: On SLATE}\\
+\noindent\textbf{File Format: Submit a .cpp file. For example, 12-0231.cpp}\\
+\section{Project Statement}
+You are required to make a student database like NeON. Students and teachers can log into the system. Students can view their marks, grades and GPA. Teachers can add, delete and modify student records. Student records must be loaded from a file when the program starts. Any modifications to the record are then saved back to the file.
+\section{Requirements}
+\begin{enumerate}
+\item Login system for student and teacher.
+\item Appropriate structures to manage student information. Student information must include, name, age, roll number, courses, grades, marks in respective courses and CGPA.
+\item Functions to input, display, change student record and calculate CGPA based on entered grades/marks. 
+\item File handling. Loading data from file, saving data to file and modifications to data in file.
+\end{enumerate}
+\textbf{Note:} This project is supposed to be open--ended. You are encouraged to come up with creative ways to do things.
+\end{document}
