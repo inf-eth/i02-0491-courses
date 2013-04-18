@@ -42,7 +42,7 @@
 \begin{itemize}
 \item Binary files: writing and reading.
 \end{itemize}
-\section{Writing to Binary File}
+\section{Writing \texttt{struct} to Binary File}
 \begin{lstlisting}[caption={Writing a \texttt{struct} to binary file}]
 #include <iostream>
 #include <fstream>		// File handling library.
@@ -73,36 +73,47 @@ int main()
 
 	// Open "abc.txt" for writing in binary mode (ios::out|ios::binary). This will overwrite existing file.
 	OutFile.open("abc.txt", ios::out|ios::binary);
-	OutFile.write((char*)&x, sizeof(int));
+	OutFile.write((char*)&S, sizeof(StudentInfo));
 	OutFile.close();	// Close file.
 
 	return 0;
 }
 \end{lstlisting}
-\section{Reading from Binary File}
-\begin{lstlisting}[caption={Reading from Binary file}]
+\section{Reading \texttt{struct} from Binary File}
+\begin{lstlisting}[caption={Reading a \texttt{struct} from Binary file}]
 #include <iostream>
 #include <fstream>		// File handling library.
 using namespace std;
+struct StudentInfo
+{
+	char Name[20];
+	int Age;
+	float CGPA;
+	char Gender;
+};
 
 int main()
 {
-	int x;
-	double d;
-	char c;
+	StudentInfo S;
 
 	fstream InFile;	// File handling object.
 
 	// Open "abc.txt" for reading in binary mode (ios::in|ios::binary).
 	InFile.open("abc.txt", ios::in|ios::binary);
-	InFile.read((char*)&x, sizeof(int));
-	InFile.read((char*)&d, sizeof(double));
-	InFile.read((char*)&c, sizeof(char));
+	InFile.read((char*)&S, sizeof(StudentInfo));
 	InFile.close();	// Close file.
 
-	cout << "x = " << x << endl;
-	cout << "d = " << d << endl;
-	cout << "c = " << c << endl;
+	switch (S.Gender)
+	{
+		case 'M':
+			cout << "Name: Mr. " << S.Name << endl;
+			break;
+		case 'F':
+			cout << "Name: Ms. " << S.Name << endl;
+			break;
+	}
+	cout << "Age: " << S.Age << endl;
+	cout << "CGPA: " << S.CGPA << endl;
 
 	return 0;
 }
