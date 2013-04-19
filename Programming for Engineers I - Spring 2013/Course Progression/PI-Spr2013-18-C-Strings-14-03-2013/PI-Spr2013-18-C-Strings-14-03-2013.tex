@@ -74,10 +74,10 @@ Output:
 abc
 \end{lstlisting}
 \section{String Input}
-Strings can be input using either \texttt{cin} or \texttt{cin.getline()} functions. \texttt{cin} cannot input spaces so \texttt{getline} should be used if input string contains spaces.
+Strings can be input using either \texttt{cin} or \texttt{cin.getline()} functions. \texttt{cin} cannot input spaces so \texttt{getline} should be used if input string contains spaces. \verb|cin.getline()| copies a NULL in the last index. Size passed in \verb|cin.getline()| function should be equal to the array size. In the following code it will be ensured by \verb|cin.getline()| that 20th character is NULL if input exceeds or is equal to 20 characters. If input is less than 20 characters then a NULL will be appended after last input character.
 \begin{lstlisting}[caption={String input using cin.getline()}]
 char myName[20];
-cin.getline(myName, 19);
+cin.getline(myName, 20);
 \end{lstlisting}
 Care should be taken when entering strings. The total number of characters must not exceed the size of array. In addition maximum number of characters must be 1 less than array size for a terminating \verb|`\0'|.
 \begin{lstlisting}[caption={String size and NULL}]
