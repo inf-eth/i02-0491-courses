@@ -31,258 +31,95 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{Programming for Engineers I\\Lab 10\\File Handling\\Basic Text and Binary Files}
+\title{Programming for Engineers I\\Lab 10\\File Handling}
 \author{Attique Dawood}
 \date{April 18, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
-\section{File Handling in C++}
-\begin{itemize}
-\item In C++ file handling library is \verb|<fstream>|.
-\item You create `objects' of type (or class) \verb|fstream| and use them for reading to and writing from files.
-\item Text files can be manipulated using \verb|<<| and \verb|>>| operators exactly like \verb|cout/cin|.
-\end{itemize}
-\section{Text and Binary File Formats}
-\begin{itemize}
-\item The number -3.7182193 can be either a double or float depending on data type being used.
-\item For example \verb|float f = -3.7182193;| is float and takes 4 bytes for storage in memory. These 4 bytes contain the binary representation of float.
-\item If stored as a string, it is 10 characters long including the minus sign and decimal point: \verb|char c[] = "-3.7182193";|. Note: \verb|NULL| is implicit and doesn't count towards length of string.
-\item Take another example of an integer \verb|int x = 1;|. If stored as a string of characters, it will take only 1 byte. If stored as an integer it will take 4 bytes, regardless of the value.
-\item In a text file, data is stored as a string of characters. It's a copy of what you see on your console. As can be expected, a text file is easily readable if opened in a text editor.
-\item In a binary file, data is stored as it would in a memory. It's a copy of what is in the memory. A binary file, just like memory, isn't so obviously readable in raw form.
-\end{itemize}
-\section{File Modes}
-Modes are options that can be specified when opening a file. Options are specified as the second argument of \verb|open()| function. Options can be combined with the `OR' operator \verb\'|'\. A few examples are given below:
-\begin{table}[H]
-\begin{center}
-\vspace{0.3cm}
-	\begin{tabular}{lp{9cm}}
-	\hline \hline
-		\textbf{Mode} \rule{0pt}{2.6ex} & \textbf{Description}\\
-		\hline
-		\verb|ios::in| \rule{0pt}{2.6ex} & Read mode\\
-		\verb|ios::out| \rule{0pt}{2.6ex} & Write mode\\
-		\verb|ios::binary| \rule{0pt}{2.6ex} & Binary mode operation\\
-		\verb|ios::app| \rule{0pt}{2.6ex} & Append mode\\
-		\verb|File.open("abc.txt", ios::in);| \rule{0pt}{2.6ex} & Open file for reading. File must exist.\\
-		\verb|File.open("abc.txt", ios::out);| \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing file will be overwritten.\\
-		\verb\..., ios::out|ios::app);\ \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing data will be preserved. Data will be written at the end of file.\\
-		\verb\..., ios::out|ios::binary);\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing file will be overwritten.\\
-		\verb\ios::out|ios::binary|ios::app\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing data will be preserved. Data will be written at the end of file.\\
-	\hline \hline
-	\end{tabular}
-\end{center}
-\label{FileModes}
-\caption{File modes}
-\end{table}
-\section{Writing to Text File}
-\begin{lstlisting}[caption={Writing to text file}]
+\section{\texttt{typedef}}
+\verb|typedef| is used to define new names, aliases or nicknames for already existing data types.
+\begin{lstlisting}[caption={\texttt{typedef}}]
 #include <iostream>
-#include <fstream>		// File handling library.
 using namespace std;
+
+typedef int I;				// typedef for single int
+typedef int IntArray[5];	// typedefining an int array of size 5.
 
 int main()
 {
-	fstream OutFile;	// File handling object.
-
-	// Open "abc.txt" for writing (ios::out). This will overwrite existing file.
-	OutFile.open("abc.txt", ios::out);
-	OutFile << "Hello world?" << endl;
-	OutFile << "Some numbers: 2 3 7 11 13.33 -2.448" << endl;
-	OutFile << "Grades: A A- B+ D C- F A+" << endl;
-	OutFile.close();	// Close file.
-
-	return 0;
-}
-\end{lstlisting}
-\section{Reading from Text File}
-\begin{lstlisting}[caption={Reading from text file (Creating file)}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-
-int main()
-{
-	int x = 3;
-	float f = -2.348193f;
-	char c = '^';
-
-	fstream OutFile;	// File handling object.
-
-	// Open "abc.txt" for writing (ios::out). This will overwrite existing file.
-	OutFile.open("abc.txt", ios::out);
-	OutFile << x << " " << f << " " << c << " " << endl;
-	OutFile.close();	// Close file.
+	I x = 3;
+	cin >> x;
+	cout << x;
+	
+	IntArray data;
+	for (int i=0; i<5; i++)
+		data[i] = rand()%6;
+	for (int i=0; i<5; i++)
+		cout << "data[" << i << "] = " << data[i] << endl;
 	
 	return 0;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Reading from text file}]
+\section{enum}
+\verb|enum| is used to create new datatypes with pre--defined values. It is like a set of values you can define and then pick/choose from.
+\begin{lstlisting}[caption={\texttt{enum}}]
 #include <iostream>
-#include <fstream>		// File handling library.
 using namespace std;
+
+enum Direction{north, south, east, west};
+
 int main()
 {
-	int x;
-	float f;
+
+	Direction d;
+	int temp;
+	cout << "Enter a direction: " << endl
+		 << "0 = north, 1 = south, 2 = east, 3 = west: ";
+	cin >> temp;
+
+	d = (Direction)temp; // casting from int to Direction.
+
+	if (d == north)
+		cout << "NORTH!" << endl;
+	else if (d == south)
+		cout << "SOUTH!" << endl;
+	else if (d == east)
+		cout << "EAST!" << endl;
+	else if (d == west)
+		cout << "WEST!" << endl;
+	else
+		cout << "Invalid direction!" << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{union}}
+\verb|union| is similar to a \verb|struct| but all the data members in \verb|union| share same memory.
+\begin{lstlisting}[caption={\texttt{union}}]
+#include <iostream>
+using namespace std;
+
+union test
+{
+	int i;
+	double d;
 	char c;
-
-	fstream InFile;	// File handling object.
-
-	// Open "abc.txt" for reading (ios::in).
-	InFile.open("abc.txt", ios::in);
-	InFile >> x >> f >> c;
-	InFile.close();	// Close file.
-	
-	cout << "Data read is..." << endl;
-	cout << "x = " << x << ", f = " << f << ", c = " << c << endl;
-
-	return 0;
-}
-\end{lstlisting}
-\begin{lstlisting}[caption={Reading a line from text file}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-int main()
-{
-	char Line[50];
-
-	fstream InFile;	// File handling object.
-
-	// Open "abc.txt" for reading (ios::in).
-	InFile.open("abc.txt", ios::in);
-	InFile.getline(Line, 50);
-	InFile.close();	// Close file.
-	
-	cout << "Data read is..." << endl;
-	cout << Line << endl;
-
-	return 0;
-}
-\end{lstlisting}
-\begin{lstlisting}[caption={Reading a whole text file line--by--line}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-int main()
-{
-	char Line[50];
-
-	fstream InFile;	// File handling object.
-
-	// Open "abc.txt" for reading (ios::in).
-	InFile.open("abc.txt", ios::in);
-	while(InFile)
-	{
-		InFile.getline(Line, 50);
-		cout << "Read: " << Line << endl;
-	}
-	InFile.close();	// Close file.
-
-	return 0;
-}
-\end{lstlisting}
-\section{Writing \texttt{struct} to Binary File}
-\begin{lstlisting}[caption={Writing a \texttt{struct} to binary file}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-
-struct StudentInfo
-{
-	char Name[20];
-	int Age;
-	float CGPA;
-	char Gender;
 };
 
 int main()
 {
-	StudentInfo S;
-	cout << "Enter student information: " << endl;
-	cout << "Name: ";
-	cin.getline(S.Name, 20);
-	cout << "Age: ";
-	cin >> S.Age;
-	cout << "CGPA: ";
-	cin >> S.CGPA;
-	cout << "Gender (M/F): ";
-	cin >> S.Gender;
-
-	fstream OutFile;	// File handling object.
-
-	// Open "abc.txt" for writing in binary mode (ios::out|ios::binary). This will overwrite existing file.
-	OutFile.open("abc.txt", ios::out|ios::binary);
-	OutFile.write((char*)&S, sizeof(StudentInfo));
-	OutFile.close();	// Close file.
-
-	return 0;
-}
-\end{lstlisting}
-\section{Reading \texttt{struct} from Binary File}
-\begin{lstlisting}[caption={Reading a \texttt{struct} from Binary file}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-struct StudentInfo
-{
-	char Name[20];
-	int Age;
-	float CGPA;
-	char Gender;
-};
-
-int main()
-{
-	StudentInfo S;
-
-	fstream InFile;	// File handling object.
-
-	// Open "abc.txt" for reading in binary mode (ios::in|ios::binary).
-	InFile.open("abc.txt", ios::in|ios::binary);
-	InFile.read((char*)&S, sizeof(StudentInfo));
-	InFile.close();	// Close file.
-
-	switch (S.Gender)
-	{
-		case 'M':
-			cout << "Name: Mr. " << S.Name << endl;
-			break;
-		case 'F':
-			cout << "Name: Ms. " << S.Name << endl;
-			break;
-	}
-	cout << "Age: " << S.Age << endl;
-	cout << "CGPA: " << S.CGPA << endl;
-
+	test u;
+	u.i = 65;
+	cout << "u.c = " << u.c << endl;
+	
+	u.c = 'E';
+	cout << u.i << endl;
+	
 	return 0;
 }
 \end{lstlisting}
 \section{Exercise}
-\textbf{Question No. 1 (Writing to Text Files):} \texttt{struct Item} contains item information.\\
-\vspace{-0.5cm}\begin{enumerate}
-\item Ask user how many items he/she wants to store.
-\item Input item data from user and store in a text file (append mode). Listing 1 shows file containing item data.
-\end{enumerate}
-\begin{lstlisting}
-struct Item
-{
-	char Type; // A/B/C/D
-	float Weight;
-	int Price;
-};
-\end{lstlisting}
-\begin{lstlisting}[caption={Sample text file. Entries are: Type Weight Price}]
-A 3.72 3200
-D 1.0342 1200
-B 4.0 5000
-C 2.21 2500
-\end{lstlisting}
-\textbf{Question No. 2 (Reading from Text files):} Read in and display the file created in question no. 1.\\
-\vspace{-0.5cm}\begin{enumerate}
-\item Read the file line--by--line.
-\item Read in char, float and int like this: \verb|file >> c >> f >> x;|.
-\end{enumerate}
-\textbf{Question No. 3:} Repeat questions 1 and 2 for binary files.
+\textbf{Question No. 1:} Using \verb|typedef| create a character array. Input a string and then display it.\\
+\textbf{Question No. 2:} Use enum to create a set/collection of items. Items should be related. Test your set.\\
+\textbf{Question No. 3:} Create a union containing int, double and char. Test it by taking input and display the members.\\
 \end{document}

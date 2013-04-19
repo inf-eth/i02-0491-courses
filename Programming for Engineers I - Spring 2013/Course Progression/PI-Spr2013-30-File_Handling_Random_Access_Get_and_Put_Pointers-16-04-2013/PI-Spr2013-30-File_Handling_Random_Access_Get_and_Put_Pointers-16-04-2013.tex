@@ -42,69 +42,46 @@
 \begin{itemize}
 \item Binary files: writing and reading.
 \end{itemize}
-\section{Writing to Binary File}
-\begin{lstlisting}[caption={Writing a \texttt{struct} to binary file}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-
-struct StudentInfo
-{
-	char Name[20];
-	int Age;
-	float CGPA;
-	char Gender;
-};
-
-int main()
-{
-	StudentInfo S;
-	cout << "Enter student information: " << endl;
-	cout << "Name: ";
-	cin.getline(S.Name, 20);
-	cout << "Age: ";
-	cin >> S.Age;
-	cout << "CGPA: ";
-	cin >> S.CGPA;
-	cout << "Gender (M/F): ";
-	cin >> S.Gender;
-
-	fstream OutFile;	// File handling object.
-
-	// Open "abc.txt" for writing in binary mode (ios::out|ios::binary). This will overwrite existing file.
-	OutFile.open("abc.txt", ios::out|ios::binary);
-	OutFile.write((char*)&x, sizeof(int));
-	OutFile.close();	// Close file.
-
-	return 0;
-}
-\end{lstlisting}
-\section{Reading from Binary File}
-\begin{lstlisting}[caption={Reading from Binary file}]
-#include <iostream>
-#include <fstream>		// File handling library.
-using namespace std;
-
-int main()
-{
-	int x;
-	double d;
-	char c;
-
-	fstream InFile;	// File handling object.
-
-	// Open "abc.txt" for reading in binary mode (ios::in|ios::binary).
-	InFile.open("abc.txt", ios::in|ios::binary);
-	InFile.read((char*)&x, sizeof(int));
-	InFile.read((char*)&d, sizeof(double));
-	InFile.read((char*)&c, sizeof(char));
-	InFile.close();	// Close file.
-
-	cout << "x = " << x << endl;
-	cout << "d = " << d << endl;
-	cout << "c = " << c << endl;
-
-	return 0;
-}
-\end{lstlisting}
+\section{Put and Get Pointers}
+\begin{itemize}
+\item When you open a file a special read pointer is set to point at the start of file.
+\item The read pointer (called a `\textbf{get}' pointer in C++) is moved forward as you read from file.
+\item If you read 1 byte, get pointer is moved 1 byte forward.
+\item Essentially the get pointer points to the location in the file where next read is expected.
+\item Similar to the get pointer, a `\textbf{put}' is used when writing to a file.
+\item The put pointer keeps track where last write was performed. Normally it points to the end of file if data is being appended.
+\item The get and put pointers can be manipulated to write/read data from any random location in file.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lcc}
+	\hline \hline
+		\textbf{Type} \rule{0pt}{2.6ex} & \textbf{Get Pointer} & \textbf{Set Pointer}\\
+		\hline
+		Read \rule{0pt}{2.6ex} &  \verb|tellg()| & \verb|seekg()|\\
+		Write \rule{0pt}{2.6ex} & \verb|tellp()| & \verb|seekp()|\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{GetandPutPointers}
+\caption{Get and Put Pointers}
+\end{table}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lp{9cm}}
+	\hline \hline
+		\textbf{Syntax} \rule{0pt}{2.6ex} & \textbf{Description}\\
+		\hline
+		\verb|cout << (int) tellp();| \rule{0pt}{2.6ex} & Display the current location of put pointer\\
+		\verb|seekg(ios::beg);| \rule{0pt}{2.6ex} & Set the location of get pointer at start of file\\
+		\verb|seekp(0, ios::end);| \rule{0pt}{2.6ex} & Set the location of put pointer at end of file\\
+		\verb|seekp(10);| \rule{0pt}{2.6ex} & Set the location of put pointer to 10$^{th}$ byte in file\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{ManipulatingGetandPutPointers}
+\caption{Manipulating Get and Put Pointers}
+\end{table}
 \end{document}
