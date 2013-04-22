@@ -14,6 +14,8 @@
 \usepackage{graphicx}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
 
 % Drawing.
 \usepackage{pgf}
@@ -28,96 +30,110 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers I\\Class 15\\Bubblesort}
+\title{\vspace{-2cm}Programming for Engineers II\\Class 34\\Swapping\\Linear Search\\Bubble Sort}
 \author{Attique Dawood}
-
+\date{April 20, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Announcements}
 \begin{itemize}
-\item Quiz on Friday.
+\item Sessional -- II papers. Exam average for section C = 25.45.
 \end{itemize}
 \section{Revision}
 \begin{itemize}
-\item Array is a special data-type. If we have a collection of data of same type as in the case of storage of ages of 100 students, arrays can be used. Arrays are data structure in which identical data types are stored.
+\item Virtual destructors.
+\item Resolving ambiguity in multiple inheritance using polymorphism.
 \end{itemize}
-\section{How to Find Smallest and Greatest Integer From an Array?}
-\begin{enumerate}
-\item Take first element as smallest.
-\item Test next element.
-\item If next element is less than smallest then new smallest is the variable being tested.
-\end{enumerate}
-\begin{lstlisting}[caption={Smallest Number in an Array}]
-#include <cstdlib>
+\section{Swapping}
+\begin{itemize}
+\item To swap two variables, we need a temporary variables.
+\item A swap function may use either pointers or reference to swap values.
+\end{itemize}
+\begin{lstlisting}[caption={Swapping Functions Using Pointer and Reference},escapechar=$]
 #include <iostream>
 using namespace std;
 
+// Swapping function using pointers.
+void Swap(int* x, int* y)
+{
+	int temp = *x;
+	*x = *y;
+	*y = temp;
+}
+// Swapping function using reference.
+void Swap(int& x, int& y)
+{
+	int temp = x;
+	x = y;
+	y = temp;
+}
+
 int main()
 {
-	const int Size = 10;
-	int data[Size];
-	int min;
-	
-	// Storing random numbers in range 0-99 in data[]
-	for (int i=0; i<Size; i++)
-		data[i] = rand() % 100;
-		
-	// Displaying data.
-	cout << "Data: ";
-	for (int i=0; i<Size; i++)
-	{
-		cout << data[i] << " ";
-	}
-	cout << endl;
+	int A = 3;
+	int B = 6;
+	cout << "Initial values: A = " << A << ", B = " << B << endl;
 
-	// Finding smallest value.
-	min = data[0];
-	for (int i=0; i<Size; i++)
-	{
-		if (data[i] < min)
-			min = data[i];
-	}
-	cout << "Smallest value is " << min << endl;
+	Swap(A, B);
+	cout << "After swapping (using reference): A = " << A << ", B = " << B << endl;
 
+	Swap(&A, &B);
+	cout << "After swapping again (using pointers): A = " << A << ", B = " << B << endl;
 	return 0;
 }
 \end{lstlisting}
-\begin{enumerate}
-\item Take first element as largest.
-\item Test next element.
-\item If next element is greater than largest then new largest is the variable being tested.
-\end{enumerate}
-\begin{lstlisting}[caption={Largest Number in an Array}]
-#include <cstdlib>
+\section{Linear Search: Sorted and Unsorted Data}
+\begin{itemize}
+\item Assuming data is sorted in ascending order, we can terminate the search as unsuccessful if match is not found and we get to values greater than our key.
+\item If data is unsorted then we need to search the whole list for a match.
+\item Conclusion: If data is sorted, it takes less effort to search.
+\end{itemize}
+\begin{lstlisting}[caption={Linear Search for sorted and unsorted data},escapechar=$]
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
+// Sorted (ascending)
+bool SearchSorted(int* Data, int Size, int Key)
+{
+	for (int i=0; i<Size; i++)
+	{
+		// If match found return true.
+		if (Data[i] == Key)
+			return true;
+		// If values are greater than key then no need to search further.
+		if (Data[i] > Key)
+			return false;
+	}
+	return false; // If we ever get here, search was unsuccessful.
+}
+// Unsorted.
+bool SearchUnSorted(int* Data, int Size, int Key)
+{
+	for (int i=0; i<Size; i++)
+	{
+		// If match found return true.
+		if (Data[i] == Key)
+			return true;
+	}
+	return false; // If we ever get here, search was unsuccessful.
+}
 int main()
 {
 	const int Size = 10;
-	int data[Size];
-	int max;
-	
-	// Storing random numbers in range 0-99 in data[]
-	for (int i=0; i<Size; i++)
-		data[i] = rand() % 100;
-		
-	// Displaying data.
-	cout << "Data: ";
-	for (int i=0; i<Size; i++)
+	int Data[Size];
+	for (int i=0; i<10; i++)
 	{
-		cout << data[i] << " ";
+		Data[i] = rand()%10;
+		cout << "Data[i] = " << Data[i] << endl;
 	}
-	cout << endl;
 
-	// Finding largest value.
-	max = data[0];
-	for (int i=0; i<Size; i++)
-	{
-		if (data[i] > max)
-			max = data[i];
-	}
-	cout << "Largest value is " << max << endl;
+	int Key;
+	cout << "Enter a value to search: ";
+	cin >> Key;
+
+	if (SearchUnsorted(Data, Size, Key) == true)
+		cout << "Search successful!" << endl;
 
 	return 0;
 }
@@ -125,7 +141,7 @@ int main()
 \section{Bubblesort}
 \begin{itemize}
 \item Bubblesort is a sorting algorithm.
-\item Sorting an array in ascending order.
+\item Example: Sorting an array in ascending order.
 \item Larger values are `bubbled' to the top.
 \end{itemize}
 \begin{lstlisting}[caption={Bubble Sort}]
@@ -180,4 +196,7 @@ int main()
 	return 0;
 }
 \end{lstlisting}
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
 \end{document}

@@ -1,0 +1,200 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Assignment 3\\Linked List}
+\author{Aamer Munir\and Attique Dawood}
+\date{April 19, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Basic Functionality}
+\noindent\textbf{Difficulty: Easy}\\
+\noindent\textbf{Estimated Time: 1--4 hours}\\[0.2cm]
+Create a singly--linked list with following functions:
+\begin{enumerate}
+\item \verb|void AddAtHead(int Data)|: Add node at head (start).
+\item \verb|void AddAtTail(int Data)|: Add node at tail (end). Adding a node at end is easier if you keep a last node pointer (similar to first pointer) in the linked list that always points to last node in the list.
+\item \verb|void Display()|: Display linked list.
+\item \verb|int Search(int Key)|: Search for a particular Key in the list. If match is found, 0 is returned. If no match found or list is empty, -1 is returned.
+\end{enumerate}
+\section{Modification and Deletion}
+\noindent\textbf{Difficulty: Intermediate}\\
+\noindent\textbf{Estimated Time: 2--8 hours}\\[0.2cm]
+Implement following functions for the singly--linked list:
+\begin{enumerate}
+\item \verb|int Delete(int Key)|: Search for and delete the node if Key matches node data. If match is found, 0 is returned. If no match found or list is empty, -1 is returned.
+\item \textbf{Destructor}: Implement linked destructor that de--allocates memory by deleting all nodes.
+\item \verb|int& operator[](int Index)|: Use subscript operator to modify/get data at particular index. A count variable will be handy for keeping track of number of nodes. This is similar to \verb|GetAt| and \verb|SetAt()| functions but more elegant.
+\end{enumerate}
+\newpage
+\section{Sorting}
+\noindent\textbf{Difficulty: Moderately Difficult}\\
+\noindent\textbf{Estimated Time: 4--12 hours}\\[0.2cm]
+Add following sorting functions to the singly--linked list:
+\begin{enumerate}
+\item \verb|void SortedInsertion(int Data)|: Assuming the data in the list is sorted in ascending order, add a node at its appropriate location in the list. Sorted insertion will create a list in ascending order.
+\item \verb|void Swap(int Index1, int Index2)|: Swap data at the given indices. Should check if any index is out of bounds.
+\item \verb|void BubbleSort()|: Apply bubble sort algorithm and sort the linked list.
+\end{enumerate}
+\noindent\textbf{Note:} Swapping and bubble sort can be easily implemented by treating the linked list as an array and using the subscript operator.
+\section{Doubly--Linked and Circular Linked Lists}
+\noindent\textbf{Difficulty: Extremely Difficult}\\
+\noindent\textbf{Estimated Time: 6--18 hours}\\[-0.2cm]
+\begin{enumerate}
+\item \textbf{Doubly--Linked List:} In a doubly--linked list each node contains a next pointer as well as a previous pointer. The previous pointer points to previous node. Previous of first node points to NULL. Modify the singly--linked list and make it a doubly--linked list. Make appropriate changes to add and delete functions.
+\item \textbf{Circular Linked List:} A circular linked list can be singly-- or doubly--linked. First and last nodes in circular linked list are connected. Next pointer of last node points to first node. If doubly--linked previous pointer of first node points to last node. Make appropriate changes to add and delete functions in order to implement a circular doubly--linked list.
+\end{enumerate}
+\noindent\textbf{Note:} Deletion is easier in doubly--linked list as you need only one pointer instead of two for traversing the list.
+\newpage
+\section{Advanced Concepts}
+\noindent\textbf{Difficulty: Impossible}\\
+\noindent\textbf{Estimated Time: $\infty$ hours}\\[-0.2cm]
+\begin{enumerate}
+\item \textbf{Generic Linked List:} The data in a node can be a \verb|void*|. Since a void pointer can be used to allocate any type of memory, such a linked list can store anything; int, float, double, object of any class. It is the responsibility of user to keep track of what he/she stored in the list. Implement add node and subscript operator functions for this generic linked list. Polymorphism can be used here as an added bonus.
+\begin{lstlisting}[caption={Generic Linked List Concept and Usage}]
+class Node
+{
+	public:
+	void* Data;
+	Node* Next;
+};
+class LinkedList
+{
+...
+	void Add(void* DataPTR)
+	{
+		...
+		NewNode->Data = DataPTR; // Memory is allocated in main() and void* passed to add() function.
+		...
+	}
+...
+	void* operator[](int Index)
+	{
+		...
+		return Temp->Data; // void* is returned.
+	}
+...
+};
+int main()
+{
+	LinkedList GenericList;
+
+	// An int entry.
+	int* x;
+	x = new int;
+	*x = 3;
+	// A float entry.
+	float* f;
+	f = new float;
+	*f = -3.24213f;
+	// A double entry.
+	double* d;
+	d = new double;
+	*d = 2.99792458e8;
+
+	// Notice, explicit casting to void* before passing pointer.
+	// Addition in linked list.
+	GenericList.Add((void*)x);
+	GenericList.Add((void*)f);
+	GenericList.Add((void*)d);
+
+	// Notice, explicit casting from void* to native type before dereferencing.
+	cout << "int data = " << *((int*)GenericList[0]) << endl;
+	cout << "float data = " << *((float*)GenericList[1]) << endl;
+	cout << "double data = " << *((double*)GenericList[2]) << endl;
+
+	return 0;
+}
+\end{lstlisting}
+%\newpage
+\item \textbf{2D Linked List:} The concept is simple: If each node contains a linked list object then you have a linked list of linked lists! This may be easier than it looks. You already have a linked list that contains int data values. Simply create another linked list class that contains objects of int linked list in each node. Access of individual entries is possible with the use of double subscript.
+\begin{lstlisting}[caption={2D Linked List Concept and Usage}]
+// This is normal linked list of ints.
+class Node
+{
+	public:
+	int Data;
+	Node* Next;
+};
+class LinkedList
+{
+...
+};
+// This is 2D linked list.
+class Node2D
+{
+	public:
+	LinkedList ListData;
+	Node2D* Next;
+};
+class LinkedList2D
+{
+...
+	void Add()
+	{
+		...
+	}
+...
+	LinkedList& operator[](int Index)
+	{
+		...
+		return TempNode->ListData;
+	}
+...
+};
+
+int main()
+{
+	LinkedList2D List2D;
+	int Rows = 3;
+	int Cols = 4;
+
+	for (int i=0; i<Rows; i++)
+	{
+		List2D.Add(); // No need to pass any data. This will only add linked list node.
+		for (int j=0; j<Cols; j++)
+		{
+			List2D[i].Add(0); // Add node and initialise data with 0.
+		}
+	}
+
+	// Display.
+	for (int i=0; i<Rows; i++)
+	{
+		for (int j=0; j<Cols; j++)
+			cout << List2D[i][j] << " ";
+	}
+	cout << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\end{enumerate}
+\end{document}
