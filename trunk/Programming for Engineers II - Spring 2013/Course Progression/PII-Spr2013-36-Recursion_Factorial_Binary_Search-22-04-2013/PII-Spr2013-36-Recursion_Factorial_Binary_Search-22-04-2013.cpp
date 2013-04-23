@@ -1,46 +1,54 @@
-\begin{lstlisting}[caption={Insertion Sort},escapechar=$]
+\begin{lstlisting}[caption={Recursive Factorial},escapechar=$]
 #include <iostream>
-#include <cstdlib>
 using namespace std;
 
-// Swapping function using reference.
-void Swap(int& x, int& y)
+// Factorial function.
+int Factorial(int n)
 {
-	int temp = x;
-	x = y;
-	y = temp;
+	if (n==0||n==1)
+		return 1; // Base cases.
+	else
+		return n*Factorial(n-1);
 }
 
 int main()
 {
-	const int Size = 5;
-	int data[Size];
+	int x;
+	cout << "Enter n: ";
+	cin >> x;
+	cout << "n! = " << Factorial(x) << endl;
 
-	// Storing random numbers in range 0-99 in data[]
-	for (int i=0; i<Size; i++)
-		data[i] = rand() % 100;
-		
-	// Displaying data before sorting.
-	cout << "Data before sorting: ";
-	for (int i=0; i<Size; i++)
-		cout << data[i] << " ";
-	cout << endl;
+	return 0;
+}
+\end{lstlisting}
 
-	// Insertion sort.
-	for (int i=1; i<Size; i++)
+\begin{lstlisting}[caption={Fibonacci Series},escapechar=$]
+#include <iostream>
+using namespace std;
+
+// Calculate Fibonacci Series nth term.
+int fib(int n)
+{
+	// Base cases.
+	if (n==0)
+		return 0;
+	if (n==1)
+		return 1;
+	// If not base case go recursive.
+	else
+		return fib(n-1)+fib(n-2);
+}
+
+int main()
+{
+	int x;
+	cout << "Enter number of terms: ";
+	cin >> x;
+	cout << "Fibonacci Series upto " << x << " terms is: ";
+	for (int i=0; i<x; i++)
 	{
-		int Key = data[i];
-		int j;
-		for (j=i-1; j>=0 && data[j]<Key; j--)
-		{
-			Swap(data[j+1], data[j]);	
-		}
-		data[j+1] = Key;
+		cout << fib(i) << " ";
 	}
-	// Displaying data after sorting.
-	cout << "Data after sorting: ";
-	for (int i=0; i<Size; i++)
-		cout << data[i] << " ";
 	cout << endl;
 
 	return 0;
