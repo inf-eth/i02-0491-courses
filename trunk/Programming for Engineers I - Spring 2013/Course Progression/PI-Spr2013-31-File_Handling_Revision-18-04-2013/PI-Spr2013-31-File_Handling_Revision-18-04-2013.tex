@@ -1,0 +1,79 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 31\\File Handling\\Revision}
+\author{Attique Dawood}
+\date{April 18, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{File Handling in C++}
+\begin{itemize}
+\item In C++ file handling library is \verb|<fstream>|.
+\item You create `objects' of type (or class) \verb|fstream| and use them for reading to and writing from files.
+\item Text files can be manipulated using \verb|<<| and \verb|>>| operators exactly like \verb|cout/cin|.
+\end{itemize}
+\section{Text and Binary File Formats}
+\begin{itemize}
+\item The number -3.7182193 can be either a double or float depending on data type being used.
+\item For example \verb|float f = -3.7182193;| is float and takes 4 bytes for storage in memory. These 4 bytes contain the binary representation of float.
+\item If stored as a string, it is 10 characters long including the minus sign and decimal point: \verb|char c[] = "-3.7182193";|. Note: \verb|NULL| is implicit and doesn't count towards length of string.
+\item Take another example of an integer \verb|int x = 1;|. If stored as a string of characters, it will take only 1 byte. If stored as an integer it will take 4 bytes, regardless of the value.
+\item In a text file, data is stored as a string of characters. It's a copy of what you see on your console. As can be expected, a text file is easily readable if opened in a text editor.
+\item In a binary file, data is stored as it would in a memory. It's a copy of what is in the memory. A binary file, just like memory, isn't so obviously readable in raw form.
+\end{itemize}
+\section{Reading a Text File Character--By--Character}
+\begin{lstlisting}[caption={Reading a whole text file character--by--character}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+int main()
+{
+	char c;
+
+	fstream InFile;	// File handling object.
+
+	// Open "abc.txt" for reading (ios::in).
+	InFile.open("abc.txt", ios::in);
+	while(InFile)
+	{
+		InFile >> c;
+		if (InFile.eof())
+			break;
+		else
+			cout << c;
+	}
+	cout << endl;
+	InFile.close();	// Close file.
+
+	return 0;
+}
+\end{lstlisting}
+\end{document}
