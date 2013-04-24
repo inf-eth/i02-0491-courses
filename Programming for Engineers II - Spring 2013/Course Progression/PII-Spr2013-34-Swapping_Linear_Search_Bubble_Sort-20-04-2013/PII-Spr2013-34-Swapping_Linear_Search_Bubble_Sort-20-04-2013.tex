@@ -74,11 +74,11 @@ int main()
 	int B = 6;
 	cout << "Initial values: A = " << A << ", B = " << B << endl;
 
-	Swap(A, B);
-	cout << "After swapping (using reference): A = " << A << ", B = " << B << endl;
-
 	Swap(&A, &B);
-	cout << "After swapping again (using pointers): A = " << A << ", B = " << B << endl;
+	cout << "After swapping (using pointers): A = " << A << ", B = " << B << endl;
+
+	Swap(A, B);
+	cout << "After swapping again (using reference): A = " << A << ", B = " << B << endl;
 	return 0;
 }
 \end{lstlisting}
