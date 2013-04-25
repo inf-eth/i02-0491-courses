@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{amssymb}  % Tick mark
+\usepackage{textcomp} % Cross
+\usepackage{datetime}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Lab 11\\File Handling\\Random Access}
+\author{Attique Dawood}
+\date{April 25, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Put and Get Pointers}
+\begin{itemize}
+\item When you open a file a special read pointer is set to point at the start of file.
+\item The read pointer (called a `\textbf{get}' pointer in C++) is moved forward as you read from file.
+\item If you read 1 byte, get pointer is moved 1 byte forward.
+\item Essentially the get pointer points to the location in the file where next read is expected.
+\item Similar to the get pointer, a `\textbf{put}' is used when writing to a file.
+\item The put pointer keeps track where last write was performed. Normally it points to the end of file if data is being appended.
+\item The get and put pointers can be manipulated to write/read data from any random location in file.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lcc}
+	\hline \hline
+		\textbf{Type} \rule{0pt}{2.6ex} & \textbf{Get Pointer} & \textbf{Set Pointer}\\
+		\hline
+		Read \rule{0pt}{2.6ex} &  \verb|tellg()| & \verb|seekg()|\\
+		Write \rule{0pt}{2.6ex} & \verb|tellp()| & \verb|seekp()|\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{GetandPutPointers}
+\caption{Get and Put Pointers}
+\end{table}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lp{9cm}}
+	\hline \hline
+		\textbf{Syntax} \rule{0pt}{2.6ex} & \textbf{Description}\\
+		\hline
+		\verb|cout << (int) tellp();| \rule{0pt}{2.6ex} & Display the current location of put pointer\\
+		\verb|seekg(ios::beg);| \rule{0pt}{2.6ex} & Set the location of get pointer at start of file\\
+		\verb|seekp(0, ios::end);| \rule{0pt}{2.6ex} & Set the location of put pointer at end of file\\
+		\verb|seekp(10);| \rule{0pt}{2.6ex} & Set the location of put pointer to 10$^{th}$ byte in file\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{ManipulatingGetandPutPointers}
+\caption{Manipulating Get and Put Pointers}
+\end{table}
+
+\section{Exercise}
+\noindent\textbf{Question No. 1 (Determine file size):}\\
+\vspace{-0.5cm}\begin{enumerate}
+\item Open your code file (.cpp) in `read' mode.
+\item Move the \verb|seekg()| pointer to end of file.
+\item Use \verb|tellg()| to display size of file.
+\item \underline{Remember to reset the seek pointer (\texttt{seekg(0)}) if you want to read from file!}
+\end{enumerate}
+\noindent\textbf{Question No. 2 (Records in a text file):}\\
+\vspace{-0.5cm}\begin{enumerate}
+\item Given text file, \verb|txtrecords.txt| contains records of different items.
+\item Each attribute of individual item is stored in a different line.
+\item Count the number of lines in text file and determine number of items.
+\item Display all the records.
+\end{enumerate}
+\noindent\textbf{Hint:} You can either count the number of lines with \verb|getline()| function or check for total number of \verb|'\n'| characters in file by reading char--by--char.
+\begin{lstlisting}
+struct Item
+{
+	char ItemName[20];
+	int Quantity;
+	float Price;
+};
+\end{lstlisting}
+\noindent\textbf{Question No. 3 (Records in a binary file):}\\
+\vspace{-0.5cm}\begin{enumerate}
+\item Given binary file, \verb|binrecords.txt| contains records of different items.
+\item Determine the total number of items in file.
+\item Display all the records.
+\item Ask user to change any record (for example, $3^{rd}$ record). Display the file after changing a record.
+\end{enumerate}
+\noindent\textbf{Hint:} Total number of records = filesize/sizeof(Item).
+\end{document}

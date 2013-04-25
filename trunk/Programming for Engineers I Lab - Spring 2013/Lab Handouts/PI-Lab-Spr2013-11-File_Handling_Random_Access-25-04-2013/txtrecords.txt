@@ -1,0 +1,33 @@
+Apples
+10
+3.5
+Oranges
+12
+62.5
+Pencils
+5
+3.5
+Ballpoint Pen
+10
+120
+Stapler
+1
+30
+Table
+1
+500
+Chairs
+5
+1000
+Papers
+10
+1.5
+Markers
+10
+50
+Envelopes
+4
+9.5
+Soft Drink
+6
+258
