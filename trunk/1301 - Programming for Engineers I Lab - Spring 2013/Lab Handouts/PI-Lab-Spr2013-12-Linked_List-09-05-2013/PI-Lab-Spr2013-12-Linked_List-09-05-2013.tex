@@ -1,0 +1,232 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{amssymb}  % Tick mark
+\usepackage{textcomp} % Cross
+\usepackage{datetime}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Lab 12\\Linked List}
+\author{Attique Dawood}
+\date{May 09, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Linked List}
+\begin{itemize}
+\item Storage problems with fragmented memory or hard disk.
+\item Array requires contiguous space in memory. Array cannot dynamically grow incrementally. Must de--allocate and re--allocate whole array to change size.
+\item Linked list solves the above problems. Doesn't require contiguous memory. Linked list is a chain of pointer--connected nodes. Nodes store information just like array indices.
+\item Linked list access is slower than array. Must traverse whole list to reach a particular node. But, storage and size is flexible.
+\item Array is preferable when speed is desired and storage size is known. Static data. Example: Number of students in a class cannot exceed 50. Create an array of 50 size for students.
+\item Linked list is preferable when speed is not a major concern and storage size is highly dynamic. Example: Daily record of cars using motorway. On weekends traffic is high but there aren't many cars on weekdays. Numbers of cars can be highly varied.
+\end{itemize}
+\begin{lstlisting}[caption={Basic Linked List}]
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+	int Data;
+	Node* Next;
+};
+
+Node* First = NULL;
+
+void AddAtHead(int pData)
+{
+	Node* NewNode;
+	NewNode = new Node;
+	NewNode->Data = pData;
+
+	if (First == NULL)
+	{
+		First = NewNode;
+		NewNode->Next = NULL;
+	}
+	else
+	{
+		NewNode->Next = First;
+		First = NewNode;
+	}
+}
+
+void AddAtTail(int pData)
+{
+	Node* NewNode;
+	NewNode = new Node;
+	NewNode->Data = pData;
+	NewNode->Next = NULL;
+
+	if (First == NULL)
+		First = NewNode;
+	else
+	{
+		Node* temp = First;
+		while (temp->Next != NULL)
+			temp = temp->Next;
+		// After loop, temp now points to last node.
+		temp->Next = NewNode;
+	}
+}
+
+void Display()
+{
+	Node* temp;
+	temp = First;
+	if (temp == NULL)
+		return;
+	while (temp != NULL)
+	{
+		cout << temp->Data << " ";
+		temp = temp->Next;
+	}
+	cout << endl;
+}
+
+int Search(int key)
+{
+	Node* temp;
+	temp = First;
+	while (temp != NULL)
+	{
+		if (temp->Data == key)
+			return 0;
+		temp = temp->Next;
+	}
+	return -1;
+}
+
+int Delete(int key)
+{
+	Node* temp1;
+	Node* temp2;
+	temp1 = First;
+	temp2 = First;
+	if (First == NULL)
+		return -1;
+	if (First->Data == key)
+	{
+		First = First->Next;
+		delete temp1;
+	}
+	else
+	{
+		temp2 = temp2->Next;
+		while (temp2 != NULL)
+		{
+			if (temp2->Data == key)
+			{
+				temp1->Next = temp2->Next;
+				delete temp2;
+				return 0;
+			}
+			temp1 = temp1->Next;
+			temp2 = temp2->Next;
+		}
+	}
+	return -1;
+}
+
+int main()
+{
+	char choice;
+	int x;
+	while (true)
+	{
+		cout << "1. Add at head." << endl
+			 << "2. Add at tail." << endl
+			 << "3. Search." << endl
+			 << "4. Delete." << endl
+			 << "5. Display list." << endl
+			 << "6. Exit." << endl;
+		cout << "Please enter a choice: ";
+		cin >> choice;
+
+		switch (choice)
+		{
+			case '1':
+			{
+				cout << "Enter a number to add at head: ";
+				cin >> x;
+				AddAtHead(x);
+				break;
+			}
+			case '2':
+			{
+				cout << "Enter a number to add at tail: ";
+				cin >> x;
+				AddAtTail(x);
+				break;
+			}
+			case '3':
+			{
+				cout << "Enter a number to search: ";
+				cin >> x;
+				if (Search(x) == 0)
+					cout << x << " is in the list." << endl;
+				else
+					cout << x << " is not in the list." << endl;
+				break;
+			}
+			case '4':
+			{
+				cout << "Enter a number to delete: ";
+				cin >> x;
+				if (Delete(x) == 0)
+					cout << x << " was deleted from the list." << endl;
+				else
+					cout << x << " is not in the list." << endl;
+				break;
+			}
+			case '5':
+			{
+				cout << "Linked List: ";
+				Display();
+				break;
+			}
+			case '6':
+			{
+				return 0;
+			}
+			default:
+			{
+				cout << "Invalid choice..." << endl;
+				break;
+			}
+		} // switch end
+	}// while end
+
+	return 0;
+}
+\end{lstlisting}
+\section{Exercise}
+\noindent\textbf{Note: }You are only required to write \texttt{main()} that accomplishes following tasks.\\
+\noindent\textbf{Question No. 1:} Create a linked list that contains first 11 whole numbers (0, 1, 2, 3, ..., 10).\\
+\noindent\textbf{Question No. 2:} Add first 10 negative integers to the linked list in Q1 such that the list is in sorted order (-10, -9, -8, ..., 0, 1, 2, 3, ..., 10).\\
+\noindent\textbf{Question No. 3:} From Q2, swap the first and last numbers in linked list, i.e., 10 and -10.\\
+\end{document}
