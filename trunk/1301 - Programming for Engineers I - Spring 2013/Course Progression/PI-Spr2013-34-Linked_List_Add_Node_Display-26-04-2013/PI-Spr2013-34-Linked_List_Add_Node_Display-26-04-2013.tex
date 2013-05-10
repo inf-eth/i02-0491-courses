@@ -29,9 +29,9 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers I\\Class 33\\Linked List Concept}
+\title{\vspace{-2cm}Programming for Engineers I\\Class 34\\Linked List\\Add Node at Start and Display}
 \author{Attique Dawood}
-\date{April 25, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\date{April 26, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Announcements}
@@ -40,11 +40,61 @@
 \end{itemize}
 \section{Linked List}
 \begin{itemize}
-\item Storage problems with fragmented memory or hard disk.
-\item Array requires contiguous space in memory. Array cannot dynamically grow incrementally. Must de--allocate and re--allocate whole array to change size.
-\item Linked list solves the above problems. Doesn't require contiguous memory. Linked list is a chain of pointer--connected nodes. Nodes store information just like array indices.
-\item Linked list access is slower than array. Must traverse whole list to reach a particular node. But, storage and size is flexible.
-\item Array is preferable when speed is desired and storage size is known. Static data. Example: Number of students in a class cannot exceed 50. Create an array of 50 size for students.
-\item Linked list is preferable when speed is not a major concern and storage size is highly dynamic. Example: Daily record of cars using motorway. On weekends traffic is high but there aren't many cars on weekdays. Numbers of cars can be highly varied.
+\item A node can be added at start of linked list, middle or at end.
 \end{itemize}
+\begin{lstlisting}[caption={Linked List: Add at Head and Display}]
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+	int Data;
+	Node* Next;
+};
+
+Node* First = NULL;
+
+void AddAtHead(int pData)
+{
+	Node* NewNode;
+	NewNode = new Node;
+	NewNode->Data = pData;
+
+	if (First == NULL)
+	{
+		First = NewNode;
+		NewNode->Next = NULL;
+	}
+	else
+	{
+		NewNode->Next = First;
+		First = NewNode;
+	}
+}
+
+void Display()
+{
+	Node* temp;
+	temp = First;
+	if (temp == NULL)
+		return;
+	while (temp != NULL)
+	{
+		cout << temp->Data << " ";
+		temp = temp->Next;
+	}
+	cout << endl;
+}
+
+int main()
+{
+	AddAtHead(3);
+	AddAtHead(4);
+	AddAtHead(7);
+	AddAtHead(-1);
+	Display();
+	
+	return 0;
+}
+\end{lstlisting}
 \end{document}

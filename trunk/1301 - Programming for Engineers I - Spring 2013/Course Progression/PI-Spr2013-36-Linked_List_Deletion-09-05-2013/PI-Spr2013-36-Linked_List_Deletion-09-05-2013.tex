@@ -1,0 +1,180 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 36\\Linked List\\Search and Delete}
+\author{Attique Dawood}
+\date{May 09, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Linked List}
+\begin{itemize}
+\item Searching is easy, just traverse the linked list and if key is matched return true.
+\item We need two temporary pointers if we want to delete a node.
+\end{itemize}
+\begin{lstlisting}[caption={Linked List: Search and Delete}]
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+	int Data;
+	Node* Next;
+};
+
+Node* First = NULL;
+
+void AddAtHead(int pData)
+{
+	Node* NewNode;
+	NewNode = new Node;
+	NewNode->Data = pData;
+
+	if (First == NULL)
+	{
+		First = NewNode;
+		NewNode->Next = NULL;
+	}
+	else
+	{
+		NewNode->Next = First;
+		First = NewNode;
+	}
+}
+
+void AddAtTail(int pData)
+{
+	Node* NewNode;
+	NewNode = new Node;
+	NewNode->Data = pData;
+	NewNode->Next = NULL;
+
+	if (First == NULL)
+		First = NewNode;
+	else
+	{
+		Node* temp = First;
+		while (temp->Next != NULL)
+			temp = temp->Next;
+		// After loop, temp now points to last node.
+		temp->Next = NewNode;
+	}
+}
+
+void Display()
+{
+	Node* temp;
+	temp = First;
+	if (temp == NULL)
+		return;
+	while (temp != NULL)
+	{
+		cout << temp->Data << " ";
+		temp = temp->Next;
+	}
+	cout << endl;
+}
+
+int Search(int key)
+{
+	Node* temp;
+	temp = First;
+	while (temp != NULL)
+	{
+		if (temp->Data == key)
+			return 0;
+		temp = temp->Next;
+	}
+	return -1;
+}
+
+int Delete(int key)
+{
+	Node* temp1;
+	Node* temp2;
+	temp1 = First;
+	temp2 = First;
+	if (First == NULL)
+		return -1;
+	if (First->Data == key)
+	{
+		First = First->Next;
+		delete temp1;
+	}
+	else
+	{
+		temp2 = temp2->Next;
+		while (temp2 != NULL)
+		{
+			if (temp2->Data == key)
+			{
+				temp1->Next = temp2->Next;
+				delete temp2;
+				return 0;
+			}
+			temp1 = temp1->Next;
+			temp2 = temp2->Next;
+		}
+	}
+	return -1;
+}
+
+int main()
+{
+	AddAtTail(-1);
+	AddAtHead(3);
+	AddAtTail(4);
+	AddAtHead(6);
+	AddAtTail(2);
+	Display();
+
+	int x;
+	cout << "Enter a number to search: ";
+	cin >> x;
+	if (Search(x) == 0)
+		cout << "Number was found in the list!" << endl;
+	else
+		cout << "Number was not found." << endl;
+	
+	cout << "Enter a number to delete from list: ";
+	cin >> x;
+	if (Delete(x) == 0)
+		cout << "Number was found and deleted!" << endl;
+	else
+		cout << "Number was not found." << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
