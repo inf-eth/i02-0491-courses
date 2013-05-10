@@ -1,0 +1,145 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 42\\\texttt{iomanip}\\Function and Class Templates}
+\author{Attique Dawood}
+\date{May 08, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Buffers and synchronisation.
+\item Linked list de--allocation.
+\end{itemize}
+\section{\texttt{iomanip} Library}
+\begin{itemize}
+\item \verb|<iomanip>| libaray is used for manipulating out put.
+\item \verb|setw(x)| will fix the output to x chars.
+\item \verb|setprecision(x)| will set the desired floating point precision.
+\item \verb|setbase(x)| and \verb|dec|, \verb|oct|, \verb|hex| will format the output for indicated base. Valid bases are 10, 8 and 16.
+\end{itemize}
+\section{Templates in C++}
+\begin{itemize}
+\item Templates offer a mechanism to write generic code.
+\item If we want to make a sum function to add two data types then data types can be \verb|int|, \verb|float|, \verb|double| or even \verb|complex|.
+\item We would have to make sum function for all these types.
+\item By making a template, we let compiler decide which instance of sum function to call.
+\item Template calling can be implicit or explicit.
+\item If no type is mentioned with function call, compiler will decide what is best instantiation of template.
+\item If a type is mentioned with function call (e.g., \verb|sum<int> (3, 7)|) then that particular instance of template is instantiated by compiler.
+\item Templates can also be defined for multiple types.
+\item Templates can be defined for functions as well as classes.
+\end{itemize}
+\begin{lstlisting}[caption={Traditional way of writing sum function}]
+int sum(int a, int b)
+{
+	return (a+b);
+}
+float sum(float a, float b)
+{
+	return (a+b);
+}
+...
+complex sum(complex a, complex b)
+{
+	return (a+b);
+}
+...
+\end{lstlisting}
+\begin{lstlisting}[caption={Sum function template}]
+// Sum function template.
+// Depending on type of argument passed in main, that will be substituted in place of 'MyType'.
+// For example, if called as sum(2.3, 7.7), MyType would be double.
+template <class MyType> MyType sum(MyType a, MyType b)
+{
+	return (a+b);
+}
+int main()
+{
+	sum(3.2, 7.8); // implicit instantiation with double type.
+	sum(3, 8); // implicit instantiation with int type.
+	sum<double> (3.2, 7.8); // explicit double instantiation.
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Sum function template for mixed types}]
+template <class MyType1, class MyType2> MyType1 sum(MyType1 a, MyType2 b)
+{
+	return (a+b);
+}
+int main()
+{
+	sum(3.2, 7.8); // implicit instantiation with both double types.
+	sum(3, 8.9); // implicit instantiation for int and double types.
+	sum<int, double> (3, 7.8); // explicit instantiation.
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Class template}]
+#include <iostream>
+using namespace std;
+template <class MyType> class GenericArray
+{
+	private:
+	MyType Data[5];
+	public:
+	void Input()
+	{
+		for (int i=0; i<5; i++)
+			cin >> Data[i];
+	}
+	void Display()
+	{
+		for (int i=0; i<5; i++)
+			cout << Data[i] << " ";
+		cout << endl;
+	}
+};
+int main()
+{
+	GenericArray<int> IntArray;
+	IntArray.Input();
+	IntArray.Display();
+	
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}

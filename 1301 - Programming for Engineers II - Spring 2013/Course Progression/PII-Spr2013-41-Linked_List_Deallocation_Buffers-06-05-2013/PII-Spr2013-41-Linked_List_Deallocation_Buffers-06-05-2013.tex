@@ -1,0 +1,96 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 41\\Linked List De--allocation\\Buffers and Synchronisation}
+\author{Attique Dawood}
+\date{May 06, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None
+\end{itemize}
+\section{Input/Output Buffers}
+\begin{itemize}
+\item Buffers are temporary storage that are associated with hardware input/output (I/O) devices.
+\item The stream of data flow between devices may not be always constant. Data may flow in bursts.
+\item In order to streamline data flow, buffers are used.
+\item As an example, hard disk access is slow and if we're writing a byte onto the hard disk every second then that would be slower compared to writing a whole chunk of bytes at once. Buffers store the incoming stream of data temporarily and when they're full, data is written at once.
+\item Writing the contents of buffer onto hard disk is known as \textit{synchronisation}.
+\item Buffers are automatically synchronised when they're full.
+\item Buffers can also be synchronised explicitly with \verb|endl|, \verb|flush()| and \verb|sync()| calls.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{cl}
+	\hline \hline
+		\textbf{Stream Object} \rule{0pt}{2.6ex} & \textbf{Description}\\
+		\hline
+		\texttt{cin}\rule{0pt}{2.6ex} &  Buffered input\\
+		\texttt{cout}\rule{0pt}{2.6ex} &  Buffered output\\
+		\texttt{cerr}\rule{0pt}{2.6ex} &  Unbuffered error stream\\
+		\texttt{clog}\rule{0pt}{2.6ex} &  Same as \verb|cerr| but buffered\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{StreamBuffers}
+\caption{Stream Buffers}
+\end{table}
+\section{Linked List De--allocation}
+\begin{lstlisting}[caption={Linked List Destructor}]
+~LinkedList()
+{
+	Node* temp1;
+	Node* temp2;
+	temp1 = temp2 = First;
+	if (First == NULL)
+		return;
+	else
+	{
+		temp2 = temp2->Next;
+		while(true)
+		{
+			cout << "Deleting " << temp1->Data << endl;
+			delete temp1;
+			temp1 = temp2;
+			if (temp1 == NULL)
+				break;
+			temp2 = temp2->Next;
+		}
+	}
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
