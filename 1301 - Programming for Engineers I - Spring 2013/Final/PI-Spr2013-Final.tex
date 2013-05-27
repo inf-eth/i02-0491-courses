@@ -1,0 +1,500 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+\pagestyle{plain}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Marks of each question.
+\def\QOne{5}
+\def\Qtwo{10}
+\def\Qthree{5}
+\def\Qfour{5}
+\def\Qfive{10}
+\def\Qsix{5}
+\def\Qseven{10}
+\def\Qeight{10}
+\def\Qnine{10}
+\def\Qten{10}
+\def\Qeleven{5}
+\def\Qtwelve{15}
+\def\TotalMarks{100}
+
+\begin{document}
+\begin{minipage}{0.55\textwidth}
+{\LARGE \textbf{Programming for\\ Engineers I}}\\[0.15cm]
+{\normalsize \textbf{Spring 2013 Semester}}\\
+{\Large \textbf{Final Exam}}\\
+{\normalsize \textbf{Friday, May 17, 2013}}\\[0.30cm]
+{\Large \textbf{Total Time: 180 minutes}}\\[0.15cm]
+{\Large \textbf{Total Marks: 100}}\\
+\textbf{Course Instructor:}\\
+Atif Mughees\\
+Attique Dawood\\
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\textbf{Serial} \hrulefill \\[0.25cm]
+\textbf{Name} \hrulefill\\[0.25cm]
+\textbf{Section} \rule{1cm}{0.2mm} \textbf{Roll No:} \hrulefill\\[0.25cm]
+\textbf{Signature:} \hrulefill\\[0.25cm]
+\rule{6.6cm}{0.2mm}\\
+\textbf{Signature of Invigilator}\\[0.25cm]
+\end{minipage}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\large \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{Total}\\
+		\hline
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \Qsix & \Qseven & \Qeight & \Qnine & \Qten & \Qeleven & \Qtwelve & \TotalMarks\\
+		\hline
+		Marks Obtained \rule{0pt}{2.6ex} & & & & & & & & & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\noindent \textbf{You are advised to READ these notes:}
+\begin{enumerate}
+\item \textbf{Attempt on the Question Paper. \underline{NO EXTRA SHEET} will be provided/accepted. No
+additional sheet will be provided for rough work. Use the back of the page where
+provided space is not sufficient.}
+\item After asked to commence the exam, please verify that you have \textbf{\pageref{LastPage} different
+printed pages} including this title page.
+\item There are 12 questions. Attempt all of them. It is advisable to go through the paper once
+before starting with the first question.
+\item Exam is closed books, closed notes. Please see that the area in your threshold is clean.
+You will be charged for any material which can be classified as \textbf{`helping in the paper'}
+found near you.
+\item \textbf{Calculator sharing is strictly prohibited.}
+\item Students who attempt the paper with lead pencils lose the right to get them rechecked.
+\item \textbf{The invigilator present is not supposed to answer any questions. No one may come
+to your room for corrections and you are not supposed to request to call anyone.
+Make assumptions wherever required and clearly mark them.}
+\end{enumerate}
+\newpage
+\noindent\textbf{Question 1: Code correction\hfill \QOne~marks}\\
+Find errors in the given code and suggest corrections. Errors may be logical or in syntax.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+
+struct Complex
+{
+	float real = 0;
+	float img = 0;
+};
+
+int main()
+{
+	const Complex C1;
+	C1.real = 7.1;
+	C1.img = 2.3;
+
+	Complex* C2ptr;
+	C2ptr = new int;
+	
+	C2ptr.real = 1.8;
+	C2ptr.img = 3.3
+	
+	cout << C2ptr << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 12.5cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 2: Struct Arrays/Dynamic Allocation \hfill \Qtwo~marks}\\
+Given definition of Book structure, you are required to dynamically create an array of books.
+\begin{enumerate}
+\item Take size of array as input from user.
+\item Write code to dynamically create an array of books.
+\item In a loop, user will enter attributes of all books using input function.
+\item Display the attributes of all books using display function.
+\item De--allocate memory before exiting main.
+\end{enumerate}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+struct Book
+{
+	char Title[50];
+	int PublishedYear;
+};
+void Input(Book& B)
+{
+
+
+
+
+}
+void Display(Book& B)
+{
+
+
+
+
+}
+int main()
+{
+	Book* ArrayOfBooks;
+	int Size;
+	// 1. Take input size from user.
+		
+		
+	
+	// 2. Allocation.
+		
+	
+	// 3. Input attributes from user.
+		
+	
+	
+	// 4. Display all books.
+		
+	
+		
+	// 5. De-allocation.
+		
+	
+	return 0;
+}
+\end{lstlisting}
+
+\noindent\textbf{Question 3: Bitwise and Shift Operators \hfill $1\times 5=$\Qthree~marks}\\
+Assume 4 bit unsigned binary numbers. Evaluate the following:
+\begin{enumerate}
+\item[a.] \verb|  4 & 5|
+\item[b.] \verb$  4 | 7$
+\item[c.] \verb|  3 ^ 9|
+\item[d.] \verb|  7 >> 2|
+\item[e.] \verb|  8 << 1|
+\end{enumerate}
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 6cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 4: Signed Integers \hfill \Qfour~marks}\\
+\textbf{Assuming 16 bit signed integer}, what is the bit representation of -1? Show how this number is stored in computer memory.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 10cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 5: Float Representation \hfill $5\times 2=$\Qfive~marks}\\
+a. Convert 11.390625 to 32 bit floating point representation. Also show how this number is stored in computer memory.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 11cm);
+\end{tikzpicture}
+\end{figure}
+\noindent b. Convert the following 32 bit floating point number into decimal.\\
+\verb|1 10000101 10110101000000000000000|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 10cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 6: Sorting \hfill \Qsix~marks}\\
+Given an integer array of size 10 filled with random numbers, write code to sort this array in ascending order. You can use bubble sort OR insertion sort.\\
+\verb|int Data[10] = {-1, 8, 2, 11, 7, 3, 5, 17, 0, 9};|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 22.5cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 7: C--Strings \hfill $5\times 2=$\Qseven~marks}\\
+Implement the following library functions:
+\begin{itemize}
+\item[a.] \verb|strlen|: Calculates and returns length of string.
+\item[b.] \verb|strcmp|: Compares two strings. Return value is \verb|true| if strings match, otherwise, \verb|false| is returned for mismatch.
+\end{itemize}
+\noindent\textbf{Note:} Standard \verb|strcmp| function actually returns an int and also compares alphabetical order. You are required to implement a simplified version that only checks mismatch.
+\begin{lstlisting}
+int strlen(char* str)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+}
+bool strcmp(char* str1, char* str2)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+\end{lstlisting}
+
+\noindent\textbf{Question 8: File Handling: Basics \hfill $2.5\times 4=$\Qeight~marks}\\
+Write the purpose of following options:
+\begin{enumerate}
+\item[a.] \verb|ios::in|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[b.] \verb|ios::out|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[c.] \verb|ios::binary|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[d.] \verb|ios::app|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\end{enumerate}
+
+\newpage
+\noindent\textbf{Question 9: File Handling: Text Files \hfill $5\times 2=$\Qnine~marks}\\
+\begin{enumerate}
+\item[a.] Write code to store 100 random numbers in a text file named \verb|"random.txt"|. Numbers should be separated by spaces.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 10cm);
+\end{tikzpicture}
+\end{figure}
+\item[b.] Write code to read in \verb|"random.txt"| and display all the numbers. Assume file contains 100 numbers.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 10cm);
+\end{tikzpicture}
+\end{figure}
+\end{enumerate}
+\noindent\textbf{Question 10: File Handling: Binary Files \hfill $5\times 2=$\Qten~marks}\\
+\begin{enumerate}
+\item[a.] Input attributes of a single student and store in a binary file named \verb|"records.rec"| in append mode.
+\begin{lstlisting}
+#include <fstream>
+#include <iostream>
+using namespace std;
+struct StudentInfo
+{
+	char Name[20];
+	int Age;
+	float CGPA;
+};
+int main()
+{
+	StudentInfo S;
+	fstream OutFile;
+	// 1. Input attributes.
+	
+	
+	
+	
+	
+	// 2. Open file in append mode.
+	
+	
+	
+	// 3. Write S to file.
+	
+	
+	
+	// 4. Close file.
+	
+		
+	return 0;
+}
+\end{lstlisting}
+\item[b.] Read in \verb|"records.txt"| and display all records stored in the file.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 8cm);
+\end{tikzpicture}
+\end{figure}
+\end{enumerate}
+\noindent\textbf{Question 11: Linked List: Basics \hfill $2.5\times 2=$\Qeleven~marks}\\
+\begin{enumerate}
+\item[a.] Write one advantage of linked list over array.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[b.] Write on dis--advantage of linked list.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\end{enumerate}
+
+\noindent\textbf{Question 12: Linked List: Construction \hfill $5\times 3=$\Qtwelve~marks}\\
+Write code for the specified linked list functions. Node structure is given.
+\begin{lstlisting}
+struct Node
+{
+	int Data;
+	Node* Next;
+};
+Node* First = NULL;
+\end{lstlisting}
+\begin{enumerate}
+\item[a.] Display linked list.
+\begin{lstlisting}
+void DisplayList()
+{
+
+
+
+
+
+
+
+
+
+
+
+
+}
+\end{lstlisting}
+\item[b.] Add node at head.
+\begin{lstlisting}
+void AddNodeAtHead(int pData)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+\end{lstlisting}
+\item[c.] Search linked list. If key is found return \verb|true|, otherwise return \verb|false|.
+\begin{lstlisting}
+bool SearchList(int Key)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+}
+\end{lstlisting}
+\end{enumerate}
+
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 22.5cm);
+%\end{tikzpicture}
+%\end{figure}
+\end{document}
