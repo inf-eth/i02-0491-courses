@@ -1,0 +1,116 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 02\\Introduction to Object--Oriented Programming}
+\author{Attique Dawood}
+\date{June 11, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item There is no weekly quiz this week. Quiz will be conducted on next Monday and will include topics covered in first week.
+\item \textbf{Homework:}\\
+Chapter 1, sections 1.1--1.9 from Deitel.\\
+Chapter 1, \textit{The Big Picture} from Lafore.\\
+Chapter 2, \textit{Introduction to C++ Programming}. Sections 2.1--2.7 from Deitel.
+\end{itemize}
+\section{Why Do We Need Object--Oriented Programming?\cite{Lafore}}
+\begin{itemize}
+\item Limitations in earlier programming approaches.
+\item Need to understand limitations.
+\end{itemize}
+\subsection{Procedural Languages}
+\begin{itemize}
+\item C, Pascal, FORTRAN.
+\item Procedural approach is to do a single task in a serial manner by executing a set of instructions.
+\item This will work for smaller programs. Organisation (or paradigm) isn't needed.
+\end{itemize}
+\subsection{Division into Functions}
+\begin{itemize}
+\item For relatively large programs a list of instructions may be tedious whenever there is some repetition of code.
+\item Functions can make the code readable and reduce repetition.
+\item Function can be called a subprogram, subroutine or procedure.
+\item Each function has a defined task or purpose in procedural programming in addition to an interface (arguments list and return value).
+\end{itemize}
+\subsection{Structured Programming}
+\begin{itemize}
+\item Similar functions can be grouped together to form a \textit{module}.
+\item Program division into functions and then modules led to something called \textit{structured programming} before object--oriented approach was developed.
+\end{itemize}
+\subsection{Problems With Structured Programming}
+\begin{itemize}
+\item \textbf{Unrestricted access:} A lot of functions access same global data. If data is changed functions must be re--written.
+\item \textbf{Poor real--world modelling:} Real--world objects (or entities) cannot be described by just data or functionality. They have both \textit{attributes} and \textit{behaviour}.
+\end{itemize}
+\subsection{Real--World Modelling}
+\subsubsection{Attributes (Data)}
+Attributes of a car can be colour, horsepower, model. A person can have a job description like teacher or student, eye colour, height, age etc.
+\subsubsection{Behaviour (Function)}
+A car can accelerate or decelerate. A person can talk, eat and sleep.
+\section{The Object--Oriented Approach}
+\begin{itemize}
+\item Create a single unit that encloses \textit{data} and the \textit{functions that operate on that data}. Also called \textit{data encapsulation}.
+\item This is called an \textit{object}.
+\item An object's functions are the only way to access its data. You have to ask a person his name and he/she can choose to tell or not to tell you his/her name.
+\item The data is \textit{hidden} to prevent accidental alteration.
+\item \textit{Data hiding} and \textit{data encapsulation} are key terms in object--oriented languages.
+\item Since you know exactly which functions will operate on data this simplifies writing, debugging and maintaining the program.
+\item In C++, objects communicate with each other through their member functions.
+\subsection{Example}
+Different departments in an organisation do their specific tasks. They have their own records to maintain and only the concerned people from a particular department can modify records.
+\end{itemize}
+\section{UML}
+UML stands for Unified Modelling Language. This is a standardised graphical language meant for graphical representation of a problem.
+\section{C and C++}
+\begin{itemize}
+\item C++ extends the functionality of C to implement OOP.
+\item C++ also adds some features on top of C.
+\item Since the emphasis in C++ is that of OOP, some C features are seldom if ever used. There are several C++ alternatives to C functions in order to follow the OOP approach.
+\end{itemize}
+\section{A Simple CGPA Calclator}
+\begin{lstlisting}[caption={CGPA Calculator}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	float C1, C2, C3, C4, C5, CGPA;		// Variable declaration.
+	cout << "Enter course grades: ";	// Message to input grades.
+	cin >> C1 >> C2 >> C3 >> C4 >> C5;	// Input.
+	CGPA = (C1+C2+C3+C4+C5)/5;			// CGPA calculation.
+	cout << "CGA is " << CGPA << endl;	// Displaying CGPA.
+	
+	return 0;
+}
+\end{lstlisting}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
