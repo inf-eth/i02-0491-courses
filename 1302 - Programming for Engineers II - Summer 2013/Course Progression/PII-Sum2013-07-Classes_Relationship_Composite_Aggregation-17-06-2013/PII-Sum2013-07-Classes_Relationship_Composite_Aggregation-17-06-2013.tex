@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 07\\Relationship Between Classes\\Composition and Aggregation}
+\author{Attique Dawood}
+\date{June 17, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Relationship between classes.
+\item Inheritance: Base class and derived class.
+\item Derived class inherits all attributes and functions of base class. A student has all the attributes of a person in addition to CGPA and roll number.
+\item UML class diagram.
+\item Class is represented by name, data and attributes grouped in a box.
+\item Private and public methods are preceded by `-' or `+' sign.
+\item Inheritance is represented by an empty or hollow arrow--head from derived class to base class.
+\end{itemize}
+\section{Relationship Between Classes}
+\subsection{``is a'' Relationship}
+\begin{itemize}
+\item Car is the base class.
+\item Honda \textbf{is a} car.
+\item Toyota \textbf{is a} car.
+\end{itemize}
+\begin{itemize}
+\item Mobile phone is the base class.
+\item Apple iPhone \textbf{is a} mobile phone.
+\item Samsung Galaxy \textbf{is a} mobile phone.
+\end{itemize}
+\begin{itemize}
+\item Person is the base class.
+\item Teacher \textbf{is a} person.
+\item Student \textbf{is a} person.
+\end{itemize}
+Derived classes have all the features (attributes and functionality) of base class in addition to some features specific to it. A person will have a name and age. A student in addition to name and age will also have a CGPA.
+\subsection{``has a'' Relationship or Aggregation}
+A class can be a member of another classes. Weak link, empty diamond.
+\begin{itemize}
+\item That teacher \textbf{has a}n Apple iPhone.
+\item That student \textbf{has a} Samsung Galaxy.
+\item A person has address. If a person dies, address is unaffected.
+\end{itemize}
+\subsection{``part of''/``composed of'' Relationship or Composition}
+A class can be a part of another classes. Strong link, filled diamond. Some authors may refer to composition as a form of aggregation. If the container class is destroyed so is the contained class.
+\begin{itemize}
+\item Compressor is a \textbf{part of} AC. If AC is scrapped, compressor goes with it.
+\item Engine is a \textbf{part of} car. 
+\item Tyre is also a \textbf{part of} car. If a car is destroyed, this implies everything contained within is scrap metal and useless.
+\item Organs of a person cannot sustain if the person dies.
+\end{itemize}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
