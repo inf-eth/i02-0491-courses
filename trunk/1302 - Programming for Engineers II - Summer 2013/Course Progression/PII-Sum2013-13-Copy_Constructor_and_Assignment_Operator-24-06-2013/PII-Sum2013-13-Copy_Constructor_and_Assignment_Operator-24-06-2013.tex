@@ -1,0 +1,255 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 13\\Copy Constructor and Assignment Operator\\Overloading Arithmetic Operators}
+\author{Attique Dawood}
+\date{June 24, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Today's topics taken from \cite{Ref:CPP-Copy-Constructor-and-Assignment-Operator} and \cite{Ref:CPP-Operator-Overloading}.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Memory leaks. Using NULL pointer for safety.
+\item A destructor, very much like constructor, is a special function that is automatically called every time an object is destroyed.
+\item Constructor and destructor calls when dynamically creating objects.
+\end{itemize}
+\section{Copy Constructor}
+\begin{itemize}
+\item Default constructor and user--defined constructor. If you do not define a default constructor then compiler provides one implicitly.
+\item Copy constructor can make copies of object at creation. If user does not define a copy constructor then compiler provides one implicitly.
+\item Copy constructor is used to create an object when another object is passed as constructor argument.
+\item Copy constructor does a member--wise copy of object elements (data members).
+\end{itemize}
+\begin{lstlisting}[caption={Copy Constructor}]
+// Notice, complex class doesn't define any constructors.
+// 1. Default constructor will be provided by compiler.
+// Complex(){}
+// 2. Also, copy constructor will be provided by compiler.
+// Prototypes for copy constructor.
+// Complex(Complex &);
+// Complex(const Complex &);
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+};
+
+int main()
+{
+	Complex x;
+	Complex y(x);
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Assignment Operator =}
+\begin{itemize}
+\item This is another facility provided by compiler if not explicitly defined by user.
+\item Assignment operator is just a member function.
+\item An assignment operator essentially does a member--wise copy of elements.
+\item Difference between copy constructor and assignment operator? Copy constructor can only be called at object creation because it's a constructor.
+\end{itemize}
+\begin{lstlisting}[caption={Calling Assignment Operator}]
+class Complex
+{
+	private:
+	float real;
+	float img;
+};
+
+int main()
+{
+	Complex x, y;
+	Complex z(x);  // Copy constructor called.
+	Complex y = x; // Assignment operator called. y was already created using default constructor.
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Defining Assignment Operator}]
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex& operator=(const Complex& rhs)
+	{
+		real = rhs.real;
+		img = rhs.img;
+		return (*this);
+	}	
+};
+
+int main()
+{
+	Complex x, y;
+	Complex z(x);  // Copy constructor called.
+	Complex y = x; // Assignment operator called.
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Putting it Together}
+Compiler will generate following functions if not defined by user:
+\begin{enumerate}
+\item A default constructor with empty body if user does not provide any constructor.
+\item A copy constructor that performs member--wise copy.
+\item Assignment operator for member--wise copy.
+\end{enumerate}
+\begin{lstlisting}[caption={User and Compiler Code}]
+// User code for class.
+class Complex
+{
+	private:
+	float real;
+	float img;
+};
+
+// Compiler code.
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	// Default constructor.
+	Complex()
+	{
+	}
+	// Copy constructor. Notice, member initialiser list.
+	Complex(Complex& other): real(other.real), img(other.img)
+	{
+	}
+	// Assignment operator.
+	Complex& operator=(const Complex& rhs)
+	{
+		real = rhs.real;
+		img = rhs.img;
+		return (*this);  // 'this' is the pointer to calling object.
+	}
+};
+\end{lstlisting}
+\section{Operator Overloading}
+\begin{itemize}
+\item Arithmetic operators +, -, *, / are not provided by compiler and must be defined by user.
+\item For our \verb|Complex| class compiler doesn't know how to perform addition, subtraction or multiplication between two objects (variables) of \verb|Complex| type.
+\item Defining these operators as member functions of the class is known as ``operator overloading'', a somewhat misleading term.
+\end{itemize}
+\begin{lstlisting}[caption={Overloading Arithmetic Operators}]
+#include <iostream>
+using std::cout;
+using std::endl;
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex();
+	Complex(float, float);
+	Complex operator+ (const Complex&); // Addition operator.
+	Complex operator/ (const Complex&); // Division operator.
+	void Display();
+};
+
+// Default constructor.
+Complex::Complex(): real(0.f), img(0.f)
+{
+}
+// User-defined constructor.
+Complex::Complex(float preal, float pimg): real(preal), img(pimg)
+{
+}
+// Addition operator.
+Complex Complex::operator+ (const Complex& rhs)
+{
+	Complex result;
+	result.real = real + rhs.real;
+	result.img = img + rhs.img;
+	return result;
+}
+// Division operator.
+Complex Complex::operator/ (const Complex& rhs)
+{
+	Complex result;
+	float a, b, c, d;
+	a = real;
+	b = img;
+	c = rhs.real;
+	d = rhs.img;
+
+	float den = c*c + d*d; // denominator.
+	result.real = (a*c+b*d)/den;
+	result.img = (b*c-a*d)/den;
+
+	return result;
+}
+// Display function.
+void Complex::Display()
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+
+int main()
+{
+	Complex x(1.1f, -2.7f);
+	Complex y(2.1f, 3.3f);
+	Complex z;
+
+	z = x+y;
+	cout << "x+y = ";
+	z.Display();
+
+	z = x/y;
+	cout << "x/y = ";
+	z.Display();
+
+	z = y/x;
+	cout << "y/x = ";
+	z.Display();
+
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
