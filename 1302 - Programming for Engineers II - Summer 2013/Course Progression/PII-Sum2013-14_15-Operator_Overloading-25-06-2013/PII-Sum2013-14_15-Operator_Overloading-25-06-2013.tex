@@ -29,7 +29,7 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers II\\Class 13\\Copy Constructor and Assignment Operator\\Overloading Arithmetic Operators}
+\title{\vspace{-2cm}Programming for Engineers II\\Classes 14, 15\\Operator Overloading\\Overloading Arithmetic Operators}
 \author{Attique Dawood}
 \date{June 24, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
@@ -44,130 +44,12 @@
 \item A destructor, very much like constructor, is a special function that is automatically called every time an object is destroyed.
 \item Constructor and destructor calls when dynamically creating objects.
 \end{itemize}
-\section{Copy Constructor}
-\begin{itemize}
-\item Default constructor and user--defined constructor. If you do not define a default constructor then compiler provides one implicitly.
-\item Copy constructor can make copies of object at creation. If user does not define a copy constructor then compiler provides one implicitly.
-\item Copy constructor is used to create an object when another object is passed as constructor argument.
-\item Copy constructor does a member--wise copy of object elements (data members).
-\end{itemize}
-\begin{lstlisting}[caption={Copy Constructor}]
-// Notice, complex class doesn't define any constructors.
-// 1. Default constructor will be provided by compiler.
-// Complex(){}
-// 2. Also, copy constructor will be provided by compiler.
-// Prototypes for copy constructor.
-// Complex(Complex &);
-// Complex(const Complex &);
-
-class Complex
-{
-	private:
-	float real;
-	float img;
-};
-
-int main()
-{
-	Complex x;
-	Complex y(x);
-	
-	return 0;
-}
-\end{lstlisting}
-\section{Assignment Operator =}
-\begin{itemize}
-\item This is another facility provided by compiler if not explicitly defined by user.
-\item Assignment operator is just a member function.
-\item An assignment operator essentially does a member--wise copy of elements.
-\item Difference between copy constructor and assignment operator? Copy constructor can only be called at object creation because it's a constructor.
-\end{itemize}
-\begin{lstlisting}[caption={Calling Assignment Operator}]
-class Complex
-{
-	private:
-	float real;
-	float img;
-};
-
-int main()
-{
-	Complex x, y;
-	Complex z(x);  // Copy constructor called.
-	Complex y = x; // Assignment operator called. y was already created using default constructor.
-	
-	return 0;
-}
-\end{lstlisting}
-\begin{lstlisting}[caption={Defining Assignment Operator}]
-class Complex
-{
-	private:
-	float real;
-	float img;
-	public:
-	Complex& operator=(const Complex& rhs)
-	{
-		real = rhs.real;
-		img = rhs.img;
-		return (*this);
-	}	
-};
-
-int main()
-{
-	Complex x, y;
-	Complex z(x);  // Copy constructor called.
-	Complex y = x; // Assignment operator called.
-	
-	return 0;
-}
-\end{lstlisting}
-\section{Putting it Together}
-Compiler will generate following functions if not defined by user:
-\begin{enumerate}
-\item A default constructor with empty body if user does not provide any constructor.
-\item A copy constructor that performs member--wise copy.
-\item Assignment operator for member--wise copy.
-\end{enumerate}
-\begin{lstlisting}[caption={User and Compiler Code}]
-// User code for class.
-class Complex
-{
-	private:
-	float real;
-	float img;
-};
-
-// Compiler code.
-class Complex
-{
-	private:
-	float real;
-	float img;
-	public:
-	// Default constructor.
-	Complex()
-	{
-	}
-	// Copy constructor. Notice, member initialiser list.
-	Complex(Complex& other): real(other.real), img(other.img)
-	{
-	}
-	// Assignment operator.
-	Complex& operator=(const Complex& rhs)
-	{
-		real = rhs.real;
-		img = rhs.img;
-		return (*this);  // 'this' is the pointer to calling object.
-	}
-};
-\end{lstlisting}
 \section{Operator Overloading}
 \begin{itemize}
 \item Arithmetic operators +, -, *, / are not provided by compiler and must be defined by user.
 \item For our \verb|Complex| class compiler doesn't know how to perform addition, subtraction or multiplication between two objects (variables) of \verb|Complex| type.
 \item Defining these operators as member functions of the class is known as ``operator overloading'', a somewhat misleading term.
+\item In addition to arithmetic operators, comparison operators (\verb|==, !=, <, >, <=, >=|) and increment operators (\verb|++, --|) can also be overloaded.
 \end{itemize}
 \begin{lstlisting}[caption={Overloading Arithmetic Operators}]
 #include <iostream>
@@ -184,6 +66,9 @@ class Complex
 	Complex(float, float);
 	Complex operator+ (const Complex&); // Addition operator.
 	Complex operator/ (const Complex&); // Division operator.
+	bool operator== (const Complex&); // Comparison (is equal to?)
+	Complex operator++ (); // Pre-increment.
+	Complex operator++ (int); // Post-increment.
 	void Display();
 };
 
@@ -218,6 +103,24 @@ Complex Complex::operator/ (const Complex& rhs)
 	result.img = (b*c-a*d)/den;
 
 	return result;
+}
+// Comparison operator, is equal to?
+bool Complex::operator== (Complex& rhs)
+{
+	if (real == rhs.real && img == rhs.img)
+		return true;
+	else
+		return false;
+}
+// Pre-increment.
+Complex Complex::operator++ ()
+{
+	return Complex(++real, ++img);
+}
+// Post-increment.
+Complex Complex::operator++ (int dummy)
+{
+	return Complex(real++, img++);
 }
 // Display function.
 void Complex::Display()
