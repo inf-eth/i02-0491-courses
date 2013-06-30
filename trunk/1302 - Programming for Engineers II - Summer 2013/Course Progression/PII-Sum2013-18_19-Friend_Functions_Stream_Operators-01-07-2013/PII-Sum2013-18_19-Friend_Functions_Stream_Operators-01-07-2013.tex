@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 18, 19\\Friend Functions\\Overloading Stream Operators}
+\author{Attique Dawood}
+\date{July 01, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz \# 02 today.
+\item Assignment \# 02 submission today.
+\item Assignment \# 03: Add copy constructor and assignment operator functions to matrix class. Make stream operator functions for both complex and matrix classes.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Copy constructor and assignment operator.
+\item When an appropriate constructor is already provided we can return an object by writing class name and passing constructor arguments.
+\end{itemize}
+\section{\texttt{friend} Functions}
+\begin{itemize}
+\item Sometimes we need to access private data of a class in certain trusted functions.
+\item These functions can be declared \verb|friend| of the class.
+\item \verb|friend| is specified with the prototype of the function inside the class declaration.
+\item \verb|friend| function definition/implementation is outside the class.
+\item \verb|friend| \underline{functions are not members of the class}. Remember, member functions can already access private members.
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{friend} function to display Complex number}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex(): real(0.f), img(0.f) {}
+	Complex(float a, float b): real(a), img(b) {}
+	friend void Display(Complex&); // Friend function specified.
+};
+
+// Display function definition. This is an ordinary function.
+void Display(Complex& c)
+{
+	cout << c.real << "+j" << c.img << endl;
+}
+
+int main()
+{
+	Complex A(2.f,3.3f);
+	Display(A);
+
+	return 0;
+}
+\end{lstlisting}
+\section{Overloading the Insertion and Extraction Operators}
+\begin{itemize}
+\item Stream operators \verb|>>| and \verb|<<| operators are used for input and output.
+\item \verb|cin| and \verb|cout| are objects of \verb|istream| and \verb|ostream| classes.
+\item Stream operators must be overloaded as friends. Convenient way to display() and input().
+\item Warning! Following code snippet will not work with VC6.
+\end{itemize}
+\begin{lstlisting}[caption={Overloading Stream Operators for Complex class}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex(): real(0.f), img(0.f) {}
+	Complex(float a, float b): real(a), img(b) {}
+	friend ostream& operator <<(ostream&, Complex&);
+	friend istream& operator >>(istream&, Complex&);
+};
+
+ostream& operator <<(ostream& out, Complex& c)
+{
+	out << c.real << "+j" << c.img;
+	return out;
+}
+istream& operator >>(istream& in, Complex& c)
+{
+	in >> c.real >> c.img;
+	return in;
+}
+
+int main()
+{
+	Complex A;
+	cout << "Enter a complex number: ";
+	cin >> A;
+	cout << "You entered: " << A << endl;
+
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
