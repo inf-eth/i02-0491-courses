@@ -1,0 +1,201 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 21\\Data Conversion}
+\author{Attique Dawood}
+\date{July 02, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Today's lecture is from Chapter 8 of Lafore \cite{Lafore}.
+\item Please read ``Conversions Between Objects of Different Classes'' from Chapter 8 of Lafore \cite{Lafore}.
+\item Understand code for class time12 and class time24
+\item Understand how conversion from time12 to time24 and vice versa had been handled.
+\item Understand what does the following mean:
+\begin{enumerate}
+\item Routine in source object
+\item Routine in destination object
+\end{enumerate}
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Subscript operator \verb|[]|?
+\item Normally subscript operator doesn't check bounds. Crashes happen at runtime if bad indices are provided.
+\item We modified the subscript operator to handle crashes.
+\end{itemize}
+\section{Casting: Conversion Between Basic Data Types}
+\begin{itemize}
+\item \underline{Variable classification on the basis of `scope'.}
+\item Global variables are accessible everywhere in a single file, in class, any function and main. Their scope is `global'.
+\item Local variables are limited to the structure in which they are declared.
+\item Global variables exist for the entirety of the program and will only be destroyed when program exits.
+\item Local variables will only exist for the duration of the function in which they are declared. They will be destroyed when function ends.
+\end{itemize}
+\begin{lstlisting}[caption={Variable Casting}]
+int main()
+{
+	int x = 3;
+	float y = 4.3f;
+
+	// Implicit conversion.
+	x = y;
+	y = x;
+
+	// Explicit conversion.
+	x = static_cast<int>(y);
+	x = (int)y;
+	y = (float)x;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Conversion Between Objects}
+\begin{itemize}
+\item Source and destination objects.
+\item Sometimes you cannot change one data type. Can you modify how int or float works?
+\item We have facility to modify either source or destination code to perform a conversion.
+\item If the destination code cannot be changed we need to use \verb|operator type()| function (type is destination type) to convert source variable into destination variable.
+\item An example is conversion of complex number to a real number, which we mathematically define as taking real part and discarding imaginary part.
+\end{itemize}
+\begin{lstlisting}[caption={Conversion Between Objects}]
+int intvar;
+float floatvar
+Complex complexobj;
+
+intvar = floatvar;
+floatvar = intvar;
+
+complexobj = intvar; // complexobj.operator=(intvar)
+complexobj = floatvar; // complexobj.operator=(floatvar)
+
+intvar = complexobj; // overload int?
+floatvar = complexobj; // overload float?
+
+objA = objB; // objA.operator=(objB)
+objB = objA; // objB.operator=(objA)
+\end{lstlisting}
+\begin{lstlisting}[caption={Object from Float}]
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex(): real(0), img(0) {}
+	Complex(float x, float y): real(x), img(y) {}
+	void operator=(float pfloatvar)
+	{
+		real = pfloatvar;
+		img = 0;
+	}
+};
+int main()
+{
+	float resistance = 3.3;
+	Complex impedance;
+	impedance = resistance; // Complex from int conversion: impedance.operator=(resistance)
+	// impedance is now 3.3+j0
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Float from Object}]
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex(): real(0), img(0) {}
+	Complex(float x, float y): real(x), img(y) {}
+	operator float()
+	{
+		return real;
+	}
+};
+int main()
+{
+	float resistance;
+	Complex impedance(3.3,4.7);
+	resistance = impedance; // float from complex conversion: impedance.operator float()
+	// resistance now contains 3.3.
+
+	return 0;
+}
+\end{lstlisting}
+\section{Object Conversion}
+\begin{itemize}
+\item What if we want to convert between different classes? Procedure remains the same.
+\item We have two classes, A and B.
+\item Ideally, to do \verb|A=B|, we would want to make \verb|void operator=(B)| in class A. Similarly, for \verb|B=A| we would want to make \verb|void operator=(A)| in class B.
+\item What if we cannot change class B?
+\item We can define \verb|operator B()| in class A that returns object of class B.
+\end{itemize}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={class A}]
+class A
+{
+	private:
+	float x;
+	public:
+	void operator=(B);
+	operator B();
+};
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={class B}]
+class B
+{
+	private:
+	int y;
+	public:
+	// Cannot change code.
+};
+\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[caption={Object Conversion}]
+int main()
+{
+	A Aobj;
+	B Bobj;
+	
+	Aobj = Bobj; // conversion from B to A. Aobj.operator=(B) called.
+	Bobj = Aobj; // conversion from A to B. Aobj.operator B() called.
+
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
