@@ -105,7 +105,7 @@ Complex Complex::operator/ (const Complex& rhs)
 	return result;
 }
 // Comparison operator, is equal to?
-bool Complex::operator== (Complex& rhs)
+bool Complex::operator== (const Complex& rhs)
 {
 	if (real == rhs.real && img == rhs.img)
 		return true;
