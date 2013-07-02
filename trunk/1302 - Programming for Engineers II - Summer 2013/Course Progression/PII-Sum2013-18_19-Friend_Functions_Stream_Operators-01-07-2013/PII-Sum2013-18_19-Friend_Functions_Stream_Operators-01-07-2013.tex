@@ -127,6 +127,172 @@ int main()
 	return 0;
 }
 \end{lstlisting}
+\section{Variable Scope: Global and Local Variables}
+\begin{itemize}
+\item \underline{Variable classification on the basis of `scope'.}
+\item Global variables are accessible everywhere in a single file, in class, any function and main. Their scope is `global'.
+\item Local variables are limited to the structure in which they are declared.
+\item Global variables exist for the entirety of the program and will only be destroyed when program exits.
+\item Local variables will only exist for the duration of the function in which they are declared. They will be destroyed when function ends.
+\end{itemize}
+\begin{lstlisting}[caption={Variable Scope}]
+#include <iostream>
+using namespace std;
+
+int x; // Global variable
+
+class Simple
+{
+	int y; // y is local variable for Simple class.
+	public:
+	// Default constructor.
+	Simple()
+	{
+		cout << "Value of x in constructor: " << x << endl;
+		x = 100;
+		y = 0;
+		cout << "Value of x after constructor call: " << x << endl;
+	}
+	~Simple()
+	{
+		x = -1;
+		cout << "Value of x after destructor call: " << x << endl;
+	}
+};
+void SimpleFunction()
+{
+	Simple functionobj; // functionobj is a local object of SimpleFunction().
+	x = 1;
+}
+int main()
+{
+	x = 33;
+	Simple* obj = new Simple;
+
+	SimpleFunction();
+
+	delete obj;
+
+	for (int i=0; i<3; i++)
+	{
+		int j;
+	}
+	cout << i << j << endl; // Compilation error: i and j are local to for loop.
+
+	cout << "main() is exiting now..." << endl;
+	return 0;
+}
+\end{lstlisting}
+\section{Function Return By Reference}
+\begin{itemize}
+\item Returning a local variable reference doesn't make sense. The local variable is destroyed after function ends.
+\item Returning a global variable reference can make sense but global variables are part of the problem why we're using OOP anyway.
+\item There is a cute trick when returning by reference. A function that returns a variable by reference can be used either left OR right of the equality sign.
+\end{itemize}
+\begin{lstlisting}[caption={Function Returning Reference}]
+#include <iostream>
+using namespace std;
+int x = 0;
+int& SimpleFunction()
+{
+	int y=0;
+	return x; // return y won't make sense but return x would, but wait! return x also doesn't make any sense because x is accessible everywhere! Why return a global variable?
+}
+int main()
+{
+	SimpleFunction() = 100; // SimpleFunction() returns reference to x and that is assigned a value.
+
+	cout << "Value of x = " << x << endl;
+	
+	int z;
+	z = SimpleFunction(); // Assigning z the value of x.
+	cout << "Value of z = " << z << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{The Safe Array Class}
+\begin{itemize}
+\item Array bounds check? What happens if you access an invalid index like \verb|array[-2]|?
+\item We can make a class that checks for bounds.
+\item We'll do it first with simple \verb|set()| and \verb|get()| functions and then overload the subscript operator `\verb|[]|'.
+\item \textbf{Remember: Operator overloading is a means to make the \underline{syntax easier}.}
+\item What's the use of bounds checking when giving an invalid index merely exits the program instead of crashing it? Really, not much use but exiting is better than unexpected crash. You know exactly what happened and may even know who did it. Additionally, you always have the option of simply returning from function and continue with the program if user supplies invalid index.
+\end{itemize}
+\begin{lstlisting}[caption={Safe Array With Set() and Get()}]
+#include <iostream>
+#include <cstdlib> // for exit()
+using namespace std;
+const int SIZE = 10;
+class SafeArray
+{
+	private:
+	int element[SIZE];
+	public:
+	void Set(int index, int value)
+	{
+		if (index < 0 || index >= SIZE)
+		{
+			cout << "Array out of bounds." << endl;
+			exit(-1);
+		}
+		element[index] = value;
+	}
+	 // Notice, a get() function doesn't change any variable, hence, const.
+	int Get(int index) const
+	{
+		if (index < 0 || index >= SIZE)
+		{
+			cout << "Array out of bounds." << endl;
+			exit(-1);
+		}
+		return element[index];
+	}
+};
+int main()
+{
+	SafeArray obj;
+	obj.Set(0, 10);
+	cout << "Array[0] = " << obj.Get(0);
+
+	obj.Set(10, 33); // ERROR!
+	cout << "Array[-1] = " << obj.Get(-1); // ERROR!
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Safe Array With Subscript Operator[]}]
+#include <iostream>
+#include <cstdlib> // for exit()
+using namespace std;
+const int SIZE = 10;
+class SafeArray
+{
+	private:
+	int element[SIZE];
+	public:
+	int& operator[](int index)
+	{
+		if (index < 0 || index >= SIZE)
+		{
+			cout << "Array out of bounds." << endl;
+			exit(-1);
+		}
+		return element[index];
+	}
+};
+int main()
+{
+	SafeArray obj;
+	obj[0] = 10; // obj.Set(0, 10);
+	cout << "Array[0] = " << obj[0];
+
+	obj[10] = 33; //obj.Set(10, 33); // ERROR!
+	cout << "Array[-1] = " << obj[-1]; // ERROR!
+
+	return 0;
+}
+\end{lstlisting}
 %\nocite{*}
 \bibliographystyle{plain}
 \bibliography{OOPref}
