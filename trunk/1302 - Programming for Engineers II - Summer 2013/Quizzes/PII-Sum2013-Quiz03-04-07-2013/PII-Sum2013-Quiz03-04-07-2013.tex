@@ -48,31 +48,36 @@ class Student
 	int Age;
 	float CGPA;
 	public:
-
-
-
-
-
-
-
-
-
-
-
+	Student& operator= (const Student& rhs)
+	{
+		strcpy(Name, rhs.Name);
+		Age = rhs.Age;
+		CGPA = rhs.CGPA;
+		return (*this); // return calling object.
+	}
+	// friend declaration.
+	friend ostream& operator<< (ostream&, const Student&);
+	friend istream& operator>> (istream&, Student&);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
+ostream& operator<< (ostream& out, const Student& S)
+{
+	out << "Name: " << S.Name << endl
+		<< "Age:  " << S.Age << endl
+		<< "CGPA: " << S.CGPA << endl;
+		
+	return out;
+}
+istream& operator>> (istream& in, Student& S)
+{
+	cout << "Enter Name: ";
+	in >> S.Name;
+	cout << "Enter age: ";
+	in >> S.Age;
+	cout << "Enter CGPA: ";
+	in >> S.CGPA;
+	
+	return in;
+}
 int main()
 {
 	Student A, B;
