@@ -1,0 +1,239 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 27\\Inheritance}
+\author{Attique Dawood}
+\date{July 15, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment 04 submission delayed.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Sometimes an external function needs to access private members of a class. In this case that function must be made \verb|friend| of that class.
+\item Input/output stream operators \verb|<<| and \verb|>>| must be made \verb|friend|s of the class for which they are being overloaded.
+\item \verb|friend| \underline{functions are not members of the class}. Remember, member functions can already access private members.
+\item Arithmetic operators can also be defined outside the class by declaring them friends.
+\begin{lstlisting}[caption={operator+ implemented as \texttt{friend}}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex(): real(0.f), img(0.f) {}
+	Complex(float a, float b): real(a), img(b) {}
+	friend Complex operator+(Complex&, Complex&);
+};
+
+// operator+ function in this case is external to the class.
+// It cannot access private members of the class unless declared a `friend' in the class.
+Complex operator+(Complex& lhs, Complex& rhs)
+{
+	return Complex(lhs.real+rhs.real, lhs.img+rhs.img);
+}
+
+int main()
+{
+	Complex A(2.f,3.3f);
+	Complex B(2.32f,-1.3f);
+	Complex C;
+	C = A + B;
+
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\section{Inheritance}
+\begin{itemize}
+\item Inheritance provides a mechanism to make new classes from existing classes.
+\item Existing class is called `base' class and inherited class is called `derived' class.
+\item Derived class contains all the data members and functions of base class.
+\item Base class does not need to re--implement the functions already present in base class, therefore, existing code can be re--used.
+\item Derived class can contain new data members and functions. This extends the capabilities of the base class.
+\item Derived class can also change or re--implement functions in the base class. This provides flexibility in what derived class wants to do.
+\end{itemize}
+\section{Constructor and Destructor Calls}
+\begin{itemize}
+\item Constructor of base class is called first and then constructor(s) of derived classes are called.
+\item Destructor calls happen in reverse order.
+\item If base class contains multiple constructors, derived class can specify the constructor it wants to call in the member initialiser list.
+\end{itemize}
+\begin{lstlisting}[caption={Example of Inheritance}]
+#include <iostream>
+using namespace std;
+
+// AC = A constructor.
+// BC = B constructor.
+// AD = A destructor.
+// BD = B destructor.
+class A
+{
+	private:
+	int x;
+	public:
+	A(): x(0)
+	{
+		cout << "AC" << endl;
+	}
+	A(int px): x(px)
+	{
+		cout << "AC" << endl;
+	}
+	~A()
+	{
+		cout << "AD" << endl;
+	}
+};
+// class B is derived from class A.
+// B will contain both x and y
+class B: public A
+{
+	private:
+	int y;
+	public:
+	B(): y(0) // This constructor will implicitly call A()
+	{
+		cout << "BC" << endl;
+	}
+	B(int py): A(), y(py) // This will explicitly call A()
+	{
+		cout << "BC" << endl;
+	}
+	B(int px, int py): A(py), y(py) // This will explicitly call A(int)
+	{
+		cout << "BC" << endl;
+	}
+	~B()
+	{
+		cout << "BD" << endl;
+	}
+};
+int main()
+{
+	// Constructor calls in creation of B object:
+	// 1. Constructor of A is called implicitly and x is set to 0.
+	// 2. Constructor of B is called and y is set to 0.
+	B Bobj;
+	
+	return 0;	
+}
+// Destructors are called in reverse order.
+// First destructor of B is called and then destructor of A.
+// Output of the program is:
+// AC
+// BC
+// BD
+// AD
+\end{lstlisting}
+\section{Over--Riding Base Class Functions}
+\begin{itemize}
+\item If derived class contains a function of the same name as in base class then derived class function will `over--ride' base class function.
+\item Base class function is effectively `hidden'. Normal function call with dot operator will only call derived class function.
+\item To access base class function scope resolution operator is used with dot operator and base class name.
+\end{itemize}
+\begin{lstlisting}[caption={Over--Riding Base Class Function}]
+#include <iostream>
+#include <string> // For string class.
+using namespace std;
+
+class Person
+{
+	private:
+	string Name;
+	int Age;
+	public:
+	Person(): Name("No name"), Age(-1)
+	{
+	}
+	Person(string pName, int pAge): Name(pName), Age(pAge)
+	{
+	}
+	void Input()
+	{
+		cin >> Name >> Age;
+	}
+	void Display()
+	{
+		cout << "Name: " << Name << endl
+			 << "Age:  " << Age << endl;
+	}
+};
+
+class Student: public Person
+{
+	private:
+	float CGPA;
+	public:
+	Student(): Person(), CGPA(-1.f)
+	{
+	}
+	Student(string pName, int pAge, float pCGPA): Person(pName, pAge), CGPA(pCGPA)
+	{
+	}
+	// Input/display functions over-ride the ones in base class but call them explicitly.
+	void Input()
+	{
+		Person::Input();
+		cin >> CGPA;
+	}
+	void Display()
+	{
+		Person::Display();
+		cout << "CGPA: " << CGPA << endl;
+	}
+};
+
+int main()
+{
+	// Student object using default constructors.
+	Student S1;
+	
+	// Student object by passing values.
+	Student S2("Ahsan", 19, 3.97f);
+	
+	S1.Input();
+	S1.Display(); // Default display: Displays name, age and cgpa.
+	S1.Person::Display(); // This will only display name and age.
+	
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
