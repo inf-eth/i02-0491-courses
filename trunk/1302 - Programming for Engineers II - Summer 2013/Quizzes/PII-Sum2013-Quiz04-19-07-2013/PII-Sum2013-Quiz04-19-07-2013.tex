@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II - Summer 2013\\Quiz \#04}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2cm}
+\noindent \textbf{Date: 19--07--2013\hfill Total Marks: 10}\\[0.3cm]
+\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent \textbf{Question:} Overload operator* as global function for the following classes so that code in \texttt{main()} runs without any errors.\\
+\begin{lstlisting}
+#include <iostream>
+#include <cstring>
+using namespace std;
+class Polar
+{
+	private:
+	float r;
+	float theta;
+	public:
+
+
+};
+class Rect
+{
+	private:
+	float x;
+	float y;
+	public:
+	
+	
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+	Rect R;
+	Polar P;
+	Polar Result = R * P;
+
+	return 0;
+}
+\end{lstlisting}
+\end{document}
