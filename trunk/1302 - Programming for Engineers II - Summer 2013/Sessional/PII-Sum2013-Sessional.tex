@@ -1,0 +1,409 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+\pagestyle{plain}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Marks of each question.
+\def\QOne{10}
+\def\Qtwo{10}
+\def\Qthree{10}
+\def\Qfour{10}
+\def\Qfive{20}
+\def\Qsix{20}
+\def\Qseven{20}
+\def\TotalMarks{100}
+
+\begin{document}
+\begin{minipage}{0.55\textwidth}
+{\LARGE \textbf{Programming for\\ Engineers II}}\\[0.15cm]
+{\normalsize \textbf{Summer 2013 Semester}}\\
+{\Large \textbf{Sessional Exam}}\\
+{\normalsize \textbf{Saturday, July 06, 2013}}\\[0.30cm]
+{\Large \textbf{Total Time: 90 minutes}}\\[0.15cm]
+{\Large \textbf{Total Marks: 100}}\\
+\textbf{Course Instructor:}\\
+Attique Dawood\\
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\textbf{Serial} \hrulefill \\[0.25cm]
+\textbf{Name} \hrulefill\\[0.25cm]
+\textbf{Section} \rule{1cm}{0.2mm} \textbf{Roll No:} \hrulefill\\[0.25cm]
+\textbf{Signature:} \hrulefill\\[0.25cm]
+\rule{6.6cm}{0.2mm}\\
+\textbf{Signature of Invigilator}\\[0.25cm]
+\end{minipage}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\large \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+	\hline
+		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{Total}\\
+		\hline
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \Qsix & \Qseven & \TotalMarks\\
+		\hline
+		Marks Obtained \rule{0pt}{2.6ex} & & & & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\noindent \textbf{You are advised to READ these notes:}
+\begin{enumerate}
+\item \textbf{Attempt on the Question Paper. \underline{NO EXTRA SHEET} will be provided/accepted. No
+additional sheet will be provided for rough work. Use the back of the page where
+provided space is not sufficient.}
+\item After asked to commence the exam, please verify that you have \textbf{\pageref{LastPage} different
+printed pages} including this title page.
+\item There are 7 questions. Attempt all of them. It is advisable to go through the paper once
+before starting with the first question.
+\item Exam is closed books, closed notes. Please see that the area in your threshold is clean.
+You will be charged for any material which can be classified as \textbf{`helping in the paper'}
+found near you.
+\item \textbf{Calculator sharing is strictly prohibited.}
+\item Students who attempt the paper with lead pencils lose the right to get them rechecked.
+\item \textbf{The invigilator present is not supposed to answer any questions. No one may come
+to your room for corrections and you are not supposed to request to call anyone.
+Make assumptions wherever required and clearly mark them.}
+\end{enumerate}
+\newpage
+\noindent\textbf{Question 1: Code correction\hfill \QOne~marks}\\
+Find errors in the given code and suggest corrections. Errors may be logical or in syntax.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+
+class Circle
+{
+	private:
+	float radius;
+	float area = 0.f;
+	const float pi;
+	public:
+	// Default constructor.
+	void Circle(): radius(0.f), pi(3.14f)
+	{
+	}
+	// User-defined constructor.
+	Circle(float r)
+	{
+		radius = r;
+		CaclulateArea();
+	}
+	void CalculateArea() const
+	{
+		area = 2*pi*r;
+	}
+	void Display() const
+	{
+		cout << "Radius = " << radius << endl;
+		cout << "Area = " << area << endl;
+	}
+};
+\end{lstlisting}
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 10.5cm);
+\end{tikzpicture}
+\end{figure}
+\noindent \textbf{Question 2: Relationship Between Classes\hfill \Qtwo~marks}\\
+What is the relationship between given pairs of classes/objects:
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\normalsize \begin{tabular}{|l|c|p{8cm}|}
+	\hline \hline
+		\rule{0pt}{2.6ex} \textbf{Object Pair} & \textbf{Relationship} & \textbf{Comments}\\
+		\hline
+		Honda City -- car \rule{0pt}{2.6ex} & &\\
+		Person -- heart \rule{0pt}{2.6ex} & &\\
+		Student -- teacher \rule{0pt}{2.6ex} & &\\
+		Room -- Elevator \rule{0pt}{2.6ex} & &\\
+		Keyboard -- PC \rule{0pt}{2.6ex} & &\\
+		\hline	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 12.5cm);
+%\end{tikzpicture}
+%\end{figure}
+
+\noindent\textbf{Question 3: Subscript Operator \hfill \Qthree~marks}\\
+Overload the subscript operator for the given SafeArray class. If an invalid index is provided then exit the program. Do not change main, only write code for subscript operator in class.
+\begin{lstlisting}
+#include <iostream>
+#include <cstdlib> // for exit()
+using namespace std;
+const int SIZE = 10;
+class SafeArray
+{
+	private:
+	int element[SIZE];
+	public:
+	// Write code for subscript operator here.
+	// If array index is out of bounds then call exit(),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+int main()
+{
+	SafeArray obj;
+	obj[0] = 10;
+	cout << "Array[0] = " << obj[0];
+
+	obj[10] = 33; // ERROR!
+	cout << "Array[-1] = " << obj[-1] << endl; // ERROR!
+
+	return 0;
+}
+\end{lstlisting}
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 6cm);
+%\end{tikzpicture}
+%\end{figure}
+
+\noindent\textbf{Question 4: Constructors/Destructors \hfill \Qfour~marks}\\
+Write the output of following program. Mention object name with constructor/destructor calls.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class test
+{
+	public:
+	test() { cout << "DC" << endl; }
+	test(int x) { cout << "UDC" << endl; }
+	test(test& t) { cout << "CC" << endl; }
+	~test() { cout << "D" << endl; }
+};
+void func(test t)
+{
+	
+}
+int main()
+{
+	test A, B(3);
+	test C(B);
+	A = C;
+	test* D = new test;
+	test* E = new test;
+	delete D;
+	test* F;
+	func(C);
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 11.5cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 5: Point Class \hfill \Qfive~marks}\\
+You are required to make a Point class to store x and y coordinates. Define the Point class so that code given in main() runs without any errors.
+\begin{lstlisting}[escapechar=!]
+#include <iostream>
+using namespace std;
+class Point
+{
+	private:
+	int x;
+	int y;
+	public:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
+int main()
+{
+	Point A(-2, 3); // x=-2, y=3
+	Point B(4, 7); // x=4, y=7
+	Point C; // x=0, y=0
+
+	C = A + B;
+	
+	A.display(); // OUTPUT: x = -2, y = 3;
+	B.display(); // OUTPUT: x = 4, y = 7;
+	C.display(); // OUTPUT: x = 2, y = 10;
+	
+	int absolute;
+	absolute = A; // !$absolute = \sqrt{x^2+y^2}$!
+	cout << absolute << endl; // OUTPUT: 4
+
+	return 0;
+}
+\end{lstlisting}
+
+
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 11.5cm);
+%\end{tikzpicture}
+%\end{figure}
+\noindent\textbf{Question 6: Point ClassShort Notes \hfill $5\times 4=$\Qsix~marks}\\
+Explain the use of following terms/keywords.
+\begin{enumerate}
+\item[a.] \verb|static|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[b.] \verb|mutable|
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[c.] Member initialiser list.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\item[d.] Scope resolution operator.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
+\end{tikzpicture}
+\end{figure}
+\end{enumerate}
+
+\newpage
+\noindent\textbf{Question 7: Matrix Class \hfill \Qseven~marks}\\
+Complete the following code snippet.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class Matrix
+{
+	private:
+	int size;
+	float* data;
+	public:
+	Matrix(): size(0), data(NULL) {}
+	Matrix(Matrix& m)
+	{
+	
+	
+	
+	
+	
+	
+	}
+	Matrix& operator= (Matrix& m)
+	{
+	
+	
+	
+	
+	
+		
+	}
+	void Resize(int psize)
+	{
+	
+		
+	
+	
+	
+	}
+	~Matrix()
+	{
+	
+	
+	
+	
+	}
+	friend ostream& operator<< (ostream&, Matrix&);
+	friend istream& operator>> (istream&, Matrix&);
+};
+// Write code for insertion and extraction operators here.
+
+
+
+
+
+
+
+
+
+
+// No need to write main()
+\end{lstlisting}
+
+
+%\begin{figure}[H]
+%\begin{tikzpicture}
+%	\draw[thick] (0cm,0cm) rectangle (\textwidth, 11.5cm);
+%\end{tikzpicture}
+%\end{figure}
+
+\end{document}
