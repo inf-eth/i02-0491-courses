@@ -1,0 +1,48 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Assignment 02\\Operator Overloading}
+\author{Attique Dawood}
+\date{June 25, 2013\\Due: July 01, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent This is a continuation of assignment 01.
+\begin{enumerate}
+\item Modify the complex class to add constructor/destructor.
+\item Implement arithmetic, comparison and increment/decrement operators for complex class.
+\item Modify the matrix cass (of complex numbers) to include constructor/destructor.
+\item Matrix data should be dynamically allocated. Make NULL pointer checks wherever appropriate.
+\item Provide a resize() function so that user can resize the matrix at any time.
+\item Implement the following operators for matrix class: $+, -, ==, !=$.
+\item Additional marks will be allocated if you can handle 2D matrices. You should first work on making 1D matrix functional.
+\end{enumerate}
+A base .cpp file is provided with this assignment. You are not required to use it but it can be helpful. You must write your own code against all `TODO' comments.
+\end{document}
