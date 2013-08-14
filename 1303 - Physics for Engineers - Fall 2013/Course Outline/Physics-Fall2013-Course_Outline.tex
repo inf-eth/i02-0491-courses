@@ -1,0 +1,95 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-3.5cm}Physics for Engineers\\Fall - 2013\\Course Outline}
+\vspace{0.5cm}
+\author{Attique Dawood}
+\date{August 07, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Course Information}
+\noindent\textbf{Course Title:} Physics for Engineers\\
+\textbf{Course Code:} NS110\\
+\textbf{Pre-requisite(s):} None\\
+\textbf{Credit Hrs:} 3\\
+\section{Text Book}
+\textbf{Title:} Physics for Scientists \& Engineers  (6th Edition)\\
+\textbf{Author:} Serway, Jewett\\
+\textbf{Publisher:} Thomson; Brooks Cole - Custom\\
+\section{Objective}
+The objective of this course is to introduce the basics of electromagnetics. Emphasis is on mathematically solving problems involving electric and magnetic fields. After taking this course students will be familiar with Maxwell’s equations and will be able to solve problems related to electrostatics and magnetostatics.
+\section{Course Contents}
+%\begin{table}[H]
+\begin{center}
+\vspace{-0.5cm}
+	\begin{longtable}{|c|p{13cm}|}
+	\hline \hline
+		\rule{0pt}{2.6ex} \textbf{Week} & \textbf{Topics}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Motivation and introduction to electromagnetics; physical quantities, functions, engineering and scientific notations (1.1); one--dimensional kinematics, position, velocity, and speed (2.1, 2.2); acceleration (2.3).\\
+		\hline
+		2 \rule{0pt}{2.6ex} & Introduction to the 2D coordinate system (3.1); scalars and vectors (3.2); vector addition and subtraction (3.3); components of a vector, unit vector, resolution of vector into rectangular components, vector algebra (3.4), scalar and vector products, solving problems involving vectors.\\
+		\hline
+		3 \rule{0pt}{2.6ex} & Concept of field, scalar and vector fields, concept of line, surface and volume integrals.\\
+		\hline
+		4 \rule{0pt}{2.6ex} & Concept of force (5.1); mass (5.3); Newton's laws (5.2, 5.4, 5.6); gravitational force and weight (5.5); applications of Newton's laws (5.7).\\
+		\hline
+		5 \rule{0pt}{2.6ex} & Electrostatics, charge (23.1); Coulomb's law (23.3); the electric field, electric field of a point charge (23.4).\\
+		\hline
+		6 \rule{0pt}{2.6ex} & Continuous charge distributions, line, surface and volume charges,  field due to a line charge, ring of charge, disk of charge and infinite sheet of charge (23.5).\\
+		\hline
+		7 \rule{0pt}{2.6ex} & Electric field lines (23.6); motion of charged particle in uniform electric field (23.7).\\
+		\hline
+		8 \rule{0pt}{2.6ex} & Electric flux (24.1); Gauss's law (24.2); applications of Gauss's law (24.3); conductors in electrostatic equilibrium (24.4).\\
+		\hline
+		9 \rule{0pt}{2.6ex} & Conservative fields, potential difference and electric potential (25.1); potential difference in uniform electric field (25.2); potential energy due to point charges (25.3); obtaining electric field from electric potential (25.4); applications of electrostatics (25.8).\\
+		\hline
+		10 \rule{0pt}{2.6ex} & Magnetostatics, magnetic fields and forces (29.1); motion of a charged particle in magnetic field (29.4).\\
+		\hline
+		11 \rule{0pt}{2.6ex} & Source of magnetic field, Biot--Savart law (30.1); magnetic force between two parallel conductors (30.2).\\
+		\hline
+		12 \rule{0pt}{2.6ex} & Ampere's law, applications of Ampere's law, magnetic field of an infinite current carrying conductor, magnetic field of a coaxial conductor (30.3).\\
+		\hline
+		13 \rule{0pt}{2.6ex} & Magnetic flux (30.5); Gauss's law for magnetism (30.6); displacement current and general form of Gauss's law (30.7).\\
+		\hline
+		14 \rule{0pt}{2.6ex} & Faraday's law of induction (31.1); motional emf (31.2); Lenz's law (31.3); induced emf and electric fields (31.4); Final form of Maxwell's equations (31.7).\\
+		\hline
+		15 \rule{0pt}{2.6ex} & Time--varying fields, electromagnetic waves, source of electromagnetic radiation, electromagnetic wave propagation in free space, wave propagation in lossy and lossless media.\\
+		\hline
+		16 \rule{0pt}{2.6ex} & Wave propagation in lossy and lossless media, applications: antennas, metamaterials, wireless communication.\\
+	\hline \hline
+	\end{longtable}
+\end{center}
+%\label{Physics-Course-Outline}
+%\caption{Physics for Engineers Course Outline}
+%\end{table}
+\end{document}
