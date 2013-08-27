@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Physics for Engineers - Fall 2013\\Quiz \#01B}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2cm}
+\noindent \textbf{Date: 26-08-2013\hfill Total Marks: 10}\\[0.3cm]
+\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent \textbf{Question:} Given a vector field
+\begin{equation*}
+\textbf{A}=(1-y)\hat x+(2x-z)\hat y+z^2\hat z
+\end{equation*}
+a. Find and sketch the field vector at following points in the $xy$--plane.
+\begin{enumerate}
+\item[(1)] (0, 1, 0)
+\item[(2)] (1, 1, 0)
+\item[(3)] (-1, 0, 0)
+\item[(4)] (-1, -1, 0)
+\end{enumerate}
+b. Find magnitude of the field at (-1.1, 2.3, 1.2).
+\end{document}
