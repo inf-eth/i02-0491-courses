@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Physics for Engineers\\Class 09\\Line, Surface and Volume Integrals}
+\author{Attique Dawood}
+\date{September 06, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Differential length, surface and volume elements.
+\item The line integral.
+\end{itemize}
+\section{Surface and Volume Integrals}
+In electromagnetics we need to solve surface and volume integrals. Two common integrals are given below.
+\begin{itemize}
+\item $\int_{S}\textbf{A}\cdot d\textbf{A}$~: Gives the total flux of the vector field \textbf{A} through the surface `S'.
+\item $\int_{v}\rho_v dv$~: If $\rho_v$ is volumetric charge density in $C/m^3$ then this integrals gives the total charge in volume `v'.
+\end{itemize}
+\section{Exercises}
+\noindent\textbf{Question 1:} Using $\int_{a}^{b}\hat n\cdot d\textbf{\textit{l}}$
+\begin{itemize}
+\item[(1)] Find the length of line segment from (0, 0) to (1, 2). Solve this in Cartesian as well as Cylindrical coordinates.
+\item[(2)] Find the length of body/space diagonal of a unit cube.
+\item[(3)] Find the arc length of a quarter circle of radius $\rho=3$ m in first quadrant.
+\end{itemize}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{PhysicsRef}
+\end{document}
