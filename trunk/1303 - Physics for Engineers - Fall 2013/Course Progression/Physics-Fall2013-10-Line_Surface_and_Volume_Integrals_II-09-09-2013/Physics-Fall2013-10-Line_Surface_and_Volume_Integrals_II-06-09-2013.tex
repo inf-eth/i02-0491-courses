@@ -33,9 +33,9 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Physics for Engineers\\Class 09\\Line, Surface and Volume Integrals}
+\title{\vspace{-2cm}Physics for Engineers\\Class 10\\Line, Surface and Volume Integrals - II}
 \author{Attique Dawood}
-\date{September 06, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\date{September 09, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Announcements}
@@ -45,6 +45,7 @@
 \section{Revision}
 \begin{itemize}
 \item Differential length, surface and volume elements.
+\item Surface and volume integrals.
 \end{itemize}
 \section{Surface and Volume Integrals}
 In electromagnetics we need to solve surface and volume integrals. Some common integrals are given below.
@@ -74,7 +75,7 @@ It is important to note that the calculator only treats `X' as the variable of i
 \item[(4)] The area of an icecream cone described by $\theta=30^0$ and $0<r<3$.
 \end{itemize}
 \noindent\textbf{Question 2:} Use a suitable $dv$ to find the volumes of structures given in question 1.\\[0.2cm]
-\noindent\textbf{Question 3:} Using $\int_{a}^{b}\hat n\cdot d\textbf{\textit{l}}$
+\noindent\textbf{Question 1:} Using $\int_{a}^{b}\hat n\cdot d\textbf{\textit{l}}$
 \begin{itemize}
 \item[(1)] Find the length of line segment from (0, 0) to (1, 2). Solve this in Cartesian as well as Cylindrical coordinates.
 \item[(2)] Find the length of body/space diagonal of a unit cube.
@@ -82,11 +83,11 @@ It is important to note that the calculator only treats `X' as the variable of i
 \item[(4)] Find the length of the curve $y=x^2$ from (0, 0) to (1, 1). For this problem a calculator would be handy in solving the integrals.
 \end{itemize}
 \noindent\textbf{Note:} For part (4) you need to find a unit vector along the curve $y=x^2$. A vector parallel (or tangent) to $y=x^2$ can be obtained from the slope. Numerator and denominator of slope ($\dfrac{dy}{dx}$) are the $y$-- and $x$--components, respectively, of the vector. Here, $\dfrac{dy}{dx}=\dfrac{2x}{1}$ so the parallel/tangent vector is $\textbf{n}=\hat x+2x\hat y$. The unit vector is then $\hat n=\dfrac{\hat x+2x\hat y}{\sqrt{1+4x^2}}$.\\[0.2cm]
-\noindent\textbf{Question 4:} A vector field is given by $\textbf{A}=xyz\hat y$ in a region. Evaluate the flux, $\int_{S}\textbf{A}\cdot d\textbf{A}$, through the surface given by $y=2$, $0<x<2$ and $2<z<5$.\\[0.2cm]
-\noindent\textbf{Question 5:} Electric field of a point charge is $\textbf{E}=\dfrac{1}{r^2}\hat r$ in a region. Evaluate the flux, $\int_{S}\textbf{A}\cdot d\textbf{A}$, through the spherical surface $r=2$.\\[0.2cm]
+\noindent\textbf{Question 2:} A vector field is given by $\textbf{A}=xyz\hat y$ in a region. Evaluate the flux, $\int_{S}\textbf{A}\cdot d\textbf{A}$, through the surface given by $y=2$, $0<x<2$ and $2<z<5$.\\[0.2cm]
+\noindent\textbf{Question 3:} Electric field of a point charge is $\textbf{E}=\dfrac{1}{r^2}\hat r$ in a region. Evaluate the flux, $\int_{S}\textbf{A}\cdot d\textbf{A}$, through the spherical surface $r=2$.\\[0.2cm]
 \newpage
-\noindent\textbf{Question 6 (Example 2--4C \cite[Example 2--4, page 23]{Cheng}):} Given a force field $\textbf{F}=xy\hat x+(3x-y^2)\hat y$ in a region, evaluate the integral $\int_{P1}^{P2}\textbf{F}\cdot d\textbf{\textit{l}}$ to find the total work done in moving from P1 to P2 along path 1 and path 2.\\[0.2cm]
-\noindent\textbf{Question 7:} Electric field in a region is $\textbf{E}=x\hat x+y\hat y$. Refer to figure \ref{Cheng-integral}, evaluate the integral $\int_{P1}^{P2}\textbf{E}\cdot d\textbf{\textit{l}}$ to find the potential difference between P1 and P2. Is the potential difference same for path 1 and path 2?
+\noindent\textbf{Question 4 (Example 2--4C \cite[Example 2--4, page 23]{Cheng}):} Given a force field $\textbf{F}=xy\hat x+(3x-y^2)\hat y$ in a region, evaluate the integral $\int_{P1}^{P2}\textbf{F}\cdot d\textbf{\textit{l}}$ to find the total work done in moving from P1 to P2 along path 1 and path 2.\\[0.2cm]
+\noindent\textbf{Question 5:} Electric field in a region is $\textbf{E}=x\hat x+y\hat y$. Refer to figure \ref{Cheng-integral}, evaluate the integral $\int_{P1}^{P2}\textbf{E}\cdot d\textbf{\textit{l}}$ to find the potential difference between P1 and P2. Is the potential difference same for path 1 and path 2?
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{Figure2-10Cheng.png}
