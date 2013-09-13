@@ -1,0 +1,120 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-4cm}Physics for Engineers\\Assignment 03\\Line Integrals}
+\author{Arshad Hassan\and Attique Dawood}
+\date{September 13, 2013\\Due: September 16, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Question 1:} Use a calculator to solve the following integrals
+\begin{itemize}
+\item[(a)] $\int\limits_{0}^{2.5}e^{-x^2/2}dx$
+\item[(b)] $\int\limits_{1.1}^{2.4}\dfrac{(x^2-2)dx}{(x^2+x+1)^{3/2}}$
+\end{itemize}
+\noindent\textbf{Question 2:} Electric field in a region is $\textbf{E}=\dfrac{x\hat x+y\hat y}{(x^2+y^2)^\frac{3}{2}}$ (figure \ref{Circulation}a).
+\begin{itemize}
+\item[(a)] Find $-\oint_L \textbf{E}\cdot d\textbf{\textit{l}}$ over the closed path ABCDA.
+\item[(b)] Use the formula for potential difference ($V_{ab}=V_b-V_a=-\int\limits_{a}^{b}\textbf{E}\cdot d\textbf{\textit{l}}$) over the direct path $y=2x$ to find the potential difference between A and C ($V_{AC}$).
+\end{itemize}
+\noindent\textbf{Question 3:} Find the circulation ($\oint\limits_{L} \textbf{A}\cdot d\textbf{\textit{l}}$) of $\textbf{A}=\rho \cos\phi\hat \rho+\sin\phi\hat\phi$ over the path shown in figure \ref{Circulation}b.\\[0.2cm]
+\begin{figure}[H]
+\vspace{-1cm}
+\centering
+\mbox{
+\subfigure[Path of integration for electric field]{
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (2cm, 2cm);
+	\draw[thick, ->, >=stealth] (2cm, 2cm) -- (2cm, 4cm);
+	\draw[thick, ->, >=stealth] (2cm, 4cm) -- (1cm, 4cm);
+	\draw[thick, ->, >=stealth] (1cm, 4cm) -- (1cm, 2cm);
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (1.5cm, 3cm);
+	\draw[thick] (1cm, 2cm) -- (2cm, 4cm);
+
+	\draw[dashed] (0cm, 0cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 2cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 4cm) -- (1cm, 4cm);
+	\draw[dashed] (1cm, 0cm) -- (1cm, 1.6cm);
+	\draw[dashed] (2cm, 0cm) -- (2cm, 1.6cm);
+	\draw[white,fill=white] (0.5cm,0.5cm) rectangle (1.5cm, 0.9cm);
+	\node at (1cm, 0.7cm){$y=2x$};
+
+	\coordinate[label=above:$C$] (C) at (2cm,4cm);
+	\coordinate[label=above:$D$] (D) at (1cm,4cm);
+	\coordinate[label=below:$A$] (A) at (1cm,2cm);
+	\coordinate[label=below:$B$] (B) at (2cm,2cm);
+	
+	\coordinate[label=left:$2$] (y1) at (0cm,2cm);
+	\coordinate[label=left:$4$] (y2) at (0cm,4cm);
+	\coordinate[label=below:$1$] (x1) at (1cm,0cm);
+	\coordinate[label=below:$2$] (x2) at (2cm,0cm);
+	
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (0cm, 4.5cm);
+	\coordinate[label=above:$y$] (y) at (0cm,4.5cm);
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (5cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (5cm,0cm);
+
+\end{tikzpicture}
+}
+\quad\subfigure[Circulation of \textbf{A} for question 4.]{
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (4cm, 0cm);
+	\draw[thick, ->, >=stealth] (0:4)  arc (0:60:4) -- (0cm, 0cm);
+	\draw[thick, ->, >=stealth] (0:4)  arc (0:30:4);
+	\draw[thick, ->, >=stealth] (0:0.6) arc (0:60:0.6);
+	\node[above] at (0.75cm, 0.2cm){$60^0$};
+	
+	\coordinate[label=below:$2$] (x2) at (4cm,0cm);
+	
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (0cm, 4.5cm);
+	\coordinate[label=above:$y$] (y) at (0cm,4.5cm);
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (5cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (5cm,0cm);
+
+\end{tikzpicture}
+}}
+\caption{Circulation of vector fields.}
+\label{Circulation}
+\end{figure}
+\noindent\textbf{Question 4:} If you haven't done problem 3.7 from Sadiku \cite[Page 93 and 94]{Sadiku} in assignment 02 you can still submit it with this assignment. Take a look at example 3.2 which is similar.
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{PhysicsRef}
+\end{document}
