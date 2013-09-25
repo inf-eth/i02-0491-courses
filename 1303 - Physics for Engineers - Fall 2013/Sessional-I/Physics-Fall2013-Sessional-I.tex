@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+\pagestyle{plain}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Marks of each question.
+\def\QOne{10}
+\def\Qtwo{10}
+\def\Qthree{10}
+\def\Qfour{10}
+\def\Qfive{10}
+\def\TotalMarks{50}
+
+\begin{document}
+\begin{minipage}{0.55\textwidth}
+{\LARGE \textbf{Physics for Engineers}}\\[0.15cm]
+{\normalsize \textbf{Fall 2013 Semester}}\\
+{\Large \textbf{$1^{st}$ Sessional Exam}}\\
+{\normalsize \textbf{Saturday, September 21, 2013}}\\[0.30cm]
+{\Large \textbf{Total Time: 60 minutes}}\\[0.15cm]
+{\Large \textbf{Total Marks: 50}}\\
+\textbf{Course Instructors:}\\
+Arshad Hassan\\
+Attique Dawood\\
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\textbf{Serial} \hrulefill \\[0.25cm]
+\textbf{Name} \hrulefill\\[0.25cm]
+\textbf{Section} \rule{1cm}{0.2mm} \textbf{Roll No:} \hrulefill\\[0.25cm]
+\textbf{Signature:} \hrulefill\\[0.25cm]
+\rule{6.6cm}{0.2mm}\\
+\textbf{Signature of Invigilator}\\[0.25cm]
+\end{minipage}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\large \begin{tabular}{|l|c|c|c|c|c|c|}
+	\hline
+		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{Total}\\
+		\hline
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
+		\hline
+		Marks Obtained \rule{0pt}{2.6ex} & & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\noindent \textbf{You are advised to READ these notes:}
+\begin{enumerate}
+\item \textbf{Attempt on the Question Paper. \underline{NO EXTRA SHEET} will be provided/accepted. No
+additional sheet will be provided for rough work. Use the back of the page where
+provided space is not sufficient.}
+\item After asked to commence the exam, please verify that you have \textbf{\pageref{LastPage} different
+printed pages} including this title page.
+\item There are 5 questions. Attempt all of them. It is advisable to go through the paper once
+before starting with the first question.
+\item Exam is closed books, closed notes. Please see that the area in your threshold is clean.
+You will be charged for any material which can be classified as \textbf{`helping in the paper'}
+found near you.
+\item \textbf{Calculator sharing is strictly prohibited.}
+\item Students who attempt the paper with lead pencils lose the right to get them rechecked.
+\item \textbf{The invigilator present is not supposed to answer any questions. No one may come
+to your room for corrections and you are not supposed to request to call anyone.
+Make assumptions wherever required and clearly mark them.}
+\end{enumerate}
+\newpage
+\noindent\textbf{Question 1: Vector Fields\hfill \QOne~marks}\\
+Given a vector field
+\begin{equation*}
+\textbf{A}=y\hat x+(y^2x-z)\hat y+z^2\hat z
+\end{equation*}
+Find and sketch the field vector at following points in the $xy$--plane.
+\begin{enumerate}
+\item[a.] (2, 1, 0)
+\item[b.] (1, 1.5, 0)
+\item[c.] (0, 1, 0)
+\item[d.] (-2, 1, 0)
+\end{enumerate}
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 18.5cm);
+	\draw[thick, <->, >=stealth] (4cm, 2cm) -- (\textwidth-4cm, 2cm);
+	\draw[thick, ->, >=stealth] (\textwidth/2, 2cm) -- (\textwidth/2, 7cm);
+	% Drawing vertical grid lines.
+	\foreach \x in {4.5cm,5.5cm,6.5cm,7.5cm,8.5cm,9.5cm,10.5cm,11.5cm,12.5cm}
+		\draw[dashed] (\x-0.255cm,2cm) -- (\x-0.255cm,6.25cm-0.25cm); % Solid lines at +1 intervals.
+	% Drawing horizontal grid lines.
+	\foreach \y in {2cm,3cm,4cm,5cm,6cm}
+		\draw[dashed] (4.5cm-0.255cm,\y) -- (\textwidth-4cm-0.25cm,\y); % Solid lines at +1 intervals.
+\end{tikzpicture}
+\end{figure}
+\noindent \textbf{Question 2: Vectors Projections\hfill \Qtwo~marks}\\
+A line passes through points P(3, -2, 4) and Q(-1, 0, 2). Find the shortest distance between this line and the point R(4, 1, -1).\\
+\noindent \textbf{Hint:} Find vectors $\overrightarrow{PQ}$ and $\overrightarrow{PR}$. The perpendicular component of $\overrightarrow{PR}$ on $\overrightarrow{PQ}$ is the required distance.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 22cm);
+\end{tikzpicture}
+\end{figure}
+\noindent\textbf{Question 3: Flux of Vector Field \hfill \Qthree~marks}\\
+A vector field is given by $\textbf{A}=xz\hat x+(2xy+z)\hat y+3y^2z\hat z$ in a region. Evaluate the flux, $\int\limits_{S}\textbf{A}\cdot d\textbf{S}$, through the surface given by $y=-1$, $0<x<2$ and $0<z<1$.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 23cm);
+\end{tikzpicture}
+\end{figure}
+
+\noindent\textbf{Question 4: Line Integrals \hfill \Qfour~marks}\\
+Given a vector field $\textbf{A}=(3y^2+2x)\hat x+6xy\hat y$, find the circulation of \textbf{A} ($\oint\limits_{L} \textbf{A}\cdot d\textbf{\textit{l}}$) over closed path ABCA.
+\begin{figure}[H]
+\flushright
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	% Drawing vertical grid lines.
+	\foreach \x in {-2cm,-1cm,0cm,1cm,2cm}
+		\draw[dashed] (\x,-2cm) -- (\x,2cm); % Solid lines at +1 intervals.
+	\foreach \x/\xlabel in {-2cm/$-2$,-1cm/$-1$,1cm/$1$,2cm/$2$}
+		\coordinate[label=left:\xlabel] (XLabel) at (\x,0.2cm);
+	% Drawing horizontal grid lines.
+	\foreach \y in {-2cm,-1cm,0cm,1cm,2cm}
+		\draw[dashed] (-2cm,\y) -- (2cm,\y); % Solid lines at +1 intervals.
+	\foreach \y/\ylabel in {-2cm/$-2$,-1cm/$-1$,1cm/$1$,2cm/$2$}
+		\coordinate[label=left:\ylabel] (YLabel) at (0cm,\y+0.2cm);
+	
+	\draw[thick, ->, >=stealth] (2cm, -2cm) -- (-1cm, 1cm);
+	\draw[thick, ->, >=stealth] (-1cm, 1cm) -- (2cm, 1cm);
+	\draw[thick, ->, >=stealth] (2cm, 1cm) -- (2cm, -2cm);
+
+	\coordinate[label=below:A] (A) at (2.2cm,-2cm);
+	\coordinate[label=above:B] (D) at (-1.2cm,1cm);
+	\coordinate[label=above:C] (C) at (2.2cm,1cm);
+	
+	\draw[thick, <->, >=stealth] (0cm, -3cm) -- (0cm, 3cm);
+	\coordinate[label=above:$y$] (y) at (0cm,3cm);
+	\draw[thick, <->, >=stealth] (-3cm, 0cm) -- (3cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (3cm,0cm);
+
+\end{tikzpicture}
+\end{figure}
+\begin{figure}[H]
+\vspace{-8.8cm}
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 23.25cm);
+\end{tikzpicture}
+\end{figure}
+\noindent\textbf{Question 5: Coulomb's Law \hfill \Qfive~marks}\\
+Point charges $q_1$ and $q_2$ are located at (0, 1, 1) and (1, 0, 1), respectively. A third point charge $q_3$ is placed at origin. Find the force $\textbf{F}_3$ experienced by $q_3$ if $q_1=-3~\mu$C, $q_2=2~\mu$C and $q_3=-1~\mu$C.
+
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 22.5cm);
+\end{tikzpicture}
+\end{figure}
+
+\end{document}
