@@ -34,7 +34,7 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Physics for Engineers\\Class 19\\Electric Field Due to Ring and Disk of Charge}
+\title{\vspace{-3cm}Physics for Engineers\\Class 19\\Electric Field Due to Ring and Disk of Charge}
 \author{Attique Dawood}
 \date{September 30, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
@@ -45,19 +45,20 @@
 \end{itemize}
 \section{Continuous Charge Distributions}
 In real life charges mostly appear bunched in different formations resembling the shape of the object on which they reside. It is more practical to think of continuous charge distributions rather than individual point charges.
-
 \begin{equation}
-dq=\rho_Ldl,
+dq=\rho_Ldl=\rho_SdS=\rho_Vdv
 \end{equation}
-\begin{equation}
-dq=\rho_SdS,
-\end{equation}
-and
-\begin{equation}
-dq=\rho_Vdv.
-\end{equation}
-Integration of differential charge expression gives the total charge.
+Integration of differential charge expression over line, surface or volume gives the total charge.
 Note: Serway and Jewet \cite{Serway} refer to these charge densities as $\lambda$, $\sigma$ and $\rho$.
+\section{Position Vector}
+The position vector in cartesian, cylindrical and spherical coordinates is,
+\begin{equation}
+\textbf{r}=r\hat r=\rho\hat{\rho}+z\hat z=x\hat x+y\hat y+z\hat z
+\end{equation}
+where
+\begin{equation}
+\rho\hat{\rho}=x\hat x+y\hat y
+\end{equation}
 \section{Exercises}
 \noindent\textbf{Question 1 \cite[Example 4.4, page 117]{Sadiku}\cite[Example 23.8, page 721]{Serway}:} A circular ring of radius $a$ carries a uniform charge $\rho_L$ C/m and is placed on the $xy$--plane with axis the same as the $z$--axis. Find the electric field at a point P(0, 0, $h$) on $z$--axis.\\[0.2cm]
 \noindent\textbf{Question 2 \cite[Practice Exercise 4.4, page 119]{Sadiku}\cite[Example 23.9, page 722]{Serway}:} A circular disk of radius $a$ carries a uniform charge $\rho_S$ or $\sigma$ C/m$^2$ and is placed on the $xy$--plane with axis the same as the $z$--axis. Find the electric field at a point P(0, 0, $h$) on $z$--axis.
