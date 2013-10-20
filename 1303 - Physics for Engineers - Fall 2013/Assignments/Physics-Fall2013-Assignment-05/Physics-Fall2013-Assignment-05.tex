@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-3cm}Physics for Engineers\\Assignment 05\\Continuous Charge Distributions and Electric Field Lines}
+\author{Arshad Hassan\and Attique Dawood}
+\date{October 08, 2013\\Due: October 14, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\begin{itemize}
+\item[1.] Derive electric field of following distributions. These are solved examples and there are more than one way of deriving the expressions. You are encouraged to come up with alternate derivations of your own.
+\begin{itemize}
+\item[a.] Electric field at origin due to a finite rod of length $l$ with a charge density $\rho_L$ placed at $x=a$ to $x=a+l$.
+\item[b.] Electric field at a point on $y$--axis (0, a, 0) due to an infinite line charge with uniform charge density placed on $x$--axis.
+\item[c.] Electric field at a point on $z$--axis (0, 0, h) due to a uniform ring of charge placed in $xy$--plane, centred at origin.
+\item[d.] Electric field at a point on $z$--axis (0, 0, h) due to a uniform disk of charge placed in $xy$--plane, centred at origin.
+\end{itemize}
+\item[2.] Solve the following end--of--chapter problems from Sadiku \cite[Ch. 4, pg. 155]{Sadiku}: 4.5, 4.6, 4.8, 4.9.
+\item[3.] Solve the following end--of--chapter problems from Serway \& Jewett \cite[Ch. 23, pg. 732--734]{Serway}: 25, 26, 27, 28, 30, 33, 35, 40, 42, 43, 44, 47.
+\end{itemize}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{PhysicsRef}
+\end{document}
