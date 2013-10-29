@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-3cm}Physics for Engineers\\Assignment 07\\Electric Potential}
+\author{Arshad Hassan\and Attique Dawood}
+\date{October 29, 2013\\Due: November 06, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Question 1:} A 1 C charge is located at origin.
+\begin{itemize}
+\item[a.] Find electric potential, $V_A$ at point A(-1, 3, 7).
+\item[b.] Find electric potential, $V_B$ at point B(2, 1, -5).
+\item[c.] Calculate the potential difference $V_{AB}$ between A and B.
+\item[d.] Calculate the work done in moving a 2 C charge from A to B.
+\end{itemize}
+\noindent\textbf{Question 2:} A 2 C charge is located at (-3, 0, 2) and a -4 C charge is located at (2, -1, 9).
+\begin{itemize}
+\item[a.] Find electric potential at point A(1, 1, 0).
+\item[b.] Find electric potential at point B(3, 1, 2).
+\end{itemize}
+\noindent\textbf{Question 3:} Point charges $q_1=2$ C, $q_2=-1$ C and $q_3=3$ C are located at (-2, 4, 1), (1, -5, -2) and (-2, 0, 7), respectively. Find the total work done in assembling these charges, assuming they are brought from infinity. Also find electric potential at origin.
+%\bibliographystyle{plain}
+%\bibliography{PhysicsRef}
+\end{document}
