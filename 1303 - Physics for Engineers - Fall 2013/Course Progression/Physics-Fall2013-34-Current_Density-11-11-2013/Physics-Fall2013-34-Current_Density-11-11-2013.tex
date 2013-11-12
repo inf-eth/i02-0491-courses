@@ -34,7 +34,7 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-3cm}Physics for Engineers\\Class 34\\Ampere's Law}
+\title{\vspace{-3cm}Physics for Engineers\\Class 34\\Current Density}
 \author{Attique Dawood}
 \date{November 11, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
@@ -45,18 +45,6 @@
 \item Quiz \#07 today.
 \item Expect assignment 08 shortly.
 \end{itemize}
-\section{Ampere's Law}
-Ampere's Law in magnetostatics is somewhat similar to Gauss's Law in electrostatics. \textbf{Ampere's Law states that the circulation of magnetic field over a closed loop is equal to the current enclosed by the loop}. If the direction of current is according to right hand rule then current is taken positive otherwise negative. Mathematically
-\begin{equation}
-\oint\limits_{L}\textbf{H}\cdot d\textbf{\textit{l}}=I_{enc}.
-\end{equation}
-Or
-\begin{equation}
-\oint\limits_{L}\textbf{B}\cdot d\textbf{\textit{l}}=\mu_0I_{enc}.
-\end{equation}
-It is important to note that in Ampere's Law we consider a closed path instead of a closed surface. Ampere's Law is valid for a closed loop of \textbf{any} shape but just like Gauss's Law a mathematical solution is only possible if symmetry exists.
-
-For an infinite current carrying wire take positive current flow along $+\hat z$, magnetic field direction along $\hat \phi$ and $d\textbf{\textit{l}}=\rho d\phi\hat\phi$ where the loop is circular with radius $\rho$.
 \section{Current Density}
 It is useful to define current density as current passing or cutting through a cross--sectional area. Current density is denoted by \textbf{J} and is a vector quantity. Current density also gives the direction of current flow. Mathematically
 \begin{equation}
@@ -74,8 +62,6 @@ I=J\times\pi r^2.
 \section{Exercises}
 \noindent\textbf{Question 1} A wire of radius $0.1$ cm carries $5$ mA current. Find current density.\\[0.2cm]
 \noindent\textbf{Question 2} A coaxial wire of inner radius $\rho<0.1$ cm carries $I=10$ mA current. The outer conductor exists at $0.2<\rho<0.25$ cm and carries 10 mA return current. Find current densities in inner and outer conductor.\\[0.2cm]
-\noindent\textbf{Question 3} A very thin infinite wire carries current $I$. Use Ampere's Law to find \textbf{H}.\\[0.2cm]
-\noindent\textbf{Question 4} Use Ampere's Law to find \textbf{H} everywhere for wires in questions 1 and 2.\\[0.2cm]
 \begin{minipage}{0.5\textwidth}
 \begin{figure}[H]
 \centering
