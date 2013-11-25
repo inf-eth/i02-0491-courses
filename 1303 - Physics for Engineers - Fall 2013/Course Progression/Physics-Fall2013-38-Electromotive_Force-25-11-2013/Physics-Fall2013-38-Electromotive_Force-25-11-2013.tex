@@ -1,0 +1,67 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.+++
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-3cm}Physics for Engineers\\Class 38\\Electromotive Force: Motional and Transformer EMF}
+\author{Attique Dawood}
+\date{November 25, 2013\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Expect assignment 09 shortly.
+\end{itemize}
+\section{Magnetic Flux}
+Magnetic flux is given by
+\begin{equation}
+\psi=\int\limits_{S}\textbf{B}\cdot d{\textbf{S}}.
+\end{equation}
+Magnetic flux has units Webers. The magnetic flux through a closed surface is zero. This implies that isolated magnetic charge does not exist. Mathematically
+\begin{equation}
+\oint\limits_{S}\textbf{B}\cdot d{\textbf{S}}=0.
+\end{equation}
+This is the fourth Maxwell's equation written in integral form.
+\section{Electromotive Force: Motional EMF}
+When a constant current flows in a loop a magnetic field is set up around the loop. So far we have only considered current carrying loops but did not discuss the voltage source that set up that current. Normally we would use a battery and a resistor in series with appropriate values if we want to set up a current $I$ in a loop.
+\section{Exercises}
+\noindent\textbf{Question 1 \cite[Problem 7.21, page 300]{Sadiku}} An infinitely long filamentary wire carries 2 A current in $+z$ direction. Find
+\begin{itemize}
+\item[a.] \textbf{B} at (-3, 4, 7)
+\item[b.] Magnetic flux through the surface given by $2<\rho<6$, $0<z<4$ and $\phi=90^0$.
+\end{itemize}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{PhysicsRef}
+\end{document}
