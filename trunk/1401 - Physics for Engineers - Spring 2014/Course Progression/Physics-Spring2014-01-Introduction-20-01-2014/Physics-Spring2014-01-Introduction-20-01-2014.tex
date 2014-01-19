@@ -1,0 +1,188 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Physics for Engineers\\Class 01\\Introduction}
+\author{Attique Dawood}
+\date{January 20, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{About the Course}
+\textbf{Course Title:} Physics for Engineers\\
+\textbf{Course Code:} NS110\\
+\textbf{Pre-requisite(s):} None\\
+\textbf{Credit Hrs:} 3\\
+\textbf{Instructor:} Attique Dawood\\
+\textbf{Contact:} attique DOT dawood AT nu DOT edu DOT pk\\
+\section{Text Book}
+\textbf{Title:} Elements of Electromagnetics (3rd Edition)\\
+\textbf{Author:} M. N. O. Sadiku\\
+\section{Reference Book}
+\textbf{Title:} Physics for Scientists \& Engineers  (6th Edition)\\
+\textbf{Author:} Serway, Jewett\\
+\textbf{Publisher:} Thomson; Brooks Cole - Custom\\
+\section{Objective}
+The objective of this course is to introduce the basics of electromagnetics. Emphasis is on mathematically solving problems involving electric and magnetic fields. After taking this course students will be familiar with Maxwell’s equations and will be able to solve problems related to electrostatics and magnetostatics.
+\section{Guidelines}
+\begin{itemize}
+\item \textbf{\underline{Your must do all assignments by yourself.}}
+\item You can only learn with practice.
+\end{itemize}
+\section{Marks Distribution}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{llc}
+	\hline \hline
+		\rule{0pt}{2.6ex} & \textbf{Type of Assessment} & \textbf{Marks}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Quizzes & 10\\
+		2 & Assignments& 5\\
+		3 & Sessionals (15 each) & 30\\
+		4 & Class participation & 5\\
+		5 & Final Exam & 50\\
+	\hline \hline
+	\rule{0pt}{2.6ex} & \textbf{Total} & \textbf{100}\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{Marks Distribution}
+\caption{Marks Distribution}
+\end{table}
+\section{Course Contents}
+%\begin{table}[H]
+\begin{center}
+\vspace{-0.5cm}
+	\begin{longtable}{|c|p{13cm}|}
+	\hline \hline
+		\rule{0pt}{2.6ex} \textbf{Week} & \textbf{Topics}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Motivation and introduction to electromagnetics; physical quantities, engineering and scientific notations (1.1); Introduction to the 2D and 3D coordinate system, scalars and vectors (1.3S); unit vector (1.4S); vector addition and subtraction (1.5S);\\
+		\hline
+		2 \rule{0pt}{2.6ex} & Position and distance vectors (1.6S); scalar and vector products (1.7S); Components of a vector, resolution of vector into rectangular components, vector algebra (1.8S); solving problems involving vectors.\\
+		\hline
+		3 \rule{0pt}{2.6ex} & Function, concept of field, scalar and vector fields, concept of line, surface and volume integrals (3.2S and 3.3S).\\
+		\hline
+		4 \rule{0pt}{2.6ex} & Electrostatics, charge (23.1); Coulomb's law (23.3).\\
+		\hline
+		5 \rule{0pt}{2.6ex} &  The electric field, electric field of a point charge (23.4).\\
+		\hline
+		\hline
+		6 \rule{0pt}{2.6ex} & Continuous charge distributions, line, surface and volume charges,  field due to a line charge, ring of charge, disk of charge and infinite sheet of charge (23.5).\\
+		\hline
+		7 \rule{0pt}{2.6ex} & Electric field lines (23.6); motion of charged particle in uniform electric field (23.7).\\
+		\hline
+		8 \rule{0pt}{2.6ex} & Electric flux (24.1); Gauss's law (24.2); applications of Gauss's law (24.3); conductors in electrostatic equilibrium (24.4).\\
+		\hline
+		9 \rule{0pt}{2.6ex} & Conservative fields, potential difference and electric potential (25.1); potential difference in uniform electric field (25.2); potential energy due to point charges (25.3); obtaining electric field from electric potential (25.4); applications of electrostatics (25.8).\\
+		\hline
+		10 \rule{0pt}{2.6ex} & Magnetostatics, magnetic fields and forces (29.1); motion of a charged particle in magnetic field (29.4).\\
+		\hline
+		11 \rule{0pt}{2.6ex} & Source of magnetic field, Biot--Savart law (30.1); magnetic force between two parallel conductors (30.2).\\
+		\hline
+		12 \rule{0pt}{2.6ex} & Ampere's law, applications of Ampere's law, magnetic field of an infinite current carrying conductor, magnetic field of a coaxial conductor (30.3).\\
+		\hline
+		13 \rule{0pt}{2.6ex} & Magnetic flux (30.5); Gauss's law for magnetism (30.6); displacement current and general form of Gauss's law (30.7).\\
+		\hline
+		14 \rule{0pt}{2.6ex} & Faraday's law of induction (31.1); motional emf (31.2); Lenz's law (31.3); induced emf and electric fields (31.4); Final form of Maxwell's equations (31.7).\\
+		\hline
+		15 \rule{0pt}{2.6ex} & Time--varying fields, electromagnetic waves, source of electromagnetic radiation, electromagnetic wave propagation in free space, wave propagation in lossy and lossless media.\\
+		\hline
+		16 \rule{0pt}{2.6ex} & Wave propagation in lossy and lossless media, applications: antennas, metamaterials, wireless communication.\\
+	\hline \hline
+	%\label{Physics-Course-Outline}
+	%\caption{Physics for Engineers Course Outline}
+	\end{longtable}
+\end{center}
+\noindent \textbf{Note:} Topic references with an `S' are from Sadiku \cite{Sadiku}.
+%\end{table}
+
+\section{Advertisement}
+This section is taken from \cite{Griffith}.
+\begin{itemize}
+	\item[1.] \textbf{What is \textit{Change}?} Changes are happening all around us; from a car running on the road, a person talking, people walking, earth revolving around the sun to vibration of atoms in matter.
+	\item[2.] \textbf{What would happen if there were no change and all the atoms in the universe are frozen?} Nothing, everything will stop and all activities will come to a standstill. Heat death?
+	\item[3.] \textbf{What causes Change?} Force.
+\end{itemize}
+Behind every change there is a force. We see different forces at work in everyday life; we can push a chair or object by applying a force, we can lift objects by applying a force and so on. \textit{Mechanics} is concerned with forces and changes they cause. You will be surprised to know that in the realm of physics there are only four known forces. These are listed below in the order of decreasing strength:
+\begin{enumerate}
+\item Strong. (keeps protons and neutrons bound in nucleus)
+\item Electromagnetic.
+\item Weak. (responsible for radioactive decay)
+\item Gravitational.
+\end{enumerate}
+You might ask where is friction, or normal force or chemical forces that bind molecules. The answer is that all of these forces are electromagnetic. We do not feel strong or weak forces because they have a very short range and confined to nucleus of atom. Gravity is so weak that we can only notice it for large objects with huge masses like sun or earth. \textbf{``Not only are electromagnetic forces overwhelmingly the dominant ones in everyday life, they are also, at present, the \textit{only} ones that are completely understood.''}\cite[page 14]{Griffith}
+
+``The Laws of classical electrodynamics were discovered in bits and pieces by Franklin, Coulomb, Ampere, Faraday and others.'' It was Maxwell who combined all these Laws in the current form, called Maxwell's equations.
+
+\textbf{Our goal in this course is to get an understanding of how electrodynamics work by studying the Maxwell's equations.} But knowing how Maxwell's equations work is not the end, this is only the beginning where you will start applying these fundamental laws and equations to solve larger problems. In the later part of this course we will use Maxwell's equations to explore how electromagnetic waves propagate in space.
+
+\section{Engineering and Scientific Notations}
+\subsection{A Note on Scientific Notation}
+You should already be familiar with scientific notation which is of the form $1.234\times10^3$ or $-3.2343\times 10^{-4}$ etc. Scientific notation is essentially a number greater than 0 and less than 10 with appropriate sign multiplied with power of 10. An alternate form of scientific notation commonly used in computers and calculators, replaces $\times 10$ with `e' or `E'. For example, $1.234\mathrm{e}3$ and $-3.2343\mathrm{e}$$-4$. You can access this on your calculator with the `Exp' key.
+\subsection{Engineering Notation}
+A number expressed in engineering notation consists of a numerical part with an appropriate symbol representing power of 10. The numerical part is greater than 1 and less than 1000 with appropriate sign. Working with engineering notations is generally preferred because of ease of use. A table of engineering symbols is given below.
+\begin{table}[H]
+\begin{center}
+	\begin{tabular}{|c|c|c||c|c|c|}
+	\hline \hline
+		%\rule{0pt}{2.6ex} \textbf{Week} & \textbf{Topics}\\
+		%\hline
+		k\rule{0pt}{2.6ex} & kilo & $10^3$ & m & milli & $10^{-3}$\\
+		M & mega & $10^6$ & $\mu$ & micro & $10^{-6}$\\
+		G & giga & $10^9$ & n & nano & $10^{-9}$\\
+		T & tera & $10^{12}$ & p & pico & $10^{-12}$\\
+		P & peta & $10^{15}$ & f & femto & $10^{-15}$\\
+		E & exa & $10^{18}$ & a & atto & $10^{-18}$\\
+	\hline \hline
+	%\label{Engineering-symbols}
+	%\caption{Physics for Engineers Course Outline}
+	\end{tabular}
+\end{center}
+\label{Engineering-symbols}
+\caption{Engineering symbols}
+\end{table}
+\noindent In engineering notation, $1.234\times10^3$ is written as $1.234k$ and $-3.2343\times 10^{-4}$ as $-323.43\mu$.
+\section{Exercises}
+\noindent\textbf{Question 1:} How much distance does light travel in one year? Speed of light is $3\mathrm{e}8$ m/s.\\
+\noindent\textbf{Question 2:} Express the following speeds in m/s:\\
+\begin{enumerate}
+\item[-] 19 km/h
+\item[-] 0.030 mi/h
+\item[-] 1.9 km/min
+\item[-] 1000 cm/s
+\item[-] 1900 km/day
+\end{enumerate}
+Try to perform all calculations in engineering notation.
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{PhysicsRef}
+\end{document}
