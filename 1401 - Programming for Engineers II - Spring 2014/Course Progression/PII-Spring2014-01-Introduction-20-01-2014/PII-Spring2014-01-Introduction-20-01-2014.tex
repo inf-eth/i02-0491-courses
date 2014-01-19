@@ -1,0 +1,130 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 01\\Introduction}
+\author{Attique Dawood}
+\date{January 20, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{About the Course}
+\textbf{Course Title:} Programming for Engineers II\\
+\textbf{Pre-requisite:} Programming for Engineers I\\
+\textbf{Instructor:} Attique Dawood\\
+\textbf{Contact:} attique DOT dawood AT nu DOT edu DOT pk\\
+\textbf{Text Book:} Object Oriented Programming in C++ by Robert Lafore\\
+\textbf{Reference Book:} C++: How to Program by Deitel \& Deitel\\
+\section{Guidelines}
+\begin{itemize}
+\item \textbf{\underline{Your goal is to do all assignments (including lab work) by yourself.}}
+\item Do read the book. It is very helpful.
+\item You will only learn with practice.
+\end{itemize}
+\section{Course Progression}
+\begin{itemize}
+\item This is summer semester.
+\item 8--9 weeks semester.
+\item One mid exam in 5th week.
+\item Quizzes will be announced and normally scheduled for Monday.
+\item Assignments carry substantial weight.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{llc}
+	\hline \hline
+		\rule{0pt}{2.6ex} & \textbf{Type of Assessment} & \textbf{Marks}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Quizzes & 5\\
+		2 & Assignments& 20\\
+		3 & Mid&20\\
+		4 & Class participation & 5\\
+		5 & Final Exam & 50\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{Marks Distribution}
+\caption{Marks Distribution}
+\end{table}
+\section{C and C++}
+\begin{itemize}
+\item This course is where you learn \textbf{programming methodology}.
+\item You will have to un--learn some concepts from previous course.
+\item We will be following ANSI standards.
+\item C is a procedural language while C++ is an object--oriented language.
+\item C is a subset of C++. C++ contains C and much more. It enhances (extends) and provides better alternatives to most C procedures.
+\item All the C is C++ since C is a subset of C++.
+\item Practical programs are generally quite large and must be broken down into different modules.
+\item Program maintenance is an important issue (patches?).
+\end{itemize}
+\section{A Simple C++ Program}
+\begin{lstlisting}[caption={A Basic C++ Program}]
+#include <iostream> // Input/output stream library.
+int main()
+{
+	std::cout << "Hello world" << std::endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Standard C++ header files do not have .h extensions.
+\item Format specifiers can be used in \verb|cout| directives (\verb|\r, \n, \t| etc.).
+\end{itemize}
+\section{Namespaces}
+\begin{itemize}
+\item The functions (or objects) in C++ headers are enclosed in namespaces for modularity.
+\item \texttt{std} is a standard namespace.
+\item The namespace functions or entire namespace can be `included' for easier access.
+\end{itemize}
+\begin{lstlisting}[caption={The `using' Directive}]
+#include <iostream> // Input/output stream library.
+using std::cout;
+using std::endl;
+int main()
+{
+	cout << "Hello world" << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Including a Namespace}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	cout << "Hello world" << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{How Namespaces Work?}
+A very good tutorial is available at \url{http://www.cplusplus.com/doc/tutorial/namespaces/}
+\end{document}
