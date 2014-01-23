@@ -2,12 +2,12 @@
 # Format for Makefile 'rule'
 #
 # target: dependencies
-# 	<rule>
+# 	<recipe>
 #
 # target is desired output file
 # dependencies are files needed to obtain target
-# rule is the actual command to obtain target from dependencies
-# <rule> must be preceded by a 'tab'.
+# recipe is the actual command to obtain target from dependencies
+# <recipe> must be preceded by a 'tab'.
 
 # Rule for output binary or exe file. This is linking rule.
 # Output file name is 'out'. It can be named anything like, out.exe or out.bin etc.
