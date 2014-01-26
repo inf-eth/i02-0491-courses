@@ -1,0 +1,369 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 03\\Structured and Object--Oriented Programming}
+\author{Attique Dawood}
+\date{January 27, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item \textbf{Homework:}\\
+Chapter 1, sections 1.1--1.9 from Deitel \cite{Deitel}.\\
+Chapter 1, \textit{The Big Picture} from Lafore \cite{Lafore}.\\
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item C and C++. Header changes, cout, endl, cin etc.
+\item Please review chapter 2, \textit{Introduction to C++ Programming}. Sections 2.1--2.7 from Deitel.
+\item Procedural, structured and OOP.
+\item Why do we need OOP? Limitations in procedural and structured approach.
+\item Procedural programs based around functions. Structured approach provides groups similar functions together.
+\item In OOP focus is on data and organisation rather than functionality. Relevant data and functions that operate on that data are grouped in a single entity called object. \textbf{Objects interact with each other.}
+\end{itemize}
+\section{Working With Complex Numbers and Matrices}
+\begin{itemize}
+\item Create a program that can add and subtract complex numbers.
+\item Now create a program than can add and subtract matrices. Assume 1D matrix of size $1\times 3$.
+\item Add the functionality to multiply with a scalar.
+\item Add functionality to multiply and divide two complex numbers or matrices.
+\item Create a matrix of complex numbers.
+\item Compare how procedural, structured and OOP implementation differ.
+\end{itemize}
+\section{Procedural Approach}
+\begin{lstlisting}[caption={Simple prodecural approach to complex number addition}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+int main()
+{
+	// First complex number.
+	float complex1real;
+	float complex1img;
+	// Second complex number.
+	float complex2real;
+	float complex2img;
+	// Resultant complex number.
+	float complex3real;
+	float complex3img;
+	
+	// First complex input.
+	cout << "Enter first complex: ";
+	cin >> complex1real >> complex1img;
+	// Second complex input.
+	cout << "Enter second complex: ";
+	cin >> complex2real >> complex2img;
+	
+	// Addition.
+	complex3real = complex1real + complex2real;
+	complex3img = complex1img + complex2img;
+	
+	// Result.
+	cout << "Result is " << complex3real << " + j" << complex3img << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Simple prodecural approach to matrix addition}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+int main()
+{
+	// First matrix.
+	float Mat1[4];
+	// Second matrix.
+	float Mat2[4];
+	// Resultant complex number.
+	float Mat3[4];
+	
+	// First matrix input.
+	cout << "Enter first matrix: ";
+	for (int i=0; i<4; i++)
+		cin >> Mat1[i];
+	// Second matrix input.
+	cout << "Enter second matrix: ";
+	for (int i=0; i<4; i++)
+		cin >> Mat2[i];
+	
+	// Addition.
+	for (int i=0; i<4; i++)
+		Mat3[i] = Mat1[i] + Mat2[i];
+	
+	// Result.
+	cout << "Result is: " << endl;
+	for (int i=0; i<4; i++)
+		cout << "Mat3[" << i << "] = " << Mat3[i] << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Procedural Approach Using Functions}
+\begin{lstlisting}[caption={Procedural approach to complex number addition using functions}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+// Input function prototype.
+void InputComplex(float &, float &);
+// Input function definition.
+void InputComplex(float &real, float &img)
+{
+	cout << "Enter complex number: ";
+	cin >> real >> img;
+}
+
+// Addition function prototype.
+void AddComplex(float, float, float, float, float &, float &);
+// Addition function definition.
+void AddComplex(float c1r, float c1i, float c2r, float c2i, float &c3r, float &c3i)
+{
+	c3r = c1r + c2r;
+	c3i = c1i + c2i;
+}
+
+// Display function prototype.
+void DisplayComplex(float, float);
+// Display function definition.
+void DisplayComplex(float real, float img)
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+
+int main()
+{
+	// First complex number.
+	float complex1real;
+	float complex1img;
+	// Second complex number.
+	float complex2real;
+	float complex2img;
+	// Resultant complex number.
+	float complex3real;
+	float complex3img;
+	
+	// First complex input.
+	InputComplex(complex1real, complex1img);
+	// Second complex input.
+	InputComplex(complex2real, complex2img);
+	
+	// Addition.
+	AddComplex(complex1real, complex1img, complex2real, complex2img, complex3real, complex3img);
+	
+	// Result.
+	cout << "Result is: ";
+	DisplayComplex(complex3real, complex3img);
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{struct}}
+\begin{itemize}
+\item Can create new data types from basic types.
+\item Types can be anything int, float, double. Different types can be mixed in a \texttt{struct}.
+\item Group similar data together.
+\item Can also include other structs (matrix of complex numbers?).
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{struct}}]
+struct complex
+{
+	float real;
+	float img;
+};
+
+int main()
+{
+	complex google;
+	complex facebook;
+	google.real = 1.f;
+	google.img = 0.f;
+	facebook.real = google.real + 34.f;
+	facebook.img = 3.3f * google.img - 2.2f;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Structured Approach}
+\begin{lstlisting}[caption={Using \texttt{struct} to define complex number and add them using functions}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+struct complex
+{
+	float real;
+	float img;
+};
+
+// Input function prototype.
+void InputComplex(complex &);
+// Input function definition.
+void InputComplex(complex &c)
+{
+	cout << "Enter complex number: ";
+	cin >> c.real >> c.img;
+}
+
+// Addition function prototype.
+void AddComplex(complex, complex, complex &);
+// Addition function definition.
+void AddComplex(complex c1, complex c2, complex &c3)
+{
+	c3.real = c1.real + c2.real;
+	c3.img = c1.img + c2.img;
+}
+
+// Display function prototype.
+void DisplayComplex(complex);
+// Display function definition.
+void DisplayComplex(complex c)
+{
+	if (c.img < 0.f)
+		cout << c.real << " - j" << -1.f*c.img << endl;
+	else
+		cout << c.real << " + j" << c.img << endl;
+}
+
+int main()
+{
+	// First complex number.
+	complex complex1;
+	// Second complex number.
+	complex complex2;
+	// Resultant complex number.
+	complex complex3;
+	
+	// First complex input.
+	InputComplex(complex1);
+	// Second complex input.
+	InputComplex(complex2);
+	
+	// Addition.
+	AddComplex(complex1, complex2, complex3);
+	
+	// Result.
+	cout << "Result is: ";
+	DisplayComplex(complex3);
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{class}}
+\begin{lstlisting}[caption={\texttt{class} definition}]
+class classname
+{
+	private:
+	// Data and/or functions hidden from outside world.
+	public:
+	// Data and/or functions used to interact with or manipulate the object by outside world.	
+};
+\end{lstlisting}
+\section{Object--Oriented Approach}
+\textbf{Complex number and related functions make up object.}
+\begin{lstlisting}[caption={Object--oriented approach to add complex numbers}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class complex
+{
+	private:
+	float real;
+	float img;
+	
+	public:
+	void Input();
+	void Display();
+	complex Add(complex);
+	complex DivideBy(complex);
+};
+
+void complex::Input()
+{
+	cout << "Enter complex number: ";
+	cin >> real >> img;
+}
+void complex::Display()
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+complex complex::Add(complex c)
+{
+	complex result;
+	result.real = real + c.real;
+	result.img = img + c.img;
+	
+	return result;
+}
+
+int main()
+{
+	// First complex number.
+	complex complex1;
+	// Second complex number.
+	complex complex2;
+	// Resultant complex number.
+	complex complex3;
+	
+	// First complex input.
+	complex1.Input();
+	// Second complex input.
+	complex2.Input();
+	
+	// Addition.
+	complex3 = complex1.Add(complex2);
+	
+	// Result.
+	cout << "Result is: ";
+	complex3.Display();
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{itemize}
+\item What if we're dealing with matrices?
+\item Function names won't change. Only functionality. User not concerned with how things are done. He only asks objects to do his/her bidding.
+\end{itemize}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
