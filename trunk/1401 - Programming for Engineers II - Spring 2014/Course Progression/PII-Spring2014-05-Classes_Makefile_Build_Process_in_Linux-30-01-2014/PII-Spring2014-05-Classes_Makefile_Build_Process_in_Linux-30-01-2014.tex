@@ -1,0 +1,350 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 05\\Classes\\Makefile and Build Process in Linux}
+\author{Attique Dawood}
+\date{January 30, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment \#01 will be available today or tomorrow. Check SLATE.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Complex number refinements from procedural to OOP.
+\item Introduction to classes. Similar to struct but comes with more bells and whistles.
+\item Classes and objects. A class--object relationship is similar to common noun and proper noun.
+\item Objects are physical whereas class is abstract. Person is a class and a particular person like Einstein is object of that class.
+\item Keep in mind, in OOP we are more interested in objects rather than anything else. We need to first identify objects in a particular problem.
+\end{itemize}
+\section{Data Encapsulation, Data Hiding and Access Restriction}
+\begin{itemize}
+\item Encapsulate means to group something and put it in a container. Structs and classes both provide data encapsulation capability.
+\item Data hiding means to hide or restrict outside world from accessing sensitive data. In struct all data is visible everywhere. Classes provide option to make data \verb|private| to hide it from global access.
+\item Classes can provide `controlled' access to its private data to other trusted classes or entities. This is known as access control. Member functions provide means to implement access restriction.
+\end{itemize}
+\section{Defining Member Functions of a Class}
+\begin{itemize}
+\item Variable \textbf{declaration} and \textbf{initialisation}.
+\item Function \textbf{prototype/declaration} and function \textbf{definition}.
+\item Class \textbf{definition} and \textbf{implementation}
+\item Member functions of a class are its property. Member functions are the only way to communicate with object(s) of a class.
+\item Member functions can either be defined inside or outside the class. Keep in mind, member functions of a class can freely access any data (public or private) of that class.
+\item Scope resolution operator \verb|::| can be used to define class functions outside the class definition.
+\end{itemize}
+\section{Working With Complex Numbers and Matrices}
+\begin{itemize}
+\item Create a program that can add and subtract complex numbers.
+\item Now create a program than can add and subtract matrices. Assume 1D matrix of size $1\times 3$.
+\item Add the functionality to multiply with a scalar.
+\item Add functionality to multiply and divide two complex numbers or matrices.
+\item Create a matrix of complex numbers.
+\item Compare how procedural, structured and OOP implementation differ.
+\end{itemize}
+\section{\texttt{class} Definition in C++}
+\begin{lstlisting}[caption={\texttt{class} definition}]
+class classname
+{
+	private:
+	// Data and/or functions hidden from outside world.
+	public:
+	// Data and/or functions used to interact with or manipulate the object by outside world.	
+};
+\end{lstlisting}
+\section{Classes and Objects}
+\begin{itemize}
+\item class is abstract, object is physical. Think common noun and proper noun.
+\item Objects are physical manifestation of class.
+\item Person is a class; a particular person like Stephen Hawking would be object of that class.
+\item Similarly complex is a class whereas a particular complex number $2-j21$ is an object.
+\item In C++, class is a datatype. Variables of that data type are called objects.
+\end{itemize}
+\section{Object--Oriented Approach}
+\begin{lstlisting}[caption={Object--oriented approach to add complex numbers}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class complex
+{
+	private:
+	float real;
+	float img;
+	
+	public:
+	void Input();
+	void Display();
+	complex Add(complex);
+	complex DivideBy(complex);
+};
+
+// Class functions can be defined inside or outside the class.
+// Here, functions are defined outside the class.
+// Notice the `::' operator.
+void complex::Input()
+{
+	cout << "Enter complex number: ";
+	cin >> real >> img;
+}
+void complex::Display()
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+complex complex::Add(complex c)
+{
+	complex result;
+	result.real = real + c.real;
+	result.img = img + c.img;
+	
+	return result;
+}
+
+int main()
+{
+	// First complex number.
+	complex complex1;	// complex1 is an object of complex class.
+	// Second complex number.
+	complex complex2;
+	// Resultant complex number.
+	complex complex3;
+	
+	// First complex input.
+	complex1.Input();
+	// Second complex input.
+	complex2.Input();
+	
+	// Addition.
+	complex3 = complex1.Add(complex2);
+	
+	// Result.
+	cout << "Result is: ";
+	complex3.Display();
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{itemize}
+\item What if we're dealing with matrices?
+\item Function names won't change. Only functionality. User not concerned with how things are done. He/she only asks objects to do his or her bidding.
+\end{itemize}
+\section{Arrangement of Files in a Typical OOP Project}
+In an OOP project there can be several classes. In order to keep the code tidy and organised, the code is placed in appropriate header (.h or .hpp) and code (.cpp) files. The convention is to place class definition in a header file with a .h or .hpp extension. In our case the definition of complex class will be placed in a header file called \verb|complex.hpp|. The implementation of complex class (function implementation) will be placed in a code file called \verb|complex.cpp|. The code for main is placed in a separate code file, called \verb|main.cpp| here.
+\begin{lstlisting}[caption={Class Definition (complex.hpp)}]
+class complex
+{
+	private:
+	float real;
+	float img;
+	
+	public:
+	void Input();
+	void Display();
+	complex Add(complex);
+	complex DivideBy(complex);
+};
+\end{lstlisting}
+\begin{lstlisting}[caption={Class Implementation (complex.cpp)}]
+// Class functions can be defined inside or outside the class.
+// Here, functions are defined outside the class.
+// Notice the `::' operator.
+#include "complex.hpp" // Notice "" which means search for header in local directory.
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+void complex::Input()
+{
+	cout << "Enter complex number: ";
+	cin >> real >> img;
+}
+void complex::Display()
+{
+	if (img < 0.f)
+		cout << real << " - j" << -1.f*img << endl;
+	else
+		cout << real << " + j" << img << endl;
+}
+complex complex::Add(complex c)
+{
+	complex result;
+	result.real = real + c.real;
+	result.img = img + c.img;
+	
+	return result;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={main() function (main.cpp)}]
+#include "complex.hpp"
+int main()
+{
+	// First complex number.
+	complex complex1;	// complex1 is an object of complex class.
+	// Second complex number.
+	complex complex2;
+	// Resultant complex number.
+	complex complex3;
+	
+	// First complex input.
+	complex1.Input();
+	// Second complex input.
+	complex2.Input();
+	
+	// Addition.
+	complex3 = complex1.Add(complex2);
+	
+	// Result.
+	cout << "Result is: ";
+	complex3.Display();
+	
+	return 0;
+}
+\end{lstlisting}
+\section{The Build Process}
+Build process refers to the steps involved in compilation of a program from code file to a binary (or executable) file. The build process consists of four steps and there are four different programs involved that perform these steps.
+\begin{itemize}
+\item[1.] Preprocess
+\item[2.] Compile
+\item[3.] Assemble
+\item[4.] Link 
+\end{itemize}
+\subsection{Preprocess}
+Preprocessor takes code files (.cpp) and process all \# directives. For example it copies code from header files that are included.
+\subsection{Compile}
+Compiler takes the output of preprocessor and generates code for the assembler (assembler source code).
+\subsection{Assemble}
+Assembler generates assembler source code and produces raw object files. An object file is created for each source file (.cpp) in the project.
+\subsection{Link}
+Linker combines all the object files into an executable or binary file that can be directly run.
+\section{Compiling on Linux}
+The compiler we'll use is called gcc/g++. gcc is GNU C compiler and g++ is the C++ compiler that comes with gcc. g++ can be invoked from the commandline or terminal. Navigate to the folder where your code file is located and tell g++ to compile the file.
+
+Let's suppose I am logged in as user `lab' and have a file called \verb|abc.cpp| located on desktop that I want to compile and run. First I will start the terminal and then navigate to the `Desktop' folder. I can see all the files on desktop with the \verb|ls| command. Then I will compile my program using g++.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+\begin{lstlisting}
+cd /home/lab/Desktop
+\end{lstlisting}
+\begin{lstlisting}
+ls
+\end{lstlisting}
+\begin{lstlisting}
+g++ -c abc.cpp -o abc.obj
+g++ abc.obj -o abc.bin
+\end{lstlisting}
+The first command tells g++ to take \verb|abc.cpp| and create an output object file called \verb|abc.obj|. After that I tell g++ to take \verb|abc.obj| and create \verb|abc.bin| which is the binary or executable file. The executable can be run using the following command.
+\begin{lstlisting}
+./abc.bin
+\end{lstlisting}
+The object and binary files can have any extension or none at all. You may see object files with .o extension. Binary files in linux usually have no extension.
+\section{Compiling a Project With Multiple Files}
+If I want to compile a project with multiple files I would first compile all the code files to generate their respective object files. Then I will invoke the linker to link the object files into a single binary file. Suppose I have three files in my project, \verb|complex.hpp|, \verb|complex.cpp| and \verb|main.cpp|. I have to create object files for \verb|complex.cpp| and \verb|main.cpp|.
+\begin{lstlisting}
+g++ -c main.cpp -o main.obj
+g++ -c complex.cpp -o complex.obj
+\end{lstlisting}
+The above commands tell g++ to compile the .cpp file into an object file of the given name.
+\begin{lstlisting}
+g++ main.obj complex.obj -o abc.bin
+\end{lstlisting}
+This command will take the two object files and output a binary file called \verb|abc.bin|.
+\section{Automating the Build Process Using Makefile}
+A Makefile contains `rules' to compile a program. It can automate the whole build process. A Makefile is given below
+\begin{lstlisting}[language=bash,caption={Simple Makefile}]
+# Lines starting with '#' are comments in a linux script.
+# Format for Makefile 'rule'
+#
+# target: dependencies
+# 	<recipe>
+#
+# target is desired output file
+# dependencies are files needed to obtain target
+# rule is the actual command to obtain target from dependencies
+# <recipe> must be preceded by a 'tab'.
+
+# Rule for output binary or exe file. This is linking rule.
+# Output file name is 'out.bin'. It can be named anything like, out.exe or out.bin etc.
+out.bin: main.obj
+	g++ main.obj -o out.bin
+
+# Compile rule. Creates object file(s) out of cpp files.
+main.obj: main.cpp
+	g++ -c main.cpp -o main.obj
+
+# Rule for running the binary file
+run: out.bin
+	./out.bin
+
+# cleaning rule. Deletes files named out and main.obj
+clean:
+	rm -f out.bin main.obj
+\end{lstlisting}
+This Makefile has four `rules'. A rule specifies inputs, output and a `recipe' to create output from inputs. Output is called `target' and inputs are called `dependencies. If dependencies don't exist then target cannot be obtained.
+
+The first rule provides a recipe to take \verb|main.obj| and create \verb|out.bin|. The second rule  provides a recipe to take \verb|main.cpp| and create \verb|main.obj|. When the Makefile is first invoked with the command \verb|make| it will look at first rule; since \verb|main.obj| doesn't exist it will invoke second rule and create \verb|main.obj| after that it will again invoke first to create the output binary.
+
+Usually, the sequence of instructions is as follows:
+\begin{lstlisting}
+make
+make run
+make clean
+\end{lstlisting}
+\verb|make| compiles the program, \verb|make run| executes the binary and \verb|make clean| performs a cleanup by deleting binary and object files.
+
+Following is a Makefile to build the complex number program:
+\begin{lstlisting}[language=bash,caption={Makefile for Complex Number Program}]
+# Output file name is 'binfile'.
+binfile: main.obj complex.obj
+	g++ main.obj complex.obj -o binfile
+
+# Compile rules. Creates object file(s) out of cpp files.
+main.obj: main.cpp
+	g++ -c main.cpp -o main.obj
+
+complex.obj: complex.cpp
+	g++ -c complex.cpp -o complex.obj
+
+# Rule for running the binary file.
+run: binfile
+	./binfile
+	
+# cleaning rule. Deletes object and binary files.
+clean:
+	rm -f binfile main.obj complex.obj
+\end{lstlisting}
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
