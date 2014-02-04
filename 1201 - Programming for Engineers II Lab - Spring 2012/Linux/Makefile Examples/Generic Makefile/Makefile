@@ -12,7 +12,7 @@
 CC=g++
 DEPS=-I.
 SRCDIR=.
-CPPFILES=complex main
+CPPFILES=complex.cpp main.cpp
 TARGET=outbin
 LIBS=
 
@@ -28,7 +28,7 @@ BINDIR:=bin/release
 ODIR:=obj/release
 endif
 
-OBJ=$(patsubst %,$(ODIR)/%.obj,$(CPPFILES))
+OBJ=$(patsubst %.cpp,$(ODIR)/%.obj,$(CPPFILES))
 
 $(BINDIR)/$(TARGET): $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
