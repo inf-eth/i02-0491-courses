@@ -1,0 +1,47 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-3cm}Programming for Engineers II\\Assignment 02\\Matrix Class}
+\author{Attique Dawood}
+\date{February 06, 2014\\Due: February 13, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item Create a \verb|Matrix| class to add, subtract and multiply matrices of complex numbers. Additionally, create \verb|Input()| and \verb|Display()| functions for the \verb|Matrix| class.
+\item \verb|Matrix| data should be a fixed 2D array. There are additional marks for variable \verb|Matrix| size (rows and columns) that can be input by user. However, you \textbf{cannot} use dynamic allocation (\verb|new| or \verb|malloc()|). One way of achieving this is to keep a 2D array of some maximum dimensions like 100x100. If user wants to work with 2x2 matrix then only use the 2x2 elements from actual 2D array.
+\item It is recommended that you first work with fixed matrix sizes of \verb|float| type and then convert this into matrix of complex numbers.
+\item You can use the \verb|Complex| class from previous assignment.
+\item Submit a hand--written UML diagram clearly showing the relationship between both classes as well as their attributes and functions.
+\item Your program should contain separate files for class definition, class implementation and main function. This assignment should contain six appropriately named files.
+\item \verb|main()| should create three matrices and demonstrate matrix operations.
+\item Provide a Makefile with your program.
+\end{enumerate}
+\end{document}

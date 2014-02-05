@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 08\\Relationship Between Classes\\Association}
+\author{Attique Dawood}
+\date{February 06, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment \#02 available.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Relationship between classes.
+\item Inheritance: Base class and derived class.
+\item Derived class inherits all attributes and functions of base class. A student has all the attributes of a person in addition to CGPA and roll number.
+\item Inheritance is represented by an empty or hollow arrow--head from derived class to base class.
+\item Ownership or `has a' relationship. A car \textbf{has a}n engine. A person \textbf{has a} brain.
+\item Two types of ownership: composition and aggregation.
+\item Composition is strong link. If life--cycle of container object ends, then contained objects are destroyed or cease to exist. A person \textbf{has a} brain. When that person dies, his brain will cease to function.
+\item Aggregation is weak link. Life--cycle of contained objects does not end with that of container. For example, a person \textbf{has a} mobile phone. If that person dies, mobile will continue to function.
+\end{itemize}
+\section{Relationship Between Classes}
+\subsection{``using a'' and ``knows a'' Relationship or Association}
+\begin{itemize}
+\item Represented by a single stealth arrow from `using' class to `used' class. Class being used may not be aware of class using it.
+\item A person driving a car is an association between two objects. Person is `using' a car.
+\item Student X and talking to student Y because they `know' each other and exchange views.
+\item A remote control can interact or talk to AC.
+\end{itemize}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
