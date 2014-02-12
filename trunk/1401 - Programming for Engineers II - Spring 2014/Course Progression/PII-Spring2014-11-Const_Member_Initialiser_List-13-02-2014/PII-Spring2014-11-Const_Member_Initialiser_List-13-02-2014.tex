@@ -1,0 +1,115 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 11\\Constant Data Members and Member Initialiser List}
+\author{Attique Dawood}
+\date{February 13, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz \#02.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Function Overloading.
+\item Inline Functions.
+\item Constructors: same as class name, no return type, only called once at object creation, can be overloaded.
+\end{itemize}
+\section{Constant Variables}
+\begin{itemize}
+\item Variables defined with \verb|const| keyword.
+\item Can only be initialised at declaration.
+\item If defined as class member, MUST be initialised using ``member initialiser list''.
+\item Normally, if a variable is guaranteed to have the same value throughout the execution of the program and that value is known beforehand, then it is declared as const. For example, speed of light or value of pi are constant and cannot change.
+\end{itemize}
+\begin{lstlisting}[caption={const variable}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main()
+{
+	const int x = 4;
+	x = 5;    // WRONG! Cannot change value of constant.
+	cin >> x; // WRONG! again. Cannot change value.
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Member Initialiser List}
+\begin{itemize}
+\item When data members of a class are declared as \verb|const| then they must be initialised using member initialiser list.
+\item Member initialiser list is a comma separated list of variables that are initialised before actual body of the constructor.
+\item Only constructors are allowed to have a member initialiser list.
+\item Non-constant members can also  be initialised using member initialiser list and it is generally the recommended way of initialising variables. But, \textbf{member initialiser list is the only way to initialise constant members}.
+\end{itemize}
+\begin{lstlisting}[caption={Using member initialiser list to initialise data members}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class Student
+{
+	private:
+	const int Roll;
+	const int Age;
+	float CGPA;
+	public:
+	Student();  // Default constructor.
+	void Display();
+};
+// Notice member initialiser list after ':'
+Student::Student(): Roll(100), Age(20), CGPA(2.f)
+{
+
+}
+void Student::Display()
+{
+	cout << "Roll: " << Roll << endl;
+	cout << "Age:  " << Age << endl;
+	cout << "CGPA: " << CGPA << endl;
+}
+
+int main()
+{
+	Student test;
+	test.Display();
+
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
