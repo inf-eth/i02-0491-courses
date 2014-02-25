@@ -1,0 +1,48 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-3cm}Programming for Engineers II\\Assignment 03\\Operator Overloading\\Complex Matrix Class}
+\author{Attique Dawood}
+\date{February 25, 2014\\Due: March 10, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item Overload different operators for the \verb|Complex| and \verb|Matrix| classes from assignment 2.
+\item Assignment 02 solution is provided. You can use that as a template for your assignment. Read the code carefully. Places where you need to make changes are indicated with a \verb|TODO| comment.
+\item Two \verb|Makefile|s have been provided with this assignment, a simple makefile and a generic makefile. From now on, you can use the generic makefile for you assignments/projects. Keep in mind a makefile must be named \verb|Makefile| or the \verb|make| command will not recognise it.
+\item Existing math functions must be replaced with operator functions.
+\item Replace \verb|Input()| and \verb|Display()| functions with stream operators, \verb|<<| and \verb|>>|.
+\item Copy constructor and assignment operator for \verb|Matrix| class must be overloaded so that matrix data is properly copied.
+\item Overload logical operators for both classes.
+\item Any other additional operators that you overload will count as bonus.
+\item Using a double pointer and dynamically storing matrix data will also count as bonus. For this you  need to properly allocate and deallocate memory using \verb|NULL| checks. In addition, provide a destructor.
+\end{enumerate}
+\end{document}
