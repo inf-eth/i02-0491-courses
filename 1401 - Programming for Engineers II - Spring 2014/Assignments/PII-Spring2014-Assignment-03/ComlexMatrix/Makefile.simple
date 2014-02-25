@@ -1,0 +1,20 @@
+# Simple Makefile for the ComplexMatrix program. Rename this file 'Makefile' before running 'make'.
+
+# Final output file should be the first rule.
+Binfile: Complex.o Matrix.o Main.o
+	g++ Complex.o Matrix.o Main.o -o Binfile
+	
+Complex.o: Complex.cpp Complex.hpp
+	g++ -c Complex.cpp -o Complex.o
+	
+Matrix.o: Matrix.cpp Matrix.hpp Complex.hpp
+	g++ -c Matrix.cpp -o Matrix.o
+	
+Main.o: Main.cpp Matrix.hpp
+	g++ -c Main.cpp -o Main.o
+	
+run: Binfile
+	./Binfile
+	
+clean:
+	rm -rf *.o Binfile

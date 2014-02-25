@@ -1,0 +1,248 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-40pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+\pagestyle{empty}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Marks of each question.
+\def\QOne{10}
+\def\Qtwo{10}
+\def\Qthree{10}
+\def\Qfour{10}
+\def\Qfive{10}
+\def\TotalMarks{50}
+
+\begin{document}
+\begin{minipage}{0.55\textwidth}
+{\LARGE \textbf{Programming for Engineers}}\\[0.15cm]
+{\normalsize \textbf{Spring 2014 Semester}}\\
+{\Large \textbf{$1^{st}$ Sessional Exam}}\\
+{\normalsize \textbf{Saturday, February 22, 2014}}\\[0.30cm]
+{\Large \textbf{Total Time: 60 minutes}}\\[0.15cm]
+{\Large \textbf{Total Marks: 50}}\\
+\textbf{Course Instructors:}\\
+Attique Dawood\\
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\textbf{Serial} \hrulefill \\[0.25cm]
+\textbf{Name} \hrulefill\\[0.25cm]
+\textbf{Section} \rule{1cm}{0.2mm} \textbf{Roll No:} \hrulefill\\[0.25cm]
+\textbf{Signature:} \hrulefill\\[0.25cm]
+\rule{6.6cm}{0.2mm}\\
+\textbf{Signature of Invigilator}\\[0.25cm]
+\end{minipage}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\large \begin{tabular}{|l|c|c|c|c|c|c|}
+	\hline
+		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{Total}\\
+		\hline
+		Marks Obtained \rule{0pt}{2.6ex} & & & & & &\\
+		\hline
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\noindent \textbf{You are advised to READ these notes:}
+\begin{enumerate}
+\item \textbf{Attempt on the Question Paper. \underline{NO EXTRA SHEET} will be provided/accepted. No
+additional sheet will be provided for rough work. Use the back of the page where
+provided space is not sufficient.}
+\item After asked to commence the exam, please verify that you have \textbf{\pageref{LastPage} different
+printed pages} including this title page.
+\item There are 5 questions. Attempt all of them. It is advisable to go through the paper once
+before starting with the first question.
+\item Exam is closed books, closed notes. Please see that the area in your threshold is clean.
+You will be charged for any material which can be classified as \textbf{`helping in the paper'}
+found near you.
+\item \textbf{Calculator sharing is strictly prohibited.}
+\item Students who attempt the paper with lead pencils lose the right to get them rechecked.
+\item \textbf{The invigilator present is not supposed to answer any questions. No one may come
+to your room for corrections and you are not supposed to request to call anyone.
+Make assumptions wherever required and clearly mark them.}
+\end{enumerate}
+\newpage
+
+\noindent\textbf{Question 1: Short Answers \hfill $5\times 4=$\QOne~marks}\\
+Answer the following in 1--4 lines.
+\begin{enumerate}
+\item[a.] What is new in object--oriented programming?
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 3.5cm);
+\end{tikzpicture}
+\end{figure}
+\item[b.] What is the difference between class and object?
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 3.5cm);
+\end{tikzpicture}
+\end{figure}
+\item[c.] What is member initialiser list?
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 3.5cm);
+\end{tikzpicture}
+\end{figure}
+\item[d.] What is scope resolution operator.
+\begin{figure}[H]
+\begin{tikzpicture}
+	\draw[thick] (0cm,0cm) rectangle (\textwidth, 3.5cm);
+\end{tikzpicture}
+\end{figure}
+\end{enumerate}
+\newpage
+
+\noindent\textbf{Question 2: Code correction\hfill \Qtwo~marks}\\
+Find errors in the given code and suggest corrections. Errors may be logical or in syntax.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class Circle
+{
+	private:
+	float radius;
+	float area = 0.f;
+	const float pi;
+	public:
+	// Default constructor.
+	void Circle(): radius(0.f), pi(3.14f)
+	{
+	}
+	// User-defined constructor.
+	Circle(float r)
+	{
+		radius = r;
+		CaclulateArea();
+	}
+	void CalculateArea()
+	{
+		area = 2*pi*r;
+	}
+	void Display()
+	{
+		cout << "Radius = " << radius << endl;
+		cout << "Area = " << area << endl;
+	}
+};
+\end{lstlisting}
+\newpage
+
+\noindent\textbf{Question 3:Makefile\hfill \Qthree~marks}\\
+You have a project with following files: \verb|complex.hpp|, \verb|complex.cpp|, \verb|matrix.hpp|, \verb|matrix.cpp| and \verb|main.cpp|. Write \verb|Makefile| for this project. Ensure that individual object files are created first and then linked together so that build process is efficient.
+\newpage
+
+\noindent\textbf{Question 4: Constructors/Destructors \hfill \Qfour~marks}\\
+Write the output of following program. Mention object name with constructor/destructor calls.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+class test
+{
+	public:
+	test() { cout << "DC" << endl; }
+	test(int x) { cout << "UDC" << endl; }
+	test(const test& t) { cout << "CC" << endl; }
+	~test() { cout << "D" << endl; }
+};
+void func1(test t)
+{
+}
+void func2(test& t)
+{
+}
+int main()
+{
+	test A, B(3);
+	test C = B;
+	func1(C);
+	func2(A);
+	test* D = new test;
+	test* E = new test;
+	delete D;
+	test* F;
+	return 0;
+}
+\end{lstlisting}
+\newpage
+
+\noindent\textbf{Question 5: Point Class \hfill \Qfive~marks}\\
+You are required to make a Point class to store x and y coordinates. Define the Point class so that code given in main() runs without any errors.
+\begin{lstlisting}[escapechar=!]
+#include <iostream>
+using namespace std;
+class Point
+{
+	private:
+	int x;
+	int y;
+	public:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
+int main()
+{
+	Point A(-2, 3); // x=-2, y=3
+	Point B(4, 7); // x=4, y=7
+	Point C; // x=0, y=0
+	C = A + B;
+	C.display(); // OUTPUT: x = 2, y = 10;
+
+	return 0;
+}
+\end{lstlisting}
+\end{document}
