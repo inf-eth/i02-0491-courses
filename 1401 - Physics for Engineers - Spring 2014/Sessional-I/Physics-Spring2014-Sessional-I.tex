@@ -39,13 +39,13 @@
 
 \begin{document}
 \begin{minipage}{0.55\textwidth}
-{\LARGE \textbf{Programming for Engineers}}\\[0.15cm]
+{\LARGE \textbf{Physics for Engineers}}\\[0.15cm]
 {\normalsize \textbf{Spring 2014 Semester}}\\
-{\Large \textbf{$1^{st}$ Sessional Exam}}\\
+{\Large \textbf{$2^{nd}$ Sessional Exam}}\\
 {\normalsize \textbf{Saturday, February 22, 2014}}\\[0.30cm]
 {\Large \textbf{Total Time: 60 minutes}}\\[0.15cm]
 {\Large \textbf{Total Marks: 50}}\\
-\textbf{Course Instructors:}\\
+\textbf{Course Instructor:}\\
 Attique Dawood\\
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
@@ -65,7 +65,7 @@ Attique Dawood\\
 		\hline
 		Marks Obtained \rule{0pt}{2.6ex} & & & & & &\\
 		\hline
-		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\		
 	\hline
 	\end{tabular}}
 \end{center}
@@ -89,168 +89,72 @@ to your room for corrections and you are not supposed to request to call anyone.
 Make assumptions wherever required and clearly mark them.}
 \end{enumerate}
 \newpage
-
-\noindent\textbf{Question 1: Short Answers \hfill $2.5\times 4=$\QOne~marks}\\
-Answer the following in 1--4 lines.
-\begin{enumerate}
-\item[a.] What is new in object--oriented programming?
-\begin{figure}[H]
-\begin{tikzpicture}
-	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
-\end{tikzpicture}
-\end{figure}
-\item[b.] What is the difference between class and object?
-\begin{figure}[H]
-\begin{tikzpicture}
-	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
-\end{tikzpicture}
-\end{figure}
-\item[c.] What is member initialiser list?
-\begin{figure}[H]
-\begin{tikzpicture}
-	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
-\end{tikzpicture}
-\end{figure}
-\item[d.] What is scope resolution operator.
-\begin{figure}[H]
-\begin{tikzpicture}
-	\draw[thick] (0cm,0cm) rectangle (\textwidth, 4cm);
-\end{tikzpicture}
-\end{figure}
-\end{enumerate}
+\noindent\textbf{Question 1: Coordinate Conversion\hfill \QOne~marks}\\
+Convert the point P(-1, 2, -3) to cylindrical and spherical coordinates.
 \newpage
 
-\noindent\textbf{Question 2: Code correction\hfill \Qtwo~marks}\\
-Find errors in the given code and suggest corrections. Errors may be logical or in syntax.
-\begin{lstlisting}
-#include <iostream>
-using namespace std;
-class Circle
-{
-	private:
-	float radius;
-	float area = 0.f;
-	const float pi;
-	public:
-	// Default constructor.
-	void Circle(): radius(0.f), pi(3.14f)
-	{
-	}
-	// User-defined constructor.
-	Circle(float r)
-	{
-		radius = r;
-		CaclulateArea();
-	}
-	void CalculateArea()
-	{
-		area = 2*pi*r;
-	}
-	void Display()
-	{
-		cout << "Radius = " << radius << endl;
-		cout << "Area = " << area << endl;
-	}
-};
-\end{lstlisting}
+\noindent \textbf{Question 2: Vector Fields and Vector Field Conversion\hfill \Qtwo~marks}\\
+A vector field is given by $\textbf{A}=(1-yz)\hat x+(x+y)\hat y+z^3\hat z$. What is the cylindrical coordinates representation of this vector field at (-2, 1, 1). Also find the magnitude at (-2, 1, 1). Magnitude can be found from either cartesian or cylindrical representation. Unit vector conversions are
+\begin{equation*}
+\begin{split}
+&\hat x=\cos\phi\hat \rho-\sin\phi \hat \phi\\
+&\hat y=\sin\phi\hat \rho+\cos\phi \hat \phi\\
+\end{split}
+\end{equation*}
 \newpage
 
-\noindent\textbf{Question 3:Makefile\hfill \Qthree~marks}\\
-You have a project with following files: \verb|complex.hpp|, \verb|complex.cpp|, \verb|matrix.hpp|, \verb|matrix.cpp| and \verb|main.cpp|. Write \verb|Makefile| for this project. Ensure that individual object files are created first and then linked together so that build process is efficient.
+\noindent\textbf{Question 3: Volume Integral \hfill \Qthree~marks}\\
+Find the total mass of a spherical rock of radius 1 m and mass density $\rho_m=\dfrac{3}{4\pi r}$ kg/m$^3$.
 \newpage
 
-\noindent\textbf{Question 4: Constructors/Destructors \hfill \Qfour~marks}\\
-Write the output of following program. Mention object name with constructor/destructor calls.
-\begin{lstlisting}
-#include <iostream>
-using namespace std;
-class test
-{
-	public:
-	test() { cout << "DC" << endl; }
-	test(int x) { cout << "UDC" << endl; }
-	test(const test& t) { cout << "CC" << endl; }
-	~test() { cout << "D" << endl; }
-};
-void func1(test t)
-{
-}
-void func2(test& t)
-{
-}
-int main()
-{
-	test A, B(3);
-	test C = B;
-	func1(C);
-	func2(A);
-	test* D = new test;
-	test* E = new test;
-	delete D;
-	test* F;
-	return 0;
-}
-\end{lstlisting}
+\noindent\textbf{Question 4: Flux of a Vector Field \hfill \Qfour~marks}\\
+Vector field in a region is $\textbf{A}=(z-yx)\hat x+(x+y)\hat y+z^3\hat z$. Evaluate the flux, $\int\limits_{S}\textbf{A}\cdot d\textbf{S}$, through the surface given by $x=-2$, $0<y<2$ and $-1<z<2$.
 \newpage
 
-\noindent\textbf{Question 5: Point Class \hfill \Qfive~marks}\\
-You are required to make a Point class to store x and y coordinates. Define the Point class so that code given in main() runs without any errors.
-\begin{lstlisting}[escapechar=!]
-#include <iostream>
-using namespace std;
-class Point
-{
-	private:
-	int x;
-	int y;
-	public:
+\noindent\textbf{Question 5: Line Integral \hfill \Qfive~marks}\\
+Force field in a region is $\textbf{F}=y^2\hat x+2xy\hat y$ find the work done in moving from A to C along
+\begin{itemize}
+\item[a.] Path ABC.
+\item[b.] Direct path AC.
+\end{itemize}
+Formula for work done is $W_{AC}=\int\limits_{A}^{C} \textbf{F}\cdot d\textbf{\textit{l}}$.
+\begin{figure}[H]
+\flushright
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
 
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (2cm, 2cm);
+	\draw[thick, ->, >=stealth] (2cm, 2cm) -- (2cm, 4cm);
+	%\draw[thick, ->, >=stealth] (2cm, 4cm) -- (1cm, 4cm);
+	%\draw[thick, ->, >=stealth] (1cm, 4cm) -- (1cm, 2cm);
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (1.5cm, 3cm);
+	\draw[thick] (1.5cm, 3cm) -- (2cm, 4cm);
 
+	\draw[dashed] (0cm, 0cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 2cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 4cm) -- (2cm, 4cm);
+	\draw[dashed] (1cm, 0cm) -- (1cm, 1.6cm);
+	\draw[dashed] (2cm, 0cm) -- (2cm, 1.6cm);
+	\draw[white,fill=white] (0.5cm,0.5cm) rectangle (1.5cm, 0.9cm);
+	\node at (1cm, 0.7cm){$y=2x$};
 
+	\coordinate[label=above:$C$] (C) at (2cm,4cm);
+	%\coordinate[label=above:$D$] (D) at (1cm,4cm);
+	\coordinate[label=below:$A$] (A) at (1cm,2cm);
+	\coordinate[label=below:$B$] (B) at (2cm,2cm);
+	
+	\coordinate[label=left:$2$] (y1) at (0cm,2cm);
+	\coordinate[label=left:$4$] (y2) at (0cm,4cm);
+	\coordinate[label=below:$1$] (x1) at (1cm,0cm);
+	\coordinate[label=below:$2$] (x2) at (2cm,0cm);
+	
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (0cm, 4.5cm);
+	\coordinate[label=above:$y$] (y) at (0cm,4.5cm);
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (3cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (3cm,0cm);
 
+\end{tikzpicture}
+\end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
-int main()
-{
-	Point A(-2, 3); // x=-2, y=3
-	Point B(4, 7); // x=4, y=7
-	Point C; // x=0, y=0
-	C = A + B;
-	C.display(); // OUTPUT: x = 2, y = 10;
-
-	return 0;
-}
-\end{lstlisting}
 \end{document}
