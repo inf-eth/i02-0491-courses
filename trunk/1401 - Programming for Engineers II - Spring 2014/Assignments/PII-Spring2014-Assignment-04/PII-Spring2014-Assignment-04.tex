@@ -1,0 +1,75 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Assignment 04\\Huge Int}
+\author{Attique Dawood}
+\date{March 13, 2014\\Due: March 20, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+You are required to design a class to store very large integers. There are two ways to do it, either pre-allocate a large array to hold digits of integer (easier) or create the array dynamically. You can call it HugeInt class.
+
+You are required to implement basic arithmetic and comparison operations. Also overload the stream operators ($<<, >>$) for input and output. It would be helpful if you define assignment operator/copy constructor and facility to convert to/from int variables. Here is a basic template of this class.
+\begin{lstlisting}
+class HugeInt
+{
+    private:
+    int Number[1000]; // This number can have a maximum of 1000 digits.
+    int Size; // Number of digits.
+
+    public:
+    HugeInt(); // default constructor.
+    HugeInt(const HugeInt&); // copy constructor.
+    HugeInt(int); // user-defined constructor to create huge int from give integer.
+    HugeInt& operator= (const HugeInt&); // assignment operator.
+    operator int(); // conversion to an integer.
+
+    // Arithmetic operations.
+    HugeInt operator+ (const HugeInt&);
+    HugeInt operator- (const HugeInt&);
+    HugeInt operator* (const HugeInt&);
+    HugeInt operator/ (const HugeInt&);
+
+    // Comparison operations.
+    bool operator== (const HugeInt&);
+    bool operator!= (const HugeInt&);
+    bool operator> (const HugeInt&);
+    bool operator< (const HugeInt&);
+    bool operator>= (const HugeInt&);
+    bool operator<= (const HugeInt&);
+
+    // Increment/decrement.
+    HugeInt operator++ (); // pre-decrement
+    HugeInt operator++ (int); // post-decrement
+    HugeInt operator-- (); // pre-decrement
+    HugeInt operator-- (int); // post-decrement
+};
+\end{lstlisting}
+\end{document}
