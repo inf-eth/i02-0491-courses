@@ -1,0 +1,201 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 24\\Private and Protected Inheritance\\Review}
+\author{Attique Dawood}
+\date{March 17, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\subsection{\texttt{friend}s}
+\begin{itemize}
+\item Sometimes an external function needs to access private members of a class. In this case that function must be made \verb|friend| of that class.
+\item Input/output stream operators \verb|<<| and \verb|>>| must be made \verb|friend|s of the class for which they are being overloaded. This is because you cannot change the \verb|cout| class.
+\item \verb|friend| \underline{functions are not members of the class}. Remember, member functions can already access private members.
+\item Arithmetic operators can also be defined outside the class by declaring them friends.
+\begin{lstlisting}[caption={operator+ prototype as member function and as \texttt{friend}}]
+Complex Complex::operator+ (Complex&); // member function
+Complex operator+ (Complex&, Complex&); // global friend function
+\end{lstlisting}
+\begin{lstlisting}[caption={operator+ implemented as \texttt{friend}}]
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+	private:
+	float real;
+	float img;
+	public:
+	Complex(): real(0.f), img(0.f) {}
+	Complex(float a, float b): real(a), img(b) {}
+	friend Complex operator+(Complex&, Complex&);
+};
+
+// operator+ function in this case is external to the class.
+// It cannot access private members of the class unless declared a `friend' in the class.
+Complex operator+(Complex& lhs, Complex& rhs)
+{
+	return Complex(lhs.real+rhs.real, lhs.img+rhs.img);
+}
+
+int main()
+{
+	Complex A(2.f,3.3f);
+	Complex B(2.32f,-1.3f);
+	Complex C;
+	C = A + B;
+
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\subsection{Inheritance}
+\begin{itemize}
+\item Inheritance provides a mechanism to make new classes from existing classes.
+\item Existing class is called `base' class and inherited class is called `derived' class.
+\item Derived class contains all the data members and functions of base class.
+\item Base class does not need to re--implement the functions already present in base class, therefore, existing code can be re--used.
+\item Derived class can contain new data members and functions. This extends the capabilities of the base class.
+\item Derived class can also change or re--implement functions in the base class. This provides flexibility in what derived class wants to do.
+\end{itemize}
+\subsection{Over--Riding Base Class Functions}
+\begin{itemize}
+\item If derived class contains a function of the same name as in base class then derived class function will `over--ride' base class function.
+\item Base class function is effectively `hidden'. Normal function call with dot operator will only call derived class function.
+\item To access base class function scope resolution operator is used with dot operator and base class name.
+\end{itemize}
+\section{Multiple Files}
+\begin{itemize}
+\item Until now you have only used a single file for your code. When creating large programs, code is spread between different header and code files according to relevance.
+\item Class definition is usually put in a file with .hpp extension. For Complex class this header should be named Complex.hpp. .hpp refers to C++ header whereas .h headers are normally used for C code. Headers without any extension are standard C++ headers like \verb|<iostream>|.
+\item Class implementation is put in a file with class name and .cpp extension. For Complex class this would be Complex.cpp.
+\item In main() header file is included as normal.
+\end{itemize}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Complex.hpp}]
+class Complex
+{
+	private:
+	float real, img;
+	public:
+
+	void Input();
+	void Display();
+};
+\end{lstlisting}
+\end{minipage}
+\hspace*{1cm}
+\begin{minipage}{7.5cm}
+\begin{lstlisting}[caption={Complex.cpp}]
+#include <iostream>
+#include <Complex.hpp>
+using namespace std;
+
+void Complex::Input()
+{
+	cin >> real >> img;
+}
+void Complex::Display()
+{
+	cout << real << img;
+}
+\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[caption={main.cpp}]
+#include <Complex.hpp>
+
+int main()
+{
+	Complex A;
+	A.Input();
+	A.Display();
+
+	return 0;
+}
+\end{lstlisting}
+\section{Ambiguities in Multiple Inheritance}
+\begin{enumerate}
+\item class A and class B both have functions called disp(). class C being derived from both class A and class B will not know which disp() to call if using dot operator. This can be resolved with either over--riding and making a new disp() function in class C OR using scope resolution operator.
+\item class A contains disp(). class B and class C are derived from class A. If another class D is derived from both B and C then class D won't know which disp() to call.
+\end{enumerate}
+\section{Private and Protected Members}
+\begin{itemize}
+\item Data or functions in a class can be either private, protected or public.
+\item In main() or outside the class, private and protected data/functions (members) cannot be accessed.
+\item A derived class cannot access private members of its base class. It can access protected and public members.
+\end{itemize}
+This can be summarised as:
+\begin{enumerate}
+\item Keeping members private is a way of saying, ``I do not want this accessible anywhere, in derived class(es) or in main()''.
+\item Keeping members protected is a way of saying, ``I want this to be accessible in derived class but not in main()''.
+\item Keeping members public is a way of saying, ``I want this to be accessible everywhere''.
+\end{enumerate}
+\begin{lstlisting}[caption={private and protected members}]
+class A
+{
+	private:
+	int x;
+	protected:
+	int y;
+	public:
+	int z;
+};
+class B: public A
+{
+	public:
+	void Test()
+	{
+		x = 3; // ERROR! cannot access private members of class A.
+		y = 3; // OK
+		z = 3; // OK
+	}
+};
+int main()
+{
+	B Bobj;
+	Bobj.x = 0; // ERROR!
+	Bobj.y = 0; // ERROR!
+	Bobj.z = 0; // OK
+	
+	return 0;
+}
+\end{lstlisting}
+What happens if we use \verb|class B: private A|? All protected and public members in A will now become private in B. They cannot be accessed in main().
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
