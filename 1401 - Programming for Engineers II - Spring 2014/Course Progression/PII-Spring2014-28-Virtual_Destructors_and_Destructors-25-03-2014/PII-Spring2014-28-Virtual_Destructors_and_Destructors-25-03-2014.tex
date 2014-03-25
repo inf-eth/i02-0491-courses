@@ -1,0 +1,116 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 28\\Polymorphism\\Virtual Destructors\\Virtual Inheritance to Resolve Ambiguities}
+\author{Attique Dawood}
+\date{March 25, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Polymorphism: Don't look at type of pointer, look at type of object it points.
+\item Polymorphism is achieved through virtual functions.
+\item Abstract classes. Making a virtual function, pure virtual results in an abstract class. Objects of abstract class cannot be instantiated.
+\end{itemize}
+\section{Virtual Destructors}
+\begin{itemize}
+\item Remember when an object is created, base class constructor is called first and then derived class constructor. \item When the object is destroyed destructors are called in reverse order, i.e., derived class first and then base class.
+\item If we're using the base class pointer to de--allocate memory then our compiler will think the object is of base class and only call base class destructor. We don't want this. We want to call the destructor of derived class.
+\item When using base class pointer, we need to make the destructors virtual so derived class destructors are called first.
+\end{itemize}
+\section{Ambiguities in Multiple Inheritance}
+\begin{enumerate}
+\item class A and class B both have functions called disp(). class C being derived from both class A and class B will not know which disp() to call if using dot operator. This can be resolved with either over--riding and making a new disp() function in class C OR using scope resolution operator.
+\item class A contains disp(). class B and class C are derived from class A. If another class D is derived from both B and C then class D won't know which disp() to call.
+\end{enumerate}
+\section{Virtual Inheritance: Resolving Ambiguities in Multiple Inheritance}
+\begin{itemize}
+\item Consider base class A with a data member named \verb|int data|.
+\item Classes B and C are both derived individually from class A and both contain a copy of \verb|data|.
+\item Class D is derived from both B and C containing \verb|A::data| and \verb|B::data|.
+\item Accessing \verb|data| directly in D will create an ambiguity.
+\item By specifying \verb|virtual| when deriving B and C from A, any classes further derived from B and C will only contain a single copy of \verb|data|.
+\end{itemize}
+\begin{lstlisting}[caption={Ambiguity in Multiple Inheritance}]
+#include <iostream>
+using namespace std;
+
+class A
+{
+	public:
+	int Data;
+};
+class B: public A
+{
+};
+class C: public A
+{
+};
+class D: public B, public C
+{
+	void Display()
+	{
+		cout << Data << endl; // Error: which data to display? B::data or C::data
+	}
+};
+\end{lstlisting}
+\begin{lstlisting}[caption={Resolving Ambiguity in Multiple Inheritance},escapechar=$]
+#include <iostream>
+using namespace std;
+
+class A
+{
+	public:
+	int Data;
+};
+class B: $\textcolor{red}{virtual}$ public A
+{
+};
+class C: $\textcolor{red}{virtual}$ public A
+{
+};
+class D: public B, public C
+{
+	void Display()
+	{
+		cout << Data << endl; // No ambiguity, there is only one data which is A::data.
+	}
+};
+\end{lstlisting}
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
