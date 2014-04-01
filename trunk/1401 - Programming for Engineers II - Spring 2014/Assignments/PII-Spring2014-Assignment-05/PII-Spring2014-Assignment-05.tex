@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Assignment 05\\Circuit Lab Inventory Simulation}
+\author{Attique Dawood}
+\date{March 27, 2014\\Due: April 03, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+In this assignment you will simulate Circuit lab inventory system. You need to first create classes for different components. The user will issue components from lab, use them and then return them. Use the concepts in polymorphism and inheritance to create a simulation.
+
+\section{Components}
+There are 5 different components available.
+\begin{itemize}
+\item[1] Resistor
+\item[2] Capacitor
+\item[3] Inductor
+\item[4] Transistor
+\item[5] Wire
+\end{itemize}
+Design classes for these components. All these components are derived from the \verb|Component| base class. \verb|Component| class should be made abstract.
+\section{Inventory}
+The lab inventory class will have an array of components. Initially there will be 20 components in the inventory. Make a dynamic array to hold components using a double pointer of \verb|Component| type. In the constructor of \verb|Inventory| class, 20 components will be randomly created.
+\section{User}
+The \verb|User| class will be interacting with \verb|Inventory| class and will issue components. User should be given a menu to choose a component to issue. Just like \verb|Inventory| class, user will also have an array of \verb|Component*|'s of size 5. The user can have at most 10 components. When user issues a component, the respective component will be deleted from inventory and added to user. When user returns a component that component will be re--added to inventory and user's component will be deleted.
+
+Users can have usernames and IDs and required to log in to the inventory system. If inventory doesn't contain an object of required type an appropriate error should be returned.
+\end{document}
