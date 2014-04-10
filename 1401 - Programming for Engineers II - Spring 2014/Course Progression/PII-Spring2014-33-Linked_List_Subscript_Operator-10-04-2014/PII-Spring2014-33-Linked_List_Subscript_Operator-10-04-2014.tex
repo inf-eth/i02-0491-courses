@@ -1,0 +1,380 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 33\\Linked List\\Subscript Operator\texttt{[]}}
+\author{Attique Dawood}
+\date{April 10, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment \#05 delayed till Monday.
+\end{itemize}
+\section{Linked List}
+\begin{itemize}
+\item Basic implementation with single next pointer (singly--linked list).
+\item Add, display, search and delete operations for singly--linked list.
+\end{itemize}
+\begin{lstlisting}[caption={Basic Singly--Linked List With Add, Display, Search and Delete functions}]
+#include <iostream>
+using namespace std;
+
+// Node
+class Node
+{
+public:
+	int Data;
+	Node* Next;
+};
+
+// Linked list class.
+class LinkedList
+{
+private:
+	Node* First;
+public:
+	// constructor
+	LinkedList(): First(NULL)
+	{
+	}
+	// Adds a node at the end of linked list.
+	void AddNode(int pData)
+	{
+		Node* NewNode;
+		NewNode = new Node;
+		NewNode->Data = pData;
+		NewNode->Next = NULL;
+		// If creating first node we need to change first pointer.
+		if (First == NULL)
+		{
+			First = NewNode;
+		}
+		// We need to traverse the whole list to get to last node.
+		else
+		{
+			// Find last node.
+			Node* temp;
+			temp = First;
+			while (temp->Next != NULL)
+				temp = temp->Next;
+			// temp now points to last node.
+			temp->Next = NewNode;
+		}
+	}
+	// Displays all entries in linked list.
+	void Display()
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			cout << "Data = " << temp->Data << endl;
+			temp = temp->Next;
+		}
+	}
+	// Search a data value.
+	int Search(int Key)
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			if (temp->Data == Key)
+				return 0;
+
+			temp = temp->Next;
+		}
+		return -1; // If we ever get here then search was unsuccessful.
+	}
+	// Delete a Node by data value.
+	int Delete(int Key)
+	{
+		// If List is empty then nothing to do.
+		if (First == NULL)
+			return -1;
+
+		Node* previous;
+		Node* current;
+		previous = current = First;
+		// Checking first node.
+		if (current->Data == Key)
+		{
+			// Delete First node. First will now point to next node.
+			First = First->Next;
+			delete current;
+			return 0;
+		}
+		else
+		{
+			current = current->Next; // Move current pointer to next node.
+			while(current != NULL)
+			{
+				// If entry is matched then link previous node to next node and delete current node.
+				if (current->Data == Key)
+				{
+					previous->Next = current->Next;
+					delete current;
+					return 0;
+				}
+				// Move pointers forward.
+				previous = current;
+				current = current->Next;
+			}
+		}
+		return -1; // If we ever get here then search was unsuccessful.
+	}
+};
+
+int main()
+{
+	LinkedList TestList;
+
+	TestList.AddNode(-1);
+	TestList.AddNode(2);
+	TestList.AddNode(0);
+	TestList.AddNode(7);
+
+	cout << "Displaying Linked List: " << endl;
+	TestList.Display();
+
+	int SearchKey = 2;
+	if (TestList.Search(SearchKey) == 0)
+		cout << SearchKey << " is in the list." << endl;
+
+	if (TestList.Delete(SearchKey) == 0)
+		cout << SearchKey << " was deleted." << endl;
+
+	cout << "Displaying Linked List: " << endl;
+	TestList.Display();
+
+	return 0;
+}
+\end{lstlisting}
+\section{Overloading the Subscript Operator}
+\begin{itemize}
+\item What if we want to get and set the entries in our list like an array? \verb|GetAt()| and \verb|SetAt()| functions. An elegant solution is to overload subscript operator\verb|[]|.
+\item We need to keep track of number of entries in our list so we keep a count variable.
+\item Remember we still need to call the add node function to increase the size of our linked list.
+\end{itemize}
+\begin{lstlisting}[caption={Overloading subscript operator. Changes for `Count' are highlighted in red.},escapechar=$]
+#include <iostream>
+using namespace std;
+
+// Node
+class Node
+{
+public:
+	int Data;
+	Node* Next;
+};
+
+// Linked list class.
+class LinkedList
+{
+private:
+	Node* First;
+	$\textcolor{red}{int Count;}$
+public:
+	// Constructor.
+	LinkedList(): First(NULL), $\textcolor{red}{Count(0)}$
+	{
+	}
+	// Adds a node at the end of linked list.
+	void AddNode(int pData)
+	{
+		// If creating first node we need to change first pointer.
+		if (First == NULL)
+		{
+			Node* NewNode;
+			NewNode = new Node;
+			NewNode->Data = pData;
+			NewNode->Next = NULL;
+			First = NewNode;
+			$\textcolor{red}{Count++;}$
+		}
+		// We need to traverse the whole list to get to last node.
+		else
+		{
+			// Find last node.
+			Node* temp;
+			temp = First;
+			while (temp->Next != NULL)
+				temp = temp->Next;
+			// temp now points to last node.
+			Node* NewNode;
+			NewNode = new Node;
+			temp->Next = NewNode;
+			NewNode->Data = pData;
+			NewNode->Next = NULL;
+			$\textcolor{red}{Count++;}$
+		}
+	}
+	// Displays all entries in linked list.
+	void Display()
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			cout << "Data = " << temp->Data << endl;
+			temp = temp->Next;
+		}
+	}
+	// Search a data value.
+	int Search(int Key)
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			if (temp->Data == Key)
+				return 0;
+
+			temp = temp->Next;
+		}
+		return -1; // If we ever get here then search was unsuccessful.
+	}
+	// Delete a Node by data value.
+	int Delete(int Key)
+	{
+		// If List is empty then nothing to do.
+		if (First == NULL)
+			return -1;
+
+		Node* previous;
+		Node* current;
+		previous = current = First;
+		// Checking first node.
+		if (current->Data == Key)
+		{
+			// Delete First node. First will now point to next node.
+			First = First->Next;
+			delete current;
+			$\textcolor{red}{Count--;}$
+			return 0;
+		}
+		else
+		{
+			current = current->Next; // Move current pointer to next node.
+			while(current != NULL)
+			{
+				// If entry is matched then link previous node to next node and delete current node.
+				if (current->Data == Key)
+				{
+					previous->Next = current->Next;
+					delete current;
+					$\textcolor{red}{Count--;}$
+					return 0;
+				}
+				// Move pointers forward.
+				previous = current;
+				current = current->Next;
+			}
+		}
+		return -1; // If we ever get here then search was unsuccessful.
+	}
+	// Get size of linked list.
+	int GetCount()
+	{
+		return Count;
+	}
+	// Subscript operator.
+	int& operator[](int Index)
+	{
+		// Checking index bounds.
+		if (Index < 0 || Index >= Count)
+		{
+			cout << "Index out of bounds. Exiting..." << endl;
+			exit(-1);
+		}
+		else
+		{
+			// Move temp pointer to point to node at desired index.
+			Node* temp = First;
+			for (int i=0; i<Index; i++)
+				temp = temp->Next;
+
+			return temp->Data;
+		}
+	}
+};
+
+int main()
+{
+	LinkedList TestList;
+
+	TestList.AddNode(-1);
+	TestList.AddNode(2);
+	TestList.AddNode(0);
+	TestList.AddNode(7);
+
+	cout << "Displaying Linked List: " << endl;
+	TestList.Display();
+
+	int SearchKey = 2;
+	if (TestList.Search(SearchKey) == 0)
+		cout << SearchKey << " is in the list." << endl;
+
+	if (TestList.Delete(SearchKey) == 0)
+		cout << SearchKey << " was deleted." << endl;
+
+	cout << "Displaying Linked List: " << endl;
+	TestList.Display();
+	
+	TestList[0] = -122;
+	cout << "Displaying Linked List: " << endl;
+	for (int i=0; i<TestList.GetCount(); i++)
+		cout << TestList[i] << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{Advanced Linked List Concepts}
+\begin{itemize}
+\item \textbf{Doubly--linked list:} Can traverse in both directions. Electronic quiz; can skip questions and then come back again later.
+\item \textbf{Circular--linked list:} First and last nodes are joined together.
+\item \textbf{Indexing:} Index in a book? Helps you remember where you left off. Just a pointer to some node just like first and last. Can move forward or backward. Get the value at current index. Can reset index at 
+\end{itemize}
+\section{Adding a node at Beginning, Middle or End: Sorted Insertion?}
+\begin{itemize}
+\item Why do we need to insert at some random location? Insertion sort.
+\item Creates a sorted list.
+\item Easier to search a sorted list. Don't have to go through all the list.
+\end{itemize}
+\textbf{Question 1:} Modify the list in listing 1 and add a \verb|SortedInsertion()| function. This function will assume the list is sorted and add the data at appropriate position in the list.\\
+\textbf{Question 2:} Create a doubly--linked list. The node contains a previous pointer in addition to next pointer. Previous pointer will point to previous node. Make functions provide add, display, search and delete functionality.\\
+\textbf{Question 3:} Make the above list circular, i.e., link first and last nodes. Keep an index pointer in the linked list. Index can point to any node. Make functions to move index forward or backward and a \verb|GetIndex()| function to return the value at current location of index.\\
+\textbf{Note:} Each of the above questions is worth 1 absolute point. Only first correct submission will be accepted. Students with lesser grades will be preferred.
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{OOPref}
+\end{document}
