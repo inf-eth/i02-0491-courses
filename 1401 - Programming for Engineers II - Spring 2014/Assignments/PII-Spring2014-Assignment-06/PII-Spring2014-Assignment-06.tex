@@ -29,25 +29,41 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-3cm}Programming for Engineers II - Spring 2014\\Quiz \#04B}
-\date{\vspace{-1.5cm}Date: 24--03--2014}
+\title{\vspace{-2cm}Programming for Engineers II\\Assignment 06\\Doubly--Linked List}
+\author{Attique Dawood}
+\date{April 15, 2014\\Due: April 22, 2014\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
-\vspace{-0.5cm}
-\noindent \textbf{Time: 5 minutes\hfill Total Marks: 10}\\[0.3cm]
-\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
-\noindent \textbf{Question:} What is overriding in the context of inheritance? Give an example.\\
-If a variable of function of same name exists in base class and derived class; the function or variable in derived class overrides or hides the function/variable in base class when it is called.
+Create a doubly--linked list. Linked list class template is given. 
 \begin{lstlisting}
-class A
+class Node
 {
 	public:
-	void test() { // A's test }
+	int Data;
+	Node* Next;
+	Node* Previous;
 };
-class B: public A
+class LinkedList
 {
+	private:
+	Node* First;
+	Node* Last;
+	int Count;
 	public:
-	void test() { // B's test} // A's test function is over-ridden by this.
-};
+	LinkedList();  // Constructor.
+	~LinkedList(); // Destructor.
+	
+	// Node addition functions.
+	void AddAtStart(int); // Adds node at beginning of list.
+	void AddAtEnd(int);   // Adds node at end of list (default).
+	void AddSorted(int);  // Adds a node in sorted order assuming list is already sorted in ascending order.
+	
+	void Display(); // Display linked list.
+	int Search(int); // If search is successful, 0 is returned otherwise -1 is returned.
+	int Delete(int); // If search is successful and node is deleted, 0 is returned otherwise -1 is returned.
+	int& operator[](int); // Array subscript operator.
+	void BubbleSort(); // Applies bubble-sort on linked list and sorts in ascending order.
+	
+};	
 \end{lstlisting}
 \end{document}
