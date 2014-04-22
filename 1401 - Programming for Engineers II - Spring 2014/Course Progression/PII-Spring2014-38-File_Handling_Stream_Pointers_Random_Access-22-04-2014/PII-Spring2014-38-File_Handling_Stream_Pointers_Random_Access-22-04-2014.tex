@@ -1,0 +1,293 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 38\\File Handling\\Stream Pointers (get and put)\\Random Access: Reading/Writing Objects}
+\author{Attique Dawood}
+\date{April 22, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz \#06 today.
+\end{itemize}
+\section{Put and Get Pointers}
+\begin{itemize}
+\item When you open a file a special read pointer is set to point at the start of file.
+\item The read pointer (called a `\textbf{get}' pointer in C++) is moved forward as you read from file.
+\item If you read 1 byte, get pointer is moved 1 byte forward.
+\item Essentially the get pointer points to the location in the file where next read is expected.
+\item Similar to the get pointer, a `\textbf{put}' is used when writing to a file.
+\item The put pointer keeps track where last write was performed. Normally it points to the end of file if data is being appended.
+\item The get and put pointers can be manipulated to write/read data from any random location in file.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lcc}
+	\hline \hline
+		\textbf{Type} \rule{0pt}{2.6ex} & \textbf{Get Position} & \textbf{Set Position}\\
+		\hline
+		Read (get)\rule{0pt}{2.6ex} &  \verb|tellg()| & \verb|seekg()|\\
+		Write (put)\rule{0pt}{2.6ex} & \verb|tellp()| & \verb|seekp()|\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{GetandPutPointers}
+\caption{Get and Put Pointers}
+\end{table}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lp{9cm}}
+	\hline \hline
+		\textbf{Syntax} \rule{0pt}{2.6ex} & \textbf{Description}\\
+		\hline
+		\verb|cout << (int) tellp();| \rule{0pt}{2.6ex} & Display the current location of put pointer\\
+		\verb|seekg(ios::beg);| \rule{0pt}{2.6ex} & Set the location of get pointer at start of file\\
+		\verb|seekp(0, ios::end);| \rule{0pt}{2.6ex} & Set the location of put pointer at end of file\\
+		\verb|seekp(10);| \rule{0pt}{2.6ex} & Set the location of put pointer to 10$^{th}$ byte in file\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{ManipulatingGetandPutPointers}
+\caption{Manipulating Get and Put Pointers}
+\section{Example: Random Access of Student Record from Binary File}
+\noindent\textbf{Note:} For the following code to work, the size of object \textit{must} be constant. You cannot use\\ \texttt{string} class to store student name.\\
+\end{table}
+\begin{lstlisting}[caption={Random access in binary file}]
+#include <iostream>
+#include <fstream>		// File handling library.
+using namespace std;
+
+class StudentInfo
+{
+	public:
+	char Name[20];
+	int Age;
+	float CGPA;
+	char Gender;
+};
+
+void Input(StudentInfo& S)
+{
+	cout << "Enter student information: " << endl;
+	cout << "Name: ";
+	if (cin.peek() == '\n') cin.ignore();
+	cin.getline(S.Name, 20);
+	cout << "Age: ";
+	cin >> S.Age;
+	cout << "CGPA: ";
+	cin >> S.CGPA;
+	cout << "Gender (M/F): ";
+	cin >> S.Gender;
+}
+
+void Display(StudentInfo& S)
+{
+	switch (S.Gender)
+	{
+		case 'M':
+			cout << "Name: Mr. " << S.Name << endl;
+			break;
+		case 'F':
+			cout << "Name: Ms. " << S.Name << endl;
+			break;
+	}
+	cout << "Age: " << S.Age << endl;
+	cout << "CGPA: " << S.CGPA << endl;
+}
+
+int main()
+{
+	char Option;
+	cout << "=========== Menu ==========" << endl;
+	cout << "1. Add a new record." << endl
+		 << "2. Display all records." << endl
+		 << "3. Search for a record." << endl
+		 << "4. Update a record." << endl;
+	cout << "===========================" << endl;
+	cout << "Select an option: ";
+	cin >> Option;
+
+	switch(Option)
+	{
+		// =============================== Add New Record =============================
+		case '1':
+		{
+			StudentInfo S;
+			// Input record.
+			Input(S);
+			fstream OutFile;	// File handling object.
+
+			// Open "records.rec" for writing in binary mode (ios::out|ios::binary|ios::app). This will append data to file.
+			OutFile.open("records.rec", ios::out|ios::binary|ios::app);
+			OutFile.write((char*)&S, sizeof(StudentInfo));
+			OutFile.close();	// Close file.
+
+			break;
+		}
+		// =============================== Display All Records =============================
+		case '2':
+		{
+			StudentInfo S;
+			fstream InFile;	// File handling object.
+
+			// Open "records.rec" for reading in binary mode (ios::in|ios::binary).
+			InFile.open("records.rec", ios::in|ios::binary);
+
+			// Find number of records in file.
+			InFile.seekg(0, ios::end); // Set get pointer at end of file.
+			int NoOfRecords = (int)InFile.tellg() / sizeof(StudentInfo); // Total records is total bytes in file / size of one record.
+			cout << "Total records in file = " << NoOfRecords << endl;
+			InFile.seekg(ios::beg); // Set pointer to start of file before reading.
+
+			// Traverse the whole file.
+			for (int i=0; i<NoOfRecords; i++)
+			
+			{
+				// Read a record.
+				InFile.read((char*)&S, sizeof(StudentInfo));
+
+				// Display record.
+				cout << "-------- Record " << i+1 << " --------" << endl;
+				Display(S);
+			}
+			InFile.close();	// Close file.
+
+			break;
+		}
+		// =============================== Search for a Record =============================
+		case '3':
+		{
+			StudentInfo S;
+			fstream InFile;	// File handling object.
+			char SearchName[20];
+			bool Found = false; // Was the record found?
+			cout << "Enter a name to search: ";
+			if (cin.peek() == '\n') cin.ignore();
+			cin.getline(SearchName, 20);
+
+			// Open "records.rec" for reading in binary mode (ios::in|ios::binary).
+			InFile.open("records.rec", ios::in|ios::binary);
+
+			// Find number of records in file.
+			InFile.seekg(0, ios::end); // Set get pointer at end of file.
+			int NoOfRecords = (int)InFile.tellg() / sizeof(StudentInfo); // Total records is total bytes in file / size of one record.
+			cout << "Total Records in file = " << NoOfRecords << endl;
+			InFile.seekg(ios::beg); // Set pointer to start of file before reading.
+
+			// Traverse the whole file.
+			for (int i=0; i<NoOfRecords; i++)
+			{
+				// Read a record.
+				InFile.read((char*)&S, sizeof(StudentInfo));
+
+				if (strcmp(S.Name, SearchName) == 0)
+				{
+					cout << "Record was found!" << endl;
+					Found = true;
+
+					// Display record.
+					cout << "-------- Record " << i+1 << " --------" << endl;
+					Display(S);
+				}
+			}
+			InFile.close();	// Close file.
+
+			if (Found == false)
+				cout << "Record was not found!" << endl;
+
+			break;
+		}
+		// =============================== Update Record =============================
+		case '4':
+		{
+			StudentInfo S;
+			fstream File;	// File handling object.
+			char SearchName[20];
+			bool Found = false; // Was the record found?
+			cout << "Enter a name to search: ";
+			if (cin.peek() == '\n') cin.ignore();
+			cin.getline(SearchName, 20);
+
+			// Open "records.rec" for reading and writing in binary mode (ios::in|ios::binary).
+			File.open("records.rec", ios::in|ios::out|ios::binary);
+
+			// Find number of records in file.
+			File.seekg(0, ios::end); // Set get pointer at end of file.
+			int NoOfRecords = (int)File.tellg() / sizeof(StudentInfo); // Total records is total bytes in file / size of one record.
+			cout << "Total Records in file = " << NoOfRecords << endl;
+			File.seekg(ios::beg); // Set pointer to start of file before reading.
+
+			// Traverse the whole file.
+			for (int i=0; i<NoOfRecords; i++)
+			{
+				// Read a record.
+				File.read((char*)&S, sizeof(StudentInfo));
+
+				if (strcmp(S.Name, SearchName) == 0)
+				{
+					cout << "Record was found!" << endl;
+					Found = true;
+
+					// Display record.
+					cout << "-------- Record " << i+1 << " --------" << endl;
+					Display(S);
+
+					cout << "Please update student information: " << endl;
+					Input(S);
+					File.seekp(i*sizeof(StudentInfo)); // Set put/write pointer at location of record.
+					File.write((char*)&S, sizeof(StudentInfo));
+					cout << "Record was updated!" << endl;
+				}
+			}
+			File.close();	// Close file.
+
+			if (Found == false)
+				cout << "Record was not found!" << endl;
+
+			break;
+		}
+		// =============================== Default Case =============================
+		default:
+		{
+			cout << "Invalid choice." << endl;
+			break;
+		}
+	}
+	return 0;
+}
+\end{lstlisting}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
