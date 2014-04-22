@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Assignment 07\\File Handling}
+\author{Attique Dawood}
+\date{April 22, 2014\\Due: April 28, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+Create a \verb|StudentDatabase| class to handle student records. All student data must be stored in a binary file. All operations should be performed on file. Provide a menu in \verb|main()| to perform the file operations.
+\begin{lstlisting}
+// Note: Student object size in memory is 32 bytes if using 8 byte structure boundaries (default).
+class Student
+{
+	private:
+	char Name[20];
+	int Age;
+	float CGPA;
+	char Gender; // 'M' or 'F'.
+	public:
+	// Can overload stream operators for input and output.
+	void Input();
+	void Display();
+};
+class StudentDatabase
+{
+	public:
+	void DisplayAllRecords(); // Reads the whole file and displays all records.
+	void AddRecord(); // Input Student attributes and stores record on file.
+	void SearchRecord(); // Search record from file and display it if found.
+	void DeleteRecord(); // Deletes a record from file.
+	// To delete a record from file: Write all the records in the file, except for the record to be deleted, in a temporary file. Overwrite the original file with temporary file. Original filesize should decrease by 32 bytes.
+};
+\end{lstlisting}
+\end{document}
