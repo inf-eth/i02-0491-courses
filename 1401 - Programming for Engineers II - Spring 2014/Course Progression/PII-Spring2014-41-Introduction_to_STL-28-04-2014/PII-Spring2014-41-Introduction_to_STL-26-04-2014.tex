@@ -1,0 +1,167 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 41\\Introduction to STL}
+\author{Attique Dawood}
+\date{April 28, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz \#07 today.
+\end{itemize}
+\section{Standard Template Library (STL Containers)}
+
+A container is a holder object that stores a collection of other objects (its elements). 
+They are implemented as class templates, which allows a great flexibility in the types supported as elements.
+
+The container manages the storage space for its elements and provides member functions to access them,
+either directly or through iterators (reference objects with similar properties to pointers).
+
+Containers replicate structures very commonly used in programming:
+\begin{itemize}
+\item[-] dynamic arrays (vector)
+\item[-] linked lists (list)
+\item[-] queues (queue)
+\item[-] stacks (stack)
+\item[-] heaps (priority\_queue)
+\item[-] trees (set)
+\item[-] associative arrays (map)
+\end{itemize}
+Many containers have several member functions in common, and share functionalities.
+The decision of which type of container to use for a specific need does not generally depend only on the
+functionality offered by the container, but also on the efficiency of some of its members (complexity).
+This is especially true for sequence containers, which offer different trade-offs in complexity between
+inserting/removing elements and accessing them.
+
+stack, queue and priority\_queue are implemented as container adaptors.
+Container adaptors are not full container classes, but classes that provide a specific interface relying
+on an object of one of the container classes (such as deque or list) to handle the elements.
+The underlying container is encapsulated in such a way that its elements are accessed by the members of the
+container class independently of the underlying container class used.
+
+This excerpt was taken from \cite{Ref:CPP-STL}
+
+\section{Vector Usage}
+- Header:
+\begin{verbatim}
+  #include <vector>
+  using std::vector;
+\end{verbatim}
+- Create vector object:
+\begin{verbatim}
+  vector<int> intvector;
+  vector<myclassname> myclassvector;
+\end{verbatim}
+- Initialization:
+\begin{verbatim}
+  intvector.resize (20, 0); // int vector of size 20, all values intialized to 0.
+\end{verbatim}
+- Get size: Total number of elements in vector.
+\begin{verbatim}
+  int mysize = intvector.size();
+  cout << intvector.size(); 
+\end{verbatim}
+- Insertion:
+\begin{verbatim}
+  Single insertion at back: intvector.push_back (3); // Creates a new integer, NOT the same as assignment. Size increases by one.
+  Single or multiple insertions at a specific location:
+  - intvector.insert (intvector.begin()+1, 1, 33); // Insert 33 at 2nd location.
+  - intvector.insert (intvector.begin(), 3, 1); // Insert 3 1's at the beginning.
+\end{verbatim}
+- Access:
+\begin{verbatim}
+  Operator [] can be used to access entries:
+  - int x = intvector[2]; // NOTE: This is NOT the same as insertion. Size remains same.
+  - intvector[5] = 22;
+\end{verbatim}
+- Deletion:
+\begin{verbatim}
+  Delete a single entry: 
+  - myvector.erase (myvector.begin()+i); // Delete ith entry. Size is reduced by one.
+  Delete a range of entries: 
+  - myvector.erase (myvector.begin()+1, myvector.begin()+5); // Delete elements in the range 2-6
+  Delete vector:
+  - myvector.clear ();
+\end{verbatim}
+
+\section{Tasks}
+\textbf{1. Create a dynamic array of integers using vector. Display contents after each step.}
+\begin{itemize}
+\item[-] Insert 10 random numbers.
+\item[-] Display the contents.
+\item[-] Delete first element.
+\item[-] Delete 3rd , 4th and 5th elements.
+\item[-] Insert 2 4's at beginning (index 0).
+\item[-] Insert 4 -1's starting at second last location.
+\item[-] Display final size.
+\item[-] Delete vector.
+\item[-] Resize the vector to 20 size initialized to -1's.
+\item[-] Set values randomly. Size remains 20.
+\end{itemize}
+\textbf{2. Create dynamic 2D and 3D arrays using vectors.}
+\begin{verbatim}
+int rows = 3;
+int cols = 5;
+- vector<vector<int>> my2DArray (rows, vector<int>(cols)); // Declaration.
+- Elements can be accessed using double subscript notation [][] in nested for loops.
+\end{verbatim}
+\subsection{Helpful Resources}
+- If string input is being skipped, use the following before getline() statement.
+\begin{verbatim}
+  if (cin.peek() == '\n')
+      cin.ignore();
+  getline (cin, stringname, '\n');
+\end{verbatim}
+- getline() can be used to read from a txt file line by line.
+\begin{verbatim}
+  fstream file("abc.txt", ios::in);
+  while (true)
+  {
+      getline(file, tempstring, '\n');
+      if (file.eof())
+          break;
+      cout << "Read: " << tempstring << endl;
+  }
+  file.close();
+\end{verbatim}
+- To access the char* in string use stringname.c\_str();
+\begin{verbatim}
+  fstream file("abc.txt", ios::out);
+  string message = "this is a mesage. Writing this to file.";
+  file << message.c_str() << endl;
+  file.close();
+\end{verbatim}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
