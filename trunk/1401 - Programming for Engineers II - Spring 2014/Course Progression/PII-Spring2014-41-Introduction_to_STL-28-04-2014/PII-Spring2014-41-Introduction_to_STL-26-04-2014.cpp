@@ -47,3 +47,33 @@ int main()
 	return 0;
 }
 \end{lstlisting}
+
+\begin{lstlisting}[caption={Class template}]
+#include <iostream>
+using namespace std;
+template <class MyType> class GenericArray
+{
+	private:
+	MyType Data[5];
+	public:
+	void Input()
+	{
+		for (int i=0; i<5; i++)
+			cin >> Data[i];
+	}
+	void Display()
+	{
+		for (int i=0; i<5; i++)
+			cout << Data[i] << " ";
+		cout << endl;
+	}
+};
+int main()
+{
+	GenericArray<int> IntArray;
+	IntArray.Input();
+	IntArray.Display();
+	
+	return 0;
+}
+\end{lstlisting}
