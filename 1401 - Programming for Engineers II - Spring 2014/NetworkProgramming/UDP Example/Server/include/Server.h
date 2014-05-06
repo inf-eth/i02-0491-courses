@@ -2,6 +2,7 @@
 #if defined __linux__ || defined __CYGWIN__
 #include <netdb.h>			// gethostbyname (), bind(), listen(), connect(), accept(), send(), receive()
 #include <arpa/inet.h>		// inet_ntoa(), bind(), listen(), connect(), accept(), send(), receive()
+#include <unistd.h>			// close()
 #define close close
 #else
 #include <WinSock2.h>
