@@ -1,0 +1,64 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{enumerate}
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers II\\Class 43\\Network Programming}
+\author{Attique Dawood}
+\date{May 05, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Network Programming Concepts}
+\subsection{IP Address}
+IP Address is the address of a computer. To send a message to a particular computer we need its IP address.
+\subsection{Port}
+Let's say Person A and Person B live in a House. If you want to send a letter to Person A you'll first write the house address and on top of it mention that it is addressed to Person A. Similarly, in a computer, hundreds of processes may be running at a time. To send a message to a particular process you mention \textbf{Port} number of process. Two processes cannot have the same port number. So, processes in a computer are distinguished by their port numbers. A port number can be any number in the range 1--65535. Usually port numbers 1--200 are reserved for system processes, e.g., port 80 is for http protocol. Rest of the port numbers can be acquired by any process.
+\subsection{Socket}
+Socket is the mail box outside your home. You put letter in it that are taken away by postman and you can take take letters out of it that postman delivers. A process must associate its port number and IP address with a socket in order to communicate with outside world.
+\subsection{\texttt{bind()}}
+\verb|bind()| is used to bind IP address, port number and socket together. This is necessary before communication can start.
+\subsection{\texttt{send()} and \texttt{receive}}
+\verb|send()| or \verb|sendto()| sends data or message, whereas, \verb|receive()| or \verb|receivefrom()| receives data. \verb|receive|'ing is blocking. A process will wait indefinitely until it receives a message. If two processes are communicating then they must NOT call \verb|receive()| at the same time or they will both block. \verb|send()| and \verb|receive()| calls must alternate between two processes so that if one process is \verb|send|'ing the other is \verb|receive|'ing. It should be ensured that consecutive \verb|send()| or \verb|receive()| calls are never made by a single process.
+\subsection{TCP and UDP}
+TCP and UDP are two modes of communication in IP.
+\begin{itemize}
+\item TCP uses \verb|send()| and \verb|receive()| while UDP uses \verb|sendto()| and \verb|receivefrom()|.
+\item UDP is like posting a letter. Any packet can be sent to or received from any IP address. 
+\item TCP is like a phone call. A connection is established between a Server and Client. Client is the one calling and Server is the one accepting calls.
+\item Although Client and Server don't exist in UDP technically, the two computers communicating using UDP are commonly distinguished by calling one Server and the other Client. Normally Server is the one that starts in waiting (\verb|receivefrom()|) state.
+\end{itemize}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{OOPref}
+\end{document}
