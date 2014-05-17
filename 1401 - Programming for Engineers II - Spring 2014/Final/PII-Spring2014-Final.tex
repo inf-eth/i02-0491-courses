@@ -1,0 +1,158 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+\pagestyle{empty}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\scriptsize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Marks of each question.
+\def\QOne{20}
+\def\Qtwo{20}
+\def\Qthree{20}
+\def\Qfour{20}
+\def\Qfive{20}
+\def\Qsix{10}
+\def\Qseven{10}
+\def\Qeight{10}
+\def\Qnine{10}
+\def\Qten{10}
+\def\TotalMarks{100}
+
+\newcommand\emptypage[1]
+{
+	\newpage
+	\thispagestyle{empty}
+	\mbox{}
+}
+
+\begin{document}
+\begin{minipage}{0.55\textwidth}
+{\LARGE \textbf{Programming for Engineers -- II}}\\[0.15cm]
+{\normalsize \textbf{Spring 2014 Semester}}\\
+{\Large \textbf{Final Exam}}\\
+{\normalsize \textbf{Friday, May 16, 2014}}\\[0.30cm]
+{\Large \textbf{Total Time: 180 minutes}}\\[0.15cm]
+{\Large \textbf{Total Marks: 100}}\\
+\textbf{Course Instructor:}\\
+Attique Dawood\\
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\textbf{Serial} \hrulefill \\[0.25cm]
+\textbf{Name} \hrulefill\\[0.25cm]
+\textbf{Section} \rule{1cm}{0.2mm} \textbf{Roll No:} \hrulefill\\[0.25cm]
+\textbf{Signature:} \hrulefill\\[0.25cm]
+\rule{6.6cm}{0.2mm}\\
+\textbf{Signature of Invigilator}\\[0.25cm]
+\end{minipage}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\large \begin{tabular}{|l|c|c|c|c|c|c|}
+	\hline
+		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{Total}\\
+		\hline
+		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
+		\hline
+		Marks Obtained \rule{0pt}{2.6ex} & & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\noindent \textbf{You are advised to READ these notes:}
+\begin{enumerate}
+\item \textbf{Attempt on the Question Paper. \underline{NO EXTRA SHEET} will be provided/accepted. No
+additional sheet will be provided for rough work. Use the back of the page where
+provided space is not sufficient.}
+\item After asked to commence the exam, please verify that you have \textbf{\pageref{LastPage} different
+printed pages} including this title page.
+\item There are 5 questions. Attempt all of them. It is advisable to go through the paper once
+before starting with the first question.
+\item Exam is closed books, closed notes. Please see that the area in your threshold is clean.
+You will be charged for any material which can be classified as \textbf{`helping in the paper'}
+found near you.
+\item All distances and coordinates are in meters.
+\item \textbf{Calculator sharing is strictly prohibited.}
+\item Students who attempt the paper with lead pencils lose the right to get them rechecked.
+\item \textbf{The invigilator present is not supposed to answer any questions. No one may come
+to your room for corrections and you are not supposed to request to call anyone.
+Make assumptions wherever required and clearly mark them.}
+\end{enumerate}
+\newpage
+\noindent\textbf{Question 1: Complex Matrix\hfill \QOne~marks}\\
+Write the class definitions of \verb|Complex| and \verb|Matrix| classes from assignment 03 related to operator overloading. Only class definition and prototypes of functions is required.
+\emptypage
+
+\emptypage\\
+
+\noindent\textbf{Question 2: Object--Oriented Design\hfill \Qtwo~marks}\\
+Create UML design of a classroom. First make a list of different classes with their attributes and functions and then create a flow--chart showing relationship between them.
+\emptypage
+
+\emptypage\\
+
+\noindent \textbf{Question 3: Linked List\hfill \Qthree~marks}\\
+Implement a singly--linked list. Implement following functions:
+\begin{itemize}
+\item[a.] Add node.
+\item[b.] Display all nodes.
+\item[c.] Search node.
+\item[d.] Array subscript operator.
+\end{itemize}
+\emptypage
+
+\emptypage\\
+
+\noindent\textbf{Question 4: File Handling and STL \hfill \Qfour~marks}\\
+A binary file \verb|Data.bin| contains some data. The data is of a table containing only integer entries. The table has a fixed number of columns, i.e. 5, but variable rows. The data is stored row--wise in the file just like a matrix. Write code to
+\begin{itemize}
+\item[a.] Determine the file size and number of rows.
+\item[b.] Create a \verb|rows|$\times$\verb|cols| 2D \verb|vector| of \verb|int| type.
+\item[c.] Read the file data into \verb|vector|.
+\item[d.] Display data in the form of a table/matrix.
+\end{itemize} 
+\emptypage
+
+\emptypage\\
+
+\noindent\textbf{Question 5: Network Programming\hfill \Qfive~marks}\\
+You are employed to implement a Supercomputer that can add complex numbers. The Supercomputer is basically a UDP Server running on your LAN with IP \verb|192.168.1.99| and port \verb|5601|. The UDP Client will send two complex numbers to Server. The Server will return the resultant complex number back to Client. You need to write the code in \verb|main()| for both Server and Client. It is easier to transfer a complex structure rather than transfer real and imaginary parts separately.\\
+\textbf{Hint:} To send a variable use \verb|SendTo((void*)&Var, sizeof(Var), Address, Port);|
+\begin{lstlisting}
+// Starter code for client.
+#include <Client.h>
+#include <iostream>
+using namespace std;
+int main()
+{
+	Client ClientObj(UDPSOCKET);
+	ClientObj.CreateSocket(UDPSOCKET);
+	ClientObj.InitialiseAddress(6001);
+	ClientObj.Bind();
+\end{lstlisting}
+\emptypage
+
+\end{document}
