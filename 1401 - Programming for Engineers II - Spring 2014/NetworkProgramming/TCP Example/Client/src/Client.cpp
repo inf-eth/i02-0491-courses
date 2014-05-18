@@ -108,6 +108,16 @@ int Client::Receive()
 	return errorcheck;
 }
 
+int Client::Receive(void* Data, int DataSize)
+{
+	errorcheck = NumOfBytesReceived = recv(ClientSocketFD, (char*)Data, DataSize, 0);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR005 Receiveing" << endl;
+	}
+	return errorcheck;
+}
+
 int Client::Send(void* Data, unsigned int DataSize)
 {
 	errorcheck = NumOfBytesSent = send(ClientSocketFD, (char*)Data, DataSize, 0);
@@ -160,6 +170,18 @@ int Client::RecvFrom()
 		return errorcheck;
 	}
 	Buffer[NumOfBytesReceived] = '\0';
+	cout << "Client got packet from " << inet_ntoa(TheirAddress.sin_addr) << " on socket " << ClientSocketFD << endl;
+	return errorcheck;
+}
+int Client::RecvFrom(void* Data, int DataSize)
+{
+	socklen_t TheirAddressSize = sizeof(TheirAddress);
+	errorcheck = NumOfBytesReceived = recvfrom (ClientSocketFD, (char*)Data, DataSize, 0, (sockaddr*)&TheirAddress, &TheirAddressSize);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR011 Receiveing" << endl;
+		return errorcheck;
+	}
 	cout << "Client got packet from " << inet_ntoa(TheirAddress.sin_addr) << " on socket " << ClientSocketFD << endl;
 	return errorcheck;
 }

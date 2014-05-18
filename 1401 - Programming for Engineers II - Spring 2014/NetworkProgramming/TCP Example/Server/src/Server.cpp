@@ -54,7 +54,7 @@ int Server::InitialiseAddress(int pPort)	// Default Server port is 5000.
 	ServerPort = pPort;
 	// Server address initialisation for binding.
 	ServerAddress.sin_family = AF_INET;				// Socekt family.
-	ServerAddress.sin_addr.s_addr = INADDR_ANY;		// Setting server IP. INADDR_ANY blank IP.
+	ServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);		// Setting server IP. INADDR_ANY blank IP.
 	ServerAddress.sin_port = htons(ServerPort);	// Setting server port.
 	fill((char*)&(ServerAddress.sin_zero), (char*)&(ServerAddress.sin_zero)+8, '\0');
 	return 0;
@@ -102,6 +102,17 @@ int Server::Receive()
 		return errorcheck;
 	}
 	Buffer[NumOfBytesReceived] = '\0';
+	return errorcheck;
+}
+
+int Server::Receive(void* Data, int DataSize)
+{
+	errorcheck = NumOfBytesReceived = recv(ClientSocketFD, (char*)Data, DataSize, 0);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR006 Receiving" << endl;
+		return errorcheck;
+	}
 	return errorcheck;
 }
 
@@ -158,6 +169,19 @@ int Server::RecvFrom()
 		return errorcheck;
 	}
 	Buffer[NumOfBytesReceived] = '\0';
+	cout << "Server got packet from " << inet_ntoa(TheirAddress.sin_addr) << " on socket " << ServerSocketFD << endl;
+	return errorcheck;
+}
+
+int Server::RecvFrom(void* Data, int DataSize)
+{
+	socklen_t TheirAddressSize = sizeof(TheirAddress);
+	errorcheck = NumOfBytesReceived = recvfrom(ServerSocketFD, (char*)Data, DataSize, 0, (sockaddr*)&TheirAddress, &TheirAddressSize);
+	if (errorcheck == -1)
+	{
+		cerr << "ERROR011 Receiveing" << endl;
+		return errorcheck;
+	}
 	cout << "Server got packet from " << inet_ntoa(TheirAddress.sin_addr) << " on socket " << ServerSocketFD << endl;
 	return errorcheck;
 }
