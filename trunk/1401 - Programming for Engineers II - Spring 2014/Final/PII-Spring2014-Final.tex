@@ -25,7 +25,7 @@
 \usepackage{listings}
 \usepackage{textcomp}
 % General options.
-\lstset{breaklines=true, basicstyle=\scriptsize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
 % C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
@@ -142,17 +142,74 @@ A binary file \verb|Data.bin| contains some data. The data is of a table contain
 You are employed to implement a Supercomputer that can add complex numbers. The Supercomputer is basically a UDP Server running on your LAN with IP \verb|192.168.1.99| and port \verb|5601|. The UDP Client will send two complex numbers to Server. The Server will return the resultant complex number back to Client. You need to write the code in \verb|main()| for both Server and Client. It is easier to transfer a complex structure rather than transfer real and imaginary parts separately.\\
 \textbf{Hint:} To send a variable use \verb|SendTo((void*)&Var, sizeof(Var), Address, Port);|
 \begin{lstlisting}
-// Starter code for client.
+// Client code.
 #include <Client.h>
 #include <iostream>
 using namespace std;
+class Complex
+{
+public:
+	int real;
+	int img;
+};
 int main()
 {
+	// Create Client object.
 	Client ClientObj(UDPSOCKET);
+
 	ClientObj.CreateSocket(UDPSOCKET);
 	ClientObj.InitialiseAddress(6001);
 	ClientObj.Bind();
-\end{lstlisting}
-\emptypage
 
+	//char ServerAddress[] = "127.0.0.1"; // local test.
+	char ServerAddress[] = "192.168.1.99";
+	int ServerPort = 5601;
+
+	Complex C1, C2, Result;
+	C1.real = 1;
+	C1.img = 2;
+	C2.real = 3;
+	C2.img = 4;
+
+	ClientObj.SendTo((void*)&C1, sizeof(C1), ServerAddress, ServerPort);
+	ClientObj.SendTo((void*)&C2, sizeof(C2), ServerAddress, ServerPort);
+	ClientObj.RecvFrom((void*)&Result, sizeof(Result));
+	cout << "Result: " << Result.real << "+j" << Result.img << endl;
+	ClientObj.CloseClientSocket();
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}
+// Server code.
+#include <Server.h>
+#include <cstring>
+#include <iostream>
+using namespace std;
+class Complex
+{
+public:
+	int real;
+	int img;
+};
+int main()
+{
+	// Create Server object.
+	Server ServerObj(UDPSOCKET, 5601);
+
+	ServerObj.CreateSocket(UDPSOCKET);
+	ServerObj.InitialiseAddress(5601);
+	ServerObj.Bind();
+
+	Complex C1, C2, Result;
+	ServerObj.RecvFrom((void*)&C1, sizeof(C1));
+	ServerObj.RecvFrom((void*)&C2, sizeof(C2));
+	Result.real = C1.real + C2.real;
+	Result.img = C1.img + C2.img;
+	ServerObj.SendTo((void*)&Result, sizeof(Result)); // Reply to address/port on latest received packet.
+	ServerObj.CloseServerSocket();
+
+	return 0;
+}
+\end{lstlisting}
 \end{document}

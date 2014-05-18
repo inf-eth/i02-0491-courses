@@ -48,12 +48,14 @@ public:
 	// TCP send() and receive().
 	int Send(void*, unsigned int);
 	int Receive();
+	int Receive(void*, int);
 
 	// UDP, sendto (data, datasize, IP/name, port);
 	int SendTo(void*, unsigned int);
 	int SendTo(void*, unsigned int, char*, int);
 	// recvfrom();
 	int RecvFrom();
+	int RecvFrom(void*, int);
 
 	int CloseClientSocket();
 
