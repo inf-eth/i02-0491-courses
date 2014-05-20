@@ -14,7 +14,7 @@
 using namespace std;
 
 #define TOTALTHREADS 4
-#define RECVBUFFERSIZE 128
+#define RECVBUFFERSIZE 4096
 
 TRET_TYPE ReceiverThread(void*);
 #if defined __linux__ || defined __CYGWIN__
@@ -182,8 +182,6 @@ TRET_TYPE ReceiverThread(void* Args)
 		#else
 		ReleaseMutex(MutexLock);
 		#endif
-
-		//ClientObj.Send((void*)"ACK", sizeof("ACK")); // Sending ACK.
 	}
 	File.close();
 
