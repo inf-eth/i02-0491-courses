@@ -14,7 +14,7 @@
 using namespace std;
 
 #define TOTALTHREADS 4
-#define SENDBUFFERSIZE 128
+#define SENDBUFFERSIZE 4096
 
 TRET_TYPE SenderThread(void*);
 
@@ -166,7 +166,6 @@ TRET_TYPE SenderThread(void* Args)
 		unsigned int BytesRead;
 		i==(Iterations-1) ? BytesRead = PartitionSize%SENDBUFFERSIZE : BytesRead=SENDBUFFERSIZE;
 		ServerObj.Send((void*)FileBuffer, BytesRead);
-		//ServerObj.Receive(); // Receive ACK (acknowledgement) from client.
 	}
 	File.close();
 
