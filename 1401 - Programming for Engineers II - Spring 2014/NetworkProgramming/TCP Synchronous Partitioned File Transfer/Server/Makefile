@@ -3,22 +3,33 @@ CC=g++
 DEPS=-I./include
 SRCDIR=src
 CPPFILES=ServerMain Server
-TARGET=ServerEXE
+TARGET=Server
 LIBS=-lpthread
 
 # debug or release configuration. Default is release.
 # 'make dbg=1' will use debug configuration.
 ifdef dbg
-CFLAGS:=-g3
-BINDIR:=bin/debug
-ODIR:=obj/debug
+CFLAGS+=-g3
+CONFIGURATION:=debug
 else
-CFLAGS:=-O3
-BINDIR:=bin/release
-ODIR:=obj/release
+CFLAGS+=-O3
+CONFIGURATION:=release
 endif
 
-OBJ =$(patsubst %,$(ODIR)/%.obj,$(CPPFILES))
+# Target platform. Default is x86.
+# 'make m64bit=1' will target x64 binary.
+ifdef m64bit
+CFGLAGS+=-m64
+PLATFORM:=x64
+else
+PLATFORM:=x86
+endif
+
+BINDEPTH:=.
+BINDIR:=$(BINDEPTH)/bin/$(CONFIGURATION)/$(PLATFORM)
+ODIR:=./obj/$(CONFIGURATION)/$(PLATFORM)
+
+OBJ=$(patsubst %,$(ODIR)/%.obj,$(CPPFILES))
 
 $(BINDIR)/$(TARGET): $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
@@ -28,7 +39,6 @@ $(ODIR)/%.obj: $(SRCDIR)/%.cpp
 
 # Object and binary files must be placed in obj and bin directories.
 # Create bin and obj directories if they do not exist before compiling.
-
 $(OBJ): | $(ODIR) $(BINDIR)
 
 $(ODIR):
@@ -36,15 +46,16 @@ $(ODIR):
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
+all: $(BINDIR)/$(TARGET)
+
 # Default run.
 run: $(BINDIR)/$(TARGET)
 	./$(BINDIR)/$(TARGET) $(ARG)
 
-# Custom runS to run Server.
 runS: $(BINDIR)/$(TARGET)
 	./$(BINDIR)/$(TARGET) $(ARG)
 
 .PHONY: clean
 
 clean:
-	rm -rf bin obj
+	rm -rf obj $(BINDEPTH)/bin/debug/x64/$(TARGET) $(BINDEPTH)/bin/debug/x86/$(TARGET) $(BINDEPTH)/bin/release/x64/$(TARGET) $(BINDEPTH)/bin/release/x86/$(TARGET)
