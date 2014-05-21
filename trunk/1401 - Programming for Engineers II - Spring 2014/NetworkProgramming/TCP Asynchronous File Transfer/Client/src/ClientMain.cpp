@@ -7,6 +7,7 @@
 #define TRET_TYPE void
 #endif
 #include <Client.h>
+#include <cstring>			// strcmp(), strlen()
 #include <cstdlib>			// exit(), atoi()
 #include <string>
 #include <fstream>
