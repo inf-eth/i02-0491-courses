@@ -1,4 +1,0 @@
-- Use 'make' to compile on Linux. To run Server type 'make runS' and to run Client type 'make runC'. Server should run first.
-- On windows use the .sln file to open the solution. Select 'Set as startup project' project from project right-click menu to run Client or Server.
-- Files for download should be in the 'Server' directory.
-- Downloaded files are stored in 'Client' directory with a 'Received' prefix.
