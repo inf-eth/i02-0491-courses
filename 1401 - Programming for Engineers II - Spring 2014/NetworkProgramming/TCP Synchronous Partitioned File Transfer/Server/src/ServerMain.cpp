@@ -99,7 +99,7 @@ int main()
 	for (unsigned int i=0; i<TOTALTHREADS; i++)
 	{
 		#if defined __linux__ || defined __CYGWIN__
-		pthread_create(&thread[i], NULL, ReceiverThread, (void*)&Arg[i]);
+		pthread_create(&thread[i], NULL, SenderThread, (void*)&Arg[i]);
 		#else
 		thread[i] = (HANDLE)_beginthread(SenderThread, 0, (void*)&Arg[i]);
 		#endif
