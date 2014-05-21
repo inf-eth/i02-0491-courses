@@ -130,8 +130,8 @@ int main()
 TRET_TYPE SenderThread(void* Args)
 {
 	SenderArgument* sendArgs = (SenderArgument*)Args;
-	int Offset = sendArgs->FileSize % sendArgs->TotalThreads == 0 ? sendArgs->FileSize/sendArgs->TotalThreads : (sendArgs->FileSize/sendArgs->TotalThreads)+1;
-	int PartitionSize = sendArgs->TID == (sendArgs->TotalThreads-1) ? sendArgs->FileSize-sendArgs->TID*Offset : Offset;
+	int Offset = (sendArgs->FileSize % sendArgs->TotalThreads == 0 ? sendArgs->FileSize/sendArgs->TotalThreads : (sendArgs->FileSize/sendArgs->TotalThreads)+1);
+	int PartitionSize = (sendArgs->TID == (sendArgs->TotalThreads-1) ? sendArgs->FileSize-sendArgs->TID*Offset : Offset);
 	int ServerPort = sendArgs->ServerPort+sendArgs->TID+1;
 	char FileBuffer[SENDBUFFERSIZE]; // Buffer to hold data read from file.
 
@@ -157,15 +157,31 @@ TRET_TYPE SenderThread(void* Args)
 	// Send file in a loop.
 	fstream File;
 	File.open(sendArgs->FileName.c_str(), ios::in|ios::binary);
-	int Iterations = PartitionSize%SENDBUFFERSIZE == 0 ? PartitionSize/SENDBUFFERSIZE: PartitionSize/SENDBUFFERSIZE+1; // Number of times file needs to be read.
+	//int Iterations = PartitionSize%SENDBUFFERSIZE == 0 ? PartitionSize/SENDBUFFERSIZE: PartitionSize/SENDBUFFERSIZE+1; // Number of times file needs to be read.
 
 	File.seekg(sendArgs->TID*Offset);
-	for (int i=0; i<Iterations; i++)
+	int TotalBytesSent = 0;
+	//for (int i=0; i<Iterations; i++)
+	while (TotalBytesSent != PartitionSize)
 	{
-		File.read(FileBuffer, SENDBUFFERSIZE);
-		unsigned int BytesRead;
-		i==(Iterations-1) ? BytesRead = PartitionSize%SENDBUFFERSIZE : BytesRead=SENDBUFFERSIZE;
-		ServerObj.Send((void*)FileBuffer, BytesRead);
+		int BytesRead;
+		int BytesSent = 0;
+		if (PartitionSize-TotalBytesSent >= SENDBUFFERSIZE)
+			BytesRead = SENDBUFFERSIZE;
+		else
+			BytesRead = PartitionSize-TotalBytesSent;
+		/*
+		if (i==(Iterations-1))
+			PartitionSize%SENDBUFFERSIZE == 0 ? BytesRead=SENDBUFFERSIZE : BytesRead = PartitionSize%SENDBUFFERSIZE;
+		else
+			BytesRead = SENDBUFFERSIZE;
+		*/
+		File.read(FileBuffer, BytesRead);
+		while (BytesSent != BytesRead)
+		{
+			BytesSent = ServerObj.Send((void*)(FileBuffer+BytesSent), BytesRead-BytesSent);
+			TotalBytesSent = TotalBytesSent + BytesSent;
+		}
 	}
 	File.close();
 
