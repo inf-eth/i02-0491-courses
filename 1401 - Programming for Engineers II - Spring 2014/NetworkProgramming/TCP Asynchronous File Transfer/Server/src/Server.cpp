@@ -116,7 +116,7 @@ int Server::Receive(void* Data, int DataSize)
 	return errorcheck;
 }
 
-int Server::Send(void* Data, unsigned int DataSize)
+int Server::Send(void* Data, int DataSize)
 {
 	errorcheck = NumOfBytesSent = send(ClientSocketFD, (char*)Data, DataSize, 0);
 	if (errorcheck == -1)
@@ -128,7 +128,7 @@ int Server::Send(void* Data, unsigned int DataSize)
 }
 
 // UDP, sendto(data, datasize, IP/name, port);
-int Server::SendTo(void* Data, unsigned int DataSize)
+int Server::SendTo(void* Data, int DataSize)
 {
 	errorcheck = NumOfBytesSent = sendto(ServerSocketFD, (char*)Data, DataSize, 0, (sockaddr*)&TheirAddress, sizeof(TheirAddress));
 	if (errorcheck == -1)
@@ -137,7 +137,7 @@ int Server::SendTo(void* Data, unsigned int DataSize)
 	}
 	return errorcheck;
 }
-int Server::SendTo(void* Data, unsigned int DataSize, char* pTheirIP, int pTheirPort)
+int Server::SendTo(void* Data, int DataSize, char* pTheirIP, int pTheirPort)
 {
 	struct hostent* TheirIP;		// Server name/IP.
 	if ((TheirIP = gethostbyname(pTheirIP)) == NULL)
