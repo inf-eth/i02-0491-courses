@@ -162,7 +162,7 @@ TRET_TYPE ReceiverThread(void* Args)
 
 	fstream File;
 	File.open(((ReceiverArgument*)Args)->FileName.c_str(), ios::out|ios::binary);
-	int Iterations = PartitionSize%RECVBUFFERSIZE == 0 ? PartitionSize/RECVBUFFERSIZE: PartitionSize/RECVBUFFERSIZE+1; // Number of times file needs to be written.
+	//int Iterations = PartitionSize%RECVBUFFERSIZE == 0 ? PartitionSize/RECVBUFFERSIZE: PartitionSize/RECVBUFFERSIZE+1; // Number of times file needs to be written.
 
 	File.seekp(recvArgs->TID*Offset);
 	int TotalBytesReceived = 0;
