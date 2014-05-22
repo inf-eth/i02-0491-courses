@@ -16,6 +16,8 @@
 \usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
 \usepackage{lastpage}
+\usepackage{array}
+\usepackage{afterpage}
 
 % Drawing.
 \usepackage{pgf}
@@ -48,7 +50,7 @@
 	\thispagestyle{empty}
 	\mbox{}
 }
-
+    
 \begin{document}
 \begin{minipage}{0.55\textwidth}
 {\LARGE \textbf{Programming for Engineers -- II}}\\[0.15cm]
@@ -71,14 +73,14 @@ Attique Dawood\\
 \begin{table}[H]
 \begin{center}
 \vspace{0.3cm}
-	{\large \begin{tabular}{|l|c|c|c|c|c|c|}
-	\hline
+	{\large \begin{tabular}{!{\vrule width 1pt}c!{\vrule width 1pt}c!{\vrule width 1pt}c!{\vrule width 1pt}c!{\vrule width 1pt}c!{\vrule width 1pt}c!{\vrule width 1pt}c!{\vrule width 1pt}}
+	\noalign{\hrule height 1pt}
 		\rule{0pt}{2.6ex} Question & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{Total}\\
-		\hline
+		\noalign{\hrule height 1pt}
 		Total Marks \rule{0pt}{2.6ex} & \QOne & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
-		\hline
+		\noalign{\hrule height 1pt}
 		Marks Obtained \rule{0pt}{2.6ex} & & & & & &\\
-	\hline
+	\noalign{\hrule height 1pt}
 	\end{tabular}}
 \end{center}
 \end{table}
@@ -111,7 +113,6 @@ using namespace std;
 class Complex
 {
 private:
-
 	float real;
 	float img;
 public:
@@ -121,13 +122,14 @@ public:
 	Complex operator+(Complex&);
 	Complex operator-(Complex&);
 	Complex operator*(Complex&);
+	Complex operator/(Complex&);
 
 	bool operator==(Complex&);
 	bool operator!=(Complex&);
 	bool operator>=(Complex&);
 	bool operator<=(Complex&);
-	bool operator<(Complex&);
 	bool operator>(Complex&);
+	bool operator<(Complex&);
 };
 \end{lstlisting}
 \begin{lstlisting}
@@ -136,8 +138,9 @@ public:
 class Matrix
 {
 private:
-	int size[2];
-	Complex data[50][50];
+	int Rows;
+	int Cols;
+	Complex data[100][100];
 public:
 	Matrix(const Matrix&);
 
@@ -153,17 +156,15 @@ public:
 	bool operator!=(Matrix&);
 	bool operator>=(Matrix&);
 	bool operator<=(Matrix&);
-	bool operator<(Matrix&);
 	bool operator>(Matrix&);
+	bool operator<(Matrix&);
 };
 \end{lstlisting}
 \newpage
 \noindent\textbf{Question 2: Object--Oriented Design\hfill \Qtwo~marks}\\
 Create UML design of a classroom. First make a list of different classes with their attributes and functions and then create a flow--chart showing relationship between them.
-\emptypage
-
-\emptypage\\
-
+\afterpage{\null\newpage}
+\newpage
 \noindent \textbf{Question 3: Linked List\hfill \Qthree~marks}\\
 Implement a singly--linked list. Implement following functions:
 \begin{itemize}
@@ -172,10 +173,104 @@ Implement a singly--linked list. Implement following functions:
 \item[c.] Search node.
 \item[d.] Array subscript operator.
 \end{itemize}
-\emptypage
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+// Node
+class Node
+{
+public:
+	int Data;
+	Node* Next;
+};
+// Linked list class.
+class LinkedList
+{
+private:
+	Node* First;
+	int Count;
+public:
+	// Constructor.
+	LinkedList(): First(NULL), Count(0)
+	{
+	}
+	// Adds a node at the end of linked list.
+	void AddNode(int pData)
+	{
+		// If creating first node we need to change first pointer.
+		if (First == NULL)
+		{
+			Node* NewNode;
+			NewNode = new Node;
+			NewNode->Data = pData;
+			NewNode->Next = NULL;
+			First = NewNode;
+			Count++;
+		}
+		// We need to traverse the whole list to get to last node.
+		else
+		{
+			// Find last node.
+			Node* temp;
+			temp = First;
+			while (temp->Next != NULL)
+				temp = temp->Next;
+			// temp now points to last node.
+			Node* NewNode;
+			NewNode = new Node;
+			temp->Next = NewNode;
+			NewNode->Data = pData;
+			NewNode->Next = NULL;
+			Count++;
+		}
+	}
+	// Displays all entries in linked list.
+	void Display()
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			cout << "Data = " << temp->Data << endl;
+			temp = temp->Next;
+		}
+	}
+	// Search a data value.
+	int Search(int Key)
+	{
+		Node* temp;
+		temp = First;
+		while(temp != NULL)
+		{
+			if (temp->Data == Key)
+				return 0;
 
-\emptypage\\
+			temp = temp->Next;
+		}
+		return -1; // If we ever get here then search was unsuccessful.
+	}
+	// Subscript operator.
+	int& operator[](int Index)
+	{
+		// Checking index bounds.
+		if (Index < 0 || Index >= Count)
+		{
+			cout << "Index out of bounds. Exiting..." << endl;
+			exit(-1);
+		}
+		else
+		{
+			// Move temp pointer to point to node at desired index.
+			Node* temp = First;
+			for (int i=0; i<Index; i++)
+				temp = temp->Next;
 
+			return temp->Data;
+		}
+	}
+};
+\end{lstlisting}
+\newpage
 \noindent\textbf{Question 4: File Handling and STL \hfill \Qfour~marks}\\
 A binary file \verb|Data.bin| contains some data. The data is of a table containing only integer entries. The table has a fixed number of columns, i.e. 5, but variable rows. The data is stored row--wise in the file just like a matrix. Write code to
 \begin{itemize}
@@ -183,11 +278,46 @@ A binary file \verb|Data.bin| contains some data. The data is of a table contain
 \item[b.] Create a \verb|rows|$\times$\verb|cols| 2D \verb|vector| of \verb|int| type.
 \item[c.] Read the file data into \verb|vector|.
 \item[d.] Display data in the form of a table/matrix.
-\end{itemize} 
-\emptypage
+\end{itemize}
+\begin{lstlisting}
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <vector>
+using namespace std;
+int main()
+{
+	fstream File;
+	File.open("Data.bin", ios::in);
 
-\emptypage\\
+	// 1. Get file size.
+	File.seekg(0, ios::end); // Move get pointer to end of file.
+	int FileSize = (int)File.tellg();
 
+	// 2. Creating 2D vector.
+	int Cols = 5;
+	int Rows = FileSize/sizeof(int)/Cols;
+	vector< vector<int> > Vector2D(Rows, vector<int>(Cols, 0));
+
+	// 3. Reading File.
+	File.seekg(0); // Reset get pointer.
+	for (int i=0; i<Rows; i++)
+		for (int j=0; j<Cols; j++)
+			File.read((char*)&Vector2D[i][j], sizeof(int));
+	File.close();
+
+	// 4. Displaying data.
+	for (int i=0; i<Rows; i++)
+	{
+		cout << "Row " << i << ": ";
+		for (int j=0; j<Cols; j++)
+			cout << Vector2D[i][j] << "\t";
+		cout << endl;
+	}
+	return 0;
+}
+\end{lstlisting}
+\newpage
 \noindent\textbf{Question 5: Network Programming\hfill \Qfive~marks}\\
 You are employed to implement a Supercomputer that can add complex numbers. The Supercomputer is basically a UDP Server running on your LAN with IP \verb|192.168.1.99| and port \verb|5601|. The UDP Client will send two complex numbers to Server. The Server will return the resultant complex number back to Client. You need to write the code in \verb|main()| for both Server and Client. It is easier to transfer a complex structure rather than transfer real and imaginary parts separately.\\
 \textbf{Hint:} To send a variable use \verb|SendTo((void*)&Var, sizeof(Var), Address, Port);|
