@@ -2,11 +2,11 @@
 
 % To use this template make changes to following:
 % 1. Fill-ables section.
-% 2. Marks table.
-% 3. Instructions.
+% 2. Instructions.
+% 3. Marks table.
 % 4. Actual questions.
 
-% ================================ Fill-ables ================================
+% ================================ 1. Fill-ables ================================
 \newcommand\University{National University of Computer and Emerging Sciences}
 \newcommand\Department{School of Engineering}
 \newcommand\Campus{Islamabad Campus}
@@ -34,16 +34,7 @@
 \def\Qten{17}
 % ============================================================================
 
-% Margins.
-\setlength{\oddsidemargin}{0in}
-\setlength{\evensidemargin}{0in}
-\setlength{\headheight}{28pt}
-\setlength{\headsep}{2.5pt}
-\setlength{\topmargin}{-60pt}
-\setlength{\textwidth}{6.5in}
-\setlength{\textheight}{10.75in} % Actual: 10.75in
-
-% ============== Packages ==============
+% ============== 2. Packages ==============
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{graphicx}
@@ -74,7 +65,16 @@
 \def\SingleSpacing{\def\baselinestretch{1}\large\normalsize}
 \def\DoubleSpacing{\def\baselinestretch{1.5}\large\normalsize}
 
-% ============================= Header and Footer ============================
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{28pt}
+\setlength{\headsep}{2.5pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in} % Actual: 10.75in
+
+% ============================= 3. Header and Footer ============================
 \pagestyle{empty}
 % Header
 \chead
@@ -97,7 +97,7 @@
 \rfoot{{\small Page \textbf{\thepage}~of \textbf{\TotalPages}}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-% ================================= Front Page ===============================
+% ================================= 4. Front Page ===============================
 \begin{document}
 % A cute macro to add up marks of all individual questions. Uncomment if you want to use this.
 %\pgfmathtruncatemacro\TotalMarks{\Qone+\Qtwo+\Qthree+\Qfour+\Qfive+\Qsix+\Qseven+\Qeight+\Qnine+\Qten}
@@ -130,7 +130,7 @@
 ~\\[1.5cm] % Extra space.
 \rule{7cm}{0.2mm}~\rule{2.5cm}{0.2mm}~\rule{2cm}{0.2mm}~\rule{4.5cm}{0.2mm}\\
 {\small Student Name\hspace{4.75cm}Roll No\hspace{1.35cm}Section\hspace{0.95cm}Signature}\\[1cm]
-% ============================ Instructions ==================================
+% ============================ 5. Instructions ==================================
 \textbf{DO NOT OPEN THE QUESTION BOOK OR START UNTIL INSTRUCTED.}\\
 \textbf{Instructions:}
 \begin{enumerate}
@@ -144,7 +144,7 @@
 \item Use only permanent ink-pens. Only the questions attempted with permanent ink-pens will be considered. Any part of paper done in lead pencil cannot be claimed for checking/rechecking.
 \item Spend first 30 minutes on Part I; however, if you finish it earlier, you can hand it over and start attempting Part II.
 \end{enumerate}
-% =============================== Marks Table ================================
+% =============================== 6. Marks Table ================================
 \begin{table}[H]
 \begin{center}
 \vspace{0.3cm}
@@ -163,7 +163,7 @@
 \setlength{\textheight}{10.5in}
 \newpage
 \pagestyle{fancy}
-% ================================== Questions ===============================
+% ================================== 7. Questions ===============================
 \noindent\textbf{Question 1: Constructors/Destructors \hfill \Qone~marks}\\
 Write the output of following program. Mention object name with constructor/destructor calls.
 \begin{lstlisting}
