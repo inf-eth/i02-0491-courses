@@ -4,17 +4,17 @@
 \setlength{\oddsidemargin}{0in}
 \setlength{\evensidemargin}{0in}
 \setlength{\headheight}{12pt}
-\setlength{\headsep}{42pt}
-\setlength{\topmargin}{-54pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
 \setlength{\textwidth}{6.5in}
-\setlength{\textheight}{10in}
+\setlength{\textheight}{10.75in}
 
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}	% Clickable links to figures, references and urls.
-
+\usepackage{datetime}
 % Drawing.
 \usepackage{pgf}
 \usepackage{tikz}
@@ -30,7 +30,7 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers I\\Lab 09\\Typedef, Enum and Union}
+\title{\vspace{-1cm}Programming for Engineers I\\Lab 09\\Typedef, Enum and Union}
 \author{Attique Dawood}
 \date{April 11, 2013\\[0.2cm] Last Modified: \today}
 \begin{document}
@@ -117,6 +117,7 @@ int main()
 	return 0;
 }
 \end{lstlisting}
+\newpage
 \section{Exercise}
 \textbf{Question No. 1:} Using \verb|typedef| create a character array. Input a string and then display it.\\
 \textbf{Question No. 2:} Use enum to create a set/collection of items. Items should be related. Test your set.\\

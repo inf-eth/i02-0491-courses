@@ -4,17 +4,17 @@
 \setlength{\oddsidemargin}{0in}
 \setlength{\evensidemargin}{0in}
 \setlength{\headheight}{12pt}
-\setlength{\headsep}{42pt}
-\setlength{\topmargin}{-54pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
 \setlength{\textwidth}{6.5in}
-\setlength{\textheight}{10in}
+\setlength{\textheight}{10.75in}
 
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}	% Clickable links to figures, references and urls.
-
+\usepackage{datetime}
 % Drawing.
 \usepackage{pgf}
 \usepackage{tikz}
@@ -30,14 +30,14 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers I\\Lab 06\\C--Strings}
+\title{\vspace{-1cm}Programming for Engineers I\\Lab 06\\C--Strings}
 \author{Attique Dawood}
-
+\date{March 14, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{What are Strings?}
 Simple answer: character arrays are called C--strings (or simply string). A bunch of characters most often only make sense if they form words. And words only make sense if they are part of a sentence. Essentially, character arrays are used for storage of words, sentences or the like.
-\section{Initialization at Declaration}
+\section{Initialisation at Declaration}
 Character arrays have an additional way of initialisation, in addition to other array initialisation methods. Without specifying size, a char array is assigned a string at declaration. In this case, compiler automatically allocates space for array. To print the contents of an array using \texttt{cout}.
 \begin{lstlisting}
 char myName[] = "abc";
