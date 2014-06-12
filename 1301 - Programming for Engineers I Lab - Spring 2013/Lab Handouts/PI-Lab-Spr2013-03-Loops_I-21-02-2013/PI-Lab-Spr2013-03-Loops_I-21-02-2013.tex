@@ -4,19 +4,20 @@
 \setlength{\oddsidemargin}{0in}
 \setlength{\evensidemargin}{0in}
 \setlength{\headheight}{12pt}
-\setlength{\headsep}{42pt}
-\setlength{\topmargin}{-54pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
 \setlength{\textwidth}{6.5in}
-\setlength{\textheight}{10in}
+\setlength{\textheight}{10.75in}
 
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{datetime}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers I\\Lab 03\\Loops - I}
+\title{\vspace{-1cm}Programming for Engineers I\\Lab 03\\Loops - I}
 % '\and' creates even spacing.
 \author{Attique Dawood}
-
+\date{February 21, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 
 \maketitle
@@ -24,7 +25,7 @@
 \section{Loops (Repetition Statements)}
 We have to calculate the sum of first 10 whole numbers i.e. add the numbers from 1 to 10. Following statement may be one way to do it.
 \begin{verbatim}
-    printf("Sum of first 10 numbers is = %d\n", 1+2+3+4+5+6+7+8+9+10);
+cout << "Sum of first 10 numbers is = " << 1+2+3+4+5+6+7+8+9+10 << endl;
 \end{verbatim}
 This method is perfectly fine as the syntax is right. The answer is also correct. This procedure can also be adopted while calculating the sum of numbers from 1 to 100. We can write the above statement adding all the digits from 1 to 100. But this method will not be suitable for computing the sum of numbers from 1 to 1000. The addition of a very big number of digits will result in a very ugly and boring statement. 
 
@@ -73,7 +74,8 @@ while (c!=`Y')
 ****
 *****
 \end{verbatim}
-\noindent\textbf{Question No. 4:} Write a C++ code to print out all Armstrong numbers from 100 to 999. A number is called Armstrong number if sum of cubes of each digit of the number is equal to the number itself. For example $153=(1^3+5^3+3^3)$.\\
+\noindent\textbf{Question No. 4:} Write a C++ code to print out all Armstrong numbers from 100 to 999. A number is called Armstrong number if sum of cubes of each digit of the number is equal to the number itself. For example $153=(1^3+5^3+3^3)$.
+\newpage
 \noindent\textbf{Question No. 5:} Write a program to print the following shapes using for Loop (Take Height from the user). 
 
 \begin{verbatim}

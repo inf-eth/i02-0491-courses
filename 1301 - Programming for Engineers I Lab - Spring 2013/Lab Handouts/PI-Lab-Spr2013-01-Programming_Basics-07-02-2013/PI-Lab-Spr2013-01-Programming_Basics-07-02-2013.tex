@@ -4,10 +4,10 @@
 \setlength{\oddsidemargin}{0in}
 \setlength{\evensidemargin}{0in}
 \setlength{\headheight}{12pt}
-\setlength{\headsep}{42pt}
-\setlength{\topmargin}{-54pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
 \setlength{\textwidth}{6.5in}
-\setlength{\textheight}{10in}
+\setlength{\textheight}{10.75in}
 
 % Url links.
 \usepackage[hyphens]{url}
@@ -19,6 +19,7 @@
 % Drawing.
 \usepackage{pgf}
 \usepackage{tikz}
+\usepackage{datetime}
 
 % Listings for formatting code.
 \usepackage{listings}
@@ -29,9 +30,9 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-2cm}Programming for Engineers I\\Lab 01\\Programming Basics}
+\title{\vspace{-1cm}Programming for Engineers I\\Lab 01\\Programming Basics}
 \author{Attique Dawood}
-
+\date{February 07, 2013\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Using Standard C++ header Files$^1$}
@@ -166,7 +167,8 @@ Signed data types like \verb|int| can have negative values. The negative numbers
 \item ORing with an all 1's mask will result in an all 1's.
 \item ANDing with an all 0's mask will set all bits to 0.
 \item ORing with an all 0's mask will preserve bit pattern.
-\item We can also make a mask with certain bit pattern. Let's say we want to deal with 4 bit numbers.
+\item We can also make a mask with certain bit pattern.
+\item An integer contains 32 bits. If we are only interested in operating on first 4 bits then we must use a mask to zero out all but first 4 bits after a bitwise operation. A bitwise operation is carried over all 32 bits.
 \end{itemize}
 \label{Masking}
 \begin{lstlisting}[caption={Example: Masking}]
@@ -175,21 +177,21 @@ using namespace std;
 int main()
 {
 	// All 0's mask.
-	unsigned int MaskAll0s = 0;
+	unsigned int MaskAll0s = 0; // All 32 bits 0
 	// All 1's mask.
-	unsigned int MaskAll1s = ~MaskAll0s;
+	unsigned int MaskAll1s = ~MaskAll0s; // ~ is not operation results in all 1's mask
 	
-	int x = 5;
+	int x = 5; // First four bits of x are 0101 or 5 in decimal.
 	int z;
 	
-	z = x & MaskAll0s;
+	z = x & MaskAll0s; // 0101 AND 0000 = 0000 (or decimal 0)
 	cout << "z = x & MaskAll0s = " << z << endl;
-	z = x | MaskAll0s;
+	z = x | MaskAll0s; // 0101 OR 0000 = 0101 (or decimal 5)
 	cout << "z = x | MaskAll0s = " << z << endl;
-	z = x & MaskAll1s;
+	z = x & MaskAll1s; // 0101 AND 1111 = 0101 (or decimal 5)
 	cout << "z = x & MaskAll1s = " << z << endl;
-	z = x | MaskAll1s;
-	cout << "z = x | MaskAll1s = " << z << endl;
+	z = x | MaskAll1s; // 0101 OR 1111 = 1111 (or decimal 15)
+	cout << "z = x | MaskAll1s = " << z << endl; // This gives 15, decimal for 1111
 
 	return 0;
 }
@@ -200,14 +202,14 @@ using namespace std;
 int main()
 {
 	// 4 bit mask.
-	unsigned int Mask4bit = 15; // 0xF
+	unsigned int Mask4bit = 15; // 0000000...0001111 (or 0xF in hex).
 	
 	int x = 5;
-	int z = (~x) & Mask4bit;
-	cout << "Inverting bits of x=5, we get z = " << z << endl;
+	int z = (~x) & Mask4bit; // ~x = 1111111...11111010. Masking gives 00000...0001010 preserving only first 4 bits.
+	cout << "Inverting bits of x=5, we get z = " << z << endl; // 1010 = 10 decimal
 	
-	z = (x<<2) & Mask4bit;
-	cout << "x<<2 = " << z << endl;
+	z = (x<<2) & Mask4bit; // Left-shifts bits of x. Gives 0100 after masking.
+	cout << "x<<2 = " << z << endl; // 0100 = 4 decimal
 	
 	return 0;
 }
