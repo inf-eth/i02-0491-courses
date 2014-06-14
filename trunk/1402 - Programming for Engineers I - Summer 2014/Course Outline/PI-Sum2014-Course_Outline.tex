@@ -1,0 +1,58 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Summer - 2014\\Course Outline}
+\author{Attique Dawood}
+\date{June 14, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\begin{table}[H]
+\begin{center}
+\vspace{-0.3cm}
+	\begin{tabular}{|c|p{10cm}|}
+	\hline \hline
+		\rule{0pt}{2.6ex} \textbf{Week} & \textbf{Topics}\\
+		\hline
+		1\rule{0pt}{2.6ex} & Basic Computing, Introduction to IDE, Compilation Steps\\
+		2 & Operators and Logic, Conditional Statment, Variable Types\\
+		3 & Characters and ASCII Table, Float Representation, Memory and Debugging, Loops\\
+		4 & Nested Loops, Switch, Arrays, 2D Arrays, \texttt{const}\\
+		5 & Swapping, Bubble Sort, Functions, Recursion\\
+		6 & C--Strings, Pointers, Dynamic Memory Allocation\\
+		7 & File Handling, Text Files, Binary Files, Random Access in Files, tell() and seek() Functions\\
+		8 & Introduction to Object Oriented Programming, \texttt{struct} and \texttt{class}, Basic Network Programming Using OOP\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{Programming-I-Course-Outline}
+%\caption{Programmming I Course Outline}
+\end{table}
+\end{document}

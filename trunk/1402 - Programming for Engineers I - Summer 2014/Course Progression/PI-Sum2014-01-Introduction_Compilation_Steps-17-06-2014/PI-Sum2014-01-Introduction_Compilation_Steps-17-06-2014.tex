@@ -1,0 +1,200 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Class 01\\Introduction\\Compilation Steps}
+\author{Attique Dawood}
+
+\begin{document}
+\maketitle
+\section{About the Course}
+\textbf{Course Title:} Programming for Engineers I\\
+\textbf{Instructor:} Attique Dawood\\
+\textbf{Contact:} attique DOT dawood AT nu DOT edu DOT pk\\
+\textbf{Text Book:} C++ How to Program by Deitel \& Deitel\\
+\textbf{Reference Book:} Object Oriented Programming in C++ by Robert Lafore\\
+\section{Guidelines}
+\begin{itemize}
+\item \textbf{\underline{Your goal is to do all assignments (including lab work) by yourself.}}
+\item Do read the book. It is very helpful.
+\item You will only learn with practice.
+\end{itemize}
+\section{Course Progression}
+\begin{itemize}
+\item This is summer semester. Only one mid--term exam and then final.
+\item 8--9 weeks in summer semester. Double course load: Six classes each week instead of three in a regular semester.
+\item Assignments carry significant weight.
+\item Quizzes will be announced.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{llc}
+	\hline \hline
+		\rule{0pt}{2.6ex} & \textbf{Type of Assessment} & \textbf{Marks}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Quizzes & 5\\
+		2 & Assignments& 25\\
+		3 & Mid & 20\\
+		4 & Final Exam & 50\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{Marks Distribution}
+\caption{Marks Distribution}
+\end{table}
+\section{How Computers Work?}
+\begin{itemize}
+\item Different components; CPU, Memory (RAM), hard disk, I/O devices.
+\item CPU is the brain of the computer.
+\item The purpose of using a computer is to make things easier for us.
+\item Need to know how to make a computer work efficiently.
+\item CPU only understands binary. Example of CPU doing an addition.
+\item CPU instruction is a binary stream with opcode and operands.
+\end{itemize}
+\section{Programming Languages}
+\begin{itemize}
+\item The simplest way to make CPU do something is to directly give it binary input.
+\item In older systems this was the case but it was tedious.
+\item Assembly language was invented that could translate symbolic directives into binary.
+\item C/C++ is a higher level language than assembly and there are still higher level languages like Visual Basic.
+\end{itemize}
+\section{C and C++}
+\begin{itemize}
+\item This course is where you learn \textbf{basics of programming}.
+\item You will have to un--learn some concepts if re--taking this course.
+\item We will be following ANSI standards and exclusively using C++.
+\end{itemize}
+\section{Steps in Compilation of a C++ Program}
+\begin{enumerate}
+\item Write/modify code. (.cpp file)
+\item Pre--process.
+\item Compile. (.obj file)
+\item Link. (.exe file)
+\item Execute.
+\item Errors? (Go to step 1).
+\end{enumerate}
+\section{Who is a Good Programmer?}
+\begin{itemize}
+\item Someone with a creative mind.
+\item Can come up with different ways to do the same thing.
+\item Can think of improvements.
+\item \textit{``Can perform a heart by--pass surgery with house--hold items!''}
+\end{itemize}
+\section{How to Become a Good Programmer?}
+\begin{itemize}
+\item Take an interest. Can't be good at something you hate doing.
+\item Practice.
+\item Get to know the ins and outs.
+\end{itemize}
+\section{A Simple C++ Program}
+\begin{lstlisting}[caption={A Basic C++ Program}]
+#include <iostream> // Input/output stream library.
+int main()
+{
+	std::cout << "Hello world" << std::endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{itemize}
+\item Standard C++ header files do not have .h extensions.
+\item The format specifiers can be used in \verb|cout| directives (\verb|\r, \n, \t| etc.).
+\end{itemize}
+\section{Namespaces}
+\begin{itemize}
+\item The functions (or objects) in C++ headers are enclosed in namespaces for modularity.
+\item \texttt{std} is a standard namespace.
+\item The namespace functions or entire namespace can be `included' for easier access.
+\end{itemize}
+\begin{lstlisting}[caption={The `using' Directive}]
+#include <iostream> // Input/output stream library.
+using std::cout;
+using std::endl;
+int main()
+{
+	cout << "Hello world" << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Including a Namespace}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	cout << "Hello world" << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{How Namespaces Work?}
+A very good tutorial is available at \url{http://www.cplusplus.com/doc/tutorial/namespaces/}
+\section{A Simple CGPA Calclator}
+\begin{lstlisting}[caption={CGPA Calculator}]
+#include <iostream> // Input/output stream library.
+using namespace std;
+int main()
+{
+	float C1, C2, C3, C4, C5, CGPA;		// Variable declaration.
+	cout << "Enter course grades: ";	// Message to input grades.
+	cin >> C1 >> C2 >> C3 >> C4 >> C5;	// Input.
+	CGPA = (C1+C2+C3+C4+C5)/5;			// CGPA calculation.
+	cout << "CGA is " << CGPA << endl;	// Displaying CGPA.
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Using Standard C++ header Files$^1$}
+The standard C++ library is a collection of functions, constants, classes, objects and templates that extends the C++ language providing basic functionality to perform several tasks, like classes to interact with the operating system, data containers, manipulators to operate with them and algorithms commonly needed.\\
+Each header from the C Standard Library is included in the C++ Standard Library under a different name, generated by removing the .h, and adding a 'c' at the start for example, 'time.h' becomes 'ctime'. The only difference between these headers and the traditional C Standard Library headers is that where possible the functions should be placed into the std:: namespace (although few compilers actually do this).\\
+\footnotetext[1]{Section on C++ standard headers prepared by Hina Ashraf.}
+\begin{table}[htb]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{lcp{10cm}}
+	\hline \hline
+		\textbf{C++} \rule{0pt}{2.6ex} & \textbf{C} & \textbf{Description}\\
+		\hline
+		\verb|<iostream>| \rule{0pt}{2.6ex} & (iostream.h) & Provides C++ input and output fundamentals.\\
+		\verb|<istream>| & (istream.h) & Provides the template class std::istream and other supporting classes for input.\\
+		\verb|<ostream>| & (ostream.h) & Provides the template class std::ostream and other supporting classes for output.\\
+		\verb|<iomanip>| & (iomanip.h) & Provides facilities to manipulate output formatting, such as the base used when formatting integers and the precision of floating point values.\\
+		\verb|<ctime>|   & (time.h) & This header file contains definitions of functions to get and manipulate date and time information.\\
+		\verb|<cstdio>| & (stdio.h) &  This library uses what are called streams to operate with physical devices such as keyboards, printers, terminals or with any other type of files supported by the system. Streams are an abstraction to interact with these in an uniform way; All streams have similar properties independently of the individual characteristics of the physical media they are associated with.\\
+		\verb|<cstdlib>| &(stdlib.h)& This header defines several general purpose functions, including dynamic memory management, random number generation, communication with the environment, integer arthmetics, searching, sorting and converting.\\
+		
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{Some useful C++ header File}
+\caption{Some useful C++ header File}
+\end{table}
+Similarly, the header files \verb|<stdlib.h>| and \verb|<cstdlib>| are both provided by the C++ Standard Library and are equivalent in function, with the exception that all declarations in \verb|<cstdlib>| are located within the std namespace.
+\end{document}
