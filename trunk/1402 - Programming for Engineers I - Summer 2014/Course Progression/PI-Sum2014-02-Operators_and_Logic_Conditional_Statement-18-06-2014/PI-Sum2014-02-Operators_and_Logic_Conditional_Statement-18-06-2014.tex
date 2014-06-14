@@ -1,0 +1,170 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Class 02\\Computing Concepts: Operators and Logic\\Conditional Statement}
+\author{Attique Dawood}
+\date{June 18, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item To become a good programmer take interest. Intelligence helps but practice can make up for that to a certain extent.
+\item Programming languages: assembly, C, C++, Java, C\#, scripting languages like Visual Basic, python etc.
+\item Programming cycle: Code, pre--process, compile, link, debug.
+\item Basic working of a computer. I/O devices, CPU, RAM, ROM.
+\end{itemize}
+\section{Operators}
+\begin{itemize}
+\item There are mathematical operators and logic operators.
+\item Math or arithmetic operators are +, -, *, /, \%. Operator precedence?
+\item Basic logic operations are NOT, AND, OR, XOR.
+\item In C/C++ there are two types of logic operations: bitwise and logical statements.
+\item The bitwise logic operators are \verb|~| for NOT, \verb|&| for AND, \verb@|@ for OR and \verb|^| for XOR. These operate on individual bits of variable(s).
+\item The logic operators for evaluating statements are \verb|!| for NOT, \verb|&&| for AND and \verb@||@ for OR. Logical operators can operate on logical statements.
+\item The operators \verb|<<| and \verb|>>| have different uses depending on context.
+\item As stream operator used with \verb|cin| and \verb|cout| for input/output.
+\item As shift operators, \verb|<<| and \verb|>>| operate on individual bits of a variable. For example, \verb|x<<2| which means bits of variable \verb|x| left--shifted by 2.
+\end{itemize}
+\begin{itemize}
+\item Masking can be used to set a particular value for a range of bits.
+\item ANDing with an all 1's mask will preserve the original bit pattern.
+\item ORing with an all 1's mask will result in an all 1's.
+\item ANDing with an all 0's mask will set all bits to 0.
+\item ORing with an all 0's mask will preserve bit pattern.
+\item We can also make a mask with certain bit pattern. Let's say we want to deal with 4 bit numbers.
+\end{itemize}
+\begin{lstlisting}[caption={Example: Masking}]
+#include <iostream> 
+using namespace std; 
+int main()
+{
+	// All 0's mask.
+	unsigned int MaskAll0s = 0;
+	// All 1's mask.
+	unsigned int MaskAll1s = ~MaskAll0s;
+	
+	int x = 5;
+	int z;
+	
+	z = x & MaskAll0s;
+	cout << "z = x & MaskAll0s = " << z << endl;
+	z = x | MaskAll0s;
+	cout << "z = x | MaskAll0s = " << z << endl;
+	z = x & MaskAll1s;
+	cout << "z = x & MaskAll1s = " << z << endl;
+	z = x | MaskAll1s;
+	cout << "z = x | MaskAll1s = " << z << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Example: Masking 4 bits}]
+#include <iostream> 
+using namespace std; 
+int main()
+{
+	// 4 bit mask.
+	unsigned int Mask4bit = 15; // 0xF
+	
+	int x = 5;
+	int z = (~x) & Mask4bit;
+	cout << "Inverting bits of x=5, we get z = " << z << endl;
+	
+	z = (x<<2) & Mask4bit;
+	cout << "x<<2 = " << z << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Comparison Operators}
+The comparison operators can be used to compare two values. The values can also be variables.  For example, \verb|x == y|. This should be read as \textit{Is x equal to y?} Most commonly used operators are:
+\begin{itemize}
+\item \verb|==| (equals?)
+\item \verb|!=| (not equals?)
+\item \verb|>| (greater than?)
+\item \verb|<| (less than?)
+\item \verb|>=| (equals or greater than?)
+\item \verb|<=| (equals or less than?)
+\end{itemize}
+\section{Conditional Statements}
+The syntax for conditional statement is,
+\begin{lstlisting}
+if (condition...)
+{
+    do this if condition is true...
+}
+else
+{
+    do this if condition is false...
+}
+\end{lstlisting}
+If the condition is evaluated to be 0 then it is false. If condition is non--zero it is true.
+Operators in previous section are useful for testing a certain condition. For example,
+\begin{lstlisting}
+int x = 2;
+int y = 4;
+if (x == y)
+{
+    cout << "x is equal to y" << endl;
+}
+else
+{
+   cout << "x is not equal to y" endl;
+}
+\end{lstlisting}
+In this case the output will be \verb|x is not equal to y|. The \verb|else| part is not mandatory and an \verb|if| statement can be used standalone. For example,
+\begin{lstlisting}
+int x;
+cin >> x;
+if (x > 0)
+{
+    cout << "You have entered a positive number" << endl;
+}
+\end{lstlisting}
+\section{Exercise: Using \% to Separate Digits of a Number}
+\begin{enumerate}
+\item Take a number, let's say 432.
+\item Take mod ($432 \% 10$) and you get 2.
+\item Divide this by 10 and you get 43.
+\item Take mod again and you get 3.
+\item Divide again by 10 and you get 4.
+\item Taking mod again will give 4.
+\end{enumerate}
+\section{Truth Table for Logic Gates}
+\begin{itemize}
+\item 4 bit binary numbers.
+\item Logic operations between binary numbers.
+\end{itemize}
+\section{Shift Operations}
+\begin{itemize}
+\item Right shift is integer division by base.
+\item Left shift is multiplication by base.
+\end{itemize}
+\end{document}
