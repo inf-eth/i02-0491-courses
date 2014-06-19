@@ -1,0 +1,80 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Assignment 01\\Programming Basics}
+\author{Attique Dawood}
+\date{June 19, 2014\\Due: June 24, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Question 1:} Using \verb|cout| statement display following patterns on screen:
+\begin{lstlisting}
+*      *****      *     *****
+**      ****     ***    *****
+***      ***    *****   *****
+****      **   *******  *****
+*****      *  ********* *****
+\end{lstlisting}
+\noindent\textbf{Question 2:} Create a program to calculate SGPA. Inputs should be GPA of five courses and their credit hours.\\
+\noindent\textbf{Question 3:} Convert the following binary values into decimal and hexadecimal.
+\begin{enumerate}
+\item[a.] 1001
+\item[b.] 1011
+\item[c.] 10100010
+\item[d.] 111000001101
+\item[e.] 1010011000001110
+\end{enumerate}
+\noindent\textbf{Question 4:} Convert the following decimal values into binary and hexadecimal.
+\begin{enumerate}
+\item[a.] 4
+\item[b.] 8
+\item[c.] 39
+\item[d.] 95
+\item[e.] 127
+\end{enumerate}
+\noindent\textbf{Question 5:} Convert the following hexadecimal values into binary and decimal.
+\begin{enumerate}
+\item[a.] 0xA
+\item[b.] 0xB3
+\item[c.] 0xCE05
+\item[d.] 0xFF78
+\item[e.] 0x1C2FEA
+\end{enumerate}
+\noindent\textbf{Question 6:} A particular RAM has a total of $2^{32}$ addresses. Considering each address holds exactly one byte, find the total amount of RAM in mega bytes.\\
+\noindent\textbf{Hint:} 1MB = 1024kB and 1kB = 1024B. It is easier to break down $2^{32}$ into powers of 10 and work with them. $2^{32}=2^{10}\times 2^{10}\times 2^{10}\times 2^2$. Also, how much is $2^{10}$?\\
+\noindent\textbf{Question 7:} For the following variable declarations, find the exact binary and hexadecimal representation and draw a memory map of RAM showing how they are exactly stored in RAM. How much space in RAM is required to store all these variables?
+\begin{enumerate}
+\item[a.] \verb|int x1 = -1;|
+\item[b.] \verb|unsigned int x2 = 99;|
+\item[c.] \verb|unsigned short int x3 = 65001;|
+\item[d.] \verb|short int x4 = -0xFF78;|
+\item[e.] \verb|unsigned int x5 = 0xFFFFFFFF;|
+\end{enumerate}
+\end{document}
