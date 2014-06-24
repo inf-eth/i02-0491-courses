@@ -1,0 +1,80 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Programming for Engineers I - Summer 2014\\Quiz \#01}
+\date{\vspace{-1.5cm}Date: 24--06--2014}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent\textbf{Time: 10 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent\textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent\textbf{Question 1:} If a memory contains a total of $2^{22}$ addresses what is the size of RAM in MBs.\\
+\begin{math}
+2^{10}=1024\\
+2^{22}~\mathrm{B}=2^2\times2^{10}\times2^{10}~\mathrm{B}\\
+2^{22}~\mathrm{B}=4\times1024\times1024~\mathrm{B}\\
+2^{22}~\mathrm{B}=4\times1024~\mathrm{KB}\\
+2^{22}~\mathrm{B}=4~\mathrm{MB}\\
+\end{math}
+\noindent\textbf{Question 2:} How are following two variables stored in RAM? What is total space taken by these two variables?
+\begin{itemize}
+\item[a.] \verb|unsigned int x1 = 27;|
+\item[b.] \verb|short int x2 = -0x120;|
+\end{itemize}
+\begin{verbatim}
+27 = 0x1b (hex) = 1 1011 (binary)
+   = 0000 0000  0000 0000  0000 0000  0001 1011 (32 bit binary)
+   = 00 00 00 1b (32 bit hex)
+  
+0x120 = 01 20 (16 bit hex)
+      = 0000 0001  0010 0000 (16 bit binary)
+      
+      0000 0001  0010 0000 (original bits)
+      1111 1110  1101 1111 (bits inversion)
+     +                   1
+     ---------------------
+      1111 1110  1110 0000 (2's complement)
+     ---------------------
+     
+-0x120 = 1111 1110  1110 0000 (16 bit binary)
+       = fe e0 (16 bit hex)
+       
+Memory Storage:
+Address      Data (bin)    Data (hex)
+0x00000000   0001 1011       1b
+0x00000001   0000 0000       00
+0x00000002   0000 0000       00
+0x00000003   0000 0000       00
+0x00000004   1110 0000       e0
+0x00000005   1111 1110       fe
+\end{verbatim}
+Total size taken by both variables is $2 + 4=6$ bytes. \verb|x1| occupies address 0--3 and \verb|x2| occupies address 4--5.
+\end{document}
