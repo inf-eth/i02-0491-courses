@@ -152,4 +152,21 @@ base+1     1011 0010       B2
 base+2     1010 0100       A4
 base+3     0100 0011       43
 \end{verbatim}
+\section{Memory Map in Visual Studio}
+\subsection{Configuring Layout}
+Figure~\ref{Debugger-Layout} shows a small program in debugger. Notice the layout of debugger and different tabs/windows. At this point we are only interested in two tabs, \verb|Watch| and \verb|Memory|. It is convenient to have these two tabs displayed side-by-side. To add memory window select the right tab (figure\ref{Adding-Memory-Window}) and then navigate to \verb|Debug > Windows > Memory > Memory1|.
+\subsection{Memory Contents of Variable}
+The example program shown in figure~\ref{Debugger-Layout} has an \verb|unsigned int|, an \verb|int| and a \verb|float| called \verb|ui_x|, \verb|i_x| and \verb|f_x|, respectively. First step is to add these variables to the \verb|Watch| window. Next we need to know their memory addresses in order to access their location in memory. By adding a variable to the watch window with a preceding \verb|&| its address will be displayed. Copy that address into the address location bar on \verb|Memory| window to jump to that memory location. It is convenient to display one or four columns in memory window.
+\begin{figure}[H]
+\centering
+\label{Debugger-Layout}
+\includegraphics[width=0.75\textwidth]{DebuggerLayout.png}
+\caption{Viewing value of a variable in memory}
+\end{figure}
+\begin{figure}[H]
+\centering
+\label{Adding-Memory-Window}
+\includegraphics[width=0.75\textwidth]{AddingMemoryWindow.png}
+\caption{Adding memory window}
+\end{figure}
 \end{document}
