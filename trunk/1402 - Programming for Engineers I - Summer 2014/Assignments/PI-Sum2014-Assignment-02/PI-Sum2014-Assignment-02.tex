@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Assignment 02\\Float Representation\\Conditional Statements and Loops}
+\author{Attique Dawood}
+\date{June 26, 2014\\Due: July 01, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Question 1:} Convert the following floating point values into their equivalent 32 bit binary representation. Also show how they are stored in RAM.
+\begin{enumerate}
+\item[a.] \verb|float x1 = 31.78125f;|
+\item[b.] \verb|float x2 = 131.3828125;|
+\item[c.] \verb|float x3 = 231.521484375f;|
+\item[d.] \verb|float x4 = 11.125f;|
+\item[e.] \verb|float x5 = 0.16015625f;|
+\end{enumerate}
+\noindent\textbf{Question 2:} Convert the following 32 bit binary and hexadecimal floating point values into their equivalent decimal form.
+\begin{enumerate}
+\item[a.] \verb|0100 0001  0000 1110  0000 0000  0000 0000|
+\item[b.] \verb|1100 0101  1010 1100  0100 0000  0000 0000|
+\item[c.] \verb|0011 1101  1110 1000  0000 0000  0000 0000|
+\item[d.] \verb|a6 72 00 00|
+\item[e.] \verb|50 34 10 00|
+\end{enumerate}
+\noindent\textbf{Question 3:} Take an integer as input. Determine if the number is positive or negative.\\
+\noindent\textbf{Question 4:} Take letter grade as \verb|char| input and display corresponding GPA. Input can be A, B, C, D or F. Any other input should result in an error.\\
+\noindent\textbf{Question 5:} Take GPA as a \verb|float| input. Display the corresponding letter grade.\\
+\noindent\textbf{Question 6:} Take a three digit integer as input. Calculate the sum of digits. Determine from the sum of digits if the number is divisible by 3, 6 and 9.\\
+\noindent\textbf{Question 7:} Take an integer and determine if it is prime.\\
+\noindent\textbf{Question 8:} Using nested \verb|for| loops display following patterns on screen. Make the patterns separately.
+\begin{lstlisting}
+*      *****      *     *****
+**      ****     ***    *****
+***      ***    *****   *****
+****      **   *******  *****
+*****      *  ********* *****
+\end{lstlisting}
+\end{document}
