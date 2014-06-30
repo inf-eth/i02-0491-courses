@@ -1,0 +1,377 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Class 05\\Arrays\\Swapping\\Bubblesort}
+\author{Attique Dawood}
+\date{July 01, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item \verb|switch| statement.
+\end{itemize}
+\section{Arrays}
+\begin{itemize}
+\item Arrays can be used to create multiple variables of the same type.
+\item To store marks of 50 students it would be tedious to declare 50 integers. However, an array makes it easier.
+\item Arrays are normally used to group and store similar data.
+\item Elements of an array can be accessed with subscript operator \verb|[]|.
+\item A \verb|for| loop is naturally suited for array manipulation.
+\end{itemize}
+\begin{lstlisting}[caption={A Simple Array}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int Grades[5];
+	// Input all grades in a loop.
+	for (int i=0; i<5; i++)
+		cin >> Grades[i];
+	// Output grades on console.
+	cout << "Grades entered: ";
+	for (int i=0; i<5; i++)
+		cout << Grades[i] << " ";
+
+	cout << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{Initialization}
+Array can either be initialised at declaration or at a later stage using loop.
+\subsection{Initialisation at Declaration}
+\begin{lstlisting}[caption={Array initialisation at declaration}]
+int myArray1[10] = {0}; // Initialises whole array with zeroes.
+int myArray2[10] = {-1,11,-12,10,15,2,4,-7,4,21}; // Initialise individual elements.
+\end{lstlisting}
+\subsection{Using \texttt{for} loop}
+\begin{lstlisting}[caption={Array initialisation using for loop}]
+int myArray1[10]; // Declaration.
+for(int i=0; i<10; i++)
+{
+	myArray[i] = 0; // Initialise all elements to zero.
+}
+\end{lstlisting}
+\section{Sample Program}
+\begin{lstlisting}[caption={Sample program}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int Age[4]; // Declaration.
+	Age[0] = 20;
+	Age[1] = 19;
+	Age[2] = 22;
+	Age[3] = 21;
+
+	cout << "First element  = Age[0]" << endl;
+	cout << "Second element  = Age[1]" << endl;
+	cout << "Third element  = Age[2]" << endl;
+	cout << "Fourth element  = Age[3]" << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{Copying Arrays}
+Arrays cannot be copied using assignment operator, so individual elements must be copied using a loop. Similarly, other operations like addition, subtraction etc. must performed on individual elements rather than whole arrays.
+\begin{lstlisting}[caption={Copying an array}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	float Array1[5] = {-0.33f,-0.45f,0.22f,0.532f,0.101f};
+	float Array2[5];
+
+	// Copying...
+	for (int i=0; i<5; i++)
+	{
+		Array2[i] = Array1[i];
+	}
+	// Display.
+	for (int i=0; i<5; i++)
+	{
+		cout << "Element " << i+1 << " = " << Array2[i] << endl;
+	}
+
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{const} Variables and \texttt{\#define}}
+\begin{itemize}
+\item A variable can be declared as a constant with \verb|const| directive before declaration.
+\item Value of a constant variable cannot be changed.
+\item Constant variable can be assigned (initialised) a value at declaration.
+\item If constant variable is not assigned a value at declaration then it is useless because it will contain garbage.
+\item Size of array must be constant. If a non-const variable is used as array size this will generate an error.
+\item Another way of passing array size is to use \verb|#define| directive.
+\end{itemize}
+\begin{lstlisting}[caption={Using const as Array Size}]
+int main()
+{
+	const int Size1 = 10;
+	int Size2 = 10;
+	
+	int Array1[Size1]; // This will work.
+	int Array2[Size2]; // ERROR: Size must be constant.
+
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using \#define to Declare Array Size}]
+#define Size 10
+int main()
+{
+	int Array[Size];
+
+	return 0;
+}
+\end{lstlisting}
+\section{Variable Swapping}
+To swap two variables a third temporary variable is required.
+\begin{lstlisting}[caption={Swapping Variables}]
+int main()
+{
+	int A = 3;
+	int B = 4;
+	int temp;
+	
+	// Swapping.
+	temp = A;
+	A = B;
+	B = temp;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Using \texttt{rand()} to Generate Random Integers}
+\begin{itemize}
+\item \verb|rand()| is located in \verb|<cstdlib>|.
+\item Every time \verb|rand()| is called it returns a different random integer in the range 0-MAX.
+\item \verb|rand()| can be used with modulus operator to generate variables in certain range.
+\end{itemize}
+\begin{lstlisting}[caption={Using rand() to Fill an Array}]
+#include <iostream>
+#include <cstdlib>
+
+#define size 10
+
+int main()
+{
+	int Random[size];
+	
+	for (int i=0; i<size; i++)
+		Random[i] = rand() % 6; // Fill Random[] array with random numbers in range 0-5.
+		
+	cout << "Displaying array: ";
+	for (int i=0; i<size; i++)
+		cout << Random[i] << " ";
+		
+	cout << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{2D Array}
+\begin{lstlisting}[caption={Using rand() to Fill a 2D Array}]
+#include <iostream>
+#include <cstdlib>
+
+#define Rows 4
+#define Cols 5
+
+int main()
+{
+	int Random[Rows][Cols];
+	
+	for (int i=0; i<Rows; i++)
+		for (int j=0; j<Cols; j++)
+			Random[i][j] = rand() % 5; // Fill Random[] array with random numbers in range 0-5.
+		
+	cout << "Displaying random matrix of size " << Rows << "x" << Cols << ": " << endl;
+	for (int i=0; i<Rows; i++)
+	{
+		cout << "Row " << i+1 << ": ";
+		for (int j=0; j<Cols; j++)
+		{
+			cout << Random[i][j] << " ";
+		}		
+		cout << endl;
+	}
+		
+	return 0;
+}
+\end{lstlisting}
+\section{How to Find Smallest and Greatest Integer From an Array?}
+\begin{enumerate}
+\item Take first element as smallest.
+\item Test next element.
+\item If next element is less than smallest then new smallest is the variable being tested.
+\end{enumerate}
+\begin{lstlisting}[caption={Smallest Number in an Array}]
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 10;
+	int data[Size];
+	int min;
+	
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data.
+	cout << "Data: ";
+	for (int i=0; i<Size; i++)
+	{
+		cout << data[i] << " ";
+	}
+	cout << endl;
+
+	// Finding smallest value.
+	min = data[0];
+	for (int i=0; i<Size; i++)
+	{
+		if (data[i] < min)
+			min = data[i];
+	}
+	cout << "Smallest value is " << min << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\begin{enumerate}
+\item Take first element as largest.
+\item Test next element.
+\item If next element is greater than largest then new largest is the variable being tested.
+\end{enumerate}
+\begin{lstlisting}[caption={Largest Number in an Array}]
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 10;
+	int data[Size];
+	int max;
+	
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data.
+	cout << "Data: ";
+	for (int i=0; i<Size; i++)
+	{
+		cout << data[i] << " ";
+	}
+	cout << endl;
+
+	// Finding largest value.
+	max = data[0];
+	for (int i=0; i<Size; i++)
+	{
+		if (data[i] > max)
+			max = data[i];
+	}
+	cout << "Largest value is " << max << endl;
+
+	return 0;
+}
+\end{lstlisting}
+\section{Bubblesort}
+\begin{itemize}
+\item Bubblesort is a sorting algorithm.
+\item Sorting an array in ascending order.
+\item Larger values are `bubbled' to the top.
+\end{itemize}
+\begin{lstlisting}[caption={Bubble Sort}]
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	const int Size = 5;
+	int data[Size];
+
+	// Storing random numbers in range 0-99 in data[]
+	for (int i=0; i<Size; i++)
+		data[i] = rand() % 100;
+		
+	// Displaying data before sorting.
+	cout << "Data before sorting: ";
+	for (int i=0; i<Size; i++)
+		cout << data[i] << " ";
+	cout << endl;
+
+	// Bubblesort
+	for (int c=0; c<Size; c++)
+	{
+		int currentsize = Size-c;
+		cout << "===== Iteration no: " << c+1 << " ====" << endl;
+		for (int i=0; i<currentsize-1; i++)
+		{
+			// Sorting condition.
+			if (data[i] > data[i+1])
+			{
+				// Swap.
+				int temp = data[i];
+				data[i] = data[i+1];
+				data[i+1] = temp;
+			}
+			cout << "Array after swapping no: " << i << endl;
+			for (int z=0; z<Size; z++)
+				cout << data[z] << " ";
+			cout << endl;
+		}
+		cout << "===================================" << endl;
+	}
+
+	// Displaying data after sorting.
+	cout << "Data after sorting: ";
+	for (int i=0; i<Size; i++)
+		cout << data[i] << " ";
+	cout << endl;
+	
+	return 0;
+}
+\end{lstlisting}
+\end{document}
