@@ -1,0 +1,95 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Assignment 03\\Arrays and Sorting}
+\author{Attique Dawood}
+\date{July 03, 2014\\Due: July 10, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Objectives}
+\begin{itemize}
+\item[1.] Learn how C++ arrays work.
+\item[2.] Generation of random range of values.
+\item[3.] Size of C++ arrays cannot be changed at runtime. Learn how to declare an appropriately large array of some maximum size and work within a certain size. The user effectively gets the impression that he/she is working with variable sized arrays.
+\item[4.] Learn how to work with 2D arrays.
+\end{itemize}
+\noindent\textbf{Question 1:} Make a program that lets user enter an array size and range of data to be generated. Provide options to display and sort the data. The actual array should be allocated a fixed maximum size \verb|MAXSIZE| which should be \verb|const|. The size entered by user cannot exceed \verb|MAXSIZE|. Program menu with different options is given below.
+\begin{verbatim}
+1. Set array size (MAXSIZE=100)
+2. Generate data
+   - Input lower and upper range.
+3. Sort data
+4. Display data
+5. Exit program
+\end{verbatim}
+\noindent\textbf{Error Checks:} Before the menu is displayed for the first time, initialise the array with all zeros and set a default size (e.g. 10). If the user inputs invalid value for size (negative or exceeding MAXSIZE) then display an appropriate error message.\\[0.2cm]
+\noindent\textbf{Question 2:} 2D arrays function just like matrices. In this program provide functionality to add, subtract and multiply matrices of any size. First define \verb|MAXSIZE| for both row and column. Matrix dimensions cannot exceed \verb|MAXSIZE|. Declare three matrices A, B and C of dimensions \verb|MAXSIZE|$\times$\verb|MAXSIZE|. User should be provided a menu to set the dimensions of A and B, input matrix manually or generate random matrix data and perform matrix operations. The program menu with sub--menu options is given.
+\begin{verbatim}
+1. Set matrix size (Maximum dimensions: 10*10)
+   1. Matrix A
+      1. Input rows of A
+      2. Input columns of A
+   2. Matrix B
+      1. Input rows of B
+      2. Input columns of B
+2. Generate data
+   1. Manual input using cin
+      1. Matrix A
+      2. Matrix B
+   2. Random generation
+      1. Matrix A
+         - Input lower and upper range
+      2. Matrix B
+         - Input lower and upper range
+3. Matrix operations
+   1. Add (A-B)
+   2. Subtract (A-B)
+   3. Multiply (A*B)
+   4. Scalar multiplication (cA)
+      - Input scalar c
+   5. Inverse of A (A should be 2*2 matrix)
+4. Display matrix
+   1. Matrix A
+   2. Matrix B
+   3. Matrix C (resultant)
+   4. Display all matrices
+5. Exit program.
+\end{verbatim}
+\noindent\textbf{Error Checks:}
+\begin{itemize}
+\item[-] Initialise all matrices before the menu is displayed for the first time. Set default dimensions for A and B (e.g. $2\times2$).
+\item[-] The rows or columns of any matrix cannot be less than 1 and greater than MAXSIZE defined already.
+\item[-] If A and B have different dimensions then they cannot be added or subtracted. Display an error if user tries to add/subtract matrices whose dimensions are not equal. 
+\item[-] A and B can only multiplied if number of columns of A are equal to number of rows of B. Display an appropriate error if user tries to multiply matrices that are not conformable for multiplication.
+\item[-] Inverse can only be computed if A is $2\times2$ matrix. Also display a message if determinant of A comes out to be zero.
+\item[-] Dimensions of C depends on matrix operation. In case of addition/subtraction, dimensions of C is set equal to that of A (or B). In case of multiplication, dimensions of C is set equal to $rowsA\times colsB$.
+\end{itemize}
+\end{document}
