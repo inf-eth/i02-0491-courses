@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Programming for Engineers I - Summer 2014\\Quiz \#02}
+\date{\vspace{-1.5cm}Date: 01--07--2014}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent\textbf{Time: 10 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent\textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent\textbf{Question 1:} How is \verb|float x4 = 19.125f;| stored in RAM?
+\begin{verbatim}
+19 = 10011
+
+0.125*2 = 0.25
+0.25*2  = 0.5
+0.5*2   = 1.0
+
+0.125 = 0.001
+\end{verbatim}
+\begin{math}
+19.125 = 10011.001
+       = 1.0011001\times2^{4}
+\end{math}
+\begin{verbatim}
+Exponent = 4+127 = 131
+         = 10000011 (binary)
+         
+Sign  Exponent  Mantissa
+0     10000011  00110010000000000000000
+
+0100 0001  1001 1001  0000 0000  0000 0000 (32 bit binary)
+41 99 00 00 (32 bit hex)
+
+Memory Storage:
+Address     Data(hex)
+0x00000000    00
+0x00000001    00
+0x00000002    99
+0x00000003    41
+\end{verbatim}
+\noindent\textbf{Question 2:} What is the decimal representation of the following 32 bit float: \verb|40 18 00 00|?
+\begin{verbatim}
+40 18 00 00 = 0100 0000  0001 1000  0000 0000  0000 0000 (32 bit binary)
+
+Sign  Exponent  Mantissa
+0     10000000  00110000000000000000000
+
+10000000 = 128
+128 - 127 = 1
+\end{verbatim}
+\begin{math}
+\mathrm{Binary Number} = 1.0011\times2^1
+              = 10.011
+              = 2^1+2^{-2}+2^{-3}
+              = 2+\dfrac{1}{4}+\dfrac{1}{8}
+              = 2.375
+\end{math}
+\end{document}
