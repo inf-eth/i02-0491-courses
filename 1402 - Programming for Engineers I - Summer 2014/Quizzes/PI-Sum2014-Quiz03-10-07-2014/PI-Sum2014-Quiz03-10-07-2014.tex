@@ -1,0 +1,64 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Programming for Engineers I - Summer 2014\\Quiz \#03}
+\date{\vspace{-1.5cm}Date: 10--07--2014}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent\textbf{Time: 10 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent\textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent\textbf{Question:} Write C++ code to find the transpose of a matrix.
+\begin{lstlisting}
+/* ROWS and COLS are const with some pre-defined values */
+...
+float Matrix[ROWS][COLS] = {-1.6, 4.9 ... /* initialised with random values */};
+float Transpose[COLS][ROWS];
+
+for (int i=0; i<ROWS; i++)
+{
+	for (int j=0; j<COLS; j++)
+	{
+		Transpose[j][i] = Matrix[i][j];
+	}
+}
+\end{lstlisting}
+Another possible solution is
+\begin{lstlisting}
+for (int i=0; i<COLS; i++)
+{
+	for (int j=0; j<ROWS; j++)
+	{
+		Transpose[i][j] = Matrix[j][i];
+	}
+}
+\end{lstlisting}
+\end{document}
