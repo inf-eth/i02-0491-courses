@@ -1,0 +1,141 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Class 09\\Introduction to \texttt{struct}}
+\author{Attique Dawood}
+\date{July 13, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Pointers arithmetic.
+\item Dynamic memory allocation in C++. \verb|new|, \verb|new []|, \verb|delete| and \verb|delete[]|.
+\end{itemize}
+\section{\texttt{struct}}
+\begin{itemize}
+\item Can create new data types from basic types.
+\item Types can be anything int, float, double. Different types can be mixed in a \texttt{struct}.
+\item Group similar data together.
+\item Can also include other structs (matrix of complex numbers?).
+\end{itemize}
+\begin{lstlisting}[caption={\texttt{struct}}]
+struct complex
+{
+	float real;
+	float img;
+};
+
+int main()
+{
+	complex c1;
+	complex c2;
+	c1.real = 1.f;
+	c2.img = 0.f;
+	c2.real = c1.real + 34.f;
+	c2.img = 3.3f * c1.img - 2.2f;
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Structured Approach}
+\begin{lstlisting}[caption={Using \texttt{struct} to define complex number and add them using functions}]
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+
+struct complex
+{
+	float real;
+	float img;
+};
+
+// Input function prototype.
+void InputComplex(complex&);
+// Input function definition.
+void InputComplex(complex& c)
+{
+	cout << "Enter complex number: ";
+	cin >> c.real >> c.img;
+}
+
+// Addition function prototype.
+complex AddComplex(complex, complex);
+// Addition function definition.
+complex AddComplex(complex c1, complex c2)
+{
+	complex sum;
+	sum.real = c1.real + c2.real;
+	sum.img = c1.img + c2.img;
+	return sum;
+}
+
+// Display function prototype.
+void DisplayComplex(complex&);
+// Display function definition.
+void DisplayComplex(complex& c)
+{
+	if (c.img < 0.f)
+		cout << c.real << " - j" << -1.f*c.img << endl;
+	else
+		cout << c.real << " + j" << c.img << endl;
+}
+
+int main()
+{
+	// First complex number.
+	complex c1;
+	// Second complex number.
+	complex c2;
+	// Resultant complex number.
+	complex c3;
+	
+	// First complex input.
+	InputComplex(c1);
+	// Second complex input.
+	InputComplex(c2);
+	
+	// Addition.
+	c3 = AddComplex(c1, c2);
+	
+	// Result.
+	cout << "Result is: ";
+	DisplayComplex(c3);
+	
+	return 0;
+}
+\end{lstlisting}
+
+\end{document}
