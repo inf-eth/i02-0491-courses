@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Assignment 04\\Electronic Dictionary}
+\author{Attique Dawood}
+\date{July 13, 2014\\Due: July 22, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Objectives}
+\begin{itemize}
+\item[1.] Learn how C--style strings work.
+\item[2.] Use \verb|<cstring>| library functions for string manipulation.
+\item[3.] Usage of \verb|struct|
+\end{itemize}
+\noindent\textbf{Question} Create an electronic dictionary to store words along with their meanings. The dictionary should be sorted based on alphabetical order of words. First create a struct called dictionary entry with pre--allocated \verb|char| arrays of fixed size to store word and its meaning. Create an array of dictionary entries of some fixed maximum size. Provide user with options to add a new word with its meaning, search for an existing word and display its meaning and display whole dictionary at once.
+\begin{verbatim}
+struct DictionaryEntry
+{
+    char Word[20];
+    char Meaning[50];
+};
+const int MAXSIZE = 1000;
+DictionaryEntry Dictionary[MAXSIZE];
+\end{verbatim}
+Dictionary menu is given below:
+\begin{verbatim}
+1. Add word
+   - Input word and meaning
+2. Search word
+   - Input word or part of word
+3. Display whole dictionary
+5. Exit program.
+\end{verbatim}
+\noindent\textbf{Error Checks:}
+\begin{itemize}
+\item[-] Track actual dictionary size.
+\item[-] If a word already exists then replace the existing word.
+\item[-] Sort the dictionary after a new word is added so that dictionary remains in alphabetical order.
+\item[-] Words can be searched with a prefix. All words matching the prefix should be displayed. If a dictionary contains words \verb|bat|, \verb|batter| and \verb|battery| then searching for \verb|bat| should display all three words starting with \verb|bat|.
+\end{itemize}
+\end{document}
