@@ -137,5 +137,50 @@ int main()
 	return 0;
 }
 \end{lstlisting}
+\section{Nested \texttt{struct}}
+\begin{itemize}
+\item Just like ordinary variables, variables of \texttt{struct} type can be used inside other structures.
+\item We can define a point with x and y coordinates.
+\item A line has two points.
+\item A triangle has three points.
+\end{itemize}
+\begin{lstlisting}[caption={Nested \texttt{struct}}]
+#include <iostream>
+#include <cstring>
+using namespace std;
 
+struct Point
+{
+	int x;
+	int y;
+};
+
+struct Line
+{
+	Point P1;
+	Point P2;
+};
+
+struct Triangle
+{
+	Point P1;
+	Point P2;
+	Point P3;
+};
+
+int main()
+{
+	Triangle T;
+
+	// Taking input.
+	T.P1.x = 1;
+	T.P1.y = 1;
+	T.P2.x = 3;
+	T.P2.y = 2;
+	T.P3.x = 4;
+	T.P3.y = 5;
+
+	return 0;
+}
+\end{lstlisting}
 \end{document}
