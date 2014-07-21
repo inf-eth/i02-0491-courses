@@ -1,0 +1,397 @@
+\documentclass[12pt,a4paper]{article}
+
+% To use this template make changes to following:
+% 1. Fill-ables section.
+% 2. Instructions.
+% 3. Marks table.
+% 4. Actual questions.
+
+% ================================ 1. Fill-ables ================================
+\newcommand\University{National University of Computer and Emerging Sciences}
+\newcommand\Department{School of Engineering}
+\newcommand\Campus{Islamabad Campus}
+\newcommand\Semester{Summer 2014}
+\newcommand\Exam{Sessional Exam}
+\newcommand\Subject{EE110--Programming for Engineers -- I}
+\newcommand\ExamDate{Saturday, July 12, 2014}
+\newcommand\InstructorOne{Attique Dawood}
+\newcommand\InstructorTwo{}
+\newcommand\InstructorThree{\null}
+\newcommand\TotalTime{02 Hours}
+\newcommand\TotalMarks{10}
+\newcommand\TotalQuestions{5}
+\newcommand\TotalPages{\pageref{LastPage}} % Automatic: No need to change this.
+% Marks of each question
+\def\Qone{20}
+\def\Qtwo{20}
+\def\Qthree{20}
+\def\Qfour{20}
+\def\Qfive{20}
+\def\Qsix{0}
+\def\Qseven{0}
+\def\Qeight{0}
+\def\Qnine{0}
+\def\Qten{0}
+% ============================================================================
+
+% ============== 2. Packages ==============
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+% Drawing packages.
+\usepackage{pgf}
+\usepackage{tikz}
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+
+% General listings options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Line spacing.
+\def\SingleSpacing{\def\baselinestretch{1}\large\normalsize}
+\def\DoubleSpacing{\def\baselinestretch{1.5}\large\normalsize}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{28pt}
+\setlength{\headsep}{2.5pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in} % Actual: 10.75in
+
+% ============================= 3. Header and Footer ============================
+\pagestyle{empty}
+% Header
+\chead
+{
+	{\large\textbf{\University}}\\
+	\begin{minipage}{0.45\textwidth}
+	\begin{center}
+	{\small\textbf{\Department}}
+	\end{center}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+	\begin{center}
+	{\small\textbf{\Campus}}
+	\end{center}
+	\end{minipage}
+}
+% Footer
+\lfoot{{\small\Exam}}
+\cfoot{{\small\Semester}}
+\rfoot{{\small Page \textbf{\thepage}~of \textbf{\TotalPages}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+% ================================= 4. Front Page ===============================
+\begin{document}
+% A cute macro to add up marks of all individual questions. Uncomment if you want to use this.
+\pgfmathtruncatemacro\TotalMarks{\Qone+\Qtwo+\Qthree+\Qfour+\Qfive+\Qsix+\Qseven+\Qeight+\Qnine+\Qten}
+% Use this macro if marks are in decimal points
+%\newcommand\TotalMarks{\pgfmathsetmacro\TotalMarks{\Qone+\Qtwo+\Qthree+\Qfour+\Qfive+\Qsix+\Qseven+\Qeight+\Qnine+\Qten}}
+\begin{minipage}[t]{0.6\textwidth}
+\begin{flushleft}
+\DoubleSpacing
+{\Large\textbf{\Subject}}\\
+{\normalsize\ExamDate}\\
+{\large\textbf{Course Instructor}}\\
+{\normalsize\InstructorOne}\\
+{\normalsize\InstructorTwo}
+{\normalsize\InstructorThree}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.01\textwidth}
+~
+\end{minipage}
+\begin{minipage}[t]{0.325\textwidth}
+\DoubleSpacing
+{\normalsize Serial No:}\\
+{\Large\textbf{\Exam}}\\
+{\large\textbf{Total Time: \TotalTime}}\\
+{\large\textbf{Total Marks: \TotalMarks}}\\[1cm]
+\rule{5cm}{0.2mm}\\[-0.25cm]
+{\small Signature of Invigilator}
+\end{minipage}
+\SingleSpacing
+~\\[1.5cm] % Extra space.
+\rule{7cm}{0.2mm}~\rule{2.5cm}{0.2mm}~\rule{2cm}{0.2mm}~\rule{4.5cm}{0.2mm}\\
+{\small Student Name\hspace{4.75cm}Roll No\hspace{1.35cm}Section\hspace{0.95cm}Signature}\\[1cm]
+% ============================ 5. Instructions ==================================
+\textbf{DO NOT OPEN THE QUESTION BOOK OR START UNTIL INSTRUCTED.}\\
+\textbf{Instructions:}
+\begin{enumerate}
+\itemsep0em
+\item Verify at the start of the exam that you have a total of \TotalQuestions~questions printed on \TotalPages~pages including this title page.
+\item Attempt all questions on the question-book and in the given order.
+\item The exam is closed books, closed notes. Please see that the area in your threshold is free of any material classified as `useful in the paper' or else there may be a charge of cheating.
+\item Read the questions carefully for clarity of context and understanding of meaning and make assumptions wherever required, for neither the invigilator will address your queries, nor the teacher/examiner will come to the examination hall for any assistance.
+\item Fit in all your answers in the provided space. You may use extra space on the last page if required. If you do so, clearly mark question/part number on that page to avoid confusion. 
+\item Use only your own stationery and calculator. If you do not have your own calculator, use manual calculations. 
+\item Use only permanent ink-pens. Only the questions attempted with permanent ink-pens will be considered. Any part of paper done in lead pencil cannot be claimed for checking/rechecking.
+\end{enumerate}
+% =============================== 6. Marks Table ================================
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|c|}
+	\hline
+		\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & \textbf{Total}\\[-0.5ex]
+		\hline
+		\rule{0pt}{2.5ex}\textbf{Total Marks}& \Qone & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
+		\hline
+		\rule{0pt}{2.5ex}\textbf{Marks Obtained}& & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+{\small \textbf{Vetted By: \rule{6cm}{0.2mm} Vetter Signature: \rule{4.5cm}{0.2mm}}}
+\setlength{\textheight}{10.5in}
+\newpage
+\pagestyle{fancy}
+% ================================== 7. Questions ===============================
+\noindent\textbf{Question 1: Code Output \hfill $2\times10=$\Qone~marks}\\
+Write the output of following programs.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main()
+{
+	int x = 65;
+	char c = 'A'; // ASCII of 'A' is 65
+	cout << x << " " << c << " " << (char)(70) << " " << (int)('H') << endl;
+	return 0;
+}
+\end{lstlisting}
+Output:
+\begin{verbatim}
+65 A F 72
+\end{verbatim}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main()
+{
+	for (int i=0; i<5; i++)
+	{
+		for (int j=0; j<5; j++)
+		{
+			if (j>=i)
+				cout << "*";
+			else
+				cout << " ";
+		}
+		cout << endl;
+	}
+	return 0;
+}
+\end{lstlisting}
+Output:
+\begin{verbatim}
+*****
+ ****
+  ***
+   **
+    *
+\end{verbatim}
+\newpage
+\noindent \textbf{Question 2: Float Conversion\hfill $2\times10=$\Qtwo~marks}\\
+a. Convert \verb|float f = 7.625f;| into its equivalent 32 bit floating point notation. Show how it is stored in memory.
+\begin{verbatim}
+7 = 111
+0.625*2 = 1.25
+0.25*2  = 0.5
+0.5*2   = 1.0
+0.625 = 0.101
+\end{verbatim}
+\begin{math}
+7.625 = 111.101 = 1.11101\times2^{2}
+\end{math}
+\begin{verbatim}
+Exponent = 2+127 = 129 = 10000001
+Mantissa = 0.11101
+Float representation = 0 10000001 11101000000000000000000
+                     = 0100 0000  1111 0100  0000 0000  0000 0000 (32 bit bin)
+                     = 40 f4 00 00 (32 bit hex)
+Memory Storage:
+Address     Data(hex)
+0x00000000    00
+0x00000001    00
+0x00000002    f4
+0x00000003    40
+\end{verbatim}
+b. Given a 32 bit floating point number in hexadecimal form \verb|40 a8 00 00|, convert it into its equivalent decimal form.
+\begin{verbatim}
+40 a8 00 00 = 0100 0000  1010 1000  0000 0000  0000 0000 (32 bit binary)
+            = 0 10000001 010100000000000000000
+
+Exponent = 10000001 = 129
+129-127 = 2
+\end{verbatim}
+\begin{math}
+1.0101\times2^2 = 101.01
+\end{math}
+\begin{verbatim}
+101.01 = 5.25
+\end{verbatim}
+\newpage
+\noindent\textbf{Question 3: Integer Storage\hfill $2\times10=$\Qthree~marks}\\
+a. Convert \verb|short unsigned int x = 26;| into its equivalent binary form. Show how this is stored in memory.
+\begin{verbatim}
+26 = 11010
+   = 0000 0000  0001 1010 (16 bit binary)
+   = 00 1a (16 bit hex)
+
+Memory Storage:
+Address     Data(hex)
+0x00000000    1a
+0x00000001    00
+\end{verbatim}
+b. A \verb|short int| having negative value is stored in memory as \verb|ff ff|. What is the number?
+\begin{verbatim}
+ff ff = 1111 1111  1111 1111
+Taking 2's complement
+0000 0000  0000 0000
++                  1
+--------------------
+0000 0000  0000 0001
+--------------------
+ff ff is the negative of 1, i.e., -1.
+\end{verbatim}
+\newpage
+\noindent\textbf{Question 4: Arrays and Strings \hfill $2\times10=$\Qfour~marks}\\
+a. Write a C++ program to sort an integer array in descending order. Declare array size as \verb|const|. Data in the array should be randomly generated. The range of data is [-5, 5].
+\begin{lstlisting}
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+int main()
+{
+	const int size = 10;
+	int Data[size];
+	// Data generation.
+	for (int i=0; i<size; i++)
+		Data[i] = (rand()%11)-5;
+	// Bubblesort.
+	for (int i=0; i<size-1; i++)
+	{
+		for (int j=0; j<size-i-1; j++)
+		{
+			if (Data[j] < Data[j+1])
+			{
+				int temp = Data[j];
+				Data[j] = Data[j+1];
+				Data[j+1] = temp;
+			}
+		}
+	}
+
+	return 0;
+}
+\end{lstlisting}
+\newpage
+\noindent b. You are given two \verb|char| arrays of size 10. The first array contains a \verb|null|--terminated string of arbitrary length taken from user. Without using any library functions determine the size of string and write code to copy the string into second array.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main()
+{
+	char String1[10];
+	char String2[10];
+	cin >> String1; // Assume user enters a valid string that can fit in array.
+	// Write your code here
+	int length;
+	for (int i=0; i<10; i++)
+	{
+		if (String1[i] == '\0')
+		{
+			length = i;
+			break;
+		}
+	}
+
+	for (int i=0; i<length; i++)
+	{
+		String2[i] = String1[i];
+	}
+	String2[length] = '\0'; // Appending a NULL at the end of string.
+
+	return 0;
+}
+\end{lstlisting}
+\newpage
+\noindent\textbf{Question 5: 2D Arrays\hfill \Qfive~marks}\\
+Write code to multiply two matrices using 2D arrays. Actual rows and columns of matrices should be taken as input from user and must not exceed maximum defined size. Take both matrices as input from user. A third matrix of appropriate size is used to store the multiplication result. Display the result after matrix multiplication.
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+// Space for global variables and function prototypes.
+const int MAXROWS = 10;
+const int MAXCOLS = 10;
+void Input(int [][MAXCOLS], int, int);
+void Display(int [][MAXCOLS], int, int);
+int main()
+{
+	float MatA[MAXROWS][MAXCOLS];
+	float MatB[MAXROWS][MAXCOLS];
+	int RowsA;
+	int ColsA;
+	int RowsB;
+	int ColsB;
+	// Write your code here
+	cin >> RowsA >> ColsA >> RowsB >> ColsB; // Assumes user enters valid input.
+	Input(MatA, RowsA, ColsA);
+	Input(MatB, RowsB, ColsB);
+	// Matrix multiplication.
+	float MatC[MAXROWS][MAXCOLS] = {0.f};
+	for (int i=0; i<RowsA; i++)
+	{
+		for (int j=0; j<ColsB; j++)
+		{
+			float Sum = 0.f;
+			for (int k=0; k<ColsA; k++)
+			{
+				Sum = Sum + MatA[i][k]*MatB[k][j];
+			}
+			MatC[i][j] = Sum;
+		}
+	}
+	// Displaying MatrixC
+	int RowsC = RowsA;
+	int ColsC = ColsB;
+	Display(MatC, RowsC, ColsC);
+
+	return 0;
+}
+void Input(int Mat[][MAXCOLS], int rows, int cols)
+{
+	for (int i=0; i<rows; i++)
+		for (int j=0; j<cols; j++)
+			cin >> Mat[i][j];
+}
+void Display(int Mat[][MAXCOLS], int rows, int cols)
+{
+	for (int i=0; i<rows; i++)
+	{
+		for (int j=0; j<cols; j++)
+			cout << Mat[i][j] << " ";
+		cout << endl;
+	}
+}
+\end{lstlisting}
+\newpage~
+\newpage
+\end{document}
