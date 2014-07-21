@@ -64,15 +64,16 @@ Modes are options that can be specified when opening a file. Options are specifi
 	\hline \hline
 		\textbf{Mode} \rule{0pt}{2.6ex} & \textbf{Description}\\
 		\hline
-		\verb|ios::in| \rule{0pt}{2.6ex} & Read mode\\
-		\verb|ios::out| \rule{0pt}{2.6ex} & Write mode\\
+		\verb|ios::in| \rule{0pt}{2.6ex} & Read mode. File contents are preserved.\\
+		\verb|ios::out| \rule{0pt}{2.6ex} & Write mode. Existing file contents are discarded.\\
+		\verb$ios::in|ios::out$ \rule{0pt}{2.6ex} & Read/Write mode. Existing file is preserved. \verb|ios::in| has preference over \verb|ios::out| in preserving data.\\
 		\verb|ios::binary| \rule{0pt}{2.6ex} & Binary mode operation\\
 		\verb|ios::app| \rule{0pt}{2.6ex} & Append mode\\
 		\verb|File.open("abc.txt", ios::in);| \rule{0pt}{2.6ex} & Open file for reading. File must exist.\\
 		\verb|File.open("abc.txt", ios::out);| \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing file will be overwritten.\\
-		\verb\..., ios::out|ios::app);\ \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing data will be preserved. Data will be written at the end of file.\\
+		\verb\..., ios::out|ios::app);\ \rule{0pt}{2.6ex} & Open file for writing. File will be created if it doesn't exist. Existing data will be preserved. Data can only be written at the end of file.\\
 		\verb\..., ios::out|ios::binary);\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing file will be overwritten.\\
-		\verb\ios::out|ios::binary|ios::app\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing data will be preserved. Data will be written at the end of file.\\
+		\verb\ios::out|ios::binary|ios::app\ \rule{0pt}{2.6ex} & Open file for writing in binary mode. File will be created if it doesn't exist. Existing data will be preserved. Data can only be written at the end of file.\\
 	\hline \hline
 	\end{tabular}
 \end{center}
