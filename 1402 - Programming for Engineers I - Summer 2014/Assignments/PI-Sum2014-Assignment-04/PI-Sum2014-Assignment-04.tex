@@ -31,7 +31,7 @@
 %opening
 \title{Programming for Engineers I\\Assignment 04\\Electronic Dictionary}
 \author{Attique Dawood}
-\date{July 13, 2014\\Due: July 22, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\date{July 13, 2014\\Due: July 24, 2014 11:30 PM\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \noindent\textbf{Objectives}
@@ -39,15 +39,16 @@
 \item[1.] Learn how C--style strings work.
 \item[2.] Use \verb|<cstring>| library functions for string manipulation.
 \item[3.] Usage of \verb|struct|
+\item[4.] Text file handling.
 \end{itemize}
 \noindent\textbf{Question} Create an electronic dictionary to store words along with their meanings. The dictionary should be sorted based on alphabetical order of words. First create a struct called dictionary entry with pre--allocated \verb|char| arrays of fixed size to store word and its meaning. Create an array of dictionary entries of some fixed maximum size. Provide user with options to add a new word with its meaning, search for an existing word and display its meaning and display whole dictionary at once.
 \begin{verbatim}
 struct DictionaryEntry
 {
-    char Word[20];
-    char Meaning[50];
+    char Word[50];
+    char Meaning[100];
 };
-const int MAXSIZE = 1000;
+const int MAXSIZE = 2000;
 DictionaryEntry Dictionary[MAXSIZE];
 \end{verbatim}
 Dictionary menu is given below:
@@ -57,13 +58,17 @@ Dictionary menu is given below:
 2. Search word
    - Input word or part of word
 3. Display whole dictionary
-5. Exit program.
+4. Read in dictionary from file (Dictionary.txt)
+5. Store dictionary to file
+6. Exit program.
 \end{verbatim}
 \noindent\textbf{Error Checks:}
 \begin{itemize}
 \item[-] Track actual dictionary size.
-\item[-] If a word already exists then replace the existing word.
+\item[-] When adding a word input must be taken in a temporary \verb|DictionaryEntry| variable. The input word must be matched with all existing words in the dictionary. If a match is found replace meaning without incrementing size and break loop. If the loop reaches \verb|size-1| and no match is found then the word must be added at index location \verb|size| and \verb|size| incremented by one.
+\item[-] If a word already exists then replace the existing word. Exact match can be found using \verb|strcmp()|.
 \item[-] Sort the dictionary after a new word is added so that dictionary remains in alphabetical order.
-\item[-] Words can be searched with a prefix. All words matching the prefix should be displayed. If a dictionary contains words \verb|bat|, \verb|batter| and \verb|battery| then searching for \verb|bat| should display all three words starting with \verb|bat|.
+\item[-] Words can also be searched with a substring. For example, if dictionary contains \verb|bat|, \verb|batter| and \verb|battery| then searching for \verb|bat| should display all three words containing \verb|bat|. Substring search can be done using \verb|strstr()| function.
+\item[-] The \verb|Dictionary.txt| file contains words and meanings on alternate lines.
 \end{itemize}
 \end{document}
