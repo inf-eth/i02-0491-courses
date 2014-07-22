@@ -1,0 +1,162 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{42pt}
+\setlength{\topmargin}{-54pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-2cm}Programming for Engineers I\\Class 12\\Network Programming}
+\author{Attique Dawood}
+\date{July 24, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Network Programming Concepts}
+\subsection{IP Address}
+IP Address is the address of a computer. To send a message to a particular computer we need its IP address.
+\subsection{Port}
+Let's say Person A and Person B live in a House. If you want to send a letter to Person A you'll first write the house address and on top of it mention that it is addressed to Person A. Similarly, in a computer, hundreds of processes may be running at a time. To send a message to a particular process you mention \textbf{Port} number of process. Two processes cannot have the same port number. So, processes in a computer are distinguished by their port numbers. A port number can be any number in the range 1--65535. Usually port numbers 1--200 are reserved for system processes, e.g., port 80 is for http protocol. Rest of the port numbers can be acquired by any process.
+\subsection{Socket}
+Socket is the mail box outside your home. You put letter in it that are taken away by postman and you can take take letters out of it that postman delivers. A process must associate its port number and IP address with a socket in order to communicate with outside world.
+\subsection{\texttt{bind()}}
+\verb|bind()| is used to bind IP address, port number and socket together. This is necessary before communication can start.
+\subsection{\texttt{send()} and \texttt{receive}}
+\verb|send()| or \verb|sendto()| sends data or message, whereas, \verb|receive()| or \verb|receivefrom()| receives data. \verb|receive|'ing is blocking. A process will wait indefinitely until it receives a message. If two processes are communicating then they must NOT call \verb|receive()| at the same time or they will both block. \verb|send()| and \verb|receive()| calls must alternate between two processes so that if one process is \verb|send|'ing the other is \verb|receive|'ing. It is normally a good practice to ensure that consecutive \verb|send()| or \verb|receive()| calls are never made by a single process. But this isn't necessary if process knows beforehand exactly how many bytes it needs to send or receive.
+\subsection{TCP and UDP}
+TCP and UDP are two modes of communication in IP.
+\begin{itemize}
+\item TCP uses \verb|send()| and \verb|receive()| while UDP uses \verb|sendto()| and \verb|receivefrom()|.
+\item UDP is like posting a letter. Any packet can be sent to or received from any IP address. 
+\item TCP is like a phone call. A connection is established between a Server and Client. Client is the one calling and Server is the one accepting calls.
+\item Although Client and Server don't exist in UDP technically, the two computers communicating using UDP are commonly distinguished by calling one Server and the other Client. Normally Server is the one that starts in waiting (\verb|receivefrom()|) state.
+\end{itemize}
+\section{TCP and UDP}
+TCP and UDP are two modes of communication in IP.
+\begin{itemize}
+\item TCP uses \verb|send()| and \verb|receive()| while UDP uses \verb|sendto()| and \verb|receivefrom()|.
+\item UDP is like posting a letter. Any packet can be sent to or received from any IP address. 
+\item TCP is like a phone call. A connection is established between a Server and Client. Client is the one calling and Server is the one accepting calls.
+\item Although Client and Server don't exist in UDP technically, the two computers communicating using UDP are commonly distinguished by calling one Server and the other Client. Normally Server is the one that starts in waiting (\verb|receivefrom()|) state.
+\end{itemize}
+\section{TCP Model}
+\subsection{Server}
+\begin{itemize}
+\item 2 sockets, 1 for accepting connections and another for communication with  Client.
+\item Maintains at least two address structures, one for itself and one to store Client information. 
+\item There can be multiple Clients connected to Server.
+\item Sequence of Operation:
+	\begin{enumerate}
+    \item Create Server \verb|socket()|.
+    \item \verb|bind()| Server socket with its address and port.
+    \item Set Server socket options, \verb|setsockopt()| (optional).
+    \item Configure Server socket to \verb|listen()| to any incoming connection requests.
+    \item Set Server socket state to \verb|accept()| any connection request. This is blocking. When a connection is accepted it will return Client socket and Client address is stored.
+    \item Use Client socket to \verb|send()| and \verb|recv()| data to that particular Client.
+    \item \verb|close()| sockets before exiting.
+	\end{enumerate}
+\end{itemize}
+\subsection{Client}
+\begin{itemize}
+\item 1 socket to connect and \verb|send()| and \verb|recv()| data.
+\item Maintains two address structures, for Client and Server.
+\item Sequence of Operation:
+	\begin{enumerate}
+    \item Create Client \verb|socket()|.
+    \item \verb|bind()| Client socket with its adress and port.
+    \item \verb|connect()| to a Server using Server Address and Server Port.
+    \item \verb|send()| and \verb|recv()| using Client socket.
+    \item \verb|close()| Client socket before exiting.
+	\end{enumerate}
+\end{itemize}
+\section{UDP Model}
+\begin{itemize}
+\item Server does not need to \verb|listen()| or \verb|accept()| connections.
+\item Client does not need to \verb|connect()|.
+\item Server and Client are mirrors. Only logical difference is sequence of \verb|sendto()| and \verb|recvfrom()| calls.
+\item Sequence of Operation:
+	\begin{enumerate}
+    \item Create \verb|socket()|.
+    \item \verb|bind()| socket to own address and port.
+    \item \verb|sendto()| `their' address or \verb|recvfrom()| `random' address on own socket.
+    \item \verb|close()| socket.
+    \end{enumerate}
+\end{itemize}
+\section{Using the Provided Code}
+The code provided with this lab has two examples, one for each TCP and UDP communication model. Extract the zip files and open the solution with the \verb|.sln| file. Each solution contains two projects for Client and Server. Make changes to \verb|ClientMain.cpp| and \verb|ServerMain.cpp| files.
+
+If \verb|winsock2.h| cannot be included from TCP/UDP examples then install the Microsoft SDK. Here's the link to Microsoft SDK  for Windows 7: \url{http://www.microsoft.com/en-us/download/details.aspx?id=8279}
+\section{Useful Functions}
+\subsection{Send/Receive Variables}
+Variables can by anything \verb|int|, \verb|float|, \verb|char| or even whole \verb|struct| type variables.
+\begin{lstlisting}
+// Send or receive a variable. Obj can be server or client object/variable. 
+int x = 3;
+char c = '$';
+DictinoaryEntry structvar;
+// Sending functions. Use SendTo for UDP.
+Obj.Send((void*)&x, sizeof(int));
+Obj.Send((void*)&c, sizeof(char));
+Obj.Send((void*)&structvar, sizeof(DictionaryEntry));
+
+int xtemp;
+char ctemp;
+DictinoaryEntry structtemp;
+// Receiving functions. Use ReceiveFrom for UDP.
+Obj.Receive((void*)&xtemp, sizeof(int));
+Obj.Receive((void*)&ctemp, sizeof(char));
+Obj.Receive((void*)&structtemp, sizeof(DictionaryEntry));
+\end{lstlisting}
+\subsection{Send/Receive Strings}
+Strings can be sent in a similar manner. However, note that receiver doesn't receive NULL. A convenient \verb|receive()| function is available that automatically appends NULL to received string and stores the received string in a built--in buffer. Maximum size of internal buffer is 512 bytes so maximum string length can be 511. Larger strings must be split and sent separately.
+\begin{lstlisting}
+char Message[30] = "Hello world!";
+Obj.Send((void*)Message, sizeof(Message)); // Note: sizeof() gives string length. strlen(Message) is equally good.
+// Can also send const strings.
+Obj.Send((void*)"Hello", sizeof("Hello"));
+
+// When receiving a string use the built-in Receive()/ReceiveFrom() functios without arguments. These automatically append a NULL to received string and stores in internal buffer.
+Obj.Receive(); // or Obj.ReceiveFrom(); for UDP.
+cout << Obj.GetBuffer() << endl; // Display received string from internal buffer.
+\end{lstlisting}
+\subsection{Send/Receive Whole Arrays}
+\begin{lstlisting}
+const int SIZE = 20;
+int Data[SIZE];
+Obj.Send((void*)Data, sizeof(int)*SIZE);
+
+int RecData[SIZE];
+Obj.Receive((void*)RecData, sizeof(int)*SIZE);
+\end{lstlisting}
+\section{Exercise}
+\noindent\textbf{Question No. 1:} Create a simplex chat application for two people using UDP. In simplex communication only one person can speak at a time. Client and Server will alternate their \verb|send()| and \verb|receive()| calls in a loop. \\
+\noindent\textbf{Question No. 2:} Implement file transfer using TCP. The server keeps a pdf file (can be this lab handout. Copy into Server project folder). The sequence of operation is as follows:
+\begin{enumerate}
+\item[1.] Client will connect to Server.
+\item[2.] Server will open file for reading and send file size to Client. Both, Server and Client, file operations should be in binary mode as both needs to read/write byte--by--byte.
+\item[3a.] Server will loop through, read the file 1 byte at a time (into a temporary \verb|char| variable) and send to client. Loop breaks when Server has sent number of bytes equal to file size.
+\item[3b.] Client will create an empty file for writing. Client loops through in receiving state storing received data 1 byte at a time into a temporary \verb|char| variable. The received data is written onto opened file. Client loop will break when it receives total number of bytes equal to file size.
+\end{enumerate}
+\end{document}
