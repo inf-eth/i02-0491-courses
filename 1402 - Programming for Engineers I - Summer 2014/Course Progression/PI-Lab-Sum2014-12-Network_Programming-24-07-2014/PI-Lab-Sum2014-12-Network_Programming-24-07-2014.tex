@@ -131,18 +131,6 @@ Obj.Receive((void*)&xtemp, sizeof(int));
 Obj.Receive((void*)&ctemp, sizeof(char));
 Obj.Receive((void*)&structtemp, sizeof(DictionaryEntry));
 \end{lstlisting}
-\subsection{Send/Receive Strings}
-Strings can be sent in a similar manner. However, note that receiver doesn't receive NULL. A convenient \verb|receive()| function is available that automatically appends NULL to received string and stores the received string in a built--in buffer. Maximum size of internal buffer is 512 bytes so maximum string length can be 511. Larger strings must be split and sent separately.
-\begin{lstlisting}
-char Message[30] = "Hello world!";
-Obj.Send((void*)Message, sizeof(Message)); // Note: sizeof() gives string length. strlen(Message) is equally good.
-// Can also send const strings.
-Obj.Send((void*)"Hello", sizeof("Hello"));
-
-// When receiving a string use the built-in Receive()/ReceiveFrom() functios without arguments. These automatically append a NULL to received string and stores in internal buffer.
-Obj.Receive(); // or Obj.ReceiveFrom(); for UDP.
-cout << Obj.GetBuffer() << endl; // Display received string from internal buffer.
-\end{lstlisting}
 \subsection{Send/Receive Whole Arrays}
 \begin{lstlisting}
 const int SIZE = 20;
@@ -151,6 +139,30 @@ Obj.Send((void*)Data, sizeof(int)*SIZE);
 
 int RecData[SIZE];
 Obj.Receive((void*)RecData, sizeof(int)*SIZE);
+\end{lstlisting}
+\subsection{Send/Receive Strings Using Built--in Receive() Without Arguments}
+Strings can be sent in a similar manner. However, note that receiver doesn't receive NULL. A convenient \verb|receive()| function is available that automatically appends NULL to received string and stores the received string in a built--in buffer. Maximum size of internal buffer is 512 bytes so maximum string length can be 511. Larger strings must be split and sent separately.
+\begin{lstlisting}
+char Message[30] = "Hello world!";
+Obj.Send((void*)Message, sizeof(Message)); // Note: sizeof() gives string length. strlen(Message) is equally good.
+// Can also send const strings.
+Obj.Send((void*)"Hello", sizeof("Hello"));
+
+// When receiving a string we can use the built-in Receive()/ReceiveFrom() functios without arguments. These automatically append a NULL to received string and stores in internal buffer.
+Obj.Receive(); // or Obj.ReceiveFrom(); for UDP.
+cout << Obj.GetBuffer() << endl; // Display received string from internal buffer.
+\end{lstlisting}
+\section{Keeping Track of Data Sent/Received}
+The send and receive functions return the number of bytes that were actually sent and received. Receiver may not always know exactly how many bytes it is going to receive beforehand. This can be illustrated using example given below. Sender sends a string to receiver. Both agree on a maximum array size of 512. The length of string can be anything between 1 and 511.
+\begin{lstlisting}
+// Send whole string including NULL.
+char Message[512] = char Message[30] = "Hello world!";
+int BytesSent;
+BytesSent = Obj.Send((void*)Message, sizeof(Message)+1); // sizeof(Message) is equivalent to strlen(Message). BytesSent should be equal to sizeof(Message)+1.
+
+char Buffer[512];
+int ByteseReceived;
+BytesReceived = Obj.Receive((void*)Buffer, 512); // 30 is max buffer size. Received bytes will be equal to sent bytes.
 \end{lstlisting}
 \section{Exercise}
 \noindent\textbf{Question No. 1:} Create a simplex chat application for two people using UDP. In simplex communication only one person can speak at a time. Client and Server will alternate their \verb|send()| and \verb|receive()| calls in a loop. \\
