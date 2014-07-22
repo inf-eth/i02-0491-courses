@@ -154,13 +154,13 @@ cout << Obj.GetBuffer() << endl; // Display received string from internal buffer
 The send and receive functions return the number of bytes that were actually sent and received. Receiver may not always know exactly how many bytes it is going to receive beforehand. This can be illustrated using example given below. Sender sends a string to receiver. Both agree on a maximum array size of 512. The length of string can be anything between 1 and 511.
 \begin{lstlisting}
 // Send whole string including NULL.
-char Message[512] = char Message[30] = "Hello world!";
-int BytesSent;
-BytesSent = Obj.Send((void*)Message, sizeof(Message)+1); // sizeof(Message) is equivalent to strlen(Message). BytesSent should be equal to sizeof(Message)+1.
+char Message[512] = "Hello world!";
+int BytesSent; //  BytesSent should be equal to sizeof(Message)+1.
+BytesSent = Obj.Send((void*)Message, sizeof(Message)+1); // sizeof(Message) is equivalent to strlen(Message).
 
 char Buffer[512];
 int ByteseReceived;
-BytesReceived = Obj.Receive((void*)Buffer, 512); // 30 is max buffer size. Received bytes will be equal to sent bytes.
+BytesReceived = Obj.Receive((void*)Buffer, 512); // 512 is max buffer size. Received bytes will be equal to sent bytes.
 \end{lstlisting}
 \section{Exercise}
 \noindent\textbf{Question No. 1:} Create a simplex chat application for two people using UDP. In simplex communication only one person can speak at a time. Client and Server will alternate their \verb|send()| and \verb|receive()| calls in a loop. \\
