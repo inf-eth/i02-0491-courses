@@ -1,0 +1,145 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Programming for Engineers I\\Assignment 05\\Network Programming}
+\author{Attique Dawood}
+\date{July 25, 2014\\Due: August 07, 2014 11:30 PM\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Objectives}
+\begin{itemize}
+\item[1.] Learn the mechanics of network communication.
+\item[2.] TCP and UDP models of network communication.
+\item[3.] Use provided libraries to develop TCP or UDP network applications.
+\end{itemize}
+\noindent\textbf{Question} This assignment requires you to develop a TCP network application. The Server maintains a database of student records in a file. A Client with proper authorisation can connect to Server and perform database operations. Database operations are: add record, display all records, search for a record and update a record. The Client is presented a menu to navigate through these options. Student record structure and menu are given below.
+\begin{verbatim}
+// Each StudentRecord takes 64 bytes.
+struct StudentRecord
+{
+    char Name[40];
+  	int Roll;
+    int Age;
+    float CGPA;
+    int CourseMarks[3];
+};
+\end{verbatim}
+\begin{verbatim}
+============== Server Menu ==============
+1. Add record
+   - Input record
+2. Display all records
+3. Search a record
+   - Input student name to search for
+4. Update record
+   - Input student name to search for
+5. Download course outline
+6. Disconnect from Server.
+=========================================
+\end{verbatim}
+\newpage
+\noindent\textbf{Algorithm:}
+\begin{lstlisting}
+        Server                              Client
+StudentRecord temp                 StudentRecord temp
+int choice = -1                    int choice = -1
+while(choice != 6)                 while(choice != 6)
+{                                  {
+ - Send menu                        - Receive menu
+ - Receive choice                   - cin and Send choice
+    
+ switch(choice)                     switch(choice)
+ {                                  {
+  case 1:                            case 1:
+  {                                  {
+   - Receive record                   - Input and Send record
+   - Open file in append mode        }
+   - Write record to file
+  }
+  case 2:                            case 2:
+  {                                  {
+   - int NoOfRecords 
+   - Open file                        - int NoOfRecords
+   - Find NoOfRecords
+   - Send NoOfRecords to Client       - Receive NoOfRecords
+   - Reset seekg pointer
+   for (NoOfRecords times)            for (NoOfRecords times)
+   {                                  {
+    - Read a record from file          - Receive record
+    - Send record to Client            - Display record
+   }                                  }
+  }                                  }
+  case 3:                            case 3:
+  {                                  {
+   - Make an int found = 0            - int found
+     and index = -1                   - Input name to search
+   - Receive name from Client         - Send name to Server
+   - Open file and read             
+     individual records
+     in a temp struct
+   - Set found = 1 if found,
+     index = i and break loop         - Receive found
+   - Send found to Client             - if (found == 1)
+   - if (found == 1)                     Receive record
+      Send Client temp                   and display it
+  }                                  }
+  case 4:                            case 4:
+  {                                  {
+   - Same steps as case 3             - ...
+   - ...
+   - if (found == 1)                  - if (found ==1)
+      Receive temp from Client           Input and send
+   - Write to file at                    new record
+     appropriate position            
+     i*sizeof(StudentRecord)
+  }                                  }
+  case 5:                            case 5:
+  {                                  { 
+   - Refer to TCP file                - ...
+     transfer lab
+  }                                  }
+  case 6:                            case 6:
+  {                                  {
+   - break                            - break
+  }                                  }
+ }                                  }
+}                                  }
+\end{lstlisting}
+\noindent\textbf{Considerations:}
+\begin{itemize}
+\item[-] Server and Client can only use one \verb|StudentRecord| variable each at their ends to perform all operations.
+\item[-] All the data is stored in a file \verb|records.rec| at Server.
+\item[-] Declare a string to store menu at Server side and send it to Client in a loop.
+\item[-] After Server sends the menu to Client it will receive a choice (an integer) and perform requested operation.
+\item[-] Keep course outline in a pdf file at Server side. Programming -- I course outline is available at SLATE.
+\item[-] Server and Client will both run in infinite loops. Selecting `disconnect' will properly break the loops for both Server and Client so that they can exit.
+\end{itemize}
+\end{document}
