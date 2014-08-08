@@ -33,7 +33,7 @@ int main()
 	File.open("received.pdf", ios::out|ios::binary);
 	int filesize;
 	ClientObj.Receive((void*)&filesize, sizeof(int));
-	cout << filesize << endl;
+	cout << "File size: " << filesize << "B." << endl;
 	char c;
 	for (int i=0; i<filesize; i++)
 	{
