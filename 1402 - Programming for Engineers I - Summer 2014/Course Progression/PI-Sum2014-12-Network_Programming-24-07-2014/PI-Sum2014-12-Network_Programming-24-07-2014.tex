@@ -142,9 +142,9 @@ Obj.Receive((void*)RecData, sizeof(int)*SIZE);
 Strings can be sent in a similar manner. However, note that receiver doesn't receive NULL. A convenient \verb|receive()| function is available that automatically appends NULL to received string and stores the received string in a built--in buffer. Maximum size of internal buffer is 512 bytes so maximum string length can be 511. Larger strings must be split and sent separately.
 \begin{lstlisting}
 char Message[30] = "Hello world!";
-Obj.Send((void*)Message, sizeof(Message)); // Note: sizeof() gives string length. strlen(Message) is equally good.
+Obj.Send((void*)Message, strlen(Message)+1); // Send string + NULL character.
 // Can also send const strings.
-Obj.Send((void*)"Hello", sizeof("Hello"));
+Obj.Send((void*)"Hello", strlen("Hello")+1);
 
 // When receiving a string we can use the built-in Receive()/ReceiveFrom() functios without arguments. These automatically append a NULL to received string and stores in internal buffer.
 Obj.Receive(); // or Obj.ReceiveFrom(); for UDP.
@@ -156,7 +156,7 @@ The send and receive functions return the number of bytes that were actually sen
 // Send whole string including NULL.
 char Message[512] = "Hello world!";
 int BytesSent; //  BytesSent should be equal to sizeof(Message)+1.
-BytesSent = Obj.Send((void*)Message, sizeof(Message)+1); // sizeof(Message) is equivalent to strlen(Message).
+BytesSent = Obj.Send((void*)Message, strlen(Message)+1); // Send string + NULL character.
 
 char Buffer[512];
 int ByteseReceived;
