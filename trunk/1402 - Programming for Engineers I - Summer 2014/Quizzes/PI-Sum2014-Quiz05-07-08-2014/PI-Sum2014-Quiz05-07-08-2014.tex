@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=none, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Programming for Engineers I - Summer 2014\\Quiz \#05}
+\date{\vspace{-1.5cm}Date: 07--08--2014}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent\textbf{Time: 10 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent\textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent\textbf{Question:} Write code for Server/Client authorisation. Client will send password to Server in a loop. If password matches loop will break otherwise Client re--enters password.
+\begin{lstlisting}
+// Server
+int a = 0;
+char pass[] = "123";
+char temp[20];
+while (true)
+{
+	ServerObj.Receive((void*)temp, 20);
+	if (strcmp(temp, pass)==0)
+		a = 1;
+	ServerObj.Send((void*)&a, sizeof(int));
+	if (a==1)
+		break;
+}
+\end{lstlisting}
+\begin{lstlisting}
+// Client
+int a = 0;
+char temp[20];
+while (true)
+{
+	cout << "Enter password: ";
+	cin.getline(temp, 20);
+	ClientObj.Send((void*)temp, strlen(temp)+1);
+	ClientObj.Receive((void*)&a, sizeof(int));
+	if (a==1)
+	{
+		cout << "Successful login!" << endl;
+		break;
+	}
+	else
+		cout << "Incorrect password!" << endl;
+}
+\end{lstlisting}
+\end{document}
