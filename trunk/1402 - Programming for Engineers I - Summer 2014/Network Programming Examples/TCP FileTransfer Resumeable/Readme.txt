@@ -1,0 +1,2 @@
+- Use 'make' to compile on Linux. To run Server type 'make runS' and to run Client type 'make runC'. Server should run first.
+- On windows use the .sln file to open the solution. Select 'Set as startup project' project from project right-click menu to run Client or Server.
