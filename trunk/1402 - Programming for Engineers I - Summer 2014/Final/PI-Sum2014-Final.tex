@@ -1,0 +1,301 @@
+\documentclass[12pt,a4paper]{article}
+
+% To use this template make changes to following:
+% 1. Fill-ables section.
+% 2. Instructions.
+% 3. Marks table.
+% 4. Actual questions.
+
+% ================================ 1. Fill-ables ================================
+\newcommand\University{National University of Computer and Emerging Sciences}
+\newcommand\Department{School of Engineering}
+\newcommand\Campus{Islamabad Campus}
+\newcommand\Semester{Summer 2014}
+\newcommand\Exam{Final Exam}
+\newcommand\Subject{EE110--Programming for Engineers -- I}
+\newcommand\ExamDate{Saturday, August 09, 2014}
+\newcommand\InstructorOne{Attique Dawood}
+\newcommand\InstructorTwo{}
+\newcommand\InstructorThree{\null}
+\newcommand\TotalTime{03 Hours}
+\newcommand\TotalMarks{10}
+\newcommand\TotalQuestions{5}
+\newcommand\TotalPages{\pageref{LastPage}} % Automatic: No need to change this.
+% Marks of each question
+\def\Qone{20}
+\def\Qtwo{20}
+\def\Qthree{20}
+\def\Qfour{20}
+\def\Qfive{20}
+\def\Qsix{0}
+\def\Qseven{0}
+\def\Qeight{0}
+\def\Qnine{0}
+\def\Qten{0}
+% ============================================================================
+
+% ============== 2. Packages ==============
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{lastpage}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+% Drawing packages.
+\usepackage{pgf}
+\usepackage{tikz}
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+
+% General listings options.
+\lstset{breaklines=true, basicstyle=\footnotesize\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=none, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Line spacing.
+\def\SingleSpacing{\def\baselinestretch{1}\large\normalsize}
+\def\DoubleSpacing{\def\baselinestretch{1.5}\large\normalsize}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{28pt}
+\setlength{\headsep}{2.5pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in} % Actual: 10.75in
+
+% ============================= 3. Header and Footer ============================
+\pagestyle{empty}
+% Header
+\chead
+{
+	{\large\textbf{\University}}\\
+	\begin{minipage}{0.45\textwidth}
+	\begin{center}
+	{\small\textbf{\Department}}
+	\end{center}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+	\begin{center}
+	{\small\textbf{\Campus}}
+	\end{center}
+	\end{minipage}
+}
+% Footer
+\lfoot{{\small\Exam}}
+\cfoot{{\small\Semester}}
+\rfoot{{\small Page \textbf{\thepage}~of \textbf{\TotalPages}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+% ================================= 4. Front Page ===============================
+\begin{document}
+% A cute macro to add up marks of all individual questions. Uncomment if you want to use this.
+\pgfmathtruncatemacro\TotalMarks{\Qone+\Qtwo+\Qthree+\Qfour+\Qfive+\Qsix+\Qseven+\Qeight+\Qnine+\Qten}
+% Use this macro if marks are in decimal points
+%\newcommand\TotalMarks{\pgfmathsetmacro\TotalMarks{\Qone+\Qtwo+\Qthree+\Qfour+\Qfive+\Qsix+\Qseven+\Qeight+\Qnine+\Qten}}
+\begin{minipage}[t]{0.6\textwidth}
+\begin{flushleft}
+\DoubleSpacing
+{\Large\textbf{\Subject}}\\
+{\normalsize\ExamDate}\\
+{\large\textbf{Course Instructor}}\\
+{\normalsize\InstructorOne}\\
+{\normalsize\InstructorTwo}
+{\normalsize\InstructorThree}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.01\textwidth}
+~
+\end{minipage}
+\begin{minipage}[t]{0.325\textwidth}
+\DoubleSpacing
+{\normalsize Serial No:}\\
+{\Large\textbf{\Exam}}\\
+{\large\textbf{Total Time: \TotalTime}}\\
+{\large\textbf{Total Marks: \TotalMarks}}\\[1cm]
+\rule{5cm}{0.2mm}\\[-0.25cm]
+{\small Signature of Invigilator}
+\end{minipage}
+\SingleSpacing
+~\\[1.5cm] % Extra space.
+\rule{7cm}{0.2mm}~\rule{2.5cm}{0.2mm}~\rule{2cm}{0.2mm}~\rule{4.5cm}{0.2mm}\\
+{\small Student Name\hspace{4.75cm}Roll No\hspace{1.35cm}Section\hspace{0.95cm}Signature}\\[1cm]
+% ============================ 5. Instructions ==================================
+\textbf{DO NOT OPEN THE QUESTION BOOK OR START UNTIL INSTRUCTED.}\\
+\textbf{Instructions:}
+\begin{enumerate}
+\itemsep0em
+\item Verify at the start of the exam that you have a total of \TotalQuestions~questions printed on \TotalPages~pages including this title page.
+\item Attempt all questions on the question-book and in the given order.
+\item The exam is closed books, closed notes. Please see that the area in your threshold is free of any material classified as `useful in the paper' or else there may be a charge of cheating.
+\item Read the questions carefully for clarity of context and understanding of meaning and make assumptions wherever required, for neither the invigilator will address your queries, nor the teacher/examiner will come to the examination hall for any assistance.
+\item Fit in all your answers in the provided space. You may use extra space on the last page if required. If you do so, clearly mark question/part number on that page to avoid confusion. 
+\item Use only your own stationery and calculator. If you do not have your own calculator, use manual calculations. 
+\item Use only permanent ink-pens. Only the questions attempted with permanent ink-pens will be considered. Any part of paper done in lead pencil cannot be claimed for checking/rechecking.
+\end{enumerate}
+% =============================== 6. Marks Table ================================
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|c|}
+	\hline
+		\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & \textbf{Total}\\[-0.5ex]
+		\hline
+		\rule{0pt}{2.5ex}\textbf{Total Marks}& \Qone & \Qtwo & \Qthree & \Qfour & \Qfive & \TotalMarks\\
+		\hline
+		\rule{0pt}{2.5ex}\textbf{Marks Obtained}& & & & & &\\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+{\small \textbf{Vetted By: \rule{6cm}{0.2mm} Vetter Signature: \rule{4.5cm}{0.2mm}}}
+\setlength{\textheight}{10.5in}
+\newpage
+\pagestyle{fancy}
+% ================================== 7. Questions ===============================
+\noindent\textbf{Question 1: Basic Programming \hfill \Qone~marks}\\
+Write a program that takes a decimal number as input and outputs its equivalent hexadecimal notation.
+\newpage~
+\newpage
+\noindent \textbf{Question 2: Memory and Storage\hfill \Qtwo~marks}\\
+a. Convert \verb|float f = 11.625f;| into its equivalent 32 bit floating point notation. Show how it is stored in memory.\\[12.5cm]
+b. How is \verb|short int x = -129| stored in memory?
+\newpage
+\noindent\textbf{Question 3: Struct and Dynamic Allocation\hfill \Qthree~marks}\\
+Given definition of Book structure, you are required to dynamically create an array of books.
+\begin{enumerate}
+\item Take size of array as input from user.
+\item Write code to dynamically create an array of books.
+\item In a loop, user will enter attributes of all books using input function.
+\item Display the attributes of all books using display function.
+\item De--allocate memory before exiting main.
+\end{enumerate}
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+struct Book
+{
+	char Title[50];
+	int PublishedYear;
+};
+void Input(Book& B)
+{
+
+
+
+
+}
+void Display(Book& B)
+{
+
+
+
+
+}
+int main()
+{
+	Book* ArrayOfBooks;
+	int Size;
+	// 1. Take input size from user.
+		
+		
+	
+	// 2. Allocation.
+		
+	
+	
+	
+	// 3. Input attributes from user.
+		
+	
+	
+	
+	
+	// 4. Display all books.
+		
+	
+		
+		
+		
+	// 5. De-allocation.
+		
+	
+	return 0;
+}
+\end{lstlisting}
+\newpage
+\noindent\textbf{Question 4: File Handling \hfill \Qfour~marks}\\
+Downloading large files can take several hours. If the download process is terminate due to power failure or interruption in network connection then download will have to be restarted. This can waste a lot of time as well as bandwidth. You are required to develop a TCP application and implement resume--able downloading mechanism. In case of any interruption the download will resume where it left off.  Write code for \verb|ServerMain.cpp| and \verb|ClientMain.cpp|. The specifications are given below:
+\begin{itemize}
+\item[-] Server keeps a file \verb|abc.pdf| at its end. Client will download this file and save as \verb|received_abc.pdf|.
+\item[-] There are a few checks that need to be carried out before actual download. First of all the Server will send file size to Client. Client will open \verb|received_abc.pdf| at its end and compare file sizes. If Client's file size is equal to Server's file size then there is no need to download because transfer is complete. Otherwise Client will send its file size as offset to Server. Server will start sending data after this offset and Client will write the data on its end in append mode.
+\item[-] Data is transferred one byte at a time in a loop. Loop counter is based on number bytes to be transferred (total file size - offset).
+\end{itemize}
+\begin{verbatim}
+For example:
+Server's file size: 100 B
+Client's file size (offset): 37 B
+Client needs 100-37 = 63 B
+Server sets get pointer to 37 and sends 63 bytes
+Client receives 63 bytes and writes in append mode
+\end{verbatim}
+\newpage~
+\newpage~
+\newpage~
+\newpage
+\noindent\textbf{Question 5: Network Programming\hfill \Qfive~marks}\\
+You are required to develop a TCP network application for a Supercomputer that can perform mathematical operations on complex numbers. The Server running on Supercomputer will receive two complex numbers as input from Client, compute the result and return the result back to Client. There are four operations that Server can perform: Add, subtract, multiply and divide. The Server will send a menu with these choices to Client in a loop. Client will select the desired operation, input two numbers and get back the result. \textbf{All inputs must be taken at Client and all computations must be performed at Server}. Write code for \verb|ServerMain.cpp| and \verb|ClientMain.cpp|. Starter code for Server is given.
+\begin{lstlisting}
+// Space for header files
+#include <Server.h>
+
+
+
+
+
+
+
+
+
+
+// Space for definitions
+
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+	Server ServerObj;
+	ServerObj.CreateSocket(TCPSOCKET);
+	ServerObj.SetSocketOptions();
+	ServerObj.InitialiseAddress(6000);
+	ServerObj.Bind();
+	ServerObj.Listen();
+	ServerObj.Accept();
+	ServerObj.DisplayClientInfo();
+	// Write your code here
+\end{lstlisting}
+\newpage~
+\newpage~
+\newpage~
+\newpage~
+\newpage
+\end{document}
