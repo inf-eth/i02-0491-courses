@@ -30,7 +30,7 @@ int main()
 	char Menu[] = "1. Add record\n2. Display all records\n3. Search record\n4. Update record\n5. Download course outline\n6. Disconnect";
 	while (choice != 6)
 	{
-		ServerObj.Send((void*)Menu, sizeof(Menu)+1); // Send NULL as well.
+		ServerObj.Send((void*)Menu, strlen(Menu)+1); // Send NULL as well.
 		ServerObj.Receive((void*)&choice, sizeof(int));
 
 		switch (choice)
