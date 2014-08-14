@@ -1,0 +1,95 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Electromagnetic Theory\\Fall - 2014\\Course Outline}
+\vspace{0.5cm}
+\author{Attique Dawood}
+\date{August 14, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Course Information}
+\noindent\textbf{Course Title:} Electromagnetic Theory\\
+\textbf{Course Code:} EE210\\
+\textbf{Pre-requisite(s):} Physics for Engineers, Multi--variable Calculus/CVT\\
+\textbf{Credit Hrs:} 3\\
+\section{Text Book}
+\textbf{Title:} Elements of Electromagnetics (3$^{rd}$ Edition)\\
+\textbf{Author:} M. N. O. Sadiku\\[0.5cm]
+\section{Objective}
+The objective of this course is to introduce the basics of electromagnetics. Emphasis is on mathematically solving problems involving electric and magnetic fields. After taking this course students will be familiar with Maxwell’s equations and will be able to solve problems related to electrostatics and magnetostatics.
+\section{Course Contents}
+%\begin{table}[H]
+\begin{center}
+\vspace{-0.5cm}
+	\begin{longtable}{|c|p{13cm}|}
+	\hline \hline
+		\rule{0pt}{2.6ex} \textbf{Week} & \textbf{Topics}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Motivation and introduction to electromagnetics; physical quantities, engineering and scientific notations (1.1); Introduction to the 2D and 3D coordinate system, scalars and vectors (1.3); unit vector (1.4); vector addition and subtraction (1.5); Position and distance vectors (1.6); function, concept of field, scalar and vector fields, Scalar and vector products (1.7); components of a vector, resolution of vector into rectangular components, vector algebra (1.8); solving problems involving vectors;\\
+		\hline
+		2 \rule{0pt}{2.6ex} & Introduction to 3D cartesian, cylindrical and spherical coordinate systems (2.2, 2.3, 2.4); constant--coordinate surfaces and orientation of unit vectors in cartesian, cylindrical and spherical coordinate systems (2.5); vector transformations.\\
+		\hline
+		3 \rule{0pt}{2.6ex} & Differential length, surface and volume (3.2); concept of line, surface and volume integrals (3.3); solving line, surface and volume integrals\\
+		\hline
+		4 \rule{0pt}{2.6ex} & Del operator (3.4); gradient of a scalar (3.5); divergence theorem (3.6); Stoke's theorem (3.7); classification of vector fields (3.9).\\
+		\hline
+		5 \rule{0pt}{2.6ex} & Electrostatics, charge (4.1); Coulomb's law (4.2); the electric field, electric field of a point charge; superposition principle, continuous charge distributions, line, surface and volume charges,  field due to a line charge, ring of charge, disk of charge and infinite sheet of charge (4.3).\\
+		\hline
+		6 \rule{0pt}{2.6ex} & Sessional -- I; electric flux (4.4); Gauss's law (4.5); applications of Gauss's law (4.6).\\
+		\hline
+		7 \rule{0pt}{2.6ex} & Electric potential (4.7); relationship between \textbf{E} and \textit{V} (4.8); energy density in electrostatic fields (4.10).\\
+		\hline
+		8 \rule{0pt}{2.6ex} & Electric field in material space: introduction (5.1); properties of materials (5.2); convection and conduction currents (5.3); conductors (5.4); polarisation in dielectrics (5.5); dielectric constant and strength (5.6); continuity and relaxation time (5.8); boundary conditions (5.9); applications of Gauss's law to problems involving conductors and dielectrics.\\
+		\hline
+		9 \rule{0pt}{2.6ex} & Electrostatic boundary--value problems: introduction (6.1); Poisson's and Laplace's equations (6.2); general procedure for solving Poisson's and Laplace's equations (6.4); resistance and capacitance (6.5); method of images (6.6).\\
+		\hline
+		10 \rule{0pt}{2.6ex} & Magnetostatics: introduction(7.1); Biot--Savart's law (7.2); Ampere's law (7.3); applications of Ampere's law (7.4); magnetic flux density (7.5); Maxwell's equations for static electromagnetic fields (7.6).\\
+		\hline
+		11 \rule{0pt}{2.6ex} & Sessional -- II; Magnetic forces materials and devices: introduction (8.1); forces due to magnetic fields (8.2); magnetisation in materials (8.5); classification of magnetic materials (8.6); magnetic boundary conditions (8.7).\\
+		\hline
+		12 \rule{0pt}{2.6ex} & Inductors and inductances (8.8); magnetic energy (8.9); magnetic circuits (8.10).\\
+		\hline
+		13 \rule{0pt}{2.6ex} & Maxwell's equations: introduction (9.1); Faraday's law (9.2); transformer and motional emf's (9.3).\\
+		\hline
+		14 \rule{0pt}{2.6ex} & Displacement current (9.4); Maxwell's equations in final forms (9.5); time--harmonic fields (9.7).\\
+		\hline
+		15 \rule{0pt}{2.6ex} & Electromagnetic wave propagation: introduction (10.1); waves in general (10.2); wave propagation in lossy dielectrics (10.3); plane waves in lossless dielectrics (10.4), free space (10.5) and good conductors (10.6).\\
+		\hline
+		16 \rule{0pt}{2.6ex} & Power and Poynting vector (10.7); reflection of a plane wave at normal incidence (10.8).\\
+	\hline \hline
+	\end{longtable}
+\end{center}
+%\label{Physics-Course-Outline}
+%\caption{Physics for Engineers Course Outline}
+%\end{table}
+\end{document}
