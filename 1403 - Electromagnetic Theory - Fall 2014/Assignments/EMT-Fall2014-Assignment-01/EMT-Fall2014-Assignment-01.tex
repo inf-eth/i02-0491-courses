@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Assignment 01\\Vectors}
+\author{Attique Dawood}
+\date{August 29, 2014\\Due: September 01, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item Find the angle between face diagonals of a cube.
+\item Find the angle between space diagonals of a cube.
+\item Do the following problems given at the end of chapter 01 from Sadiku: 1.1, 1.2, 1.5, 1.11, 1.21, 1.22.
+\item A vector field is given by $\textbf{A}=-y\hat x+x\hat y$.
+\begin{enumerate}
+\item[a.] Draw the field vector at points (1, 0, 0), (0, 1, 0), (-1, 0, 0) and (0, -1, 0).
+\item[b.] Draw the field vector at points (1, 1, 0), (-1, 1, 0), (-1, -1, 0) and (1, -1, 0).
+\item[c.] What is the magnitude of the field at (2, 3, 0).
+\item[d.] Find at unit vector along \textbf{A} at (1, 0, 0), (0, 1, 0), (1, 1, 0) and (1, -1, 0).
+\item[e.] The given field \textbf{A} has a counter--clockwise rotation around the z-axis. Can you suggest a vector field with a clockwise rotation?
+\end{enumerate}
+\end{enumerate}
+\end{document}
