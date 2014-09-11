@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 09\\Line, Surface and Volume Integrals -- I}
+\author{Attique Dawood}
+\date{September 12, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Differential length, surface and volume.
+\end{itemize}
+\section{Surface and Volume Integrals}
+In electromagnetics we need to solve surface and volume integrals. Some common integrals are given below.
+\begin{itemize}
+\item $\int\limits_{S} d\mathrm{A}$~: Gives the total area of the surface `S'. This is generalised expression actually solved as a double integral.
+\item $\int\limits_{v} dv$~: Calculate the total volume defined by limits of `v'. This is also a generalised expression actually solved as a triple integral.
+\item $\int\limits_{S}\textbf{A}\cdot d\textbf{A}$~: Gives the total flux of the vector field \textbf{A} through the surface `S'.
+\item $\int\limits_{v}\rho_v dv$~: If $\rho_v$ is volumetric charge density in $C/m^3$ then this integrals gives the total charge in volume `v'.
+\end{itemize}
+\section{Exercises}
+\noindent\textbf{Question 1:} Use an appropriate $dS$ to find the surface area of given structures.
+\begin{itemize}
+\item[(1)] The area of curved surface of a cylinder of radius $\rho=3$ and height $0<z<2$.
+\item[(2)] The surface area of a sphere of radius $r=3$.
+\item[(3)] The area of curved surface of a slice of cake described by $\rho=3$, height $0<z<2$ and $0<\phi<30^0$.
+\item[(4)] The area of an icecream cone described by $\theta=30^0$ and $0<r<3$.
+\end{itemize}
+\noindent\textbf{Question 2:} Use a suitable $dv$ to find the volumes of structures given in question 1.\\[0.2cm]
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
+\end{document}
