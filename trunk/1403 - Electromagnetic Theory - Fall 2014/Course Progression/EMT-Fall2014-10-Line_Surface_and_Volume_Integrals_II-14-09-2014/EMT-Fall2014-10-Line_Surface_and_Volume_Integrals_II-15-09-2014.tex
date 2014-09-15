@@ -33,14 +33,19 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{Electromagnetic Theory\\Class 09\\Line, Surface and Volume Integrals -- I}
+\title{Electromagnetic Theory\\Class 10\\Line, Surface and Volume Integrals -- II\\Flux and Density Integrals}
 \author{Attique Dawood}
-\date{September 12, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\date{September 15, 2014\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz \#02 today.
+\end{itemize}
 \section{Revision}
 \begin{itemize}
 \item Differential length, surface and volume.
+\item Area and volume integrals.
 \end{itemize}
 \section{Surface and Volume Integrals}
 In electromagnetics we need to solve surface and volume integrals. Some common integrals are given below.
@@ -49,16 +54,13 @@ In electromagnetics we need to solve surface and volume integrals. Some common i
 \item $\int\limits_{v} dv$~: Calculate the total volume defined by limits of `v'. This is also a generalised expression actually solved as a triple integral.
 \item $\int\limits_{S}\textbf{A}\cdot d\textbf{A}$~: Gives the total flux of the vector field \textbf{A} through the surface `S'.
 \item $\int\limits_{v}\rho_v dv$~: If $\rho_v$ is volumetric charge density in $C/m^3$ then this integrals gives the total charge in volume `v'.
+\item $\int\limits_{v}\rho_m dv$~: If $\rho_m$ is volumetric mass density in $kg/m^3$ then this integrals gives the total mass in volume `v'.
 \end{itemize}
 \section{Exercises}
-\noindent\textbf{Question 1:} Use an appropriate $dS$ to find the surface area of given structures.
-\begin{itemize}
-\item[(1)] The area of curved surface of a cylinder of radius $\rho=3$ and height $0<z<2$.
-\item[(2)] The surface area of a sphere of radius $r=3$.
-\item[(3)] The area of curved surface of a slice of cake described by $\rho=3$, height $0<z<2$ and $0<\phi<30^0$.
-\item[(4)] The area of an icecream cone described by $\theta=60^0$ and $0<r<3$.
-\end{itemize}
-\noindent\textbf{Question 2:} Use a suitable $dv$ to find the volumes of structures given in question 1.\\[0.2cm]
+\noindent\textbf{Question 1:} A vector field is given by $\textbf{A}=xyz\hat y$ in a region. Evaluate the flux, $\int\limits_{S}\textbf{A}\cdot d\textbf{A}$, through the surface given by $y=2$, $0<x<2$ and $2<z<5$.\\[0.2cm]
+\noindent\textbf{Question 2:} Electric field of a point charge is $\textbf{E}=\dfrac{1}{r^2}\hat r$ in a region. Evaluate the flux, $\int\limits_{S}\textbf{A}\cdot d\textbf{A}$, through the spherical surface $r=2$.\\[0.2cm]
+\noindent\textbf{Question 3:} The average density of Earth is $\rho_m=5540$ kg/m$^3$. Find the mass of Earth if Earth's radius is $r=6400$ km.\\[0.2cm]
+%\noindent\textbf{Question 4:} The density of Earth increases with depth and can be approximated as a linear function given by $\rho_m(r)=14000-0.0005r$ kg/m$^3$. Find the mass of Earth.
 %\nocite{*}
 \bibliographystyle{plain}
 \bibliography{EMTRef}
