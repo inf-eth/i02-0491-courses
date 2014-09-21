@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 13\\Line, Surface and Volume Integrals -- IV\\Solving Line Integrals\\Length of a Curve}
+\author{Attique Dawood}
+\date{September 22, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Line integrals.
+\item Open and close paths and surfaces.
+\end{itemize}
+\section{Exercises}
+\noindent\textbf{Question 1:} Using $\int\limits_{a}^{b}\hat n\cdot d\textbf{\textit{l}}$
+\begin{itemize}
+\item[(1)] Find the length of line segment from (0, 0) to (1, 2). Solve this in Cartesian as well as Cylindrical coordinates.
+\item[(2)] Find the length of body/space diagonal of a unit cube.
+\item[(3)] Find the arc length of a quarter circle of radius $\rho=3$ m in first quadrant.
+\item[(4)] Find the length of the curve $y=x^2$ from (0, 0) to (1, 1). For this problem a calculator would be handy in solving the integrals.
+\end{itemize}
+\noindent\textbf{Note:} For part (4) you need to find a unit vector along the curve $y=x^2$. A vector parallel (or tangent) to $y=x^2$ can be obtained from the slope. Numerator and denominator of slope ($\dfrac{dy}{dx}$) are the $y$-- and $x$--components, respectively, of the vector. Here, $\dfrac{dy}{dx}=\dfrac{2x}{1}$ so the parallel/tangent vector is $\textbf{n}=\hat x+2x\hat y$. The unit vector is then $\hat n=\dfrac{\hat x+2x\hat y}{\sqrt{1+4x^2}}$.\\[0.2cm]
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
+\end{document}
