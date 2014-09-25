@@ -34,7 +34,7 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{Electromagnetic Theory\\Class 14\\Gradient, Divergence and Curl}
+\title{Electromagnetic Theory\\Class 14\\Gradient}
 \author{Attique Dawood}
 \date{September 24, 2014\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
@@ -63,18 +63,6 @@ And in spherical coordinates
 \nabla f=\dfrac{\partial f}{\partial r}\hat r+\dfrac{1}{r}\dfrac{\partial f}{\partial\theta}\hat\theta+\dfrac{1}{r\sin\theta}\dfrac{\partial f}{\partial\phi}\hat\phi.
 \end{equation}
 The gradient of $f$ is a vector. $|\nabla f|$ gives the maximum rate of change of $f$. The direction of $\nabla f$ is the direction of maximum rate of change. To find the rate of change in a particular direction $\hat n$ we can use the relation $\hat n\cdot\nabla f$ which is known as \textit{directional derivative} of $f$ in $\hat n$ direction. If $\hat n$ is in the same direction as that of $\nabla f$ then $\hat n\cdot\nabla f=|\nabla f|$.
-\section{Divergence of a Vector Field}
-Divergence is defined as the flux per unit volume of a vector field as the volume shrinks. Mathematically
-\begin{equation}
-\mathrm{div. \textbf{A}}=\nabla\cdot\mathrm{\textbf{A}}=\lim_{\Delta v \to 0}\dfrac{\oint\limits_S\mathrm{\textbf{A}}\cdot d\mathrm{\textbf{S}}}{\Delta v}.
-\end{equation}
-Divergence of a vector field is a scalar quantity.
-\section{Curl of a Vector Field}
-Curl is defined as circulation of a vector field as the enclosed area shrinks. Mathematically
-\begin{equation}
-\mathrm{curl~of~\textbf{A}}=\nabla\times\mathrm{\textbf{A}}=\lim_{\Delta S \to 0}\dfrac{\oint\limits_L\mathrm{\textbf{A}}\cdot d\mathrm{\textbf{l}}}{\Delta S}\hat n.
-\end{equation}
-Curl of a vector field is a vector quantity and its direction is normal to the enclosed surface.
 \section{Exercises}
 \noindent\textbf{Question 1 \cite{Sadiku}[Example 3.3]:} Find the gradient of following scalar fields
 \begin{itemize}
@@ -82,10 +70,6 @@ Curl of a vector field is a vector quantity and its direction is normal to the e
 \item[(2)] $W=10r\sin^2\theta\cos\phi$
 \end{itemize}
 \noindent\textbf{Question 2 \cite{Sadiku}[Example 3.4]:} Given $W=x^2y^2+xyz$, compute $\nabla W$ and directional derivative of $W$ in the direction $3\hat x+4\hat y+12\hat z$ at (2, -1, 0).\\[0.2cm]
-\noindent\textbf{Question 3 \cite{Sadiku}[PE 3.6]:} Determine the divergence of following vector fields and determine them at the specified points.
-\begin{itemize}
-\item[(1)] 
-\end{itemize}
 %\nocite{*}
 \bibliographystyle{plain}
 \bibliography{EMTRef}
