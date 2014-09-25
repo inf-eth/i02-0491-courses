@@ -34,35 +34,15 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{Electromagnetic Theory\\Class 14\\Gradient}
+\title{Electromagnetic Theory\\Class 14\\Divergence and Curl}
 \author{Attique Dawood}
-\date{September 24, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\date{September 26, 2014\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Announcements}
 \begin{itemize}
-\item Assignment 03 to be submitted after sessional exam..
+\item None.
 \end{itemize}
-\section{Del Operator}
-The Del operator is defined as
-\begin{equation}
-\nabla=\dfrac{\partial}{\partial x}\hat x+\dfrac{\partial}{\partial y}\hat y+\dfrac{\partial}{\partial z}\hat z.
-\end{equation}
-It must be kept in mind that Del operator is a vector and must be written with a vector bar.
-\section{Gradient}
-Given a scalar field $f(x,y,z)$ the gradient of $f$ is defined as
-\begin{equation}
-\nabla f=\dfrac{\partial f}{\partial x}\hat x+\dfrac{\partial f}{\partial y}\hat y+\dfrac{\partial f}{\partial z}\hat z.
-\end{equation}
-In cylindrical coordinates
-\begin{equation}
-\nabla f=\dfrac{\partial f}{\partial\rho}\hat\rho+\dfrac{1}{\rho}\dfrac{\partial f}{\partial\phi}\hat\phi+\dfrac{\partial f}{\partial z}\hat z.
-\end{equation}
-And in spherical coordinates
-\begin{equation}
-\nabla f=\dfrac{\partial f}{\partial r}\hat r+\dfrac{1}{r}\dfrac{\partial f}{\partial\theta}\hat\theta+\dfrac{1}{r\sin\theta}\dfrac{\partial f}{\partial\phi}\hat\phi.
-\end{equation}
-The gradient of $f$ is a vector. $|\nabla f|$ gives the maximum rate of change of $f$. The direction of $\nabla f$ is the direction of maximum rate of change. To find the rate of change in a particular direction $\hat n$ we can use the relation $\hat n\cdot\nabla f$ which is known as \textit{directional derivative} of $f$ in $\hat n$ direction. If $\hat n$ is in the same direction as that of $\nabla f$ then $\hat n\cdot\nabla f=|\nabla f|$.
 \section{Divergence of a Vector Field}
 Divergence is defined as the flux per unit volume of a vector field as the volume shrinks. Mathematically
 \begin{equation}
@@ -76,13 +56,7 @@ Curl is defined as circulation of a vector field as the enclosed area shrinks. M
 \end{equation}
 Curl of a vector field is a vector quantity and its direction is normal to the enclosed surface.
 \section{Exercises}
-\noindent\textbf{Question 1 \cite{Sadiku}[Example 3.3]:} Find the gradient of following scalar fields
-\begin{itemize}
-\item[(1)] $U=\rho^2z\cos\phi$
-\item[(2)] $W=10r\sin^2\theta\cos\phi$
-\end{itemize}
-\noindent\textbf{Question 2 \cite{Sadiku}[Example 3.4]:} Given $W=x^2y^2+xyz$, compute $\nabla W$ and directional derivative of $W$ in the direction $3\hat x+4\hat y+12\hat z$ at (2, -1, 0).\\[0.2cm]
-\noindent\textbf{Question 3 \cite{Sadiku}[PE 3.6]:} Determine the divergence of following vector fields and determine them at the specified points.
+\noindent\textbf{Question 4 \cite{Sadiku}[PE 3.6]:} Determine the divergence of following vector fields and determine them at the specified points.
 \begin{itemize}
 \item[(1)] 
 \end{itemize}
