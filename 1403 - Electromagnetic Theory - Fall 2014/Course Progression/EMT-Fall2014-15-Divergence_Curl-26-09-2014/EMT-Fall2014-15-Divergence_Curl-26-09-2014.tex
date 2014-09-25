@@ -43,23 +43,88 @@
 \begin{itemize}
 \item None.
 \end{itemize}
-\section{Divergence of a Vector Field}
+\section{Flux Through a Closed Surface}
+For a closed surface, a unit outward normal vector must be defined that is normal to the surface at every point. In Cartesian coordinates a typical closed surface is a cube. The six faces of a cube correspond to six outward normal vectors $\hat x$ and $-\hat x$; $\hat y$ and $-\hat y$; and $\hat z$ and $-\hat z$. For a cylindrical surface, the upper and lower surfaces have unit outward normals $\hat z$ and $-\hat z$, respectively. The vector $\hat\rho$ is normal on the curved surface of cylinder. For a spherical surface $\hat r$ is unit outward normal vector.
+\section{Divergence of a Vector Field and Divergence Theorem}
 Divergence is defined as the flux per unit volume of a vector field as the volume shrinks. Mathematically
 \begin{equation}
 \mathrm{div. \textbf{A}}=\nabla\cdot\mathrm{\textbf{A}}=\lim_{\Delta v \to 0}\dfrac{\oint\limits_S\mathrm{\textbf{A}}\cdot d\mathrm{\textbf{S}}}{\Delta v}.
 \end{equation}
-Divergence of a vector field is a scalar quantity.
-\section{Curl of a Vector Field}
+Divergence in Cartesian coordinates is
+\begin{equation}
+\nabla\cdot\mathrm{\textbf{A}}=\dfrac{\partial A_x}{\partial x}+\dfrac{\partial A_y}{\partial y}+\dfrac{\partial A_z}{\partial z}.
+\end{equation}
+In Cylindrical coordinates
+\begin{equation}
+\nabla\cdot\mathrm{\textbf{A}}=\dfrac{1}{\rho}\dfrac{\partial}{\partial\rho}(\rho A_\rho)+\dfrac{1}{\rho}\dfrac{\partial A_\phi}{\partial\phi}+\dfrac{\partial A_z}{\partial z}.
+\end{equation}
+And in Spherical coordinates
+\begin{equation}
+\nabla\cdot\mathrm{\textbf{A}}=\dfrac{1}{r^2}\dfrac{\partial}{\partial r}(r^2 A_r)+\dfrac{1}{r\sin\theta}\dfrac{\partial}{\partial\theta}(A_\theta\sin\theta)+\dfrac{1}{r\sin\theta}\dfrac{\partial A_\phi}{\partial\phi}.
+\end{equation}
+Divergence of a vector field is a scalar quantity. A non--zero divergence means there is a source (positive sign) or sink (negative sign). In terms of field lines, if field lines are parallel to each other then divergence is zero otherwise non--zero.
+\section{Curl of a Vector Field and Stokes's Theorem}
 Curl is defined as circulation of a vector field as the enclosed area shrinks. Mathematically
 \begin{equation}
 \mathrm{curl~of~\textbf{A}}=\nabla\times\mathrm{\textbf{A}}=\lim_{\Delta S \to 0}\dfrac{\oint\limits_L\mathrm{\textbf{A}}\cdot d\mathrm{\textbf{l}}}{\Delta S}\hat n.
 \end{equation}
-Curl of a vector field is a vector quantity and its direction is normal to the enclosed surface.
+In Cartesian coordinates
+\begin{equation}
+\nabla\times \textbf{A}=\left| \begin{array}{ccc} \hat{x} & \hat{y} & \hat{z} \\ \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z}\\ A_x & A_y & A_z \end{array} \right|.
+\end{equation}
+In Cylindrical coordinates
+\begin{equation}
+\nabla\times \textbf{A}=\dfrac{1}{\rho}\left| \begin{array}{ccc} \hat{\rho} & \rho\hat{\phi} & \hat{z} \\ \dfrac{\partial}{\partial\rho} & \dfrac{\partial}{\partial\phi} & \dfrac{\partial}{\partial z}\\ A_\rho & \rho A_\phi & A_z \end{array} \right|.
+\end{equation}
+In Spherical coordinates
+\begin{equation}
+\nabla\times \textbf{A}=\dfrac{1}{r^2\sin\theta}\left| \begin{array}{ccc} \hat{r} & r\hat{\theta} & r\sin\theta\hat{\phi} \\ \dfrac{\partial}{\partial r} & \dfrac{\partial}{\partial\theta} & \dfrac{\partial}{\partial\phi}\\ A_r & rA_\theta & r\sin\theta A_\phi \end{array} \right|.
+\end{equation}
+Curl of a vector field is a vector quantity and its direction is normal to the enclosed surface given by right--hand rule according to direction of circulation. If circulation of a vector field is zero then the field is called conservative otherwise it is non--conservative.
+\section{Laplacian}
+Laplacian is the divergence of gradient of a scalar field. It is written as $\nabla^2$.
+\section{Classification of Fields}
+Fields can be classified on the basis of their divergence and curl. A field can have both non--zero divergence and curl, only one non--zero or both zero.
 \section{Exercises}
-\noindent\textbf{Question 4 \cite{Sadiku}[PE 3.6]:} Determine the divergence of following vector fields and determine them at the specified points.
-\begin{itemize}
-\item[(1)] 
-\end{itemize}
+\noindent\textbf{Question 1 \cite{Sadiku}[PE 3.7]:} Determine the flux of \textbf{A}$=\rho^2\cos^2\phi\hat\rho+z\sin\phi\hat\phi$ over the closed surface of a cylinder of height 1 m and radius 4 m. Verify Divergence theorem for this case.\\[0.2cm]
+\noindent \textbf{Question 2:} Given a vector field $\textbf{A}=y^2\hat x+2xy\hat y$ find the circulation of \textbf{A} ($\oint\limits_{L} \textbf{A}\cdot d\textbf{\textit{l}}$) over closed path ABCDA. Verify Stokes's theorem for this case.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (3cm, 2cm);
+	\draw[thick, ->, >=stealth] (3cm, 2cm) -- (3cm, 4cm);
+	\draw[thick, ->, >=stealth] (3cm, 4cm) -- (1cm, 4cm);
+	\draw[thick, ->, >=stealth] (1cm, 4cm) -- (1cm, 2cm);
+	%\draw[thick, ->, >=stealth] (2cm, 4cm) -- (1cm, 2cm);
+
+	%\draw[dashed] (0cm, 0cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 2cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 4cm) -- (1cm, 4cm);
+	\draw[dashed] (1cm, 0cm) -- (1cm, 1.6cm);
+	\draw[dashed] (3cm, 0cm) -- (3cm, 1.6cm);
+	%\draw[white,fill=white] (0.5cm,0.5cm) rectangle (1.5cm, 0.9cm);
+	%\node at (1cm, 0.7cm){$y=2x$};
+
+	\coordinate[label=above:$C$] (C) at (3cm,4cm);
+	\coordinate[label=above:$D$] (D) at (1cm,4cm);
+	\coordinate[label=below:$A$] (A) at (1cm,2cm);
+	\coordinate[label=below:$B$] (B) at (3cm,2cm);
+	
+	\coordinate[label=left:$2$] (y1) at (0cm,2cm);
+	\coordinate[label=left:$4$] (y2) at (0cm,4cm);
+	\coordinate[label=below:$1$] (x1) at (1cm,0cm);
+	\coordinate[label=below:$3$] (x2) at (3cm,0cm);
+	
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (0cm, 5cm);
+	\coordinate[label=above:$y$] (y) at (0cm,5cm);
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (5cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (5cm,0cm);
+
+\end{tikzpicture}
+\end{figure}
 %\nocite{*}
 \bibliographystyle{plain}
 \bibliography{EMTRef}
