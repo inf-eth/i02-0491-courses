@@ -50,13 +50,13 @@
 \noindent\textbf{Question 4:} Using $\int\limits_{a}^{b}\hat n\cdot d\textbf{\textit{l}}$
 \begin{itemize}
 \item[(a)] Find the arc length of a quarter circle of radius $\rho=3$ m in first quadrant.
-\item[(b)] Find the length of the curve $y=x^2$ from (0, 0) to (1, 1). For this problem a calculator would be handy in solving the integrals.
+\item[(b)] Find the length of the curve $y=x^2$ from (1, 1) to (3, 9). For this problem a calculator would be handy in solving the integrals.
 \item[(c)] Find the length of the curve $y=2x^2+2$ from (0, 2) to (2, 10).
 \end{itemize}
-\noindent\textbf{Note:} For part (c) you need to find a unit vector along the curve $y=x^2$. A vector parallel (or tangent) to $y=x^2$ can be obtained from the slope. Numerator and denominator of slope ($\dfrac{dy}{dx}$) are the $y$-- and $x$--components, respectively, of the vector. Here, $\dfrac{dy}{dx}=\dfrac{2x}{1}$ so the parallel/tangent vector is $\textbf{n}=\hat x+2x\hat y$. The unit vector is then $\hat n=\dfrac{\hat x+2x\hat y}{\sqrt{1+4x^2}}$.\\[0.2cm]
+\noindent\textbf{Note:} For part (b) you need to find a unit vector along the curve $y=x^2$. A vector parallel (or tangent) to $y=x^2$ can be obtained from the slope. Numerator and denominator of slope ($\dfrac{dy}{dx}$) are the $y$-- and $x$--components, respectively, of the vector. Here, $\dfrac{dy}{dx}=\dfrac{2x}{1}$ so the parallel/tangent vector is $\textbf{n}=\hat x+2x\hat y$. The unit vector is then $\hat n=\dfrac{\hat x+2x\hat y}{\sqrt{1+4x^2}}$.\\[0.2cm]
 \newpage
 \noindent\textbf{Question 5 (Example 2--4C \cite[Example 2--4, page 23]{Cheng}):} Given a force field $\textbf{F}=xy\hat x+(3x-y^2)\hat y$ in a region, evaluate the integral $\int\limits_{P1}^{P2}\textbf{F}\cdot d\textbf{\textit{l}}$ to find the total work done by \textbf{F} in moving an object from P1 to P2 along path 1 and path 2.\\[0.2cm]
-\noindent\textbf{Question 6:} Electric field in a region is $\textbf{E}=\dfrac{x\hat x+y\hat y}{(x^2+y^2)^{\frac{3}{2}}}$. Refer to figure \ref{Cheng-integral}, evaluate the integral $\int\limits_{P1}^{P2}\textbf{E}\cdot d\textbf{\textit{l}}$ to find the potential difference between P1 and P2. Is the potential difference same for path 1 and path 2?
+\noindent\textbf{Question 6:} Electric field in a region is $\textbf{E}=\dfrac{x\hat x+y\hat y}{(x^2+y^2)^{\frac{3}{2}}}$. Refer to figure \ref{Cheng-integral}, evaluate the integral $-\int\limits_{P1}^{P2}\textbf{E}\cdot d\textbf{\textit{l}}$ to find the potential difference between P1 and P2. Is the potential difference same for path 1 and path 2?
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{Figure2-10Cheng.png}
@@ -69,11 +69,12 @@
 \item[(b)] Find $\oint\limits_L \textbf{E}\cdot d\textbf{\textit{l}}$ over the closed path ABCA.
 \item[(c)] Find the potential difference between
 \begin{itemize}
-\item[(1)] A and B.
-\item[(2)] B and D.
-\item[(3)] A and C.
+\item[(1)] A and B ($V_{AB}$).
+\item[(2)] B and D ($V_{BD}$).
+\item[(3)] A and C ($V_{AC}$).
 \end{itemize}
 \end{itemize}
+\noindent\textbf{Note:} $V_{AB}=V_B-V_A=-\int\limits_{A}^{B}\textbf{E}\cdot d\textbf{\textit{l}}$.\\[0.2cm]
 \noindent\textbf{Question 8:} Find the circulation of $\textbf{A}=\rho \cos\phi\hat \rho+\sin\phi\hat\phi$ over the path shown in figure \ref{Circulation}.\\[0.2cm]
 \noindent\textbf{Question 9:} Do the following end--of--chapter problems from Sadiku \cite[Page 93 and 94]{Sadiku}: 3.1, 3.2, 3.3, 3.7, 3.8, 3.9 and 3.10.
 \begin{figure}[H]
