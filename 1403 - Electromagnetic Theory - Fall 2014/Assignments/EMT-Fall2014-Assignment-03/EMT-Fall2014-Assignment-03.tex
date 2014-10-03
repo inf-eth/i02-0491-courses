@@ -30,9 +30,9 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{Electromagnetic Theory\\Assignment 03\\Line, Surface and Volume Integrals}
+\title{Electromagnetic Theory\\Assignment 03\\Line, Surface and Volume Integrals\\Divergence and Curl}
 \author{Attique Dawood}
-\date{September 22, 2014\\Due: September 26, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\date{September 22, 2014\\Due: October 13, 2014\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \noindent\textbf{Question 1:} Sketch and describe the following surfaces.
@@ -76,7 +76,7 @@
 \end{itemize}
 \noindent\textbf{Note:} $V_{AB}=V_B-V_A=-\int\limits_{A}^{B}\textbf{E}\cdot d\textbf{\textit{l}}$.\\[0.2cm]
 \noindent\textbf{Question 8:} Find the circulation of $\textbf{A}=\rho \cos\phi\hat \rho+\sin\phi\hat\phi$ over the path shown in figure \ref{Circulation}.\\[0.2cm]
-\noindent\textbf{Question 9:} Do the following end--of--chapter problems from Sadiku \cite[Page 93 and 94]{Sadiku}: 3.1, 3.2, 3.3, 3.7, 3.8, 3.9 and 3.10.
+\noindent\textbf{Question 9:} Do the following end--of--chapter problems from Sadiku \cite[Page 93 and 94]{Sadiku}: 3.1, 3.2, 3.3, 3.7, 3.8, 3.9, 3.10, 3.13, 3.16, 3.25, 3.29, 3.32, 3.33, 3.35, 3.37, 3.38, 3.39, 3.45.
 \begin{figure}[H]
 \centering
 \mbox{
@@ -138,6 +138,48 @@
 }}
 \caption{Circulation of vector fields.}
 \label{Circulation}
+\end{figure}
+\noindent\textbf{Question 9:} A vector field $\textbf{A}=y\hat y$ exists in a region. Find the flux of this vector field, $\oint\limits_S\mathrm{\textbf{A}}\cdot d\mathrm{\textbf{S}}$, through the surface of a closed box defined by $0<x<1$, $2<y<4$ and $0<z<1$.\\[0.2cm]
+\noindent\textbf{Question 10 \cite{Sadiku}[PE 3.7]:} Determine the flux of \textbf{A}$=\rho^2\cos^2\phi\hat\rho+z\sin\phi\hat\phi$ over the closed surface of a cylinder of height 1 m and radius 4 m. Verify Divergence theorem for this case.\\[0.2cm]
+\noindent\textbf{Question 11:} Given a vector field $\textbf{A}=2xy^2\hat x+(x+2y)\hat y$ find the circulation of \textbf{A} ($\oint\limits_{L} \textbf{A}\cdot d\textbf{\textit{l}}$) over closed path ABCDA shown in figure \ref{path-Q11}. Verify Stokes's theorem for this case.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (3cm, 2cm);
+	\draw[thick, ->, >=stealth] (3cm, 2cm) -- (3cm, 4cm);
+	\draw[thick, ->, >=stealth] (3cm, 4cm) -- (1cm, 4cm);
+	\draw[thick, ->, >=stealth] (1cm, 4cm) -- (1cm, 2cm);
+	%\draw[thick, ->, >=stealth] (2cm, 4cm) -- (1cm, 2cm);
+
+	%\draw[dashed] (0cm, 0cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 2cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 4cm) -- (1cm, 4cm);
+	\draw[dashed] (1cm, 0cm) -- (1cm, 1.6cm);
+	\draw[dashed] (3cm, 0cm) -- (3cm, 1.6cm);
+	%\draw[white,fill=white] (0.5cm,0.5cm) rectangle (1.5cm, 0.9cm);
+	%\node at (1cm, 0.7cm){$y=2x$};
+
+	\coordinate[label=above:$C$] (C) at (3cm,4cm);
+	\coordinate[label=above:$D$] (D) at (1cm,4cm);
+	\coordinate[label=below:$A$] (A) at (1cm,2cm);
+	\coordinate[label=below:$B$] (B) at (3cm,2cm);
+	
+	\coordinate[label=left:$2$] (y1) at (0cm,2cm);
+	\coordinate[label=left:$4$] (y2) at (0cm,4cm);
+	\coordinate[label=below:$1$] (x1) at (1cm,0cm);
+	\coordinate[label=below:$3$] (x2) at (3cm,0cm);
+	
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (0cm, 5cm);
+	\coordinate[label=above:$y$] (y) at (0cm,5cm);
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (5cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (5cm,0cm);
+
+\end{tikzpicture}
+\caption{Path for Question 11.}
+\label{path-Q11}
 \end{figure}
 %\nocite{*}
 \bibliographystyle{plain}

@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 17\\Divergence and Curl\\Problems}
+\author{Attique Dawood}
+\date{October 01, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment and Quiz \#03 on Monday, 13--10--2014.
+\end{itemize}
+\section{Exercises}
+\noindent\textbf{Question 1:} A vector field $\textbf{A}=y\hat y$ exists in a region. Find the flux of this vector field, $\oint\limits_S\mathrm{\textbf{A}}\cdot d\mathrm{\textbf{S}}$, through the surface of a closed box defined by $0<x<1$, $2<y<4$ and $0<z<1$.\\[0.2cm]
+\noindent\textbf{Question 2 \cite{Sadiku}[PE 3.7]:} Determine the flux of \textbf{A}$=\rho^2\cos^2\phi\hat\rho+z\sin\phi\hat\phi$ over the closed surface of a cylinder of height 1 m and radius 4 m. Verify Divergence theorem for this case.\\[0.2cm]
+\noindent\textbf{Question 3:} Given a vector field $\textbf{A}=2xy^2\hat x+(x+2y)\hat y$ find the circulation of \textbf{A} ($\oint\limits_{L} \textbf{A}\cdot d\textbf{\textit{l}}$) over closed path ABCDA. Verify Stokes's theorem for this case.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	\draw[thick, ->, >=stealth] (1cm, 2cm) -- (3cm, 2cm);
+	\draw[thick, ->, >=stealth] (3cm, 2cm) -- (3cm, 4cm);
+	\draw[thick, ->, >=stealth] (3cm, 4cm) -- (1cm, 4cm);
+	\draw[thick, ->, >=stealth] (1cm, 4cm) -- (1cm, 2cm);
+	%\draw[thick, ->, >=stealth] (2cm, 4cm) -- (1cm, 2cm);
+
+	%\draw[dashed] (0cm, 0cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 2cm) -- (1cm, 2cm);
+	\draw[dashed] (0cm, 4cm) -- (1cm, 4cm);
+	\draw[dashed] (1cm, 0cm) -- (1cm, 1.6cm);
+	\draw[dashed] (3cm, 0cm) -- (3cm, 1.6cm);
+	%\draw[white,fill=white] (0.5cm,0.5cm) rectangle (1.5cm, 0.9cm);
+	%\node at (1cm, 0.7cm){$y=2x$};
+
+	\coordinate[label=above:$C$] (C) at (3cm,4cm);
+	\coordinate[label=above:$D$] (D) at (1cm,4cm);
+	\coordinate[label=below:$A$] (A) at (1cm,2cm);
+	\coordinate[label=below:$B$] (B) at (3cm,2cm);
+	
+	\coordinate[label=left:$2$] (y1) at (0cm,2cm);
+	\coordinate[label=left:$4$] (y2) at (0cm,4cm);
+	\coordinate[label=below:$1$] (x1) at (1cm,0cm);
+	\coordinate[label=below:$3$] (x2) at (3cm,0cm);
+	
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (0cm, 5cm);
+	\coordinate[label=above:$y$] (y) at (0cm,5cm);
+	\draw[thick, ->, >=stealth] (0cm, 0cm) -- (5cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (5cm,0cm);
+
+\end{tikzpicture}
+\end{figure}
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
+\end{document}
