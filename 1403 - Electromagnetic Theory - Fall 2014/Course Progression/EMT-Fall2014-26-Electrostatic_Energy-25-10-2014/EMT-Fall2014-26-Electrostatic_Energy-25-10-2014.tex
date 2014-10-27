@@ -1,0 +1,75 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 26\\Electrostatic Energy}
+\author{Attique Dawood}
+\date{October 25, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Electric Potential due to continuous charge distributions.
+\end{itemize}
+\section{Energy of Stored in Electrostatic field}
+Energy density in electrostatic field is
+\begin{equation}
+w_E=\dfrac{1}{2}\mathrm{\textbf{D}}\cdot\mathrm{\textbf{E}}.
+\end{equation}
+Or
+\begin{equation}
+w_E=\dfrac{1}{2}\epsilon_0\mathrm{\textbf{E}}\cdot\mathrm{\textbf{E}}=\dfrac{1}{2}\epsilon_0|\mathrm{\textbf{E}}|^2.
+\end{equation}
+Total energy stored in electrostatic field in a given volume is
+\begin{equation}
+W_E=\int\limits_vw_Edv=\int\limits_v\dfrac{1}{2}\epsilon_0|\mathrm{\textbf{E}}|^2dv.
+\end{equation}
+\section{Exercises}
+\noindent\textbf{Question 1:} A uniform volume charge density $\rho_v$ exists in the region $r<a$. Find
+\begin{itemize}
+\item[a.] Electric field everywhere.
+\item[b.] Potential everywhere.
+\item[c.] Electrostatic energy stored in the region $r<a$.
+\item[d.] Electrostatic energy stored in the region $r>a$.
+\end{itemize}
+\noindent\textbf{Question 2:} If $V=x-y+xy+2z$ V find \textbf{E} at (1, 2, 3) and  electrostatic energy stored in the cube $-1<x,y,x<1$.
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{EMTRef}
+\end{document}
