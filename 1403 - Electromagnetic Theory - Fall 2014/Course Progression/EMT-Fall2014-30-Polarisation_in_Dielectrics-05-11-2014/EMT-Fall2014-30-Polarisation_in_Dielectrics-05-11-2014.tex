@@ -1,0 +1,98 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 30\\Polarisation in Dielectrics}
+\author{Attique Dawood}
+\date{November 05, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Free charges on a conductor will always move to the surface of the conductor so as to establish a state of equilibrium.
+\item Electric field inside a conductor is zero at all times.
+\end{itemize}
+\section{Dipole Moment}
+A dipole is formed from two equal and opposite charges. The dipole moment is defined as product of magnitude of one charge and the directed distance from negative to positive charge. Mathematically
+\begin{equation}
+\mathrm{\textbf p}=q\mathrm{\textbf d}~\mathrm{Cm}.
+\end{equation}
+Where \textbf{p} is the dipole moment in Cm, q is magnitude of any charge and \textbf{d} is the directed distance from negative charge to positive charge. The direction of dipole also shows how it will orient itself if placed in an electric field.
+\section{Electric Field in Dielectrics}
+In free space electric field and electric flux density are related by
+\begin{equation}
+\mathrm{\textbf D}=\epsilon_0\mathrm{\textbf E}.
+\end{equation}
+In a medium with permittivity $\epsilon$ the relation is
+\begin{equation}
+\mathrm{\textbf D}=\epsilon\mathrm{\textbf E}.
+\end{equation}
+Note that
+\begin{equation}
+\epsilon=\epsilon_r\epsilon_0
+\end{equation}
+for any medium and for free space $\epsilon_r=1$.
+\section{Polarisation in Dielectrics}
+A dielectric in neutral condition contain positive and negative charges in equal quantities that are bound to their atom or molecule. When placed in a electric field the positive and negative charges in atoms/molecules are aligned with the applied electric field. This results in formation of dipoles throughout the material. The dipoles create their own electric field that is opposite to that of applied field and the net field inside the dielectric is less than outside field. Polarisation is defined as the number of dipoles per unit volume that are formed when an external field is applied. Mathematically
+\begin{equation}
+\mathrm{\textbf P}=\lim_{\Delta v \to 0}\dfrac{\Sigma\mathrm{\textbf p}_n}{\Delta v}~\mathrm{C/m}^2.
+\end{equation}
+\textbf{P} and \textbf{D} in a medium are related by
+\begin{equation}
+\mathrm{\textbf D}=\epsilon_0\mathrm{\textbf E}+\mathrm{\textbf P}
+\end{equation}
+and
+\begin{equation}
+\mathrm{\textbf P}=\chi_e\epsilon_0\mathrm{\textbf E}.
+\end{equation}
+$\chi_e$ is electric susceptibility of a medium and given by
+\begin{equation}
+\chi_e=\epsilon_r-1.
+\end{equation}
+Electric susceptibility shows how much a material will polarise when subject to electric field. Susceptibility of free space is understandably 0. Also note that in the relationship
+\begin{equation}
+\mathrm{\textbf D}=\epsilon\mathrm{\textbf E}=\epsilon_r\epsilon_0\mathrm{\textbf E}
+\end{equation}
+polarisation is implicit where $\epsilon_r=\chi_e+1$. Another way of writing this is
+\begin{equation}
+\mathrm{\textbf D}=\epsilon\mathrm{\textbf E}=\epsilon_0\mathrm{\textbf E}+\mathrm{\textbf P}=\epsilon_0\mathrm{\textbf E}+\chi_e\epsilon_0\mathrm{\textbf E}.
+\end{equation}
+%\section{Exercises}
+%\noindent\textbf{Question 1:} A spherical conductor of radius 2 m has total charge 1 C. Use Gauss's Law to find electric field everywhere and surface charge density.\\[0.2cm]
+%\noindent\textbf{Question 2:} A conducting shell exists at $r=1$ to $r=2$. Space inside the shell is free space. If the shell is given a -1 C charge find electric field everywhere and surface charge densities.
+%%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{EMTRef}
+\end{document}

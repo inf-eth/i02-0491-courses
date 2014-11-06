@@ -15,6 +15,7 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}	% Clickable links to figures, references and urls.
 \usepackage{datetime}
+\usepackage{subfigure}
 
 % Drawing.
 \usepackage{pgf}
@@ -29,15 +30,13 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{\vspace{-1.5cm}Electromagnetic Theory - Fall 2014\\Quiz \#03C}
-\date{\vspace{-1.5cm}Date: 15--10--2014}
+\title{Electromagnetic Theory\\Assignment 05\\Electric Field in Materials}
+\author{Attique Dawood}
+\date{November 06, 2014\\Due: November 17, 2014\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
-\vspace{-0.5cm}
-\noindent \textbf{Time: 15 minutes\hfill Total Marks: 10}\\[0.3cm]
-\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
-\noindent \textbf{Question:} Find the flux of \textbf{A}$=xy\hat x+z^2\hat y+xyz\hat z$ over the surface of unit cube $0<x,y,z<1$.
-\noindent \textbf{Solution:} We can use divergence theorem to find the flux. From divergence theorem $\oint\limits_S\mathrm{\textbf A}\cdot d\mathrm{\textbf S}=\int\limits_v(\nabla\cdot\mathrm{\textbf A})dv$.\\
-$\nabla\cdot\mathrm{\textbf A}=y+xy$\\
-$\int\limits_v(\nabla\cdot\mathrm{\textbf A})dv=\int\limits_0^1\int\limits_0^1\int\limits_0^1(y+xy)dxdydz=\dfrac{1}{2}+\dfrac{1}{4}=\dfrac{3}{4}$
+Do the following end--of--chapter problems from Sadiku \cite[Page 195 and 196]{Sadiku}: 5.1, 5.3, 5.7, 5.13, 5.15, 5.25, 5.27, 5.29.
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
 \end{document}
