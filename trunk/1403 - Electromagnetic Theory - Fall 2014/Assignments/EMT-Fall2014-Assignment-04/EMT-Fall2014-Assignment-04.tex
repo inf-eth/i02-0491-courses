@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{subfigure}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Assignment 04\\Electrostatic Fields}
+\author{Attique Dawood}
+\date{October 24, 2014\\Due: November 03, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+Do the following end--of--chapter problems from Sadiku \cite[Page 155--160]{Sadiku}: 4.1, 4.3, 4.5, 4.7, 4.13, 4.17, 4.19, 4.23, 4.25, 4.27, 4.28, 4.29, 4.30, 4.32, 4.35, 4.40, 4.41, 4.42, 4.43.
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
+\end{document}
