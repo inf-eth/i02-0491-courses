@@ -1,0 +1,101 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 31\\Continuity Equation and Relaxation Time}
+\author{Attique Dawood}
+\date{November 07, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Polarisation in dielectrics.
+\item Volume and surface bound charges.
+\end{itemize}
+\section{Continuity Equation}
+We know that if we place a charge on the interior of the conductor it will flow outward towards the surface until all the charge resides on the surface and a state of equilibrium is established where electric field inside the conductor is zero. How fast exactly is this process for actual materials? The answer is that it depends on the conductivity of material. This will be quicker for good conductors and slow for insulators (if we take insulators as having some conductivity). Suppose we place a bunch of charges having total charge $q$ on the interior of a conductor. This charge will decay with time because charges will flow to the surface. The charges flowing outward will constitute a current and we expect this current to be equal to the rate of decay of $q$. The faster the decay more will be current. We can write this as
+\begin{equation}
+I=\oint\limits_S\mathrm{\textbf J}\cdot\mathrm{d\textbf{S}}=-\dfrac{dq}{dt}.
+\end{equation}
+Applying divergence theorem and writing charge as $q=\int\limits_v\rho v dv$ we get
+\begin{equation}
+\int\limits_v(\nabla\cdot\mathrm{\textbf J})dv=-\int\limits_v\dfrac{d\rho_v}{dt}dv.
+\end{equation}
+From this we get
+\begin{equation}
+\nabla\cdot\mathrm{\textbf J}=-\dfrac{d\rho_v}{dt}.
+\end{equation}
+This is known as the continuity equation.
+\section{Relaxation Time}
+Gauss' law in differential form is
+\begin{equation}
+\nabla\cdot\mathrm{\textbf D}=\rho_v.
+\end{equation}
+Writing in terms of electric field we get
+\begin{equation}
+\nabla\cdot\mathrm{\textbf E}=\dfrac{\rho_v}{\epsilon}.
+\end{equation}
+Multiplying both sides by $\sigma$
+\begin{equation}
+\nabla\cdot\sigma\mathrm{\textbf E}=\dfrac{\sigma\rho_v}{\epsilon}.
+\end{equation}
+This can be written in terms of current density as
+\begin{equation}
+\nabla\cdot\mathrm{\textbf J}=\dfrac{\sigma\rho_v}{\epsilon}.
+\end{equation}
+From continuity equation
+\begin{equation}
+\nabla\cdot\mathrm{\textbf J}=\dfrac{\sigma\rho_v}{\epsilon}=-\dfrac{d\rho_v}{dt}.
+\end{equation}
+This gives us a first order differential equation for $\rho_v$
+\begin{equation}
+\dfrac{d\rho_v}{dt}+\dfrac{\sigma}{\epsilon}\rho_v=0.
+\end{equation}
+Solving this equation gives
+\begin{equation}
+\rho_v=\rho_{v0}e^{-\dfrac{\sigma}{\epsilon}t}.
+\end{equation}
+Where $\rho_{v0}$ is the initial charge density at $t=0$. This equation tells us how a given charge will decay on a particular material of given conductivity and permittivity. The above equation can be written in the form
+\begin{equation}
+\rho_v=\rho_{v0}e^{-\dfrac{t}{T_r}}.
+\end{equation}
+Where $T_r=\dfrac{\epsilon}{\sigma}$ and is known as relaxation time. Relaxation time for a particular material is the time required for a given amount of charge to decay to 37 \% of its initial value. Relaxation time for conductors is very low (for copper it is 10$^{-19}$ s). For dielectrics relaxation time can be several days.
+%\section{Exercises}
+%\noindent\textbf{Question 1:} A spherical conductor of radius 2 m has total charge 1 C. Use Gauss's Law to find electric field everywhere and surface charge density.\\[0.2cm]
+%\noindent\textbf{Question 2:} A conducting shell exists at $r=1$ to $r=2$. Space inside the shell is free space. If the shell is given a -1 C charge find electric field everywhere and surface charge densities.
+%%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{EMTRef}
+\end{document}
