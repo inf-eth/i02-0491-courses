@@ -1,0 +1,81 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 33\\Electric Boundary Conditions}
+\author{Attique Dawood}
+\date{November 12, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Continuity equation and relaxation time.
+\end{itemize}
+\section{Electric Boundary Conditions}
+The electric boundary conditions specify the behaviour of electric field at the interface/boundary between two different media. The media are characterised by their permittivity. Given two media 1 and 2 with corresponding electric fields, \textbf{E}$_1$ and \textbf{E}$_2$, and flux densities, \textbf{D}$_1$ and \textbf{D}$_2$; the tangential component of electric fields must be continuous across the boundary. This can be written as
+\begin{equation}
+E_{1t}=E_{2t}.
+\end{equation}
+If $\hat n$ is the normal vector to the interface and directed from medium 2 to 1 then
+\begin{equation}
+D_{1n}-D_{2n}=\rho_s.
+\end{equation}
+The difference of normal components of electric flux densities gives the free charge density on boundary. If there is no free charge then normal components of flux densities are continuous across the interface given by
+\begin{equation}
+D_{1n}=D_{2n}.
+\end{equation}
+Note that normal component of any field quantity can be obtained by
+\begin{equation}
+\mathrm{\textbf{E$_{1n}$}}=(\mathrm{\textbf {E$_1$}}\cdot\hat n)\hat n
+\end{equation}
+and tangential component is then given by
+\begin{equation}
+\mathrm{\textbf{E$_{1t}$}}=\mathrm{\textbf{E$_{1}$}}-\mathrm{\textbf{E$_{1n}$}}.
+\end{equation}
+If $\theta_1$ and $\theta_2$ are the angles made by $\mathrm{\textbf{E$_{1}$}}$ and $\mathrm{\textbf{E$_{2}$}}$, respectively, with the normal to the interface $\hat n$ then
+\begin{equation}
+\mathrm{\textbf{E$_{1}$}}\cdot\hat n=E_1\cos\theta_1.
+\end{equation}
+The law of refraction can be obtained from boundary conditions as
+\begin{equation}
+\dfrac{\tan\theta_1}{\tan\theta_2}=\dfrac{\epsilon_{r1}}{\epsilon_{r2}}.
+\end{equation}
+\section{Exercises}
+\noindent\textbf{Question 1:} Region 1 ($x<0$) is filled with a dielectric ($\epsilon=2.5\epsilon_0$) and region 2 ($x>0$) is free space. If $\mathrm{\textbf {D$_1$}}=12\hat x-10\hat y+4\hat z$ nC/m$^2$ then find $\mathrm{\textbf {D$_1$}}$ and $\theta_2$.\\[0.2cm]
+\noindent\textbf{Question 2:} Electric field at the surface of a conductor in free space was found to be $\mathrm{\textbf{E}}=60\hat x+20\hat y-30\hat z$ mV/m. Find \textbf{D} and the surface charge density on surface of conductor.
+%%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{EMTRef}
+\end{document}
