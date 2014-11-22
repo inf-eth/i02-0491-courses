@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 37\\Biot--Savart Law\\Force On Moving Charge in Magnetic Field}
+\author{Attique Dawood}
+\date{November 21, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Resistance and capacitance.
+\end{itemize}
+\section{Magnetic Field}
+Magnetic field has the symbol \textbf{H} in engineering. Engineering texts refer to \textbf{B} as magnetic flux density. 
+
+\textbf{H} has units Ampere/m and \textbf{B} has units Webers/m$^2$ or Tesla. Magnetic field and magnetic flux densities are related by
+\begin{equation}
+\textbf{B}=\mu\textbf{H}.
+\end{equation}
+Where $\mu$ is the permeability of the medium given by
+\begin{equation}
+\mu=\mu_r\mu_0.
+\end{equation}
+$\mu_r$ is the relative permeability and $\mu_0$ is the permeability of free space. For free space $\mu_r=1$.
+\section{Magnetic Force on a Charge in Motion}
+Without going into details of sources of magnetic fields we consider the effect of magnetic field on charges in motion here. Presence of magnetic field can be detected with the help of magnetic compass. A compass will always align itself with the direction of magnetic field lines, for example, near a magnet.
+
+If a magnetic field exists in a region then a charge moving in the magnetic field will experience a force due to magnetic field. This force is given by
+\begin{equation}
+\textbf{F}_B=q\textbf{u}\times\textbf{B}.
+\end{equation}
+Where \textbf{u} is the velocity of particle and \textbf{B} is magnetic flux density. The magnetic force acts perpendicular to the direction of motion and cannot change the speed of charge. It can, however, change the direction of motion. It is useful to define dot and cross notation for representing magnetic field as coming out of the page or going inside the page.
+\section{Biot--Savart Law}
+Biot--Savart Law is the magnetostatics analogue of Coulomb's Law. The source of electrostatic field is a charge at rest. The source static magnetic field is a steady current (or DC current). When current flows in a wire a magnetic field is set up around the wire. The magnitude and direction of magnetic is given by the Biot--Savart Law
+\begin{equation}
+d\textbf{H}=\dfrac{Id\textbf{\textit{l}}\times(\textbf{r}-\textbf{r}')}{4\pi|\textbf{r}-\textbf{r}'|^{3}}.
+\end{equation}
+Or
+\begin{equation}
+d\textbf{B}=\dfrac{\mu_0Id\textbf{\textit{l}}\times(\textbf{r}-\textbf{r}')}{4\pi|\textbf{r}-\textbf{r}'|^{3}}.
+\end{equation}
+\section{Exercises}
+\noindent\textbf{Question 1:} A 1 $\mu$C charge of mass 10$^-14$ kg moving with uniform velocity $\textbf{u}=10^6\hat x$ m/s and enters a region of uniform magnetic field 2 mm long having flux density $\textbf{B}=8\hat z$ Wb/m$^2$. Calculate magnetic force on it. Also find the deflection in its path as it leaves the magnetic field.\\[0.2cm]
+\noindent\textbf{Question 2:} An electron moves with uniform velocity $\textbf{v}=8\times 10^6\hat x$ m/s in a uniform magnetic field. If magnetic field of magnitude 0.025 Wb/m$^2$ is perpendicular to $z$--axis and makes an angle of $60^0$ with $x$--axis then find the force on electron.\\[0.2cm]
+\noindent\textbf{Question 3 \cite[Example 7.3, page 270]{Sadiku}:} A circular loop located on $x^2+y^2=9$, $z=0$ carries a direct current of 10 A along $\hat\phi$. Determine \textbf{H} at (0, 0, 4) and (0, 0, -4).\\[0.2cm]
+\noindent\textbf{Question 4 \cite[PE 7.3, page 271]{Sadiku}:} A thin ring of radius 5 cm is placed on plane $z=1$ cm so that its centre is at (0, 0, 1 cm). If the ring carries 50 mA along $\hat\phi$, find \textbf{H} at
+\begin{itemize}
+\item[a.] (0 ,0, -l cm)
+\item[b.] (0 ,0, 10 cm)
+\end{itemize}
+%%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
+\end{document}
