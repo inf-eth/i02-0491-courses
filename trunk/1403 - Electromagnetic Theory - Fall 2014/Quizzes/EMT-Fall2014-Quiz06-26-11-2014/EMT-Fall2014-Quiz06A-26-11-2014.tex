@@ -1,0 +1,40 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Electromagnetic Theory - Fall 2014\\Quiz \#06A}
+\date{\vspace{-1.5cm}Date: 26--11--2014}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent \textbf{Time: 10 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent \textbf{Question:} A semi--circular disk of inner radius $\rho=a$ and outer radius $\rho=b$ has thickness $t$ and conductivity $\sigma$. Find the resistance between the ends of the disk $\phi=0$ and $\phi=\pi$. Laplace equation in cylindrical coordinates is $\nabla^2V=\dfrac{1}{\rho}\dfrac{\partial}{\partial\rho}\left(\rho\dfrac{\partial V}{\partial\rho}\right)+\dfrac{1}{\rho^2}\dfrac{\partial^2V}{\partial\phi^2}+\dfrac{\partial^2V}{\partial z^2}=0$.
+\end{document}
