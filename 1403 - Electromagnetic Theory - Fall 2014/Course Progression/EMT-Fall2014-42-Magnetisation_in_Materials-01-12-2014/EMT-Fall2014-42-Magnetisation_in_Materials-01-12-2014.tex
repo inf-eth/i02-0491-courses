@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+\usepackage{subfigure}
+
+% Links direct to top of figures.
+\usepackage[all]{hypcap}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Electromagnetic Theory\\Class 42\\Magnetisation in Materials}
+\author{Attique Dawood}
+\date{December 01, 2014\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Vector magnetic potential.
+\end{itemize}
+\section{Magnetic Force on a Current Carrying Wire}
+A current carrying wire placed in a magnetic field experiences a force given by
+\begin{equation}
+\mathrm{\textbf F}=\int\limits_L Id\textbf{l}\times\mathrm{\textbf B}.
+\end{equation}
+\section{Magnetic Dipole Moment}
+A magnetic dipole is formed from a current carrying loop. The magnetic moment is defined as
+\begin{equation}
+\mathrm{\textbf m}=IS\hat n.
+\end{equation}
+Where $I$ is the current in the loop, $S$ is the surface area of loop and $\hat n$ is a unit vector normal to the loop.
+\section{Magnetisation in Materials}
+When a material is placed in magnetic field, magnetic dipoles are formed in the material. This phenomenon is called `magnetisation'. Magnetisation is defined as the number of magnetic dipoles per unit volume. Mathematically
+\begin{equation}
+\mathrm{\textbf M}=\lim_{\Delta v \to 0}\dfrac{\Sigma\mathrm{\textbf m}_n}{\Delta v}~\mathrm{A/m}.
+\end{equation}
+\textbf{M} and \textbf{B} in a medium are related by
+\begin{equation}
+\mathrm{\textbf B}=\mu_0\left(\mathrm{\textbf H}+\mathrm{\textbf M}\right)
+\end{equation}
+and
+\begin{equation}
+\mathrm{\textbf M}=\chi_m\mathrm{\textbf H}.
+\end{equation}
+$\chi_m$ is magnetic susceptibility of a medium and given by
+\begin{equation}
+\chi_m=\mu_r-1.
+\end{equation}
+Magnetic susceptibility shows how much a material will magnetise when subject to magnetic field. Susceptibility of free space is understandably 0. Also note that in the relationship
+\begin{equation}
+\mathrm{\textbf B}=\mu\mathrm{\textbf H}=\mu_r\mu_0\mathrm{\textbf H}
+\end{equation}
+magnetisation is implicit where $\mu_r=\chi_me+1$. Another way of writing this is
+\begin{equation}
+\mathrm{\textbf B}=\mu\mathrm{\textbf H}=\mu_0\left(\mathrm{\textbf H}+\mathrm{\textbf M}\right)=\mu_0\mathrm{\textbf H}+\chi_m\mu_0\mathrm{\textbf H}.
+\end{equation}
+\section{Surface and Volume Bound Current Densities}
+Due to magnetisation currents are set up on the surface and inside the magnetised material. The volume bound current density is given by
+\begin{equation}
+\mathrm{\textbf J}_b=\nabla\times\mathrm{\textbf M}~\mathrm{A/m}^2
+\end{equation}
+and surface bound current density on any surface with normal vector $\hat n$ is given by
+\begin{equation}
+\mathrm{\textbf K}_b=\mathrm{\textbf M}\times\hat n~\mathrm{A/m}.
+\end{equation}
+\section{Exercises}
+\noindent\textbf{Question 1:} Magnetic flux density in a region is $\mathrm{\textbf B}=4\hat x$ Wb/m$^2$. A wire segment part of a circuit carrying 2 A current is along $z$--axis at $0<z<5$. Find the magnetic force on this wire segment.\\[0.2cm]
+\noindent\textbf{Question 2:} In a ferromagnetic material ($\mu=4.5\mu_0$) placed at $0<y<2$, $\mathrm{\textbf B}=4y\hat z$ mWb/m$^2$. Calculate
+\begin{itemize}
+\item[a.] $\chi_m$
+\item[b.] \textbf{H}
+\item[c.] \textbf{M}
+\item[d.] \textbf{J}$_b$
+\item[e.] \textbf{K}$_b$
+\end{itemize}
+%%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{EMTRef}
+\end{document}
