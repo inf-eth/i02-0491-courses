@@ -1,0 +1,75 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Electromagnetic Theory - Fall 2014\\Quiz \#07C}
+\date{\vspace{-1.5cm}Date: 01--12--2014}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent \textbf{Time: 10 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent \textbf{Question:} Find magnetic field at origin due to current segment AB shown in figure. Current in the wire is 1 A.
+\begin{equation}
+\textbf{H}=\dfrac{Ir_{12}}{4\pi|(\textbf{r}-\textbf{r}_1)\times\textbf{r}_{12}|}\left(\dfrac{(\textbf{r}-\textbf{r}_2)\cdot\textbf{r}_{12}}{|\textbf{r}-\textbf{r}_2|r_{12}}-\dfrac{(\textbf{r}-\textbf{r}_1)\cdot\textbf{r}_{12}}{|\textbf{r}-\textbf{r}_1|r_{12}}\right)\dfrac{(\textbf{r}-\textbf{r}_1)\times\textbf{r}_{12}}{|(\textbf{r}-\textbf{r}_1)\times \textbf{r}_{12}|}
+\end{equation}
+\begin{figure}[H]
+\flushright
+\begin{tikzpicture}[xscale=1.2,yscale=1.2,font=\small]
+	\def\XD{0cm}
+	\def\YD{0cm}
+
+	% Drawing vertical grid lines.
+	\foreach \x in {-2cm,-1cm,0cm,1cm,2cm}
+		\draw[dashed] (\x,-2cm) -- (\x,2cm); % Solid lines at +1 intervals.
+	\foreach \x/\xlabel in {-2cm/$-2$,-1cm/$-1$,1cm/$1$,2cm/$2$}
+		\coordinate[label=right:\xlabel] (XLabel) at (\x,0.2cm);
+	% Drawing horizontal grid lines.
+	\foreach \y in {-2cm,-1cm,0cm,1cm,2cm}
+		\draw[dashed] (-2cm,\y) -- (2cm,\y); % Solid lines at +1 intervals.
+	\foreach \y/\ylabel in {-2cm/$-2$,-1cm/$-1$,1cm/$1$,2cm/$2$}
+		\coordinate[label=left:\ylabel] (YLabel) at (0cm,\y+0.2cm);
+	
+	\draw[thick, ->, >=stealth] (2cm, 0cm) -- (0cm, 2cm);
+	%\draw[thick, ->, >=stealth] (-1cm, 1cm) -- (2cm, 1cm);
+	%\draw[thick, ->, >=stealth] (2cm, 1cm) -- (2cm, -2cm);
+
+	\coordinate[label=below:A] (A) at (2.2cm,0cm);
+	\coordinate[label=above:B] (B) at (0.2cm,2cm);
+	%\coordinate[label=above:C] (C) at (2.2cm,1cm);
+	
+	\draw[thick, <->, >=stealth] (0cm, -3cm) -- (0cm, 3cm);
+	\coordinate[label=above:$y$] (y) at (0cm,3cm);
+	\draw[thick, <->, >=stealth] (-3cm, 0cm) -- (3cm, 0cm);
+	\coordinate[label=right:$x$] (x) at (3cm,0cm);
+
+\end{tikzpicture}
+\end{figure}
+\end{document}
