@@ -1,0 +1,113 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 01\\Introduction}
+\author{Attique Dawood}
+\date{February 09, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{About the Course}
+\textbf{Course Title:} Data Structures and Algorithms\\
+\textbf{Course Code:} ...\\
+\textbf{Pre-requisite(s):} Programming for Engineers -- II\\
+\textbf{Credit Hrs:} 3\\
+\textbf{Instructor:} Attique Dawood\\
+\textbf{Contact:} attique DOT dawood AT nu DOT edu DOT pk\\
+\section{Text Book}
+\textbf{Title:} Introduction to Algorithms (3$^{rd}$ Edition)\\
+\textbf{Author:} Cormen et. al.\\
+\section{Objective}
+The objective of this course is to introduce the basics of electromagnetics. Emphasis is on mathematically solving problems involving electric and magnetic fields. After taking this course students will be familiar with Maxwell's equations and will be able to solve problems related to electrostatics and magnetostatics.
+\section{Guidelines}
+\begin{itemize}
+\item \textbf{\underline{Your must do all assignments by yourself.}}
+\item You can only learn with practice.
+\end{itemize}
+\section{Marks Distribution}
+\begin{table}[H]
+\begin{center}
+\vspace{0.3cm}
+	\begin{tabular}{llc}
+	\hline \hline
+		\rule{0pt}{2.6ex} & \textbf{Type of Assessment} & \textbf{Marks}\\
+		\hline
+		1 \rule{0pt}{2.6ex} & Quizzes & 10\\
+		2 & Assignments& 20\\
+		3 & Sessionals (10 each) & 20\\
+		4 & Final Exam & 50\\
+	\hline \hline
+	\rule{0pt}{2.6ex} & \textbf{Total} & \textbf{100}\\
+	\hline \hline
+	\end{tabular}
+\end{center}
+\label{Marks Distribution}
+\caption{Marks Distribution}
+\end{table}
+\section{Course Contents}
+Course outline is available on SLATE.
+\section{What is an Algorithm?}
+Algorithm is a list of steps that need to be performed in order to complete a task or solve a problem. For example here is an algorithm to add three numbers:
+\begin{lstlisting}[caption={Algorithm to add three numbers}]
+INPUT Num1
+INPUT Num2
+INPUT Num3
+TEMP = Num1 + Num2
+RESULT = TEMP + Num3
+OUTPUT RESULT
+\end{lstlisting}
+Can you suggest another way of adding three numbers? What if we add add \verb|Num2| and \verb|Num3| first?
+\section{What is a Data Structure?}
+A data structure is used for data storage (think of \verb|struct| or \verb|class|). A data structure makes it easier to store and view data/information. Have you used any data structures before?
+\section{What are we going to do in this course?}
+Algorithms work on data (or data structures). Choice of algorithm is important. An algorithm is expected to give correct output. An algorithm may work for most inputs and may give incorrect output for certain other inputs. An algorithm may not even work at all. There can be more than one correct algorithms. Some algorithms may be faster, some others may be slow. What are \textit{time} and \textit{space} considerations for an algorithm?
+
+Since algorithms work on data structures, choice of data structure is important. Are you going to use an array or linked list for storing marks of five subjects? Which is easier to implement? Which is easier to resize? Which is faster?
+%\section{Exercises}
+%\noindent\textbf{Question 1:} Given $\textbf{A}=10\hat x-4\hat y+6\hat z$ and $\textbf{B}=2\hat x+\hat y$, find,
+%\begin{enumerate}
+%\item[(1)] The scalar component of \textbf{A} along $\hat y$.
+%\item[(2)] The vector component of \textbf{A} along $\hat y$.
+%\item[(3)] The magnitude of $3\textbf{A}-4\textbf{B}$.
+%\item[(4)] A unit vector along $\textbf{A}+2\textbf{B}$
+%\end{enumerate}
+%\noindent\textbf{Question 2:} Given vectors $\textbf{A}=\hat x+3\hat z$ and $\textbf{B}=5\hat x+2\hat y-6\hat z$, find,
+%\begin{enumerate}
+%\item[(1)] $|\textbf{A}+\textbf{B}|$.
+%\item[(2)] $5\textbf{A}-\textbf{B}$.
+%\item[(3)] The scalar and vector components of \textbf{A} along $\hat y$.
+%\item[(4)] A unit vector along (or \textit{parallel} to) $3\textbf{A}+\textbf{B}$.
+%\end{enumerate}
+%\noindent\textbf{Question 3:} An airplane has a ground speed of 350 km/hr in the direction due west. If there is a wind blowing northwest at 40 km/hr calculate the true air speed and heading or plane.
+%\nocite{*}
+%\bibliographystyle{plain}
+%\bibliography{DSRef}
+\end{document}
