@@ -67,18 +67,33 @@ int sum(int Data[], int n)
 How does $f(n)$ grows for the above examples as we increase `n'? What happens if `n' approaches infinity? Constant can be ignored. Shape of the graph is a straight line which shows linearity. The coefficient of `n' can be dropped as it doesn't affect linearity. The asymptotic complexity is obtained by looking at the highest order term after dropping constant and coefficient. `5n+3' grows asymptotically `like' `n'.
 \section{Rules For Finding Complexity of a Code Segment}
 \begin{itemize}
-\item Define cost for pre--set operations like declaration, assignment, addition, multiplication, comparison etc.
+\item Define cost for pre--set operations like declaration, assignment, addition, multiplication, comparison, memory accesses etc.
 \item Identify these operations in a code segment and add them up.
 \item For a loop, multiply number of iterations with cost of one iteration.
 \item Cost is multiplied in case of nested loops.
-\item Cost is added for sequential loops.
+\item Cost is added for sequential statements.
 \item In case of a condition take the cost of path with worst cost.
 \end{itemize}
 \section{The Big O Notation}
 The big O notation shows how a function grows and puts an upper bound on it. For example, given $f(n)=5n+3$ and $g(n)=n$ we can say `$f(n)$ is big O of $g(n)$' or $f(n)=O(g(n)$ or $5n+3=O(n)$. It is probably easier to understand if you read $f(n)=O(g(n))$ as `$f(n)$ grows asymptotically as $g(n)$.' The function $g(n)$ puts an upper bound on $f(n)$ such that there exists a constant $c$ for $n>n_0$ such that $f(n)\leq cg(n)$.
+\section{Properties of Big O\cite{REF:Complexityutexas}}
+\begin{itemize}
+\item Any k$^{th}$ order polynomial is $O(n^k)$
+\item $an^k=O(n^k)$
+\item if $f(n)=O(g(n))$ and $g(n)=O(h(n))$ then $f(n)=O(h(n))$
+\item Big O of a sum of functions is Big O of largest function.
+\item $f(n)=O(g(n))$ if \(\lim\limits_{n \to \infty}\dfrac{f(n)}{g(n)}=constant\)
+\end{itemize}
 \section{Exercises}
-\noindent\textbf{Question 1:} Find the complexities of given codes.\\[0.2cm]
-\noindent\textbf{Question 2:} Find $c$ and $n_0$ for $5n+3$.
+\noindent\textbf{Question 1:} Find the time complexity function of following code segment.
+\begin{lstlisting}
+int k = 0;
+for (int i=0; i<n; i++)
+    for (int i=0; i<n; i++)
+        int k = k+i*j;
+\end{lstlisting}
+\noindent\textbf{Question 2:} Find $c$ and $n_0$ for $5n+3$.\\[0.2cm]
+\noindent\textbf{Question 3:} Find $c$ and $n_0$ for $4n^2+7n-2$.
 %\noindent\textbf{Question 2:} Given vectors $\textbf{A}=\hat x+3\hat z$ and $\textbf{B}=5\hat x+2\hat y-6\hat z$, find,
 %\begin{enumerate}
 %\item[(1)] $|\textbf{A}+\textbf{B}|$.
@@ -88,6 +103,6 @@ The big O notation shows how a function grows and puts an upper bound on it. For
 %\end{enumerate}
 %\noindent\textbf{Question 3:} An airplane has a ground speed of 350 km/hr in the direction due west. If there is a wind blowing northwest at 40 km/hr calculate the true air speed and heading or plane.
 %\nocite{*}
-%\bibliographystyle{plain}
-%\bibliography{DSRef}
+\bibliographystyle{plain}
+\bibliography{DSRef}
 \end{document}
