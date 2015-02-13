@@ -1,0 +1,115 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 03\\Complexity Analysis\\The Big O Notation}
+\author{Attique Dawood}
+\date{February 12, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Algorithm is a finite number of steps with no ambiguity that guarantee a correct solution to a problem.
+\item Data structure is how information is arranged in main memory of a computer.
+\item Data structure is physical manifestation of a data type.
+\item Algorithms operate on data structures.
+\item Solution of a problem can have space and time constraints.
+\item An algorithm should be able to solve a problem within given space/time constraints.
+\end{itemize}
+\section{Measuring Algorithm Performance}
+It is desireable that an algorithm is (1) conceptually simple and easy to implement and (2) is efficient. However, an easier algorithm is bound to be inefficient and making something efficient tends to complicate the design. Measuring efficiency of an algorithm is known as `complexity analysis' of the algorithm. Computer resources can be classified in terms of \textit{space} and \textit{time}. Space complexity analysis refers to how much memory a program uses and time complexity analysis is how long a program takes to execute.
+
+Efficiency can be measured either (1) empirically or (2) using mathematical techniques. Empirical analysis involves running the program and finding out how much memory it takes or how long it takes to run. Mathematical techniques involve asymptotic algorithm analysis. Refer to the code segments given below. A complexity function $f(n)$ gives the number of steps required by an algorithm for an input of size `n'. Find out the complexity functions ($f(n)$) of these codes.
+\begin{lstlisting}
+int n, y;    2
+cin >> n;    1
+n = n+5;     2
+y = 3*n+8;   3
+\end{lstlisting}
+\begin{lstlisting}
+int sum(int Data[], int n)
+{
+    int s = 0;
+    for (int i=0; i<n; i++)
+        s = s + Data[i];
+    return s;
+}
+\end{lstlisting}
+\section{Growth of Complexity Function}
+How does $f(n)$ grows for the above examples as we increase `n'? What happens if `n' approaches infinity? Constant can be ignored. Shape of the graph is a straight line which shows linearity. The coefficient of `n' can be dropped as it doesn't affect linearity. The asymptotic complexity is obtained by looking at the highest order term after dropping constant and coefficient. `5n+3' grows asymptotically `like' `n'.
+\section{Rules For Finding Complexity of a Code Segment}
+\begin{itemize}
+\item Define cost for pre--set operations like declaration, assignment, addition, multiplication, comparison, memory accesses etc.
+\item Identify these operations in a code segment and add them up.
+\item For a loop, multiply number of iterations with cost of one iteration.
+\item Cost is multiplied in case of nested loops.
+\item Cost is added for sequential statements.
+\item In case of a condition take the cost of path with worst cost.
+\end{itemize}
+\section{The Big O Notation}
+The big O notation shows how a function grows and puts an upper bound on it. For example, given $f(n)=5n+3$ and $g(n)=n$ we can say `$f(n)$ is big O of $g(n)$' or $f(n)=O(g(n)$ or $5n+3=O(n)$. It is probably easier to understand if you read $f(n)=O(g(n))$ as `$f(n)$ grows asymptotically as $g(n)$.' The function $g(n)$ puts an upper bound on $f(n)$ such that there exists a constant $c$ for $n>n_0$ such that $f(n)\leq cg(n)$.
+\section{Properties of Big O\cite{REF:Complexityutexas}}
+\begin{itemize}
+\item Any k$^{th}$ order polynomial is $O(n^k)$
+\item $an^k=O(n^k)$
+\item if $f(n)=O(g(n))$ and $g(n)=O(h(n))$ then $f(n)=O(h(n))$
+\item Big O of a sum of functions is Big O of largest function.
+\item $f(n)=O(g(n))$ if \(\lim\limits_{n \to \infty}\dfrac{f(n)}{g(n)}=constant\)
+\end{itemize}
+\section{Best, Average and Worst Case for an Algorithm}
+Best and worst cases refer to best and worst running times for one particular value of $n$ out of all possible values of $n$. The best case of linear search is if a value is found at the very first index. For worst case the search value is the last element. For average case you would expect to find the search value at half--way.
+\section{Exercises}
+\noindent\textbf{Question 1:} Find the time complexity function of following code segments.
+\begin{lstlisting}
+int k = 0;
+for (int i=0; i<n; i++)
+    for (int j=0; j<n; j++)
+        int k = k+i*j;
+\end{lstlisting}
+\begin{lstlisting}
+for (int i=0; i<n; i++)
+    for (int j=0; j<n; j*=2)
+        int x = i*j;
+\end{lstlisting}
+\noindent\textbf{Question 2:} Find $c$ and $n_0$ for $5n+3$.\\[0.2cm]
+\noindent\textbf{Question 3:} Find $c$ and $n_0$ for $4n^2+7n-2$.
+%\noindent\textbf{Question 2:} Given vectors $\textbf{A}=\hat x+3\hat z$ and $\textbf{B}=5\hat x+2\hat y-6\hat z$, find,
+%\begin{enumerate}
+%\item[(1)] $|\textbf{A}+\textbf{B}|$.
+%\item[(2)] $5\textbf{A}-\textbf{B}$.
+%\item[(3)] The scalar and vector components of \textbf{A} along $\hat y$.
+%\item[(4)] A unit vector along (or \textit{parallel} to) $3\textbf{A}+\textbf{B}$.
+%\end{enumerate}
+%\noindent\textbf{Question 3:} An airplane has a ground speed of 350 km/hr in the direction due west. If there is a wind blowing northwest at 40 km/hr calculate the true air speed and heading or plane.
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
