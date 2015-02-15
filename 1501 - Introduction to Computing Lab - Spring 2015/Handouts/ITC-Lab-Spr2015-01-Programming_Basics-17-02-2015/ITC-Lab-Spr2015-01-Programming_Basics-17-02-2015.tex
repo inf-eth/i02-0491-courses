@@ -1,0 +1,75 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Introduction to Computing\\Lab 01\\Programming Basics}
+\author{Moomal Bukhari\and Attique Dawood}
+\date{February 17, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{A Hello World Program}
+C++ is a sequential language. This means you write statements in a sequence and these will be executed one--by--one until the program ends. Just like a calculator, C++ has certain \textit{functions} to perform different tasks. The functions are included in a \textit{library} file. Our very first program uses the function \verb|cout| from the \verb|iostream| library to output a message on computer screen. The sample program is given bellow.
+\begin{lstlisting}[caption={Hello World Program}]
+#include <iostream> 
+using namespace std; 
+
+int main() 
+{ 
+	cout << "Hello, world!" << endl; 
+	return 0; 
+}
+\end{lstlisting}
+The very first line is directive to tell our compiler that we are going to include the \verb|iostream| library. The \verb|namespace std| is a sub--library in \verb|iostream| containing the \verb|cout| function. All C++ programs have exactly one \verb|main()| directive which is the starting point of program. The \verb|cout| function can be thought of as a connection to the monitor and \verb|<<| indicate that some message is being passed to \verb|cout| which in turn passes it onto the monitor. The \verb|endl| indicates end line. It moves the cursor at the start of next line. \verb|return 0| is the exit statement. After this the program exits.
+\section{Integer Data Type}
+Integer is the most common data type used in C++. An \verb|int| stores a number. The following code demonstrates addition of two numbers.
+\begin{lstlisting}[caption={Addition of Two Numbers}]
+#include <iostream> 
+using namespace std; 
+
+int main() 
+{ 
+	int x = 5;
+	int y = -2;
+	int sum = x+y;
+	cout << "Result is" << sum << endl;
+	return 0; 
+}
+\end{lstlisting}
+\section{Exercises}
+\noindent\textbf{Question No. 1:} Using multiple \verb|cout| statements write your roll number on screen. Your output on screen should be large enough that it can be read from a distance of 3 meters.\\[0.2cm]
+\noindent\textbf{Question No. 2:} Write a program to evaluate
+\begin{enumerate}
+\item[a.] $3423+495332-342428\div219\times201$
+\item[b.] $(3423+495332-342428)\div219\times201$
+\item[c.] $3423+(495332-342428)\div219\times201$
+\end{enumerate}
+\noindent\textbf{Question No. 3:} Write a program (or two) that demonstrates your understanding of everything you have learned in this lab. There are extra marks for creativity.
+\end{document}
