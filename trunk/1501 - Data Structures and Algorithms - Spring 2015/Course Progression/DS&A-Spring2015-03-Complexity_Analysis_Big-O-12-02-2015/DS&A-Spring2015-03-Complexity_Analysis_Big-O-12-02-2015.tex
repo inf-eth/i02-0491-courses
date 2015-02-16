@@ -84,8 +84,51 @@ The big O notation shows how a function grows and puts an upper bound on it. For
 \item Big O of a sum of functions is Big O of largest function.
 \item $f(n)=O(g(n))$ if \(\lim\limits_{n \to \infty}\dfrac{f(n)}{g(n)}=constant\)
 \end{itemize}
+\section{Sum and Product Rules}
+Given a code with complexity function $f(n)=4$ the Big O is $O(1)$ because $f(n)\leq4(1)$ for all $n\geq n_0$. In general all complexity functions with constant cost, i.e., $f(n)=c$ are $O(1)$. If we have two functions with complexities $f_1(n)=c_1$ and $f_2(n)=c_2$ then the total cost is
+\begin{equation}
+f(n)=f_1(n)+f_2(n)=c_1+c_2=c=c(1)=O(1).
+\end{equation}
+According to sum rule, growth of several complexity functions taken together is the maximum of all growth rates. For example,
+\begin{equation}
+O(1)+O(n)+O(\log n)+O(n^2)=O(n^2).
+\end{equation}
+In case of nested structures the complexities are multiplied. Given 
+\begin{equation}
+f_1(n)=n+1=O(n)
+\end{equation}
+and
+\begin{equation}
+f_2(n)=3n^3+2=O(n^3).
+\end{equation}
+If
+\begin{equation}
+f(n)=f_1(n)\times f_2(n)
+\end{equation}
+then 
+\begin{equation}
+f(n)=O(n\times n^3)=O(n^4).
+\end{equation}
 \section{Best, Average and Worst Case for an Algorithm}
 Best and worst cases refer to best and worst running times for one particular value of $n$ out of all possible values of $n$. The best case of linear search is if a value is found at the very first index. For worst case the search value is the last element. For average case you would expect to find the search value at half--way.
+\section{The Big $\Omega$ Notation}
+The Big O provides an upper bound the growth rate of a function as $n$ becomes large. Similarly, the Big $\Omega$ gives a lower bound as $n$ becomes large. Formally
+\begin{equation}
+f(n)=\Omega(g(n))
+\end{equation}
+if
+\begin{equation}
+f(n)\geq g(n)
+\end{equation}
+for
+\begin{equation}
+n\geq n_0.
+\end{equation}
+For example, all linear functions are guaranteed to be $O(n^2)$ and $\Omega(1)$. The tightest upper and lower bounds for a linear function are 
+\begin{equation}
+f(n)=n+1=O(n)=\Omega(n).
+\end{equation}
+Because $f(n)\leq 2n$ for $n\geq1$ and $f(n)\geq n$ for $n\geq 0$.
 \section{Exercises}
 \noindent\textbf{Question 1:} Find the time complexity function of following code segments.
 \begin{lstlisting}
