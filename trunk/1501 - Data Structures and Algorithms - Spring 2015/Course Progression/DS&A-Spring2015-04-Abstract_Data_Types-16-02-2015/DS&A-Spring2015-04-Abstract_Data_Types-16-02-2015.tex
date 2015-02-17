@@ -1,0 +1,122 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 04\\Abstract Data Types}
+\author{Attique Dawood}
+\date{February 16, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item The Big O notation.
+\item Sum and product rules for finding Big O.
+\item The Big $\Omega$.
+\end{itemize}
+\section{Data Type}
+Data type refer to any of the basic data types provided by a programming language. For example, in C++ basic data types are \verb|int|, \verb|bool|, \verb|float|, \verb|char| etc.
+\section{Abstract Data Type}
+Abstract data type refers to a mathematical model with defined operations to be performed on that model. It is an abstraction of what is and what needs to be done. One example of ADT is list of integers. The operations on a list of integers are insert, search, delete, sort etc.
+\section{Data Structure}
+An ADT is implemented in a computer language by writing programming statements or code using a suitable \textit{data structure}. The list of integers can be implemented using any of the following basic data structures:
+\begin{itemize}
+\item Array
+\item Linked list
+\item Hash Table
+\item Tree
+\end{itemize}
+This is not an exhaustive list and other implementations are possible. You can even invent your own data structure by combining these types or coming up with something entirely new. Choice of data structure is important because different data structures have varied strengths and weaknesses. For example, an array is desirable if data size is fixed but for dynamic data size linked list is preferred.
+%
+%\begin{lstlisting}
+%int n, y;    2
+%cin >> n;    1
+%n = n+5;     2
+%y = 3*n+8;   3
+%\end{lstlisting}
+%\begin{lstlisting}
+%int sum(int Data[], int n)
+%{
+%    int s = 0;
+%    for (int i=0; i<n; i++)
+%        s = s + Data[i];
+%    return s;
+%}
+%\end{lstlisting}
+%\section{Growth of Complexity Function}
+%How does $f(n)$ grows for the above examples as we increase `n'? What happens if `n' approaches infinity? Constant can be ignored. Shape of the graph is a straight line which shows linearity. The coefficient of `n' can be dropped as it doesn't affect linearity. The asymptotic complexity is obtained by looking at the highest order term after dropping constant and coefficient. `5n+3' grows asymptotically `like' `n'.
+%\section{Rules For Finding Complexity of a Code Segment}
+%\begin{itemize}
+%\item Define cost for pre--set operations like declaration, assignment, addition, multiplication, comparison, memory accesses etc.
+%\item Identify these operations in a code segment and add them up.
+%\item For a loop, multiply number of iterations with cost of one iteration.
+%\item Cost is multiplied in case of nested loops.
+%\item Cost is added for sequential statements.
+%\item In case of a condition take the cost of path with worst cost.
+%\end{itemize}
+%\section{The Big O Notation}
+%The big O notation shows how a function grows and puts an upper bound on it. For example, given $f(n)=5n+3$ and $g(n)=n$ we can say `$f(n)$ is big O of $g(n)$' or $f(n)=O(g(n)$ or $5n+3=O(n)$. It is probably easier to understand if you read $f(n)=O(g(n))$ as `$f(n)$ grows asymptotically as $g(n)$.' The function $g(n)$ puts an upper bound on $f(n)$ such that there exists a constant $c$ for $n>n_0$ such that $f(n)\leq cg(n)$.
+%\section{Properties of Big O\cite{REF:Complexityutexas}}
+%\begin{itemize}
+%\item Any k$^{th}$ order polynomial is $O(n^k)$
+%\item $an^k=O(n^k)$
+%\item if $f(n)=O(g(n))$ and $g(n)=O(h(n))$ then $f(n)=O(h(n))$
+%\item Big O of a sum of functions is Big O of largest function.
+%\item $f(n)=O(g(n))$ if \(\lim\limits_{n \to \infty}\dfrac{f(n)}{g(n)}=constant\)
+%\end{itemize}
+%\section{Best, Average and Worst Case for an Algorithm}
+%Best and worst cases refer to best and worst running times for one particular value of $n$ out of all possible values of $n$. The best case of linear search is if a value is found at the very first index. For worst case the search value is the last element. For average case you would expect to find the search value at half--way.
+%\section{Exercises}
+%\noindent\textbf{Question 1:} Find the time complexity function of following code segments.
+%\begin{lstlisting}
+%int k = 0;
+%for (int i=0; i<n; i++)
+%    for (int j=0; j<n; j++)
+%        int k = k+i*j;
+%\end{lstlisting}
+%\begin{lstlisting}
+%for (int i=0; i<n; i++)
+%    for (int j=0; j<n; j*=2)
+%        int x = i*j;
+%\end{lstlisting}
+%\noindent\textbf{Question 2:} Find $c$ and $n_0$ for $5n+3$.\\[0.2cm]
+%\noindent\textbf{Question 3:} Find $c$ and $n_0$ for $4n^2+7n-2$.
+%\noindent\textbf{Question 2:} Given vectors $\textbf{A}=\hat x+3\hat z$ and $\textbf{B}=5\hat x+2\hat y-6\hat z$, find,
+%\begin{enumerate}
+%\item[(1)] $|\textbf{A}+\textbf{B}|$.
+%\item[(2)] $5\textbf{A}-\textbf{B}$.
+%\item[(3)] The scalar and vector components of \textbf{A} along $\hat y$.
+%\item[(4)] A unit vector along (or \textit{parallel} to) $3\textbf{A}+\textbf{B}$.
+%\end{enumerate}
+%\noindent\textbf{Question 3:} An airplane has a ground speed of 350 km/hr in the direction due west. If there is a wind blowing northwest at 40 km/hr calculate the true air speed and heading or plane.
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
