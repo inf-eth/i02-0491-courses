@@ -1,0 +1,197 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%opening
+\title{Data Structures and Algorithms\\Assignment 01\\Complexity Analysis}
+\author{Attique Dawood}
+\date{February 16, 2015\\Due: February 19, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Question 1:} Find the time and space complexity functions of following code segments. Also find the Big O/order of growth of these complexity functions. Do this in two ways:
+\begin{itemize}
+\item[1.] Find a rough estimate by assigning cost of each operation as one unit.
+\item[2.] Find exact complexity function by using the exact costs given in table.
+\end{itemize}
+\begin{table}[H]
+\begin{center}
+%\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|}
+	\hline
+		%\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & Q-6 & Q-7 & Q-8 & Q-9 & Q-10 &\textbf{Total}\\[-0.5ex]
+		%\hline
+		\rule{0pt}{2.5ex}\textbf{Operation}& $+$ & $-$ & $\times$ & $\div$ & $=$ & $<$ & $>$ & \verb|A[i]| & $++$ & $--$ \\
+		\hline
+		\rule{0pt}{2.5ex}\textbf{Cost}& 1 & 1 & 4 & 5 & 2 & 1 & 1 & 3 & 2 & 2 \\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\begin{lstlisting}
+int x = 3;
+int y = 7;
+int sum = x+y;
+int product = x*y;
+int expression = 2*x+y/(3-25*x)*y;
+\end{lstlisting}
+\begin{lstlisting}
+int choice, result=0;
+cin >> choice;
+if (choice < 0)
+{
+    for (int i=0; i<n; i++)
+        result = result+A[i];
+}
+else
+    result = -1;
+\end{lstlisting}
+\begin{lstlisting}
+for (int i=0; i<10; i++)
+    x = i;
+\end{lstlisting}
+\begin{lstlisting}
+for (int i=0; i<n; i++)
+    for (int j=0; j<5; j++)
+        int z = i+j;
+\end{lstlisting}
+\begin{lstlisting}
+for (int i=0; i<n; i++)
+    for (int j=0; j<2n; j++)
+        int z = i+j;
+\end{lstlisting}
+\begin{lstlisting}
+for (int i=1; i<n; i++)
+    for (int j=1; j<n-1; j++)
+        int z = i+j;
+\end{lstlisting}
+\begin{lstlisting}
+int sum=0;
+for (int i=0; i<n; i++)
+    sum = sum+A[i];
+\end{lstlisting}
+\begin{lstlisting}
+int sum=0;
+for (int i=0; i<n; i++)
+    for (int j=0; j<n; j++)
+        sum = sum+A[i][j];
+\end{lstlisting}
+\begin{lstlisting}
+for (int j=0; j<n; j*=2)
+    int pivot = j;
+\end{lstlisting}
+\noindent\textbf{Question 2:} Plot the following functions on a graph. Clearly show the asymptotic behaviour of these functions as $n$ becomes large.
+\begin{itemize}
+\item[1.] $f(n)=5$
+\item[2.] $f(n)=\log n$
+\item[3.] $f(n)=n$
+\item[4.] $f(n)=4n+3$
+\item[5.] $f(n)=n\log n$
+\item[6.] $f(n)=n^2$
+\item[7.] $f(n)=3n^2+2n+3$
+\item[8.] $f(n)=n^3$
+\item[9.] $f(n)=e^n$
+\item[10.] $f(n)=n!$
+\end{itemize}
+\noindent\textbf{Question 3:} Some empirical measurements are given. Find the Big O/order of growth.
+\begin{table}[H]
+\begin{center}
+%\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|}
+	\hline
+		%\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & Q-6 & Q-7 & Q-8 & Q-9 & Q-10 &\textbf{Total}\\[-0.5ex]
+		%\hline
+		\rule{0pt}{2.5ex}$n$& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+		\hline
+		\rule{0pt}{2.5ex}$f(n)$& 0 & 14 & 52 & 126 & 248 & 430 & 684 & 1022 & 1456 & 1998 \\
+	\hline
+	\end{tabular}}
+\end{center}
+\begin{center}
+%\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|}
+	\hline
+		%\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & Q-6 & Q-7 & Q-8 & Q-9 & Q-10 &\textbf{Total}\\[-0.5ex]
+		%\hline
+		\rule{0pt}{2.5ex}$n$& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+		\hline
+		\rule{0pt}{2.5ex}$f(n)$& 2 & 5 & 8 & 11 & 14 & 17 & 20 & 23 & 26 & 29 \\
+	\hline
+	\end{tabular}}
+\end{center}
+\begin{center}
+%\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|}
+	\hline
+		%\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & Q-6 & Q-7 & Q-8 & Q-9 & Q-10 &\textbf{Total}\\[-0.5ex]
+		%\hline
+		\rule{0pt}{2.5ex}$n$& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+		\hline
+		\rule{0pt}{2.5ex}$f(n)$& 0 & 2 & 3.16 & 4 & 4.64 & 5.16 & 5.61 & 6 & 6.33 & 6.64 \\
+	\hline
+	\end{tabular}}
+\end{center}
+\begin{center}
+%\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|}
+	\hline
+		%\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & Q-6 & Q-7 & Q-8 & Q-9 & Q-10 &\textbf{Total}\\[-0.5ex]
+		%\hline
+		\rule{0pt}{2.5ex}$n$& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+		\hline
+		\rule{0pt}{2.5ex}$f(n)$& 0 & 6 & 16 & 30 & 48 & 70 & 96 & 126 & 160 & 198 \\
+	\hline
+	\end{tabular}}
+\end{center}
+\begin{center}
+%\vspace{0.3cm}
+	{\footnotesize \begin{tabular}{|C{1.8cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|C{0.75cm}|}
+	\hline
+		%\rule{0pt}{4.6ex} & Q-1 & Q-2 & Q-3 & Q-4 & Q-5 & Q-6 & Q-7 & Q-8 & Q-9 & Q-10 &\textbf{Total}\\[-0.5ex]
+		%\hline
+		\rule{0pt}{2.5ex}$n$& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+		\hline
+		\rule{0pt}{2.5ex}$f(n)$& 0 & 0.67 & 1.58 & 2.67 & 3.86 & 5.17 & 6.55 & 8 & 9.51 & 11.1 \\
+	\hline
+	\end{tabular}}
+\end{center}
+\end{table}
+\section{Submission Instructions}
+\begin{itemize}
+\item Submit a hard copy of assignment.
+\item Graphs should be plotted using a software such as MS Excel or Matlab.
+\item Assignments should be submitted before the start of class. Individual assignments will not be accepted after the start of class.
+\item Expect a quiz on submission day.
+\end{itemize}
+\end{document}
