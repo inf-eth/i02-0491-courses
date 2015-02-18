@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 05\\ADT: List of Integers}
+\author{Attique Dawood}
+\date{February 17, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Revision}
+\begin{itemize}
+\item Basic data type, abstract data type and data structure.
+\end{itemize}
+\section{ADT: List of Integers}
+Following operations can be performed on a list of integers
+\begin{itemize}
+\item \verb|Insert(x,p)|: Insert $x$ at position/index $p$ in list. Elements starting at $p$ are shifted one position.
+\item \verb|Locate(x)|: Searches $x$ in list; if found position $p$ of $x$ is returned.
+\item \verb|Delete(p)|: Deletes the element at position $p$.
+\item \verb|Retrieve(p)|: Returns the value at position $p$.
+\item \verb|Next(p)|: Returns the value at position $p+1$.
+\item \verb|Previous(p)|: Returns the value at position $p-1$.
+\item \verb|MakeNull()|: Empties the list.
+\item \verb|First()|: Returns the first element.
+\item \verb|PrintList()|: Display the list.
+\item \verb|Purge(x)|: Delete duplicate instances of value $x$.
+\end{itemize}
+\section{Exercises}
+\noindent\textbf{Question 1:} If list of integers is implemented as an array then what is the growth order of operations?\\[0.2cm]
+\noindent\textbf{Question 2:} Repeat Q1 for a linked--list implementation?
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
