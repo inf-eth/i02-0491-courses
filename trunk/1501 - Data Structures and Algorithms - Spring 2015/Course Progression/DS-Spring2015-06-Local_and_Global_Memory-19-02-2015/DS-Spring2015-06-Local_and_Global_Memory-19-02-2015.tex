@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 06\\Local and Global Memory}
+\author{Attique Dawood}
+\date{February 19, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Quiz 01.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item List of integers.
+\item Array implementation of list of integers.
+\end{itemize}
+\section{ADT: List of Integers}
+Following operations can be performed on a list of integers
+\begin{itemize}
+\item \verb|Insert(x,p)|: Insert $x$ at position/index $p$ in list. Elements starting at $p$ are shifted one position.
+\item \verb|Locate(x)|: Searches $x$ in list; if found position $p$ of $x$ is returned.
+\item \verb|Delete(p)|: Deletes the element at position $p$.
+\item \verb|Retrieve(p)|: Returns the value at position $p$.
+\item \verb|Next(p)|: Returns the value at position $p+1$.
+\item \verb|Previous(p)|: Returns the value at position $p-1$.
+\item \verb|MakeNull()|: Empties the list.
+\item \verb|First()|: Returns the first element.
+\item \verb|PrintList()|: Display the list.
+\item \verb|Purge(x)|: Delete duplicate instances of value $x$.
+\end{itemize}
+\section{Local and Global Memory}
+There are normally three main levels of storage. In terms of access time these are cache, RAM and hard disk. Cache has fastest access time and hard disk the slowest. Cache is embedded in the CPU but the downside is the storage limit which is in the order of a few MBs. RAM can be 10--100 times slower than cache but has storage in the order of few GBs. Hard disk is a permanent storage device that is much slower than RAM but it can have a loot of space in the order of TBs.
+
+A program must be loaded in main memory before it can run. Running a program directly from hard disk is so expensive in terms of time that it is impractical to do so.
+\section{Exercises}
+\noindent\textbf{Question:} Compare space efficiencies of linked--list and array implementations?\\[0.2cm]
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
