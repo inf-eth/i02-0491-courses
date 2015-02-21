@@ -1,0 +1,61 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Introduction to Computing\\Lab 02\\Handling Input}
+\author{Moomal Bukhari\and Attique Dawood}
+\date{February 24, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Taking Input from User}
+Following program uses the function \verb|cin| from the \verb|iostream| library to take two numbers from user, calculates the sum and displays it on--screen.
+\begin{lstlisting}[caption={Input}]
+#include <iostream> 
+using namespace std; 
+
+int main() 
+{
+	int x;
+	int y;
+	cin >> x;
+	cin >> y;
+	int sum = x+y;
+	cout << "Sum of numbers is " << sum << endl; 
+	return 0; 
+}
+\end{lstlisting}
+\section{The Remainder Operator}
+The remainder operator \verb|%| gives the remainder of a division when two numbers are involved in a division operation. \verb|a%b| gives the remainder left over when \verb|a| is divided by \verb|b|. For example, \verb|13%5| gives 3 because 12 cannot be completely divided by 5. In this case the quotient or result of divsion is 2.
+\section{Exercises}
+\noindent\textbf{Question No. 1:} Make a simple calculator. Ask the user to input two numbers. Calculate their sum, difference, product and result of division.\\[0.2cm]
+\noindent\textbf{Question No. 2:} Write a program that takes days as input from user. Convert days into years, months and leftover days. For example, 45 days are 1 month and 15 days; 400 days are 1 year, 1 month and 5 days.\\[0.2cm]
+\noindent\textbf{Question No. 3:} Write a program to divide two numbers and give the answer in fractional form. You can integrate this into calculator.
+\end{document}
