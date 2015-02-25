@@ -46,11 +46,20 @@
 \item Doubly--linked list.
 \end{itemize}
 \section{Stack~\cite[Sec. 2.3]{Aho}}
-Stack is an ADT where all insertions and deletions take place at one end called the $top$.
+Stack is an ADT where all insertions and deletions take place at one end called the $top$. Following operations are defined for a stack ADT:
+\begin{itemize}
+\item \verb|Top()|: Gives the value at the top of stack.
+\item \verb|Pop()|: Deletes the top--most value.
+\item \verb|Push(x)|: Insert $x$ at the top of stack.
+\item \verb|MakeNULL()|: Empties stack by popping out all values.
+\item \verb|IsEmpty()|: Checks if stack is empty or not. Returns true or false.
+\end{itemize}
 \section{Text Editor Example}
+A text editor records keystrokes and processes them. The text editor can be implemented using a stack.
 \section{Stack and Heap in Memory Allocation}
-\section{Exercises}
-\noindent\textbf{Question:} ?\\[0.2cm]
+Static variables are allocated memory at compile time. These are stored in a segment of memory known as stack. Dynamic memory allocations take place in another memory segment known as the heap.
+%\section{Exercises}
+%\noindent\textbf{Question:} ?\\[0.2cm]
 %\nocite{*}
 \bibliographystyle{plain}
 \bibliography{DSRef}

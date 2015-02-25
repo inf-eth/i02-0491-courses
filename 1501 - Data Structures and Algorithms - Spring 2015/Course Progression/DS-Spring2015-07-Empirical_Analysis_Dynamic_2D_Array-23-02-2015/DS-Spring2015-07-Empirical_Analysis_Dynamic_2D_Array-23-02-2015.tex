@@ -44,10 +44,23 @@
 \item Local and global memory.
 \end{itemize}
 \section{Empirical Analysis Considerations}
+For empirical testing list must be initialised with suitable data. For searching and sorting operations it is desired that data be as random as possible throughout the length of list. For testing purge, however, it is desirable that there are a lot of repetitions.
 \section{Dynamic 2D Arrays}
+A 2D array can be implemented using a 1D array. For array indexing following can be used:
+\begin{lstlisting}
+int Rows = 4;
+int Cols = 5;
+int* Array2D = new int[Rows*Cols];
+
+// Input.
+for (int i=0; i<Rows; i++)
+    for (int j=0; j<Cols; j++)
+        cin >> Array2D[i*Cols+j]; // Similar to Array2D[i][j]
+\end{lstlisting}
 \section{Doubly--Linked List}
-\section{Exercises}
-\noindent\textbf{Question:} ?\\[0.2cm]
+Doubly--linked lists keep a previous pointer in addition to next pointer. In doubly--linked lists forward as well as backward traversal is possible. Searching an insertion time can be reduced this way.
+%\section{Exercises}
+%\noindent\textbf{Question:} ?\\[0.2cm]
 %\nocite{*}
 \bibliographystyle{plain}
 \bibliography{DSRef}
