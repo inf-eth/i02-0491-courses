@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 09\\Queues and Mappings}
+\author{Attique Dawood}
+\date{February 26, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item None.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Stack.
+\end{itemize}
+\section{Queues~\cite[Sec. 2.4]{Aho}}
+Queue is an ADT where all insertions take place at one end called $rear$ and deletions take place at the other end called $Front$. Following operations are defined for a queue ADT:
+\begin{itemize}
+\item \verb|EnQueue(x)|: Insert $x$ at rear.
+\item \verb|Dequeue()|: Delete $front$.
+\item \verb|Front()|: Returns the element at the front of queue..
+\item \verb|MakeNULL()|: Empties queue by dequeuing all elements.
+\item \verb|IsEmpty()|: Checks if queue is empty or not. Returns true or false.
+\end{itemize}
+Queues are useful for scheduling. One such example is multi--tasking by CPU. A special type of queue is called $priority queue$. It keeps track of priority of elements. These elements are then placed in the queue according to their $priority$. VIPs given preference in a queue is one such example. Tasks scheduled on CPU can also be given priority.
+\section{Mappings~\cite[Sec. 2.5]{Aho}}
+A $mapping$ is an association between two sets of values. For example each alphabet can be assigned a number from 1 to 26. Encryption/decryption is an example of a mapping where inverse mapping exists. If no inverse exists then the mapping is known as a $hash$ function.
+%\section{Exercises}
+%\noindent\textbf{Question:} ?\\[0.2cm]
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
