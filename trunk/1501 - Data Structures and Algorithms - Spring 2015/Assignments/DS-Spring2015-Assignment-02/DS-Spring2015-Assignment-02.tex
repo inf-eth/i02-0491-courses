@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%opening
+\title{Data Structures and Algorithms\\Assignment 02\\Complexity Analysis of Array and Linked List Implementations}
+\author{Attique Dawood}
+\date{February 21, 2015\\Due: March 03, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Problem Description}
+Implement the list of integers ADT using following data structures:
+\begin{itemize}
+\item[1.] Array.
+\item[2.] Linked list.
+\end{itemize}
+\section{Operations}
+\begin{itemize}
+\item[1.] \verb|Insert(x, p)|: Insert $x$ at position/index $p$. All subsequent elements are shifted. Size increases by one. Return 0 if successful. If $p$ is less than 0 or greater than current size then return -1. In case of array, current size cannot exceed maximum size.
+\item[2.] \verb|Locate(x)|: Search for value $x$. If found return index otherwise return -1.
+\item[3.] \verb|Delete(p)|: Delete the element at position/index $p$. All subsequent elements are shifted back. Size decreases by one. Return 0 if deletion is successful. If $p$ is less than 0 or greater than or equal to current size then return -1.
+\item[4.] \verb|Retrieve(p)|: Return the value at position/index $p$. If $p$ is less than 0 or greater than or equal to current size then return -1.
+\item[5.] \verb|Next(p)| and \verb|Previous(p)|: Similar to retrieve but returns the value after or before $p$. Return 0 if successful and -1 if out of bounds.
+\item[6.] \verb|MakeNULL|: Empty the list and set current size equal to 0. De--allocate all allocated memory for linked list.
+\item[7.] \verb|First| and \verb|Last|: Return first or last element. Return -1 if list is empty.
+\item[8.] \verb|PrintList()|: Display all the elements.
+\item[9.] \verb|Purge(x)|: Delete all the duplicate instances of $x$ (except for first occurrence).
+\end{itemize}
+\section{Implementation Guidelines}
+You are provided following code/header files along with Visual Studio 2010 solution and project files.
+\begin{itemize}
+\item[-] \verb|Main.cpp|: Main file for running and testing. Don't change anything in this file.
+\item[-] \verb|IntegerArray.h| and \verb|IntegerArray.cpp|: Definition and implementation files for array based list of integers. You need to implement all the functions.
+\item[-] \verb|IntegerLinkedList.h| and \verb|IntegerLinkedList.cpp|: Definition and implementation files for linked list based list of integers. You need to implement all the functions.
+\item[-] \verb|Timer.h| and \verb|Timer.cpp|: Timer class that provides a microsecond precision timer.
+\item[-] \verb|ListofIntegers.sln| and \verb|ListofIntegers.vcxproj|: Solution and project files. Open the solution by double--clicking on \verb|.sln| file.
+\end{itemize}
+\section{Complexity Analysis and Submission Guidelines}
+You must submit a document (hard copy) along with this assignment that lists Big O/order of growth of all the functions. The empirical results can be obtained by running the program. Note down the empirical readings and plot them on a graph.
+
+When you build your solution some files and folders will be created. Make sure you delete all the additional files and folders before submission and only submit the above--mentioned files. DO NOT submit zip/rar files. Upload individual files on SLATE. There are a total of 9 (nine) files to be submitted.
+\end{document}
