@@ -1,0 +1,77 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 11\\Introduction to Trees}
+\author{Attique Dawood}
+\date{March 03, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment 02 deadline is now Thursday.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Recursion.
+\end{itemize}
+\section{Trees: Basic Terminology~\cite[Sec. 3.1]{Aho}}
+Tree is a collection of elements called $nodes$. One of the nodes is the $root$ which is parent of all the nodes. A node can store anything, a number, a string or a symbol. A $tree$ can be defined recursively as
+\begin{itemize}
+\item[1.] A single node is by itself a tree. This is also the root of the tree.
+\item[2.] Suppose $n$ is a node. We have trees $T_1, T_2,..., T_k$ with roots $n_1, n_2,..., n_k$. We can make a new tree by making $n$ the parent of nodes $n_1, n_2,..., n_k$. In this tree, $n$ is the root and $T_1, T_2,..., T_k$ are the \textit{sub--trees} of the root. Nodes $n_1, n_2,..., n_k$ are called the $children$ of node $n$.
+\subsection{Example: Table of Contents}
+Table of contents in a book can be considered as a tree.
+\subsection{Path}
+If $n_1, n_2,..., n_k$ are sequence of nodes in a tree such that $n_i$ is the parent of $n_{i+1}$, then for $1\leq i<k$, this sequence is a $path$ from node $n_1$ to node $n_k$. There is a path of length zero from each node to itself. The length of a path is one less than the number of nodes in the path.
+\subsection{Ancestor and Descendant}
+If there is a path from node $a$ to node $b$ then $a$ is an $ancestor$ of $b$ and $b$ is a $descendent$ of $a$. Ancestor or descendent of a node, other than the node itself, is called a $proper$ ancestor or $descendant$. In a tree root is the only node with no proper ancestor. A node with no proper descendant is called a $leaf$.
+\subsection{Height and Depth}
+$Height$ of a node in a tree is the longest distance from that node to a leaf. $Height of a tree$ is the height of the root. $Depth$ of a node is the length of the unique path from root to that node.
+\subsection{Ordering}
+Left--to--right ordering of $siblings$ (children of the same node) can be extended to compare any two nodes that are not related by ancestor--descendent relationship. If $a$ and $b$ are siblings and $a$ is to the left of $b$ then all descendants of $a$ are to the left of all the descendants of $b$. A path can be drawn from a root a node $n$. All the nodes not in the path are either to the left or right of node $n$.
+\subsection{Preorder, Inorder and Postorder Traversals}
+\end{itemize}
+\begin{lstlisting}
+int fact(int n)
+{
+    if (n==0||n==1)
+        return 1;
+    else
+        return n*fact(n-1);
+}
+\end{lstlisting}
+%\section{Exercises}
+%\noindent\textbf{Question:} ?\\[0.2cm]
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
