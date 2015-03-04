@@ -45,7 +45,7 @@
 \end{itemize}
 \section{Recursion}
 Recursion is useful for solving recursively--defined problems like factorial and Fibonacci series. Recursive and sequential implementation of factorial and Fibonacci series are given.
-\begin{lstlisting}
+\begin{lstlisting}[caption={Recursive Factorial}]
 int fact(int n)
 {
     if (n==0||n==1)
@@ -54,9 +54,41 @@ int fact(int n)
         return n*fact(n-1);
 }
 \end{lstlisting}
-%\section{Exercises}
-%\noindent\textbf{Question:} ?\\[0.2cm]
-%\nocite{*}
+\begin{lstlisting}[caption={Loop Based Factorial}]
+int fact(int n)
+{
+	int factorial=1;
+	for (int i=n; i>1; i--)
+		factorial=factorial*i;
+	return factorial;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Recursive Fibonacci Series}]
+int Fib(int n)
+{
+	if (n==1||n==2)
+		return 1;
+	else return Fib(n-1)+Fib(n-2);
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Loop Based Fibonacci Series}]
+int Fib(int n)
+{
+	int Fib1 = 1;
+	int Fib2 = 1;
+	int Fib3 = 1;
+	for (int i=2; i<n; i++)
+	{
+		Fib3 = Fib1+Fib2;
+		Fib1 = Fib2;
+		Fib2 = Fib3;
+	}
+	return Fib3;
+}
+\end{lstlisting}
+\section{Exercises}
+\noindent\textbf{Question:} What are the space and time complexities of given code listings?\\[0.2cm]
+\nocite{*}
 \bibliographystyle{plain}
 \bibliography{DSRef}
 \end{document}
