@@ -30,18 +30,18 @@
 \lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
 
 %opening
-\title{Data Structures and Algorithms\\Class 11\\Introduction to Trees}
+\title{Data Structures and Algorithms\\Class 12\\Tree Traversal}
 \author{Attique Dawood}
-\date{March 03, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\date{March 05, 2015\\[0.2cm] Last Modified: \today, \currenttime}
 \begin{document}
 \maketitle
 \section{Announcements}
 \begin{itemize}
-\item Assignment 02 deadline is now Thursday.
+\item Assignment 02 submission and quiz 02 today.
 \end{itemize}
 \section{Revision}
 \begin{itemize}
-\item Recursion.
+\item Tree terminology.
 \end{itemize}
 \section{Trees: Basic Terminology~\cite[Sec. 3.1]{Aho}}
 Tree is a collection of elements called $nodes$. One of the nodes is the $root$ which is parent of all the nodes. A node can store anything, a number, a string or a symbol. A $tree$ can be defined recursively as
@@ -59,16 +59,65 @@ If there is a path from node $a$ to node $b$ then $a$ is an $ancestor$ of $b$ an
 $Height$ of a node in a tree is the longest distance from that node to a leaf. $Height of a tree$ is the height of the root. $Depth$ of a node is the length of the unique path from root to that node.
 \subsection{Ordering}
 Left--to--right ordering of $siblings$ (children of the same node) can be extended to compare any two nodes that are not related by ancestor--descendent relationship. If $a$ and $b$ are siblings and $a$ is to the left of $b$ then all descendants of $a$ are to the left of all the descendants of $b$. A path can be drawn from a root a node $n$. All the nodes not in the path are either to the left or right of node $n$.
-\subsection{Preorder, Inorder and Postorder Traversals}
-\begin{lstlisting}
-int fact(int n)
+\section{Tree Traversal}
+Traversing a sequential list in order to print all elements is straight--forward. Traversing a tree is not very simple because tree can have multiple branches at each node. The goal is to traverse each node only once and all nodes must be traversed. Since the tree is defined recursively, a recursive method for tree traversal is easy to implement. There are three ways of traversing a tree recursively:
+\begin{itemize}
+\item[1.] Preorder
+\item[2.] Inorder
+\item[3.] Postorder
+\end{itemize}
+\subsection{Preorder}
+In preorder the root node is listed first followed by preorder of all the children from left to right.
+\subsection{Inorder}
+Inorder is called on leftmost child first followed by listing of root and then inorder called on rest of the children from left to right.
+\subsection{Postorder}
+Postorder is called on all the children from left to right following by listing of root.
+\begin{lstlisting}[caption={C++ Code for Tree Traversal}]
+class Node
 {
-    if (n==0||n==1)
-        return 1;
-    else
-        return n*fact(n-1);
+public:
+	Node();
+	int Data;
+	int Childs;
+	Node* Child[5];
+
+	void Preorder(Node* n);
+	void Inorder(Node* n);
+	void Postorder(Node* n);
+};
+
+Node::Node()
+{
+	Childs = 0;
+	for (int i=0; i<5; i++)
+		Child[i] = NULL;
+};
+
+void Node::Preorder(Node* n)
+{
+	cout << n->Data << ", ";
+	for (int i=0; i<n->Childs; i++)
+		Preorder(n->Child[i]);
+}
+
+void Node::Inorder(Node* n)
+{
+	if (n->Childs!=0)
+		Inorder(n->Child[0]);
+	cout << n->Data << ", ";
+	for (int i=1; i<n->Childs; i++)
+		Inorder(n->Child[i]);
+}
+
+void Node::Postorder(Node* n)
+{
+	for (int i=0; i<n->Childs; i++)
+		Postorder(n->Child[i]);
+	cout << n->Data << ", ";
 }
 \end{lstlisting}
+\section{Expression Trees}
+Expression trees can be used to evaluate mathematical expressions. In such a tree all the leaves contain an operand and the interior nodes contain a mathematical operation.
 %\section{Exercises}
 %\noindent\textbf{Question:} ?\\[0.2cm]
 %\nocite{*}
