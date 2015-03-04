@@ -78,10 +78,24 @@ void MakeTree(Node* &Root)
 	Root->Child[2]->Child[0]->Data = 7;
 }
 
+void DisplayTree()
+{
+	cout << "\
+        1\n\
+    /   |   \\\n\
+    2   3    4\n\
+       / \\   |\n\
+      5   6  7\n\
+     / \\     |\n\
+    8   9    10\n";
+	cout << endl;
+}
+
 int main()
 {
 	Node *Root;
 	MakeTree(Root);
+	DisplayTree();
 
 	Root->Preorder(Root);
 	cout << endl;
