@@ -5,7 +5,7 @@ class Node
 {
 public:
 	Node();
-	int Data;
+	char Data;
 	int Childs;
 	Node* Child[5];
 
@@ -30,11 +30,13 @@ void Node::Preorder(Node* n)
 
 void Node::Inorder(Node* n)
 {
+	cout << "(";
 	if (n->Childs!=0)
 		Inorder(n->Child[0]);
-	cout << n->Data << ", ";
+	cout << n->Data;
 	for (int i=1; i<n->Childs; i++)
 		Inorder(n->Child[i]);
+	cout << ")";
 }
 
 void Node::Postorder(Node* n)
@@ -47,47 +49,44 @@ void Node::Postorder(Node* n)
 void MakeTree(Node* &Root)
 {
 	Root = new Node;
-	Root->Data = 1;
-	Root->Childs = 3;
+	Root->Data = '*';
+	Root->Childs = 2;
 	Root->Child[0] = new Node;
-	Root->Child[0]->Data = 2;
+	Root->Child[0]->Data = '-';
 
 	Root->Child[1] = new Node;
-	Root->Child[1]->Data = 3;
+	Root->Child[1]->Data = '+';
+
+	Root->Child[0]->Childs = 2;
+	Root->Child[0]->Child[0] = new Node;
+	Root->Child[0]->Child[0]->Data = 'a';
+	Root->Child[0]->Child[1] = new Node;
+	Root->Child[0]->Child[1]->Data = '*';
+
+	Root->Child[0]->Child[1]->Childs = 2;
+	Root->Child[0]->Child[1]->Child[0] = new Node;
+	Root->Child[0]->Child[1]->Child[0]->Data = 'd';
+	Root->Child[0]->Child[1]->Child[1] = new Node;
+	Root->Child[0]->Child[1]->Child[1]->Data = 'e';
 
 	Root->Child[1]->Childs = 2;
 	Root->Child[1]->Child[0] = new Node;
-	Root->Child[1]->Child[0]->Data = 5;
+	Root->Child[1]->Child[0]->Data = 'b';
 	Root->Child[1]->Child[1] = new Node;
-	Root->Child[1]->Child[1]->Data = 6;
-
-	Root->Child[1]->Child[0]->Childs = 2;
-	Root->Child[1]->Child[0]->Child[0] = new Node;
-	Root->Child[1]->Child[0]->Child[0]->Data = 8;
-	Root->Child[1]->Child[0]->Child[1] = new Node;
-	Root->Child[1]->Child[0]->Child[1]->Data = 9;
-
-	Root->Child[1]->Child[1]->Childs = 1;
-	Root->Child[1]->Child[1]->Child[0] = new Node;
-	Root->Child[1]->Child[1]->Child[0]->Data = 10;
-
-	Root->Child[2] = new Node;
-	Root->Child[2]->Data = 4;
-	Root->Child[2]->Childs = 1;
-	Root->Child[2]->Child[0] = new Node;
-	Root->Child[2]->Child[0]->Data = 7;
+	Root->Child[1]->Child[1]->Data = 'c';
 }
 
 void DisplayTree()
 {
 	cout << "\
-        1\n\
-    /   |   \\\n\
-    2   3    4\n\
-       / \\   |\n\
-      5   6  7\n\
-     / \\  |\n\
-    8   9 10\n";
+        *\n\
+      /    \\\n\
+     /      \\\n\
+    -        +\n\
+   / \\      / \\\n\
+  a   *    b   c\n\
+     / \\  \n\
+    d   e \n";
 	cout << endl;
 }
 
@@ -97,13 +96,7 @@ int main()
 	MakeTree(Root);
 	DisplayTree();
 
-	Root->Preorder(Root);
-	cout << endl;
-
 	Root->Inorder(Root);
-	cout << endl;
-
-	Root->Postorder(Root);
 	cout << endl;
 
 	return 0;
