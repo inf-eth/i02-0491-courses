@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%opening
+\title{Data Structures and Algorithms\\Assignment 03}
+\author{Attique Dawood}
+\date{March 06, 2015\\Due: March 12, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Task 1: Singly--Linked List and Doubly--Linked List}
+Implement doubly--linked list and compare performance with singly--linked list. By keeping a previous pointer, doubly--linked list can be traversed backwards as well as forwards. Additionally a pointer to last node can be kept to start traversal from any end. \verb|Insert|, \verb|Delete| and \verb|Retrieve| operations can take advantage of this to give a 50 \% increase in performance compared to singly--linked list. You are required to implement these three functions and compare performance gains against singly--linked list.
+\section{Task 2: Implementation Queue and Stack}
+Implement queue and stack using any data structure of choice. In queue \verb|Enqueue| and \verb|Dequeue| operations should be $O(1)$, whereas, in stack \verb|Push| and \verb|Pop| should be $O(1)$.
+\section{Task 3: Expression Tree}
+Implement a function to recursively create an expression tree from prefix expression. After creating tree, derive prefix, infix and postfix expressions using tree traversals. Additionally, you can provide functionality to evaluate the expression to get bonus marks.
+\section{Implementation Guidelines}
+You are provided a zip file with a Visual Studio 2010 \verb|.sln| file and three folders containing project and code files related to each task. Open the solution by double--clicking on \verb|.sln| file. 
+\section{Complexity Analysis and Submission Guidelines}
+You must submit a document (hard copy) of graphs showing comparison of \verb|Insert|, \verb|Retrieve| and \verb|Delete| operations for singly-- and doubly--linked lists.
+
+When you build your solution some files and folders will be created. Make sure you delete all the additional files and folders before submission. You can delete any files with \verb|.suo| and \verb|.sdf| extension. Also delete any \verb|debug| and \verb|ipch| folders. You should submit a zip file just like the template provided with this assignment.
+\end{document}
