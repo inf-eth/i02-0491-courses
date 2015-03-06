@@ -23,9 +23,11 @@ Node::Node()
 
 void Node::Preorder(Node* n)
 {
-	cout << n->Data << ", ";
+	cout << "(";
+	cout << n->Data;
 	for (int i=0; i<n->Childs; i++)
 		Preorder(n->Child[i]);
+	cout << ")";
 }
 
 void Node::Inorder(Node* n)
@@ -41,9 +43,11 @@ void Node::Inorder(Node* n)
 
 void Node::Postorder(Node* n)
 {
+	cout << "(";
 	for (int i=0; i<n->Childs; i++)
 		Postorder(n->Child[i]);
-	cout << n->Data << ", ";
+	cout << n->Data;
+	cout << ")";
 }
 
 void MakeTree(Node* &Root)
@@ -96,7 +100,13 @@ int main()
 	MakeTree(Root);
 	DisplayTree();
 
+	Root->Preorder(Root);
+	cout << endl;
+
 	Root->Inorder(Root);
+	cout << endl;
+
+	Root->Postorder(Root);
 	cout << endl;
 
 	return 0;
