@@ -1,0 +1,189 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Introduction to Computing\\Lab 05\\Loops}
+\author{Moomal Bukhari\and Attique Dawood}
+\date{March 24, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{While Loop}
+\begin{itemize}
+\item \verb|while| loop runs until a condition is met.
+\item The loop should have a terminating condition or it will run indefinitely.
+\item \verb|while| loop checks condition first and then executes loop structure.
+\end{itemize}
+\begin{lstlisting}[caption={while Loop}]
+while (condition is true)
+{
+	// Do this
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using while Loop to Sum}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int Sum=0;
+	while (Sum<20)
+	{
+		cout << "Sum is now: " << i << endl;
+		Sum = Sum + 6;		
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using Counter With while Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int i=0;
+	while (i<10)
+	{
+		cout << "Counter is now: " << i << endl;
+		i=i+1;		
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\section{for Loop}
+\begin{itemize}
+\item A somewhat better while loop.
+\item Provides counter in addition to condition check. Don't need to explicitly make our own counter.
+\item A \verb|for| is generally used instead of \verb|while| when it is known beforehand how many times the loop will run. Although not a strict rule but \verb|for| and \verb|while| can be used interchangeably.
+\item A \verb|for| loop effectively becomes \verb|while| loop if counter isn't used.
+\end{itemize}
+\begin{lstlisting}[caption={for Loop}]
+for (initialise counter; condition; increment counter)
+{
+	// Do this
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={for Loop With Counter}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	for (int i=0; i<10; i++)
+	{
+		cout << "Counter is now: " << i << endl;
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\section{\texttt{break} and \texttt{continue}}
+\begin{itemize}
+\item A loop can be forcefully stopped by using the \verb|break| keyword.
+\item \verb|break| keyword \emph{must} be used in a loop. It will immediately terminate the loop without executing anything else.
+\item If a \verb|continue| keyword is encountered in a loop then all the remaining statements in loop will not execute. The loop itself will continue to execute.
+\end{itemize}
+\begin{lstlisting}[caption={Breaking a Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int x;
+	while (true) // Infinite loop.
+	{
+		cout << "Enter a number: ";
+		cin >> x;
+		if (x < 0)
+		{
+			cout << "You've entered a negative number. Exiting..." << endl;
+			break; // Loop will break if negative number is entered.
+		}
+		cout << "You've entered a positive number. Continuing..." << endl;
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\begin{lstlisting}[caption={Using continue in a Loop}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	for (int i=0; i<20; i++)
+	{
+		cout << "This statement will show and counter is: " << i << endl;
+		continue;
+		cout << "This statement will not show as it is skipped because of continue..." << endl;
+		cout << "This statement will also be skipped..." << endl;
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\section{Nested Loops}
+\begin{itemize}
+\item Nested loops can be used to perform complex tasks.
+\item A simple example is printing symmetric 2D shapes like square, rectangle, triangles and diamonds.
+\end{itemize}
+\begin{lstlisting}[caption={Using for Loop to Make Rectangle and Square}]
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int rows = 5;
+	int columns = 10;
+	
+	for (int i=0; i<rows; i++)
+	{
+		for (int j=0; j<columns; j++)
+		{
+			cout << "*";
+		}
+		cout << endl;			
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+What would happen if you change \verb|j<columns| to \verb|j<i|?
+\section{Exercises}
+\subsection{Task 1: Factorial} Calculate the factorial of an integer. Take integer input from user.
+\subsection{Task 2: Power} Calculate the power of a float. Power can only be a positive integer. Take both the base (in float) and power (integer) as input from user.
+\subsection{Task 3: Series Calculation} Write a program to compute $e^x$. $n$ and $x$ should be input by user. The number of terms to compute will be $n+1$. Also, keep in mind $0! = 1$, same as $1! = 1$.
+\begin{equation}
+e^x = 1+\dfrac{x^1}{1!}+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\dfrac{x^4}{4!}+\dfrac{x^5}{5!}+\dfrac{x^6}{6!}+...+\dfrac{x^n}{n!}.
+\label{eq:ex-Taylor-Series}
+\end{equation}
+\end{document}
