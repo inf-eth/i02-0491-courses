@@ -1,0 +1,54 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%opening
+\title{Introduction to Computing Lab\\Assignment 01\\Loop}
+\author{Moomal Bukhari\and Attique Dawood}
+\date{March 18, 2015\\Due: March 23, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\noindent\textbf{Question No. 1:} Print the squares of numbers from 1-10\\[0.2cm]
+\textbf{Question No. 2:} Ask user for an input number. Print the sum of all numbers up to input number. For example: If user enters 5 then sum of numbers up to 5 is $1+2+3+4+5=15$. So program will output: \verb|Sum of numbers upto 5 is 15|.\\[0.2cm]
+\textbf{Question No. 2:} Write a program that inputs two integers from the user in a loop, takes their difference, continues if the difference is a positive number otherwise exits.\\[0.2cm]
+\textbf{Question No. 3:} Write a program to print right triangle using While Loop (Take Height from the user).\\[0.2cm]
+\begin{verbatim}
+*
+**
+***
+****
+*****
+\end{verbatim}
+\end{document}
