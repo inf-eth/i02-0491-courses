@@ -38,5 +38,18 @@
 \noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
 \noindent \textbf{Question:} Write code for deletion in array.
 \begin{lstlisting}
+int IntegerArray::Delete(int p)
+{
+	// Error Check
+	if (p>=CurrentSize || p<0 || CurrentSize==0)
+		return -1;
+
+	for (int i=p; i<CurrentSize-1; i++)
+		Data[i] = Data[i+1];
+
+	CurrentSize--;
+
+	return 0;
+}
 \end{lstlisting}
 \end{document}

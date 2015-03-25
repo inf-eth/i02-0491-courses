@@ -38,5 +38,19 @@
 \noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
 \noindent \textbf{Question:} Write code for insertion in array.
 \begin{lstlisting}
+int IntegerArray::Insert(int x, int p)
+{
+	// Error Check
+	if (p>CurrentSize || p<0 || CurrentSize==MAXSIZE)
+		return -1;
+
+	for (int i=CurrentSize; i>p; i--)
+		Data[i] = Data[i-1];
+
+	Data[p] = x;
+	CurrentSize++;
+
+	return 0;
+}
 \end{lstlisting}
 \end{document}
