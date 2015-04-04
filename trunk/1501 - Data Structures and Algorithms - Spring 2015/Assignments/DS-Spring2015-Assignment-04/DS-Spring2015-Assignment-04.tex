@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%opening
+\title{Data Structures and Algorithms\\Assignment 04\\Binary Tree Template}
+\author{Attique Dawood}
+\date{March 24, 2015\\Due: March 31, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Task 1: Binary Tree Template}
+Make a templatised binary tree class that can store any type of data. Provide two functions to insert an entry and display the tree in inorder.
+\section{Task 2: Binary Tree Sorting}
+Test the binary tree template by inserting some integers and displaying them in ascending order.
+\section{Task 3: Binary Tree Dictionary}
+Create a binary tree dictionary by inserting words of type \verb|string|. Display the dictionary.
+\section{Implementation Guidelines}
+Template class functions cannot be defined outside class so you'll have to do all your implementation in a single file. Write all code in one \verb|Main.cpp| file and submit \verb|.sln| and project files along with it.
+\end{document}
