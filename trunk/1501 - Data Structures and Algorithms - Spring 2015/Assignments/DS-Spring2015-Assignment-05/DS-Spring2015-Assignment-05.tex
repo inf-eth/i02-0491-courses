@@ -1,0 +1,64 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+% Table cell alignment directives.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%opening
+\title{Data Structures and Algorithms\\Assignment 05 (Project 01)\\Implementation of Dictionary ADT}
+\author{Attique Dawood}
+\date{April 07, 2015\\Due: April 23, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Dictionary ADT}
+A dictionary contains pairs of words and meanings. Meaning of a word is referenced through the word which acts as a key. Words in a dictionary are kept sorted in ascending order for easier lookup. All words in a dictionary are unique. Main dictionary operations are insert, search and delete. 
+\section{Implementation}
+You are required to implement the dictionary using following data structures: Array, linked list, binary search tree and hash table. Prototypes of these operations is given below.
+\begin{itemize}
+\item \verb|void Insert(string word)|: Insert a word. If word already exists then do nothing. Dictionary cannot contain duplicate entries.
+\item \verb|bool Search(string word)|: Returns true if word is found and false otherwise.
+\item \verb|bool Delete(string word)|: Delete a word. Returns true if word is found, otherwise, false.
+\end{itemize}
+\section{Collision Resolution in Hash Table}
+Both chaining and open addressing should be implemented. Note that only one method can be used at a time. So these have to be tested separately. In open addressing, insertion of an entry should be aborted if there are \verb|BucketSize/2+1| collisions.
+\section{Performance Analysis}
+The data structures should be compared by doing performance analysis tests. Three unsorted dictionaries are provided that can be used for testing insert, search and delete functions. Test code is given in \verb|Main.cpp| file.
+\section{Bonus}
+\begin{itemize}
+\item[--] You can earn upto 5 bonus marks.
+\item[--] 1 mark is reserved for proper testing, a proper report detailing all the graphs and getting expected results.
+\item[--] 1 mark is reserved for best hash function that gives least variance (chaining) and least number of collisions (open addressing). You need to calculate variance and track total number of collisions for this.
+\item[--] Upto 3 marks will be awarded if dictionary is also implemented using radix tree. Radix tree implementation should be part of testing as well. Radix--256 tree can be used since dictionary words are characters.
+\end{itemize}
+
+\end{document}
