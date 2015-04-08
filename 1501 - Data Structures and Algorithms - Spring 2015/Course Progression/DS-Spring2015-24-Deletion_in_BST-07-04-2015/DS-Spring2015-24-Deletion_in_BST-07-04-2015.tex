@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+\usepackage{longtable}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{Data Structures and Algorithms\\Class 24\\Deletion in Binary Search Trees}
+\author{Attique Dawood}
+\date{April 06, 2015\\[0.2cm] Last Modified: \today, \currenttime}
+\begin{document}
+\maketitle
+\section{Announcements}
+\begin{itemize}
+\item Assignment 05 (Project 01) is now open.
+\end{itemize}
+\section{Revision}
+\begin{itemize}
+\item Radix tree.
+\end{itemize}
+\section{Deletion Algorithm}
+\begin{lstlisting}
+// Delete takes a node pointer (which is root of some tree/subtree), pointer to node's parent and value to be deleted.
+// Initially called with Delete(Root, Root, x);
+bool Delete(Node* n, Node* p, int x)
+	Node* temp = n
+	Node* parent
+	if n is equal to p
+	then parent = NULL
+	else parent = p
+
+	while true
+		if temp is NULL
+			return false
+		if x is equal to temp.x
+			break
+		else if x < temp.x
+			parent = temp
+			temp = temp.left
+		else if x > temp.x
+			parent = temp
+			temp = temp.right
+		else
+			return false
+	while end
+
+	// 1. Deletion if leaf
+	if temp.left and temp.right are both NULL
+		if parent is not NULL
+			if parent.left is equal to temp
+				parent.left = NULL
+			else
+				parent.right - NULL
+		delete temp
+		return true
+
+	// 2. Deletion if only one child
+	else if temp.left is NULL OR temp.right is NULL
+		if parent is not NULL
+			if parent.left is equal to temp
+				if temp.left is NULL
+					parent.left = temp.right
+				else
+					parent.left = temp.left
+			else
+				if temp.left is NULL
+					parent.right = temp.right
+				else
+					parent.right = temp.left
+		delete temp
+		return true
+
+	// 3. If two children
+	else if temp.left AND temp.right are not NULL
+		min = FindMin(temp.right)
+		temp.x = min
+		return Delete(temp.right, temp, min)
+	else
+		return false
+\end{lstlisting}
+%\noindent\textbf{Question:} ?\\[0.2cm]
+%\nocite{*}
+\bibliographystyle{plain}
+\bibliography{DSRef}
+\end{document}
