@@ -6,7 +6,7 @@ using std::cerr;
 using std::endl;
 using std::fill;
 
-Server::Server(int pType, int pServerPort): Type(pType), ServerPort(pServerPort)
+Server::Server()
 {
 	#ifdef WIN32
 	WSADATA wsaData;

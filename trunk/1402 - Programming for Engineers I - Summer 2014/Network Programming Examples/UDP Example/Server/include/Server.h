@@ -38,7 +38,7 @@ private:
 	int errorcheck;
 
 public:
-	Server(int = TCPSOCKET, int = DEFAULTSERVERPORT);
+	Server();
 	// Socket function wrappers.
 	int CreateSocket(int = TCPSOCKET);			// 0 = TCP, 1 = UDP; default is to create TCP socket.
 	int SetSocketOptions();					// Set socket options to reuse address.
