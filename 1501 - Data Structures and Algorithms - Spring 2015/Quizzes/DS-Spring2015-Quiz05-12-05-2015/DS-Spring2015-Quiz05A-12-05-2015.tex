@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{article}
+
+% Margins.
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{-60pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{10.75in}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}	% Clickable links to figures, references and urls.
+\usepackage{datetime}
+
+% Drawing.
+\usepackage{pgf}
+\usepackage{tikz}
+
+% Listings for formatting code.
+\usepackage{listings}
+\usepackage{textcomp}
+% General options.
+\lstset{breaklines=true, basicstyle=\small\ttfamily, tabsize=4, numbers=left, stepnumber=1, frame=single, showstringspaces=false, upquote=true}
+% C++ specific high-lighting. Comments are 50/50 shades of green/black and strings coloured with 60/40 red/black mixture.
+\lstset{language=[ISO]C++, commentstyle=\color{green!50!black}, keywordstyle=\color{blue}, stringstyle=\color{red!60!black}}
+
+%opening
+\title{\vspace{-1.5cm}Data Structures and Algorithms - Spring 2015\\Quiz \#05A}
+\date{\vspace{-1.5cm}Date: 12--05--2015}
+\begin{document}
+\maketitle
+\vspace{-0.5cm}
+\noindent \textbf{Time: 2 minutes\hfill Total Marks: 10}\\[0.3cm]
+\noindent \textbf{Name:\rule{8cm}{1pt}\hfill Roll Number:\rule{3cm}{1pt}}\\[0.5cm]
+\noindent \textbf{Question:} Write code for insertion in hash table using chaining as collision resolution.
+\begin{lstlisting}
+void HashTableDictionaryChaining::Insert(string Word)
+{
+	unsigned int Index = Hash(Word) % BucketSize;
+	for (int i=0; i<(int)Data[Index].size(); i++)
+	{
+		if (Word == Data[Index][i])
+			return;
+	}
+	Data[Index].push_back(Word);
+	CurrentSize++;
+}
+\end{lstlisting}
+\end{document}
