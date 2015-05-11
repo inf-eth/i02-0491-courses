@@ -15,7 +15,7 @@ int main()
 	ClientObj.SetSocketOptions();
 
 	// Initialise and bind Client address.
-	ClientObj.InitialiseAddress(DEFAULTCLIENTPORT);	// Without any argument default port will be chosen.
+	ClientObj.InitialiseAddress(6001);
 	ClientObj.Bind();
 
 	char ServerName[24];

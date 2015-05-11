@@ -37,7 +37,7 @@ private:
 	int errorcheck;
 
 public:
-	Client(int = TCPSOCKET, int = DEFAULTCLIENTPORT);
+	Client();
 	// Socket function wrappers.
 	int CreateSocket(int = TCPSOCKET);			// 0 = TCP, 1 = UDP; default is to create TCP socket.
 	int InitialiseAddress(int = DEFAULTCLIENTPORT);	// Default Client port is 6001.

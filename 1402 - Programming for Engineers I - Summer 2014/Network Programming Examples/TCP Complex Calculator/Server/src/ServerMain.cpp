@@ -19,7 +19,7 @@ int main()
 	ServerObj.SetSocketOptions();
 
 	// Initialise Server address struct and bind it with Server's socket.
-	ServerObj.InitialiseAddress(6000);		// No argument here will take default port.
+	ServerObj.InitialiseAddress(6000);
 	ServerObj.Bind();
 
 	// Listen for incoming connections.

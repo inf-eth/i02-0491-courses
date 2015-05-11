@@ -6,7 +6,7 @@ using std::cerr;
 using std::endl;
 using std::fill;
 
-Client::Client(int pType, int pPort): Type(pType), ClientPort(pPort)
+Client::Client()
 {
 	#ifdef WIN32
 	WSADATA wsaData;
