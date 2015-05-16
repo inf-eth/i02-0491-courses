@@ -1,0 +1,466 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+// Generated Help ID header file
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.hm"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Vehicle Owners Database.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Vehicle Owners Database.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 248, 250
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About "
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,99,231,50,14,WS_GROUP
+    GROUPBOX        "About",IDC_STATIC_ABOUT,14,13,221,80
+    LTEXT           "Vehicle Owners' Database Ver. 1.0",IDC_STATIC_VERSION,
+                    23,27,132,8
+    LTEXT           "Author : Attique Dawood",IDC_STATIC_AUTHOR,23,66,125,8
+    LTEXT           "Roll No : 491",IDC_STATIC_ROLLNO,23,77,85,8
+    LTEXT           "Copyright (C) 2003 FAST- ISB. All rights are not reserved. ",
+                    IDC_STATIC,23,185,194,8
+    LTEXT           "This program has been thoroughly tested and is known to work without causing any problems. However, as the author is only a novice programmer, he takes no responsibility for any hardware or software damage caused by this program.",
+                    IDC_STATIC_Disclaimer,23,114,207,41
+    GROUPBOX        "Disclaimer",IDC_STATIC_DisclaimerGroup,13,100,222,59
+    GROUPBOX        "Copyrights",IDC_STATIC_Copyrights,13,169,222,56
+    LTEXT           "Copying this program will not result in any penalties. This program is FREEware and may be distributed as such.",
+                    IDC_STATIC_Warning,23,198,202,19
+    LTEXT           "This program mantains a database of vehicles and their owners. Owners can be added in list with their individual lists of owned vehicles.",
+                    IDC_STATIC_DESCRIPTION,23,39,203,25
+END
+
+IDD_VEHICLEOWNERSDATABASE_DIALOG DIALOGEX 0, 0, 198, 143
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Vehicle Owners Database"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Add a &New Vehicle",IDC_BUTTON_ADDANEWVEHICLE,45,31,109,
+                    14
+    PUSHBUTTON      "Search/View &Owners' List",IDC_BUTTON_SEARCHOWNERSLIST,
+                    45,55,109,14
+    PUSHBUTTON      "Search/Remove &Vehicle ",IDC_BUTTON_SEARCHREMOVEVEHICLE,
+                    45,79,109,14
+    PUSHBUTTON      "&About",ID_ABOUT,17,113,50,14
+    PUSHBUTTON      "&Help",IDHELP,74,113,50,14
+    PUSHBUTTON      "E&xit",IDEXIT,131,113,50,14
+    GROUPBOX        "Main Menu",IDC_STATIC_MAINMENU,7,7,184,129
+END
+
+IDD_ADDNEWVEHICLE_DIALOG DIALOGEX 0, 0, 316, 299
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add New Vehicle"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_OI_FIRSTNAME,30,41,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_OI_LASTNAME,170,41,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_OI_SIN,30,76,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_OI_TELEPHONENO,170,76,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_OI_PERMANENTADDRESS,30,110,254,35,
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_VI_VEHICLEMAKE,30,205,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_VI_ENGINESIZE,170,205,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_VI_REGISTRATIONNO,30,241,114,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_VI_VIN,170,241,114,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&Add",IDC_BUTTON_ADD,62,277,50,14,0,0,HIDC_BUTTON_ADD
+    PUSHBUTTON      "&Main Menu",IDC_BUTTON_MAINMENU,204,277,50,14
+    GROUPBOX        "Owner Information",IDC_STATIC_OWNERINFORMATION,15,12,
+                    286,147
+    GROUPBOX        "Vehicle Information",IDC_STATIC_VEHICLEINFORMATION,15,
+                    175,286,93
+    LTEXT           "First Name :",IDC_STATIC_OI_FIRSTNAME,31,29,114,8
+    LTEXT           "Last Name :",IDC_STATIC_OI_LASTNAME,170,29,114,8
+    LTEXT           "SIN :",IDC_STATIC_OI_SIN,30,64,114,8
+    LTEXT           "Telephone No :",IDC_STATIC_OI_TELEPHONENO,170,64,114,8
+    LTEXT           "Permanent Address :",IDC_STATIC_OI_PERMANENTADDRESS,30,
+                    98,114,8
+    LTEXT           "Make of the Vehicle :",IDC_STATIC_VI_VEHICLEMAKE,30,193,
+                    114,8
+    LTEXT           "Registration No :",IDC_STATIC_VI_REGISTRATIONNO,30,229,
+                    114,8
+    LTEXT           "Engine Size :",IDC_STATIC_VI_ENGINESIZE,170,193,114,8
+    LTEXT           "VIN :",IDC_STATIC_VI_VIN,170,229,114,8
+END
+
+IDD_SEARCHOWNER_DIALOG DIALOG DISCARDABLE  0, 0, 314, 234
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Owner Search"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_EDIT_SEARCHBYSIN,25,184,49,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&Find Owner",IDC_BUTTON_FIND,90,184,50,14
+    PUSHBUTTON      "<< &Previous",IDPREVIOUS,173,184,50,14
+    PUSHBUTTON      "&Next >>",IDNEXT,240,184,50,14
+    PUSHBUTTON      "&Display Owned Vehicles",IDC_BUTTON_OS_OWNEDVEHICLES,25,
+                    213,115,14
+    PUSHBUTTON      "&Help",IDC_BUTTON_OS_HELP1,173,213,50,14
+    PUSHBUTTON      "&Main Menu",IDC_BUTTON_OI_MAINMENU,239,213,50,14
+    GROUPBOX        "Search by SIN",IDC_STATIC_SEARCHSPECIFIC,15,169,136,36
+    EDITTEXT        IDC_EDIT_OI_FIRSTNAME,30,41,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OI_LASTNAME,170,41,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OI_SIN,30,76,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OI_TELEPHONENO,170,76,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OI_PERMANENTADDRESS,30,110,254,35,
+                    ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "Owner Information",IDC_STATIC_OWNERINFORMATION,15,12,
+                    286,147
+    LTEXT           "First Name :",IDC_STATIC_OI_FIRSTNAME,31,29,114,8
+    LTEXT           "Last Name :",IDC_STATIC_OI_LASTNAME,170,29,114,8
+    LTEXT           "SIN :",IDC_STATIC_OI_SIN,30,64,114,8
+    LTEXT           "Telephone No :",IDC_STATIC_OI_TELEPHONENO,170,64,114,8
+    LTEXT           "Permanent Address :",IDC_STATIC_OI_PERMANENTADDRESS,30,
+                    98,114,8
+    GROUPBOX        "Manual Search byTraversing",
+                    IDC_STATIC_MANUALSEARCHBYTRAVERSING,163,169,138,36
+END
+
+IDD_SEARCHREMOVEVEHICLE_DIALOG DIALOG DISCARDABLE  0, 0, 312, 182
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Search/Remove Vehicle"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_EDIT_SRV_VEHICLEMAKE,29,45,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_SRV_ENGINESIZE,169,45,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_SRV_REGISTRATIONNO,29,81,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_SRV_VIN,169,81,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_SEARCHBYVIN,24,132,49,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "&Find Vehicle",IDC_BUTTON_FIND,89,132,50,14
+    EDITTEXT        IDC_EDIT_REMOVEVEHICLEBYVIN,174,132,49,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "&Remove",IDC_BUTTON_DELETEVEHICLE,239,132,50,14
+    DEFPUSHBUTTON   "&Help",IDHELP,55,161,50,14
+    PUSHBUTTON      "&Main Menu",IDMAINMENU,206,161,50,14
+    GROUPBOX        "Vehicle Information",IDC_STATIC_VEHICLEINFORMATION,14,
+                    15,286,93
+    LTEXT           "Make of the Vehicle :",IDC_STATIC_SRV_VEHICLEMAKE,29,33,
+                    114,8
+    LTEXT           "Registration No :",IDC_STATIC_SRV_REGISTRATIONNO,29,69,
+                    114,8
+    LTEXT           "Engine Size :",IDC_STATIC_SRV_ENGINESIZE,169,33,114,8
+    LTEXT           "VIN :",IDC_STATIC_SRV_VIN,169,69,114,8
+    GROUPBOX        "Search Vehicle by VIN",IDC_STATIC_SEARCHSPECIFIC,14,117,
+                    136,36
+    GROUPBOX        "Remove Vehicle ",IDC_STATIC_REMOVEPECIFIC,164,117,136,
+                    36
+END
+
+IDD_MAINHELP_DIALOG DIALOG DISCARDABLE  0, 0, 241, 218
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Help"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,95,199,50,14
+    GROUPBOX        "Add Vehicle/Owner",IDC_STATIC_ADDVEHICLEOWNER,13,14,213,
+                    50
+    LTEXT           "You can add a new vehicle by clicking on the Add New Vehicle button. You must add atleast one vehicle to an owner's vehicle list befor you use the other options available in the main menu.",
+                    IDC_STATIC_ADDVEHICLEOWNERSTRING,19,28,201,24
+    GROUPBOX        "Search/Print Owner Information",
+                    IDC_STATIC_SEARCHVIEWOWNER,13,73,213,50
+    LTEXT           "You can search for existing owners and view each owner's individual attributes. You can eiter manually search for an owner or use the SIN to find a specific owner.",
+                    IDC_STATIC_SEARCHPRINTOWNERSTRING,19,87,201,24
+    GROUPBOX        "Search/Remove Vehicle",IDC_STATIC_SEARCHREMOVEVEHICLE,
+                    14,134,213,60
+    LTEXT           "You can search for a specific vehicle using the vehicle's VIN. To remove a vehicle you need to input the vehicle's VIN. This will remove the vehicle if found. If the vehicle is the only vehicle owned by the owner then the owner will also be deleted.",
+                    IDC_STATIC_SEARCHREMOVEVEHICLESTRING,20,148,201,35
+END
+
+IDD_OWNEDVEHICLES_DIALOG DIALOGEX 0, 0, 312, 157
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Owned Vehicles"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,199,134,50,14
+    EDITTEXT        IDC_EDIT_OV_VEHICLEMAKE,29,62,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OV_ENGINESIZE,169,62,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OV_REGISTRATIONNO,29,98,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_OV_VIN,169,98,114,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "Vehicle Information",IDC_STATIC_OV_VEHICLEINFORMATION,
+                    14,13,286,111
+    LTEXT           "Make of the Vehicle :",IDC_STATIC_OV_VEHICLEMAKE,29,50,
+                    114,8
+    LTEXT           "Registration No :",IDC_STATIC_OV_REGISTRATIONNO,29,86,
+                    114,8
+    LTEXT           "Engine Size :",IDC_STATIC_OV_ENGINESIZE,169,50,114,8
+    LTEXT           "VIN :",IDC_STATIC_OV_VIN,169,86,114,8
+    PUSHBUTTON      "<< Previous",IDC_BUTTON_PREVIOUS,29,134,50,14
+    PUSHBUTTON      "&Next >>",IDC_BUTTON_NEXT,92,134,50,14
+    LTEXT           "Total Vehicles Owned :",IDC_STATIC_OV_TOTALVEHICLES,29,
+                    31,83,8
+    EDITTEXT        IDC_EDIT_OV_TOTALVEHOCLESOWNED,122,30,21,12,
+                    ES_AUTOHSCROLL | ES_READONLY,WS_EX_RIGHT
+END
+
+IDD_OWNERSEARCHHELP_DIALOG DIALOG DISCARDABLE  0, 0, 207, 148
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Help"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,78,129,50,14
+    GROUPBOX        "Searching Owner",IDC_STATIC_OWNERSEARCH,7,8,193,56
+    LTEXT           "There are two methods to search an owner. Simply enter the SIN in the relevant edit box to search for a particualr owner. If you don't know the owner's SIN you can manually search by traversing the whole owenr list.",
+                    IDC_STATIC_SEARCHINGOWNERSTRING,17,23,178,37
+    GROUPBOX        "Viewing Owned Vehicles",IDC_STATIC_VIEWINGOWNERLIST,7,
+                    74,193,49
+    LTEXT           "To view an owner's owned vehicles, simply click on the 'View Owned Vehicles' button. A dialog will pop up and you can easily view the owner's vehicles.",
+                    IDC_STATIC_VIEWINGOWNEDVEHICLESSTRING,17,88,175,32
+END
+
+IDD_REMOVEVEHICLEHELP_DIALOG DIALOG DISCARDABLE  0, 0, 188, 85
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Help"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,67,66,50,14
+    GROUPBOX        "Vew/Remove Vehicle",IDC_STATIC_REMOVEVEHICLEHELP,7,7,
+                    174,54
+    LTEXT           "To view a vehicle's attributes you need to enter its VIN. Removal of vehicle works in a similar manner. You need the VIN of a vehicle to remove it. After removal there will be an acknowledgement.",
+                    IDC_STATIC_VIEWREMOVEHELPSTRING,13,19,160,35
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Vehicle Owners Database MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Vehicle Owners Database\0"
+            VALUE "LegalCopyright", "Copyright (C) 2003\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Vehicle Owners Database.EXE\0"
+            VALUE "ProductName", "Vehicle Owners Database Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 241
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 243
+    END
+
+    IDD_VEHICLEOWNERSDATABASE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 191
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 136
+    END
+
+    IDD_ADDNEWVEHICLE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 292
+    END
+
+    IDD_SEARCHOWNER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 307
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 227
+    END
+
+    IDD_SEARCHREMOVEVEHICLE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 305
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 175
+    END
+
+    IDD_MAINHELP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 234
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 211
+    END
+
+    IDD_OWNEDVEHICLES_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 305
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 150
+    END
+
+    IDD_OWNERSEARCHHELP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_REMOVEVEHICLEHELP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 78
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About Vehicle Owners Database..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\Vehicle Owners Database.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

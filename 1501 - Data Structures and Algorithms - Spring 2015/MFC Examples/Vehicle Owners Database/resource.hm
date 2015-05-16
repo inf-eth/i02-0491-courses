@@ -1,0 +1,4 @@
+// Microsoft Developer Studio generated Help ID include file.
+// Used by Vehicle Owners Database.rc
+//
+#define HIDC_BUTTON_ADD                 0x80810404    // IDD_ADDNEWVEHICLE_DIALOG
