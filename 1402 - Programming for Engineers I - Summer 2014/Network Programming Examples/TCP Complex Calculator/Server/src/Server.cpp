@@ -200,7 +200,6 @@ int Server::CloseClientSocket()
 // Additional Functions.
 int Server::DisplayServerInfo()
 {
-	cout << "Server Address: " << inet_ntoa(ServerAddress.sin_addr) << endl;
 	cout << "Server Port   : " << ntohs(ServerAddress.sin_port) << endl;
 	cout << "Server Socket : " << ServerSocketFD << endl;
 	return 0;
