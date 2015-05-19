@@ -117,14 +117,6 @@ BOOL CMFCServerDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 
-	// Create Server socket and set socket options.
-	ServerObj.CreateSocket(TCPSOCKET);		// No argument means TCPSOCKET
-	ServerObj.SetSocketOptions();
-
-	// Initialise Server address struct and bind it with Server's socket.
-	ServerObj.InitialiseAddress(6000);
-	ServerObj.Bind();
-
 	AfxBeginThread(AcceptorThread, (void*)this);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -243,25 +235,19 @@ void CMFCServerDlg::OnBnClickedCancel()
 	CDialogEx::OnCancel();
 }
 
-UINT SchedulerThread(void* Arg)
-{
-	CMFCServerDlg* ServerDlgPtr = (CMFCServerDlg*)Arg;
-	while(true)
-	{
-		if (ServerDlgPtr->m_Status == "Not Connected")
-			AfxBeginThread(AcceptorThread, Arg);
-		while(true)
-		{
-			if (ServerDlgPtr->m_Status == "Connected")
-				break;
-		}
-	}
-}
 
 UINT AcceptorThread(void* Arg)
 {
 	CMFCServerDlg* ServerDlgPtr = (CMFCServerDlg*)Arg;
 
+	ServerDlgPtr->ServerObj.CloseServerSocket();
+	ServerDlgPtr->ServerObj.CloseClientSocket();
+	// Create Server socket and set socket options.
+	ServerDlgPtr->ServerObj.CreateSocket(TCPSOCKET);		// No argument means TCPSOCKET
+	ServerDlgPtr->ServerObj.SetSocketOptions();
+	// Initialise Server address struct and bind it with Server's socket.
+	ServerDlgPtr->ServerObj.InitialiseAddress(6000);
+	ServerDlgPtr->ServerObj.Bind();
 	// Listen for incoming connections.
 	ServerDlgPtr->ServerObj.Listen();
 	// Accept any incoming connections.
@@ -304,8 +290,8 @@ UINT ReceiverThread(void* Arg)
 		}
 		if (choice == -1)
 		{
-			int choice = -2;
-			ServerDlgPtr->ServerObj.Send((void*)&choice, sizeof(int));
+			int choice1 = -2;
+			ServerDlgPtr->ServerObj.Send((void*)&choice1, sizeof(int));
 			ServerDlgPtr->m_Status = "Not Connected";
 			ServerDlgPtr->m_Status_Control.SetWindowTextW(L"Not Connected");
 			AfxBeginThread(AcceptorThread, Arg);
