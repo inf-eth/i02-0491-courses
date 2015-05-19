@@ -122,14 +122,6 @@ BOOL CMFCClientDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 
-	// Create Client Socket.
-	ClientObj.CreateSocket(TCPSOCKET);
-	ClientObj.SetSocketOptions();
-
-	// Initialise and bind Client address.
-	ClientObj.InitialiseAddress(6001);
-	ClientObj.Bind();
-
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -199,7 +191,7 @@ void CMFCClientDlg::OnBnClickedButtonConnect()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData(true);
-	if (m_Status == "Connected!")
+	if (m_Status == "Connected")
 	{
 		AfxMessageBox(_T("Already connected to Server!"));
 		return;
@@ -211,6 +203,15 @@ void CMFCClientDlg::OnBnClickedButtonConnect()
 	char ServerIP[StringSize];
 	wcstombs_s(&CharactersConverted, ServerIP, m_Server_IP.GetLength()+1, m_Server_IP, _TRUNCATE);
 
+	ClientObj.CloseClientSocket();
+	// Create Client Socket.
+	ClientObj.CreateSocket(TCPSOCKET);
+	ClientObj.SetSocketOptions();
+
+	// Initialise and bind Client address.
+	ClientObj.InitialiseAddress(6001);
+	ClientObj.Bind();
+
 	int Check = ClientObj.Connect(ServerIP, m_Server_Port);
 	if (Check == -1)
 	{
@@ -219,8 +220,8 @@ void CMFCClientDlg::OnBnClickedButtonConnect()
 	}
 	else
 	{
-		AfxMessageBox(_T("Connected to Server!"), MB_ICONINFORMATION);
-		m_Status = "Connected!";
+		//AfxMessageBox(_T("Connected to Server!"), MB_ICONINFORMATION);
+		m_Status = "Connected";
 	}
 	AfxBeginThread(ReceiverThread, (void*)this);
 	UpdateData(false);
@@ -236,10 +237,6 @@ void CMFCClientDlg::OnBnClickedButtonDisconnect()
 
 	int choice = -1;
 	ClientObj.Send((void*)&choice, sizeof(int));
-	while (m_Status == "Connected")
-	{
-	}
-	//ClientObj.CloseClientSocket();
 	UpdateData(false);
 }
 
@@ -282,7 +279,6 @@ void CMFCClientDlg::OnBnClickedOk()
 		while (m_Status == "Connected")
 		{
 		}
-		ClientObj.CloseClientSocket();
 	}
 	UpdateData(false);
 	CDialogEx::OnOK();
@@ -300,7 +296,6 @@ void CMFCClientDlg::OnBnClickedCancel()
 		while (m_Status == "Connected")
 		{
 		}
-		ClientObj.CloseClientSocket();
 	}
 	UpdateData(false);
 	CDialogEx::OnCancel();
@@ -335,8 +330,8 @@ UINT ReceiverThread(void* Arg)
 		}
 		if (choice == -1)
 		{
-			int choice = -2;
-			ClientDlgPtr->ClientObj.Send((void*)&choice, sizeof(int));
+			int choice1 = -2;
+			ClientDlgPtr->ClientObj.Send((void*)&choice1, sizeof(int));
 			ClientDlgPtr->m_Status = "Not Connected";
 			ClientDlgPtr->m_Status_Control.SetWindowTextW(L"Not Connected");
 			return 0;
